@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@vook-client/typescript-config/base.json",
   "compilerOptions": {
     "outDir": "dist"
   },
