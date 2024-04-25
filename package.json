@@ -20,8 +20,10 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
+    "@titicaca/prettier-config-triple": "^1.1.0",
     "turbo": "latest"
   },
+  "prettier": "@titicaca/prettier-config-triple",
   "engines": {
     "node": ">=18"
   },

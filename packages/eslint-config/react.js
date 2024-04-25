@@ -23,7 +23,6 @@ module.exports = {
     'react/jsx-first-prop-new-line': 'error',
     quotes: ['error', 'single'],
     'eol-last': 'error',
-    semi: ['error', 'always'],
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'no-unsafe-optional-chaining': 1,
@@ -31,4 +30,4 @@ module.exports = {
     'comma-spacing': ['error', { before: false, after: true }],
     'import/no-named-as-default': 'off',
   },
-};
+}

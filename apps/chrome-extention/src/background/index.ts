@@ -1,1 +1,1 @@
-chrome.runtime.onMessage.addListener(() => {});
+chrome.runtime.onMessage.addListener(() => {})

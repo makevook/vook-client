@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
 
 const GlobalStyles = createGlobalStyle` 
   ${reset} 
@@ -32,6 +32,6 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     cursor: pointer;
   }
-`;
+`
 
-export default GlobalStyles;
+export default GlobalStyles
