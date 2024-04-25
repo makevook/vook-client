@@ -3,3 +3,5 @@
 
 npm run lint:style:fix
 npm run lint-front
+
+git diff --cached --name-only --diff-filter=ACM | xargs git add
