@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@vook-client/ui'
 
 const Home = () => {

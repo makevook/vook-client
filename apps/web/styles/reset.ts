@@ -7,18 +7,16 @@ const GlobalStyles = createGlobalStyle`
   ${reset} 
 
   a{
-      text-decoration: none;
-      color: inherit;
+    text-decoration: none;
+
+    color: inherit;
   }
 
   *{
-      box-sizing: border-box;
+    box-sizing: border-box;
   }
 
-  input, textarea { 
-    -moz-user-select: auto;
-    -webkit-user-select: auto;
-    -ms-user-select: auto;
+  input, textarea {
     user-select: auto;
   }
 
@@ -27,9 +25,11 @@ const GlobalStyles = createGlobalStyle`
   }
 
   button {
-    border: none;
-    background: none;
     padding: 0;
+
+    border: none;
+
+    background: none;
     cursor: pointer;
   }
 `
