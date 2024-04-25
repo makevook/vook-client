@@ -1,5 +1,5 @@
 {
-  "extends": "@vook-client/typescript-config/base.json",
+  "extends": "@vook-client/typescript-config/vite.json",
   "compilerOptions": {
     "outDir": "dist"
   },
