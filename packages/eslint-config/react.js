@@ -29,5 +29,6 @@ module.exports = {
     'no-unsafe-optional-chaining': 1,
     'unused-imports/no-unused-imports-ts': ['error'],
     'comma-spacing': ['error', { before: false, after: true }],
+    'import/no-named-as-default': 'off',
   },
 };
