@@ -12,9 +12,7 @@
     "*.{js,ts,jsx,tsx,md}": [
       "eslint --fix",
       "prettier --config ./.prettierrc --write -u"
-    ],
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    ]
   },
   "devDependencies": {
     "@vook-client/eslint-config": "*",
