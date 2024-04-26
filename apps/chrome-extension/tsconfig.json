@@ -1,0 +1,6 @@
+{
+  "extends": "@vook-client/typescript-config/vite.json",
+  "compilerOptions": { "types": ["chrome"], "skipLibCheck": true },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["manifest.ts"]
+}

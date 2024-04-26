@@ -1,0 +1,3 @@
+{
+  "extends": "@vook-client/typescript-config/base.json"
+}
