@@ -19,6 +19,8 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^15.0.5",
     "@titicaca/prettier-config-triple": "^1.1.0",
+    "@vanilla-extract/vite-plugin": "^4.0.9",
+    "@vitejs/plugin-react": "^4.2.1",
     "@vitest/ui": "^1.6.0",
     "@vook-client/eslint-config": "*",
     "@vook-client/typescript-config": "*",
@@ -27,10 +29,11 @@
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
+    "react": "^18.3.1",
     "turbo": "latest",
+    "typescript": "5.2.2",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^1.5.2",
-    "typescript": "5.2.2"
+    "vitest": "^1.5.2"
   },
   "prettier": "@titicaca/prettier-config-triple",
   "engines": {
