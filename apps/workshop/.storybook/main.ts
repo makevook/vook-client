@@ -16,12 +16,12 @@ const config: StorybookConfig = {
       files: '*.stories.*',
     },
     {
-      directory: '../../../apps/web/**',
+      directory: '../../../apps/web/src/**',
       titlePrefix: 'Vook-web',
       files: '*.stories.*',
     },
     {
-      directory: '../../../apps/chrome-extension/**',
+      directory: '../../../apps/chrome-extension/src/**',
       titlePrefix: 'Vook-extension',
       files: '*.stories.*',
     },

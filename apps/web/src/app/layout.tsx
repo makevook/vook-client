@@ -1,5 +1,3 @@
-import '@/styles/reset.css'
-
 import { Metadata } from 'next'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'

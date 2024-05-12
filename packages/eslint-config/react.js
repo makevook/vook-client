@@ -24,7 +24,6 @@ module.exports = {
     'react/jsx-first-prop-new-line': 'error',
     quotes: ['error', 'single'],
     'eol-last': 'error',
-    'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'no-unsafe-optional-chaining': 1,
     'unused-imports/no-unused-imports-ts': ['error'],
