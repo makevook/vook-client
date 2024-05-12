@@ -4,6 +4,7 @@ module.exports = {
     '@titicaca/eslint-config-triple/frontend',
     '@titicaca/eslint-config-triple/requiring-type-checking',
     '@titicaca/eslint-config-triple/prettier',
+    'plugin:storybook/recommended',
   ],
   plugins: ['eslint-plugin-simple-import-sort', 'unused-imports'],
   env: {

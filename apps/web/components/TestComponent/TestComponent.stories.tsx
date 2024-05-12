@@ -1,16 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from './Button'
+import { TestComponent } from './TestComponent'
 
 const meta = {
-  title: 'Button',
-  component: Button,
+  title: 'TestComponent',
+  component: TestComponent,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  args: { children: 'Button' },
-} satisfies Meta<typeof Button>
+} satisfies Meta<typeof TestComponent>
 
 export default meta
 

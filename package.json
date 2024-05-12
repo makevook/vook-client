@@ -6,9 +6,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "lint-front": "lint-staged",
-    "prepare": "husky install",
-    "lint:style": "stylelint './**/*.{js,ts,tsx}'",
-    "lint:style:fix": "stylelint './**/*.{js,ts,tsx}' --fix"
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,md}": [
@@ -22,11 +20,7 @@
     "@vook-client/typescript-config": "*",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "postcss-styled-syntax": "^0.6.4",
     "prettier": "^3.2.5",
-    "stylelint": "^16.1.0",
-    "stylelint-config-standard": "^36.0.0",
-    "stylelint-order": "^6.0.4",
     "turbo": "latest"
   },
   "prettier": "@titicaca/prettier-config-triple",

@@ -2,11 +2,14 @@
 
 import { Button } from '@vook-client/ui'
 
+import { TestComponent } from '@/components/TestComponent'
+
 const Home = () => {
   return (
     <main>
       Hello world!
-      <Button label="Button" />
+      <TestComponent />
+      <Button>Button</Button>
     </main>
   )
 }
