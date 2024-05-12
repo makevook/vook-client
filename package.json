@@ -7,7 +7,8 @@
     "lint": "turbo lint",
     "lint-front": "lint-staged",
     "test": "vitest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build-storybook": "turbo run build --filter=workshop"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,md}": [

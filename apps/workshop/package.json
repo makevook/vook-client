@@ -30,6 +30,7 @@
     "@vanilla-extract/webpack-plugin": "^2.3.7",
     "@vitejs/plugin-react": "^4.0.3",
     "@vook-client/typescript-config": "*",
+    "chromatic": "^11.3.2",
     "css-loader": "^7.1.1",
     "mini-css-extract-plugin": "^2.9.0",
     "storybook": "^8.0.10",

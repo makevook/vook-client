@@ -1,0 +1,53 @@
+name: 'Chromatic Deployment'
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - apps/workshop/**
+
+jobs:
+  chromatic-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.16.0'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install Dependency
+        run: pnpm install -no-frozen-lockfile
+        working-directory: apps/workshop
+
+      - name: Publish Chromatic
+        id: chromatic
+        uses: chromaui/action@latest
+        with:
+          workingDir: apps/workshop
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}

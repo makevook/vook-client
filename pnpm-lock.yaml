@@ -275,6 +275,9 @@ importers:
       '@vook-client/typescript-config':
         specifier: '*'
         version: link:../../packages/typescript-config
+      chromatic:
+        specifier: ^11.3.2
+        version: 11.3.2
       css-loader:
         specifier: ^7.1.1
         version: 7.1.1(webpack@5.91.0)
