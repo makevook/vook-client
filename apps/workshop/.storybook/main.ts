@@ -1,7 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite'
 
 import { join, dirname } from 'path'
-import { VanillaExtractPlugin } from '@vanilla-extract/webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { mergeConfig } from 'vite'
 
@@ -36,7 +35,7 @@ const config: StorybookConfig = {
     {
       name: '@storybook/addon-styling-webpack',
       options: {
-        plugins: [new VanillaExtractPlugin(), new MiniCssExtractPlugin()],
+        plugins: [new MiniCssExtractPlugin()],
         rules: [
           {
             test: /\.css$/,

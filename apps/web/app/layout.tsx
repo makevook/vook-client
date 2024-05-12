@@ -2,7 +2,6 @@ import '@/styles/reset.css'
 
 import { Metadata } from 'next'
 
-import StyledComponentsRegistry from '@/lib/registry'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 
 export const metadata: Metadata = {
@@ -18,9 +17,7 @@ const RootLayout = ({
   return (
     <html lang="kr">
       <body>
-        <StyledComponentsRegistry>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </StyledComponentsRegistry>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   )

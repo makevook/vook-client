@@ -26,6 +26,8 @@
     "@storybook/test": "^8.0.10",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@vanilla-extract/vite-plugin": "^4.0.9",
+    "@vanilla-extract/webpack-plugin": "^2.3.7",
     "@vitejs/plugin-react": "^4.0.3",
     "@vook-client/typescript-config": "*",
     "css-loader": "^7.1.1",
