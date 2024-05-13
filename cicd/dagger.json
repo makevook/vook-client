@@ -1,0 +1,24 @@
+{
+  "name": "vook-client",
+  "sdk": "go",
+  "dependencies": [
+    {
+      "name": "docker",
+      "source": "github.com/purpleclay/daggerverse/docker@43c1c55dadf15afc9ba401dc59e04baaa3802cca"
+    }
+  ],
+  "source": "dagger",
+  "engineVersion": "v0.11.4",
+  "exclude":[
+    "out"
+  ],
+  "views": [
+    {
+      "name": "default",
+      "patterns": [
+        "!.git",
+        "!**/node_modules"
+      ]
+    }
+  ]
+}
