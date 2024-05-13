@@ -1,0 +1,4 @@
+{
+  "extends": "@vook-client/typescript-config/vite.json",
+  "include": [".storybook/*"]
+}

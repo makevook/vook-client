@@ -2,3 +2,5 @@ node_modules
 *.js
 *.cjs
 *.ejs
+apps/workshop
+setupTests.ts

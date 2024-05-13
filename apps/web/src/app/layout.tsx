@@ -1,8 +1,6 @@
 import { Metadata } from 'next'
 
-import StyledComponentsRegistry from '@/lib/registry'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
-import GlobalStyles from '@/styles/reset'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,10 +15,7 @@ const RootLayout = ({
   return (
     <html lang="kr">
       <body>
-        <StyledComponentsRegistry>
-          <GlobalStyles />
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </StyledComponentsRegistry>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   )

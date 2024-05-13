@@ -6,9 +6,9 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "lint-front": "lint-staged",
+    "test": "vitest",
     "prepare": "husky install",
-    "lint:style": "stylelint './**/*.{js,ts,tsx}'",
-    "lint:style:fix": "stylelint './**/*.{js,ts,tsx}' --fix"
+    "build-storybook": "turbo run build --filter=workshop"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,md}": [
@@ -17,23 +17,30 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^15.0.5",
     "@titicaca/prettier-config-triple": "^1.1.0",
+    "@vanilla-extract/vite-plugin": "^4.0.9",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/ui": "^1.6.0",
     "@vook-client/eslint-config": "*",
     "@vook-client/typescript-config": "*",
+    "eslint-plugin-vitest": "^0.2.6",
     "husky": "^9.0.11",
+    "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
-    "postcss-styled-syntax": "^0.6.4",
     "prettier": "^3.2.5",
-    "stylelint": "^16.1.0",
-    "stylelint-config-standard": "^36.0.0",
-    "stylelint-order": "^6.0.4",
-    "turbo": "latest"
+    "react": "^18.3.1",
+    "turbo": "latest",
+    "typescript": "5.2.2",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.5.2"
   },
   "prettier": "@titicaca/prettier-config-triple",
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "npm@9.6.7",
+  "packageManager": "pnpm@8.14.1",
   "workspaces": [
     "apps/*",
     "packages/*"

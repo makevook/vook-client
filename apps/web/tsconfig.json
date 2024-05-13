@@ -8,14 +8,14 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/lib/*": ["lib/*"],
-      "@/providers/*": ["providers/*"],
-      "@/styles/*": ["styles/*"]
+      "@/providers/*": ["./src/providers/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/styles/*": ["./src/styles/*"]
     }
   },
   "include": [
     "next-env.d.ts",
-    "next.config.js",
+    "next.config.mjs",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
