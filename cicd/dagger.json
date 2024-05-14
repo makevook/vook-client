@@ -1,0 +1,32 @@
+{
+  "name": "vook-client",
+  "sdk": "go",
+  "exclude": [
+    "out"
+  ],
+  "dependencies": [
+    {
+      "name": "ssh",
+      "source": "github.com/seungyeop-lee/daggerverse/ssh@63e721cf63323ede8b1f11aeff00d41960699920"
+    },
+    {
+      "name": "docker",
+      "source": "github.com/purpleclay/daggerverse/docker@43c1c55dadf15afc9ba401dc59e04baaa3802cca"
+    },
+    {
+      "name": "scp",
+      "source": "github.com/seungyeop-lee/daggerverse/scp@63e721cf63323ede8b1f11aeff00d41960699920"
+    }
+  ],
+  "source": "dagger",
+  "engineVersion": "v0.11.4",
+  "views": [
+    {
+      "name": "default",
+      "patterns": [
+        "!.git",
+        "!**/node_modules"
+      ]
+    }
+  ]
+}

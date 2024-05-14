@@ -1,0 +1,32 @@
+name: Deploy to Stag Environment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.2'
+      - name: Deploy
+        uses: dagger/dagger-for-github@v5
+        env:
+          SSH_DEST: ${{ secrets.STAG_SSH_DEST }}
+          SSH_KEY: ${{ secrets.STAG_SSH_KEY }}
+        with:
+          version: 0.11.4
+          verb: call
+          module: ./cicd
+          args: >-
+            deploy
+            --source-dir=.:default
+            --dockerfile=stag.Dockerfile
+            --ssh-dest=env:SSH_DEST
+            --ssh-key=env:SSH_KEY
+            --target-path=~/repo/makevook/vook-deployment/stag
+            --version=${{ github.sha }}
+            --command="make deploy-client"
