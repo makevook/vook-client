@@ -1,3 +1,16 @@
+VERSION := $(shell git describe --tags --always --dirty)
+
+.PHONY:deploy-stag
+deploy-stag:
+	dagger call -v deploy \
+	--source-dir=..:default \
+	--dockerfile=../stag.Dockerfile \
+	--ssh-dest=file:./secrets/stag/dest.txt \
+	--ssh-key=file:./secrets/stag/ssh.key \
+	--target-path=~/repo/makevook/vook-deployment/stag \
+	--version=${VERSION} \
+	--command="make deploy-client"
+
 .PHONY:build-stag
 build-stag:
 	dagger call -v build-client-image \
