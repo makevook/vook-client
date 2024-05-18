@@ -1,4 +1,7 @@
-import { createGlobalThemeContract } from '@vanilla-extract/css'
+import {
+  createGlobalTheme,
+  createGlobalThemeContract,
+} from '@vanilla-extract/css'
 
 import { tokens } from '../tokens'
 
@@ -20,3 +23,7 @@ export const createTokenScheme = <
 }
 
 export const vars = createGlobalThemeContract(createTokenScheme(tokens))
+
+export const pretendard = 'pretendard'
+
+createGlobalTheme(':root', vars, tokens)
