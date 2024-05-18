@@ -1,3 +1,5 @@
+import './storybook.css'
+
 const preview = {
   parameters: {
     controls: {

@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
+import { pretendard } from '@/styles/fonts'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +15,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="kr">
-      <body>
+      <body className={pretendard.className}>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

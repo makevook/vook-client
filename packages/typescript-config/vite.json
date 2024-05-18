@@ -13,6 +13,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": false,
     "target": "ESNext",
-    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"]
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   }
 }

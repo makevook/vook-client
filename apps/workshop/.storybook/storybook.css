@@ -1,0 +1,36 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
+
+* {
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+.storybook-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.storybook-subtitle {
+  margin-bottom: 8px;
+  color: rgb(157, 157, 157);
+  font-weight: 700;
+}
+
+.navy-background {
+  background-color: #0e0933;
+}
+
+.default-padding {
+  padding: 50px;
+}
+
+.section-wrapper {
+  width: 1280px;
+}
+
+#storybook-root {
+  position: relative;
+}
