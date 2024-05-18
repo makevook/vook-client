@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@vook-client/ui'
+import { Button } from '@vook-client/design-system'
 
 import { TestComponent } from '@/components/TestComponent'
 

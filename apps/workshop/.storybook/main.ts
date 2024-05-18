@@ -11,8 +11,8 @@ function getAbsolutePath(value: string): any {
 const config: StorybookConfig = {
   stories: [
     {
-      directory: '../../../packages/ui/src/**',
-      titlePrefix: 'UI',
+      directory: '../../../packages/design-system/src/**',
+      titlePrefix: 'Vook-Design-System',
       files: '*.stories.*',
     },
     {

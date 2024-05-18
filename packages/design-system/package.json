@@ -1,8 +1,8 @@
 {
-  "name": "@vook-client/ui",
+  "name": "@vook-client/design-system",
   "version": "0.0.0",
   "private": true,
-  "exports": "./src/index.ts",
+  "main": "./src",
   "scripts": {
     "lint": "eslint . --max-warnings 0"
   },

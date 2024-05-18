@@ -4,7 +4,7 @@ const withVanillaExtract = createVanillaExtractPlugin()
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@vook-client/ui'],
+  transpilePackages: ['@vook-client/design-system'],
   compiler: {
     styledComponents: true,
   },
