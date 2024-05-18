@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
+import '@vook-client/design-system/src/styles/theme.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
