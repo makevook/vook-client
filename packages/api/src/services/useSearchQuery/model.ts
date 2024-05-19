@@ -9,14 +9,14 @@ export const searchSort = {
   CreatedAtDesc: 'createdAt:desc',
 } as const
 
-export type SearchSort = (typeof searchSort)[keyof typeof searchSort][]
+export type SearchSort = (typeof searchSort)[keyof typeof searchSort]
 
 export interface SearchDTO {
   query: string
   withFormat?: boolean
   highlightPreTag?: string
   highlightPostTag?: string
-  sort?: SearchSort
+  sort?: SearchSort[]
 }
 
 export interface SearchHit {
