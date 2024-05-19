@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Text } from '@vook-client/design-system'
+import { Button, Text, List } from '@vook-client/design-system'
 
 import { TestComponent } from '@/components/TestComponent'
 
@@ -12,6 +12,7 @@ const Home = () => {
     <main>
       Hello world!
       <Text>프리텐다드</Text>
+      <List>Label</List>
       <TestComponent />
       <Button>Button</Button>
       <h1>API_URL: {API_URL}</h1>

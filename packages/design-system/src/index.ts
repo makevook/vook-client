@@ -2,6 +2,7 @@
 
 export type { ButtonProps } from './components/Button'
 export { Button } from './components/Button'
+export { List } from './components/List'
 export type { TextProps } from './components/Text'
 export { Text } from './components/Text'
 export type { Sprinkles } from './styles/sprinkles.css'

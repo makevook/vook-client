@@ -23,6 +23,7 @@ const common = {
 
 const palette = {
   /* Primary */
+  'palette-primary-50': '#EFEFFC',
   'palette-primary-100': '#CDCCF7',
   'palette-primary-200': '#B4B5F3',
   'palette-primary-300': '#9292EE',
