@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { HTMLAttributes, PropsWithChildren } from 'react'
 
 import { Text, TextProps } from '../Text'
 
@@ -9,7 +9,9 @@ export interface ListType {
   kind?: 'table' | 'synonym' | 'description' | 'title'
 }
 
-export type ListProps = PropsWithChildren & ListType
+export type ListProps = HTMLAttributes<HTMLDivElement> &
+  PropsWithChildren &
+  ListType
 
 export const List = ({
   variant = 'page',
