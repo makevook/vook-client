@@ -20,7 +20,6 @@ const ICON_SIZE: Array<IconProps['size']> = [
   'medium',
   'small',
   'typo',
-  'symbol',
 ]
 
 // List 컴포넌트의 Meta 정보 정의

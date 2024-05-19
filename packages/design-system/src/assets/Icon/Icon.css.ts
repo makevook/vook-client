@@ -20,7 +20,6 @@ export const icon = recipe({
         width: 16,
         height: 16,
       },
-      symbol: { width: 24, height: 24 },
       typo: { width: 60, height: 20 },
     },
   },
