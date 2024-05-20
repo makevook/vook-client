@@ -17,7 +17,7 @@ export const list = recipe({
         width: 220,
         color: vars.colors['semantic-label-alternative'],
       },
-      descrption: {
+      description: {
         width: 480,
         paddingRight: 100,
       },
@@ -37,7 +37,7 @@ export const list = recipe({
         width: 120,
         padding: '8px 12px',
       },
-      descrption: {
+      description: {
         width: 340,
         padding: '8px, 40px, 8px, 12px',
       },

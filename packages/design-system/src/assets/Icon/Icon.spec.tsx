@@ -6,6 +6,6 @@ describe('Icon', () => {
   it('Icon은 정상적으로 렌더링 된다.', () => {
     render(<Icon />)
 
-    expect(screen.getByText('Icon')).toBeInTheDocument()
+    expect(screen.getByAltText('Icon')).toBeInTheDocument()
   })
 })
