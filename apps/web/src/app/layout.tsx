@@ -15,7 +15,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="kr">
-      <body className={pretendard.className}>
+      <body className={pretendard.className} style={{ margin: 0 }}>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

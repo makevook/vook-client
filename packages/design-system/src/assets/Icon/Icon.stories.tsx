@@ -30,6 +30,7 @@ const meta = {
   args: {
     name: 'search',
     size: 'large',
+    isClick: false,
   },
   argTypes: {
     name: {
@@ -41,6 +42,9 @@ const meta = {
       options: ICON_SIZE,
       control: { type: 'select' },
       description: '아이콘 크기',
+    },
+    isClick: {
+      description: '마우스 커서',
     },
   },
 } satisfies Meta<typeof Icon>

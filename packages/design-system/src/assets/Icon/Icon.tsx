@@ -17,9 +17,13 @@ export interface IconType {
 
 export type IconProps = HTMLAttributes<HTMLDivElement> & IconVariants & IconType
 
-export const Icon = ({ name = 'search', size = 'large' }: IconProps) => {
+export const Icon = ({
+  name = 'search',
+  size = 'large',
+  isClick = false,
+}: IconProps) => {
   return (
-    <div className={icon({ size })}>
+    <div className={icon({ size, isClick })}>
       <img
         width="100%"
         src={`/Icons/${name}.svg`}

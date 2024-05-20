@@ -21,6 +21,13 @@ export const icon = recipe({
         height: 16,
       },
       typo: { width: 60, height: 20 },
+      largeTypo: { width: 150, height: 60 },
+    },
+    isClick: {
+      true: {
+        ':hover': { cursor: 'pointer' },
+      },
+      false: {},
     },
   },
 })
