@@ -1,7 +1,13 @@
 'use client'
 
+export type { IconProps } from './assets/Icon'
+export { Icon } from './assets/Icon'
 export type { ButtonProps } from './components/Button'
 export { Button } from './components/Button'
+export type { ListProps } from './components/List'
+export { List } from './components/List'
+export type { SearchBarProps } from './components/SearchBar'
+export { SearchBar } from './components/SearchBar'
 export type { TextProps } from './components/Text'
 export { Text } from './components/Text'
 export type { Sprinkles } from './styles/sprinkles.css'

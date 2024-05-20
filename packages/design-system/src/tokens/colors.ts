@@ -6,6 +6,7 @@ const semantic = {
   /* label */
   'semantic-label-title': '#161719',
   'semantic-label-normal': '#161719',
+  'semantic-label-assistive': 'rgba(22, 23, 25, 0.25)',
   'semantic-label-alternative': 'rgba(22, 23, 25, 0.6)',
   'semantic-label-disabled': 'rgba(22, 23, 25, 0.16)',
   /* line  */
@@ -23,6 +24,7 @@ const common = {
 
 const palette = {
   /* Primary */
+  'palette-primary-50': '#EFEFFC',
   'palette-primary-100': '#CDCCF7',
   'palette-primary-200': '#B4B5F3',
   'palette-primary-300': '#9292EE',
