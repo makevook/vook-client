@@ -1,7 +1,8 @@
-import { HTMLAttributes, useState } from 'react'
+'use client'
 
-import { Icon } from '../../assets/Icon'
-import { Text } from '../Text'
+import { HTMLAttributes, useState } from 'react'
+import { Icon } from '@vook-client/design-system/src/assets/Icon'
+import { Text } from '@vook-client/design-system/src/components/Text'
 
 import {
   iconContainer,

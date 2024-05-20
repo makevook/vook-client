@@ -1,5 +1,5 @@
 {
   "extends": "@vook-client/typescript-config/vite.json",
-  "include": ["src"],
+  "include": ["src", "../../apps/web/src/components/SearchBar"],
   "exclude": ["node_modules"]
 }

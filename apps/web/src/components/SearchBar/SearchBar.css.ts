@@ -1,7 +1,6 @@
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes'
 import { style } from '@vanilla-extract/css'
-
-import { vars } from '../../styles/global.css'
+import { vars } from '@vook-client/design-system/src/styles/global.css'
 
 export const searchBarContainer = style({
   width: 580,
@@ -80,6 +79,7 @@ export const inputBox = recipe({
     '::placeholder': {
       color: vars.colors['semantic-label-assistive'],
     },
+    zIndex: 10,
   },
   variants: {
     text: {
