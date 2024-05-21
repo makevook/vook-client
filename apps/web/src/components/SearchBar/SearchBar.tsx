@@ -1,6 +1,6 @@
 'use client'
 
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useEffect, useState } from 'react'
 import { Icon } from '@vook-client/design-system/src/assets/Icon'
 import { Text } from '@vook-client/design-system/src/components/Text'
 
@@ -13,18 +13,23 @@ import {
 } from './SearchBar.css'
 
 interface SearchBarType {
-  wordHistory: string[]
-  wordState: string
   setWordState: React.Dispatch<React.SetStateAction<string>>
 }
 interface HistoryBarType {
   word: string
-  // removeWordFromHistory: (word: string) => void
+  setWord: React.Dispatch<React.SetStateAction<string>>
+  removeWordFromHistory: (word: string) => void
+  handleSearch: (word: string) => void
 }
 
 export type SearchBarProps = HTMLAttributes<HTMLDivElement> & SearchBarType
 
-const HistoryBar = ({ word }: HistoryBarType) => {
+const HistoryBar = ({
+  word,
+  removeWordFromHistory,
+  handleSearch,
+  setWord,
+}: HistoryBarType) => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -34,7 +39,8 @@ const HistoryBar = ({ word }: HistoryBarType) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseDown={() => {
-        alert('검색한 단어:' + word)
+        setWord(word)
+        handleSearch(word)
       }}
     >
       <div className={iconContainer()}>
@@ -49,8 +55,7 @@ const HistoryBar = ({ word }: HistoryBarType) => {
         onMouseDown={(e) => {
           e.stopPropagation()
           e.preventDefault()
-          alert('삭제한 단어:' + word)
-          // removeWordFromHistory(word)
+          removeWordFromHistory(word)
         }}
       >
         <Icon name="close" size="small" />
@@ -59,21 +64,56 @@ const HistoryBar = ({ word }: HistoryBarType) => {
   )
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({
-  wordHistory,
-  wordState,
-  setWordState,
-}) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWordState(event.target.value)
-  }
-  // const removeWordFromHistory = (wordToRemove: string) => {
-  //   setWordHistory((prev: string[]) =>
-  //     prev.filter((word) => word !== wordToRemove),
-  //   )
-  // }
-
+export const SearchBar: React.FC<SearchBarProps> = ({ setWordState }) => {
+  const [query, setQuery] = useState('')
   const [isFocused, setIsFocused] = useState(false)
+  const [searchHistory, setSearchHistory] = useState<string[]>([])
+
+  useEffect(() => {
+    // 검색 기록 불러오기
+    if (typeof window !== 'undefined') {
+      const history = localStorage.getItem('searchHistory')
+      setSearchHistory(history ? (JSON.parse(history) as string[]) : [])
+    }
+  }, [])
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value)
+  }
+
+  const handleSearch = (searchedWord = query) => {
+    const trimmedWord = searchedWord.trim()
+    if (trimmedWord !== '') {
+      if (typeof window !== 'undefined') {
+        const history = localStorage.getItem('searchHistory')
+        const tempHistory = history ? (JSON.parse(history) as string[]) : []
+
+        // 중복 검색어 제거
+        if (!tempHistory.includes(trimmedWord)) {
+          if (tempHistory.length >= 5) {
+            tempHistory.shift() // 배열의 첫 번째 요소 제거
+          }
+          tempHistory.push(trimmedWord)
+          localStorage.setItem('searchHistory', JSON.stringify(tempHistory))
+          setSearchHistory(tempHistory) // 상태 업데이트
+        }
+      }
+    }
+    setWordState(trimmedWord)
+  }
+
+  const removeWordFromHistory = (word: string) => {
+    if (typeof window !== 'undefined') {
+      const history = localStorage.getItem('searchHistory')
+      let updatedHistory = history ? (JSON.parse(history) as string[]) : []
+
+      // 단어 제거
+      updatedHistory = updatedHistory.filter((item) => item !== word)
+      localStorage.setItem('searchHistory', JSON.stringify(updatedHistory))
+
+      setSearchHistory(updatedHistory) // 상태 업데이트
+    }
+  }
 
   return (
     <div
@@ -91,16 +131,18 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           <input
             className={inputBox()}
             placeholder="어떤 용어가 궁금하신가요?"
-            value={wordState}
+            value={query}
             onChange={handleChange}
+            onKeyDown={(e) => {
+              e.key === 'Enter' && handleSearch()
+            }}
           />
         </div>
         <div
           role="presentation"
           className={iconContainer({ click: true })}
           onClick={() => {
-            wordState !== '' && alert('입력한 단어:' + wordState)
-            setWordState('')
+            handleSearch()
           }}
         >
           <Icon name="search" />
@@ -108,9 +150,17 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       </div>
 
       {isFocused &&
-        wordHistory.map((word, index) => (
-          <HistoryBar key={index} word={word} />
-        ))}
+        [...searchHistory]
+          .reverse()
+          .map((word, index) => (
+            <HistoryBar
+              key={index}
+              word={word}
+              setWord={setQuery}
+              removeWordFromHistory={removeWordFromHistory}
+              handleSearch={handleSearch}
+            />
+          ))}
     </div>
   )
 }

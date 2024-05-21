@@ -1,27 +1,59 @@
 'use client'
 
-import { Text, List, Icon } from '@vook-client/design-system'
-import { useState } from 'react'
+import { Text, List, Icon, Button } from '@vook-client/design-system'
+import { useEffect, useState } from 'react'
 
 import { SearchBar } from '@/components/SearchBar'
 import {
+  chromeOnly,
+  highlight,
   inner,
+  linkStyle,
   main,
+  noTermContainer,
   searchBarContainer,
   searchContainer,
   termContainer,
   termListContainer,
+  termListDataContainer,
   termTitleContainer,
   textContainer,
 } from '@/components/index.css'
 
 import { Footer, Header } from '../components'
+import { useSearchQuery } from '../../../../packages/api/src'
 
 // const API_URL =
 //   process.env.NEXT_PUBLIC_API_URL || 'https://dev.vook-api.seungyeop-lee.com'
 
 const Home = () => {
   const [wordState, setWordState] = useState('')
+
+  const { data: response, isLoading } = useSearchQuery(
+    // DTO
+    {
+      query: wordState,
+      sort: ['synonyms:asc', 'term:asc'],
+      withFormat: wordState !== '' && true,
+      highlightPreTag: '<span>',
+      highlightPostTag: '</span>',
+    },
+    // query options(optional)
+    {
+      retry: 3,
+    },
+  )
+
+  useEffect(() => {
+    const isChrome =
+      /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)
+
+    if (isChrome) {
+      document
+        .getElementById('chrome-only-element')
+        ?.classList.remove(chromeOnly)
+    }
+  }, [])
 
   return (
     <main className={main}>
@@ -30,11 +62,7 @@ const Home = () => {
         <div className={searchContainer}>
           <Icon name="typo" size="largeTypo" />
           <div className={searchBarContainer}>
-            <SearchBar
-              wordHistory={['SDK', 'History', 'SDK']}
-              wordState={wordState}
-              setWordState={setWordState}
-            />
+            <SearchBar setWordState={setWordState} />
           </div>
         </div>
 
@@ -48,50 +76,74 @@ const Home = () => {
                   fontWeight="regular"
                   color="semantic-label-alternative"
                 >
-                  70
+                  {response?.result.hits.length}
                 </Text>
               </div>
-              <div>
-                <div className={termTitleContainer}>
-                  <List kind="title">용어</List>
-                  <List kind="title">동의어</List>
-                  <List kind="title" style={{ flex: 1 }}>
-                    뜻
-                  </List>
+              {response?.result.hits.length === 0 ? (
+                <div className={noTermContainer}>
+                  <Text
+                    type="body-1"
+                    fontWeight="medium"
+                    color="semantic-label-alternative"
+                  >
+                    검색된 용어가 없습니다.
+                  </Text>
+                  <Button
+                    size="small"
+                    filled={false}
+                    blueLine={false}
+                    name="plus"
+                  >
+                    <a
+                      className={linkStyle}
+                      href="https://forms.gle/eqTF8wG1WzcY6wKF6"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Vook에 용어 추가하기
+                    </a>
+                  </Button>
                 </div>
-                <div style={{ display: 'flex', padding: '8px 0' }}>
-                  <List kind="table">SDK</List>
-                  <List kind="synonym">Software Development Kit</List>
-                  <List kind="description" style={{ flex: 1 }}>
-                    특정 플랫폼이나 운영체재를 위한 앱을 만드는데 필요한 도구와
-                    코드 모음SDK는 앱 개발을 쉽고 빠르게 만드는 도구로 개발자가
-                    처음부터 모든 것을 스스로 구축할 필요가 없어 시간과 노력을
-                    절약할 수 있습니다.예) 개발자가 지도를 앱에 추가하고 싶다면
-                    구글 지도 SDK를 사용할 수 있습니다. 이 SDK에는 지도 표시,
-                    사용자 위치 추적, 경로 검색 등의 기능을 위한 코드와 도구가
-                    포함되어 있습니다.
-                  </List>
+              ) : (
+                <div>
+                  <div className={termTitleContainer}>
+                    <List kind="title">용어</List>
+                    <List kind="title">동의어</List>
+                    <List kind="title" style={{ flex: 1 }}>
+                      뜻
+                    </List>
+                  </div>
+                  {isLoading && <Text>로딩중</Text>}
+                  {response?.result.hits.map((data, index) => {
+                    return (
+                      <div key={index} className={termListDataContainer}>
+                        <List kind="table" htmlContent={data.term} />
+                        <List
+                          kind="synonym"
+                          htmlContent={data.synonyms.replaceAll(
+                            '<span>',
+                            `<span class="${highlight}">`,
+                          )}
+                        />
+                        <List
+                          kind="description"
+                          style={{ flex: 1 }}
+                          htmlContent={data.meaning.replaceAll(
+                            '<span>',
+                            `<span class="${highlight}">`,
+                          )}
+                        />
+                      </div>
+                    )
+                  })}
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
       <Footer />
-
-      {/* Hello world!
-      <Text>프리텐다드</Text>
-      <List>Label</List>
-      <SearchBar
-        wordHistory={['SDK', 'History', 'SDK']}
-        wordState={wordState}
-        setWordState={setWordState}
-      />
-      <Icon name="typo" size="typo" />
-      <TestComponent />
-      <Button>Button</Button>
-      <h1>API_URL: {API_URL}</h1> */}
     </main>
   )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Icon } from '@vook-client/design-system'
 
 import {
+  chromeOnly,
   flexBetween,
   flexEnd,
   footer,
@@ -10,7 +11,6 @@ import {
   footerLine,
   header,
   inner,
-  linkStyle,
   logo,
 } from './index.css'
 
@@ -33,16 +33,9 @@ export const Header = () => (
     <div className={inner}>
       <div className={flexBetween}>
         <Logo />
-        <Button size="small">
-          <a
-            className={linkStyle}
-            href="https://forms.gle/eqTF8wG1WzcY6wKF6"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Download
-          </a>
-        </Button>
+        <div id="chrome-only-element" className={chromeOnly}>
+          <Button size="small">Download</Button>
+        </div>
       </div>
     </div>
   </div>

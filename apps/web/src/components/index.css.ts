@@ -25,7 +25,6 @@ export const flexEnd = style({
 
 export const footer = style({
   display: 'flex',
-  bottom: 0,
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
@@ -86,7 +85,8 @@ export const searchContainer = style({
 })
 
 export const main = style({
-  height: '100vh',
+  minHeight: '100vh',
+  height: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -113,6 +113,11 @@ export const termListContainer = style({
   flexDirection: 'column',
 })
 
+export const termListDataContainer = style({
+  display: 'flex',
+  padding: '8px 0',
+})
+
 export const textContainer = style({
   display: 'flex',
   alignItems: 'center',
@@ -125,7 +130,27 @@ export const termTitleContainer = style({
   overflow: 'hidden',
 })
 
+export const noTermContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 24,
+  width: 1140,
+  height: 398,
+  borderRadius: 6,
+  border: `1px solid ${vars.colors['semantic-line-normal']}`,
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
 export const linkStyle = style({
   color: 'inherit',
   textDecoration: 'none',
+})
+
+export const chromeOnly = style({
+  display: 'none',
+})
+
+export const highlight = style({
+  backgroundColor: vars.colors.yellow,
 })

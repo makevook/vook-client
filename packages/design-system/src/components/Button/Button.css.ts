@@ -4,8 +4,10 @@ import { vars } from '../../styles/global.css'
 
 export const button = recipe({
   base: {
+    display: 'flex',
     border: 'none',
     borderRadius: 6,
+    gap: 6,
   },
   variants: {
     size: {
