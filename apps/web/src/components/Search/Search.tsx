@@ -1,0 +1,179 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { Icon, Text } from '@vook-client/design-system/src/index'
+
+import {
+  iconContainer,
+  inputBox,
+  inputContainer,
+  search,
+  searchBar,
+  searchBoxContainer,
+} from './Search.css'
+
+import { searchStore } from 'src/store/store'
+
+interface HistoryBarType {
+  word: string
+  handleSearch: (word: string) => void
+}
+
+const HistoryBar = ({ word, handleSearch }: HistoryBarType) => {
+  const { setQuery, setQueryHistory } = searchStore()
+
+  const removeWordFromHistory = (word: string) => {
+    if (typeof window !== 'undefined') {
+      const history = localStorage.getItem('searchHistory')
+      let updatedHistory = history ? (JSON.parse(history) as string[]) : []
+
+      // 단어 제거
+      updatedHistory = updatedHistory.filter((item) => item !== word)
+      localStorage.setItem('searchHistory', JSON.stringify(updatedHistory))
+
+      setQueryHistory(updatedHistory) // 상태 업데이트
+    }
+  }
+
+  return (
+    <div
+      role="presentation"
+      className={searchBar({ history: true })}
+      onMouseDown={() => {
+        setQuery(word)
+        handleSearch(word)
+      }}
+    >
+      <div className={iconContainer()}>
+        <Icon name="backward" />
+      </div>
+      <div className={inputContainer}>
+        <Text className={inputBox({ text: true })}>{word}</Text>
+      </div>
+      <div
+        id="close-button"
+        role="presentation"
+        className={iconContainer({ visibile: false })}
+        onMouseDown={(e) => {
+          e.stopPropagation()
+          e.preventDefault()
+          removeWordFromHistory(word)
+        }}
+      >
+        <Icon name="close" size="small" />
+      </div>
+    </div>
+  )
+}
+
+export const SearchBox = () => {
+  const { query, queryHistory, setQuery, setQueryHistory, setRequestQuery } =
+    searchStore()
+
+  const [isFocused, setIsFocused] = useState(false)
+
+  const getSearchHistory = () => {
+    const history = localStorage.getItem('searchHistory')
+    try {
+      const localHistory = history ? (JSON.parse(history) as string[]) : []
+      if (!Array.isArray(localHistory)) {
+        throw new Error()
+      }
+      return localHistory
+    } catch {
+      return []
+    }
+  }
+
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        setQueryHistory(getSearchHistory())
+      }
+    } catch (error) {
+      // 파싱 중 에러가 발생한 경우, 기본값으로 초기화
+      localStorage.setItem('searchHistory', JSON.stringify([]))
+      setQueryHistory([])
+      // 필요하다면 사용자에게 에러 메시지를 표시
+    }
+  }, [setQueryHistory])
+
+  const handleSearch = (searchedWord = query) => {
+    const word = searchedWord.trim()
+
+    if (word === '') {
+      setQuery(word)
+      return
+    }
+
+    let localHistory = getSearchHistory()
+
+    // 중복 검색어 제거 및 가장 최근에 검색된 단어로 이동
+    localHistory = localHistory.filter((item) => item !== word)
+
+    if (localHistory.length >= 5) {
+      localHistory.shift()
+    }
+
+    localHistory.push(word)
+
+    localStorage.setItem('searchHistory', JSON.stringify(localHistory))
+    setQueryHistory(localHistory)
+    setQuery(word)
+    setRequestQuery()
+  }
+
+  return (
+    <div
+      className={searchBoxContainer}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => {
+        setIsFocused(false)
+      }}
+    >
+      <div className={searchBar()}>
+        <div className={iconContainer()}>
+          <Icon name="symbol" />
+        </div>
+        <div className={inputContainer}>
+          <input
+            className={inputBox()}
+            placeholder="어떤 용어가 궁금하신가요?"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value)
+            }}
+            onKeyDown={(e) => {
+              e.key === 'Enter' && handleSearch()
+            }}
+          />
+        </div>
+        <div
+          role="presentation"
+          className={iconContainer({ click: true })}
+          onClick={() => {
+            handleSearch()
+          }}
+        >
+          <Icon name="search" />
+        </div>
+      </div>
+
+      {isFocused &&
+        [...queryHistory]
+          .reverse()
+          .map((word, index) => (
+            <HistoryBar key={index} word={word} handleSearch={handleSearch} />
+          ))}
+    </div>
+  )
+}
+
+export const Search = () => {
+  return (
+    <div className={search}>
+      <Icon name="typo" size="largeTypo" />
+      <SearchBox />
+    </div>
+  )
+}

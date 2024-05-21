@@ -2,9 +2,11 @@ import { RecipeVariants, recipe } from '@vanilla-extract/recipes'
 import { style } from '@vanilla-extract/css'
 import { vars } from '@vook-client/design-system/src/styles/global.css'
 
-export const searchBarContainer = style({
+export const searchBoxContainer = style({
+  top: 182,
+  position: 'absolute',
+  zIndex: 10,
   width: 580,
-
   backgroundColor: vars.colors['common-white'],
   border: `1px solid ${vars.colors['semantic-line-normal']}`,
   borderRadius: 6,
@@ -92,4 +94,14 @@ export const inputBox = recipe({
       },
     },
   },
+})
+
+export const search = style({
+  position: 'relative',
+  height: 240,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  boxSizing: 'border-box',
+  paddingTop: 100,
 })
