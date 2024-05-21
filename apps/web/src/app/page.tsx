@@ -9,10 +9,12 @@ import {
   highlight,
   inner,
   linkStyle,
+  loadingWrapper,
   main,
   noTermContainer,
   searchBarContainer,
   searchContainer,
+  spinner,
   termContainer,
   termListContainer,
   termListDataContainer,
@@ -21,20 +23,25 @@ import {
 } from '@/components/index.css'
 
 import { Footer, Header } from '../components'
-import { useSearchQuery } from '../../../../packages/api/src'
+import {
+  SearchSort,
+  searchSort,
+  useSearchQuery,
+} from '../../../../packages/api/src'
 
 // const API_URL =
 //   process.env.NEXT_PUBLIC_API_URL || 'https://dev.vook-api.seungyeop-lee.com'
 
 const Home = () => {
   const [wordState, setWordState] = useState('')
+  const [sort, setSort] = useState<SearchSort>(searchSort.TermAsc)
 
   const { data: response, isLoading } = useSearchQuery(
     // DTO
     {
       query: wordState,
-      sort: ['synonyms:asc', 'term:asc'],
-      withFormat: wordState !== '' && true,
+      sort: [sort],
+      withFormat: wordState !== '',
       highlightPreTag: '<span>',
       highlightPostTag: '</span>',
     },
@@ -43,6 +50,18 @@ const Home = () => {
       retry: 3,
     },
   )
+
+  const handleSort = (kind: string) => {
+    setSort((prevSort) => {
+      const ascKey = `${kind}Asc` as keyof typeof searchSort
+      const descKey = `${kind}Desc` as keyof typeof searchSort
+      if (prevSort === searchSort[ascKey]) {
+        return searchSort[descKey]
+      } else {
+        return searchSort[ascKey]
+      }
+    })
+  }
 
   useEffect(() => {
     const isChrome =
@@ -79,41 +98,69 @@ const Home = () => {
                   {response?.result.hits.length}
                 </Text>
               </div>
-              {response?.result.hits.length === 0 ? (
-                <div className={noTermContainer}>
-                  <Text
-                    type="body-1"
-                    fontWeight="medium"
-                    color="semantic-label-alternative"
-                  >
-                    검색된 용어가 없습니다.
-                  </Text>
-                  <Button
-                    size="small"
-                    filled={false}
-                    blueLine={false}
-                    name="plus"
-                  >
-                    <a
-                      className={linkStyle}
-                      href="https://forms.gle/eqTF8wG1WzcY6wKF6"
-                      target="_blank"
-                      rel="noopener noreferrer"
+              {response?.result.hits.length === 0 || isLoading ? (
+                !isLoading ? (
+                  <div className={noTermContainer}>
+                    <Text
+                      type="body-1"
+                      fontWeight="medium"
+                      color="semantic-label-alternative"
                     >
-                      Vook에 용어 추가하기
-                    </a>
-                  </Button>
-                </div>
+                      검색된 용어가 없습니다.
+                    </Text>
+                    <Button
+                      size="small"
+                      filled={false}
+                      blueLine={false}
+                      name="plus"
+                    >
+                      <a
+                        className={linkStyle}
+                        href="https://forms.gle/eqTF8wG1WzcY6wKF6"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Vook에 용어 추가하기
+                      </a>
+                    </Button>
+                  </div>
+                ) : (
+                  <div className={noTermContainer}>
+                    <div className={loadingWrapper}>
+                      <div className={spinner} />
+                    </div>
+                  </div>
+                )
               ) : (
                 <div>
                   <div className={termTitleContainer}>
-                    <List kind="title">용어</List>
-                    <List kind="title">동의어</List>
-                    <List kind="title" style={{ flex: 1 }}>
+                    <List
+                      kind="title"
+                      onClick={() => {
+                        handleSort('Term')
+                      }}
+                    >
+                      용어
+                    </List>
+                    <List
+                      kind="title"
+                      onClick={() => {
+                        handleSort('Synonyms')
+                      }}
+                    >
+                      동의어
+                    </List>
+                    <List
+                      kind="title"
+                      style={{ flex: 1 }}
+                      onClick={() => {
+                        handleSort('Meaning')
+                      }}
+                    >
                       뜻
                     </List>
                   </div>
-                  {isLoading && <Text>로딩중</Text>}
+
                   {response?.result.hits.map((data, index) => {
                     return (
                       <div key={index} className={termListDataContainer}>
