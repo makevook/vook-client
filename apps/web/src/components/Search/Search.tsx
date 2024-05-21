@@ -148,6 +148,17 @@ export const SearchBox = () => {
             }}
           />
         </div>
+        {query !== '' && (
+          <div
+            role="presentation"
+            className={iconContainer({ click: true, absoulte: true })}
+            onClick={() => {
+              setQuery('')
+            }}
+          >
+            <Icon name="close-circle" />
+          </div>
+        )}
         <div
           role="presentation"
           className={iconContainer({ click: true })}

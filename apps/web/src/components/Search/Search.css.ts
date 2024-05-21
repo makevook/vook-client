@@ -22,6 +22,7 @@ export const searchBoxContainer = style({
 export const searchBar = recipe({
   base: {
     display: 'flex',
+    width: 580,
     height: 58,
     justifyContent: 'center',
     alignItems: 'center',
@@ -59,6 +60,12 @@ export const iconContainer = recipe({
     visibile: {
       false: {
         visibility: 'hidden',
+      },
+    },
+    absoulte: {
+      true: {
+        position: 'absolute',
+        right: 59,
       },
     },
   },
