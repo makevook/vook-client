@@ -146,11 +146,6 @@ export const noTermContainer = style({
   margin: 'auto',
 })
 
-export const linkStyle = style({
-  color: 'inherit',
-  textDecoration: 'none',
-})
-
 export const chromeOnly = style({
   display: 'none',
 })

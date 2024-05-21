@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import '@/styles/reset.css'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { pretendard } from '@/styles/fonts'
@@ -15,7 +16,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="kr">
-      <body className={pretendard.className} style={{ margin: 0 }}>
+      <body className={pretendard.className}>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

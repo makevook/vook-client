@@ -32,6 +32,9 @@ export const searchBar = recipe({
           cursor: 'pointer',
           backgroundColor: vars.colors['component-alternative'],
         },
+        '&:hover #close-button': {
+          visibility: 'visible',
+        },
       },
     },
   },
@@ -47,12 +50,11 @@ export const iconContainer = recipe({
   },
   variants: {
     click: {
-      true: { ':hover': { cursor: 'pointer' } },
+      true: {
+        ':hover': { cursor: 'pointer' },
+      },
     },
     visibile: {
-      true: {
-        visibility: 'visible',
-      },
       false: {
         visibility: 'hidden',
       },

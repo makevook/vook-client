@@ -1,20 +1,16 @@
 'use client'
 
-import { Text, List, Icon, Button } from '@vook-client/design-system'
-import { useEffect, useState } from 'react'
+import { Text, List, Icon } from '@vook-client/design-system'
+import { useState } from 'react'
+import { SearchSort, searchSort, useSearchQuery } from '@vook-client/api'
 
 import { SearchBar } from '@/components/SearchBar'
 import {
-  chromeOnly,
   highlight,
   inner,
-  linkStyle,
-  loadingWrapper,
   main,
-  noTermContainer,
   searchBarContainer,
   searchContainer,
-  spinner,
   termContainer,
   termListContainer,
   termListDataContainer,
@@ -22,12 +18,12 @@ import {
   textContainer,
 } from '@/components/index.css'
 
-import { Footer, Header } from '../components'
 import {
-  SearchSort,
-  searchSort,
-  useSearchQuery,
-} from '../../../../packages/api/src'
+  Footer,
+  Header,
+  LoadingComponent,
+  NoSearchResults,
+} from '../components'
 
 // const API_URL =
 //   process.env.NEXT_PUBLIC_API_URL || 'https://dev.vook-api.seungyeop-lee.com'
@@ -63,21 +59,11 @@ const Home = () => {
     })
   }
 
-  useEffect(() => {
-    const isChrome =
-      /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)
-
-    if (isChrome) {
-      document
-        .getElementById('chrome-only-element')
-        ?.classList.remove(chromeOnly)
-    }
-  }, [])
-
   return (
     <main className={main}>
       <div>
         <Header />
+
         <div className={searchContainer}>
           <Icon name="typo" size="largeTypo" />
           <div className={searchBarContainer}>
@@ -98,41 +84,13 @@ const Home = () => {
                   {response?.result.hits.length}
                 </Text>
               </div>
-              {response?.result.hits.length === 0 || isLoading ? (
-                !isLoading ? (
-                  <div className={noTermContainer}>
-                    <Text
-                      type="body-1"
-                      fontWeight="medium"
-                      color="semantic-label-alternative"
-                    >
-                      검색된 용어가 없습니다.
-                    </Text>
-                    <Button
-                      size="small"
-                      filled={false}
-                      blueLine={false}
-                      name="plus"
-                    >
-                      <a
-                        className={linkStyle}
-                        href="https://forms.gle/eqTF8wG1WzcY6wKF6"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Vook에 용어 추가하기
-                      </a>
-                    </Button>
-                  </div>
-                ) : (
-                  <div className={noTermContainer}>
-                    <div className={loadingWrapper}>
-                      <div className={spinner} />
-                    </div>
-                  </div>
-                )
+
+              {isLoading ? (
+                <LoadingComponent />
+              ) : response?.result.hits.length === 0 ? (
+                <NoSearchResults />
               ) : (
-                <div>
+                <>
                   <div className={termTitleContainer}>
                     <List
                       kind="title"
@@ -183,7 +141,7 @@ const Home = () => {
                       </div>
                     )
                   })}
-                </div>
+                </>
               )}
             </div>
           </div>
