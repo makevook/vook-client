@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { getSelectionNodeRect, getSelectionText } from '../utils/selection'
+import { useSelectedText, useToggle } from '../store/toggle'
 
 async function delayPromise(ms: number) {
   return new Promise((resolve) =>
@@ -13,24 +14,29 @@ async function delayPromise(ms: number) {
 const skipLoopCycleOnce = async () => delayPromise(1)
 
 export const useDomRect = () => {
-  const [selectedText, setSelectedText] = useState<string>('')
-  const [toggle, setToggle] = useState<boolean>(false)
-  const [domRect, setDomRect] = useState<DOMRect | null>(null)
+  const { changeIsSelected, setPosition, changeSearchWindow } = useToggle()
+  const { setSelectedText } = useSelectedText()
 
   useEffect(() => {
     const onMouseup = async () => {
-      const selectedText = getSelectionText()
+      const selectedText = getSelectionText().trim()
       await skipLoopCycleOnce()
+      const domRect = getSelectionNodeRect()
 
-      if (selectedText.length > 0) {
+      if (selectedText.length > 0 && domRect) {
         setSelectedText(selectedText)
-        setDomRect(getSelectionNodeRect())
-        setToggle(true)
+
+        setPosition({
+          x: domRect.right + window.scrollX,
+          y: domRect.bottom + window.scrollY,
+        })
+        changeIsSelected(true)
         return
       }
 
       setSelectedText('')
-      setToggle(false)
+      changeIsSelected(false)
+      changeSearchWindow(false)
     }
 
     document.addEventListener('mouseup', onMouseup)
@@ -39,6 +45,4 @@ export const useDomRect = () => {
       document.removeEventListener('mouseup', onMouseup)
     }
   })
-
-  return { domRect, selectedText, toggle }
 }

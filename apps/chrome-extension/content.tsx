@@ -2,7 +2,9 @@ import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 
 import { ToggleButton } from './components/ToggleButton'
+import { SearchWindow } from './components/SearchWindow'
 import { useDomRect } from './hooks/useDomRect'
+import { useToggle } from './store/toggle'
 
 const styleElement = document.createElement('style')
 
@@ -15,11 +17,13 @@ const styleCache = createCache({
 export const getStyle = () => styleElement
 
 function VookContentScript() {
-  const { domRect, toggle } = useDomRect()
+  useDomRect()
+  const { isSelected, isOpenSearchWindow, position } = useToggle()
 
   return (
     <CacheProvider value={styleCache}>
-      {toggle && <ToggleButton domRect={domRect} />}
+      {isSelected && <ToggleButton position={position} />}
+      {isOpenSearchWindow && <SearchWindow />}
     </CacheProvider>
   )
 }

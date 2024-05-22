@@ -5,8 +5,8 @@ import type { ToggleButtonProps } from './ToggleButton'
 export const ToggleButtonBox = styled.button<ToggleButtonProps>`
   position: absolute;
 
-  top: ${({ domRect }) => domRect.bottom + window.scrollY}px;
-  left: ${({ domRect }) => domRect.right + window.scrollX}px;
+  top: ${({ position }) => position.y}px;
+  left: ${({ position }) => position.x}px;
 
   display: flex;
   justify-content: center;
