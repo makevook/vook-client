@@ -66,6 +66,7 @@ export const iconContainer = recipe({
       true: {
         position: 'absolute',
         right: 59,
+        zIndex: 10,
       },
     },
   },
