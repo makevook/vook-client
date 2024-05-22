@@ -6,5 +6,8 @@ export type {
   SearchSort,
 } from './services/useSearchQuery/model'
 export { searchSort } from './services/useSearchQuery/model'
-export { useSearchQuery } from './services/useSearchQuery/queries'
+export {
+  serchQueryOptions,
+  useSearchQuery,
+} from './services/useSearchQuery/queries'
 export { searchService } from './services/useSearchQuery/searchService'

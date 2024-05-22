@@ -19,6 +19,8 @@ export const ToggleButtonBox = styled.button<ToggleButtonProps>`
   border: none;
 
   background-color: #ffffff;
+  z-index: 9999;
+
   box-shadow:
     0px 4px 8px rgba(0, 0, 0, 0.08),
     0px 0px 4px rgba(0, 0, 0, 0.08);

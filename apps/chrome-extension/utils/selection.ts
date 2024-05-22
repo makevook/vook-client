@@ -1,5 +1,5 @@
 export function getSelectionText(): string {
-  return window.getSelection()?.toString() ?? ''
+  return window.getSelection()?.toString().trim() ?? ''
 }
 
 export function getSelectionNodeRect(): DOMRect | undefined {

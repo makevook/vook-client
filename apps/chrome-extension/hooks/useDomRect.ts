@@ -30,7 +30,7 @@ const getSelectionPosition = (domRect: DOMRect) => {
   }
 }
 
-const isExtensionArea = (target: EventTarget): target is HTMLElement => {
+const isExtensionArea = (target: EventTarget) => {
   const ElementTarget = target as HTMLElement
   return ElementTarget.nodeName === 'PLASMO-CSUI'
 }
@@ -51,7 +51,8 @@ export const useDomRect = () => {
 
       isMousedown.current = false
 
-      const selectedText = getSelectionText().trim()
+      const selectedText = getSelectionText()
+
       const domRect = getSelectionNodeRect()
 
       if (selectedText.length > 0 && domRect) {
