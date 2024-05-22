@@ -66,7 +66,7 @@ export const inner = style({
   height: '100%',
 })
 
-export const chromeOnly = style({
+export const displayNone = style({
   display: 'none',
 })
 

@@ -4,7 +4,7 @@ import { Button } from '@vook-client/design-system'
 
 import { Logo } from '../common'
 
-import { chromeOnly, header, headerContainer, inner } from './Layout.css'
+import { displayNone, header, headerContainer, inner } from './Layout.css'
 
 export const Header = () => {
   const [isChrome, setIsChrome] = useState(false)
@@ -20,7 +20,7 @@ export const Header = () => {
       <div className={inner}>
         <div className={headerContainer}>
           <Logo />
-          <div id="chrome-only-element" className={isChrome ? chromeOnly : ''}>
+          <div id="chrome-only-element" className={isChrome ? '' : displayNone}>
             <Button size="small">Download</Button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Icon, Text } from '@vook-client/design-system/src/index'
 
 import {
@@ -69,6 +69,7 @@ const HistoryBar = ({ word, handleSearch }: HistoryBarType) => {
 export const SearchBox = () => {
   const { query, queryHistory, setQuery, setQueryHistory, setRequestQuery } =
     searchStore()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const [isFocused, setIsFocused] = useState(false)
 
@@ -102,7 +103,7 @@ export const SearchBox = () => {
     const word = searchedWord.trim()
 
     if (word === '') {
-      setQuery(word)
+      setRequestQuery()
       return
     }
 
@@ -125,10 +126,14 @@ export const SearchBox = () => {
 
   return (
     <div
+      role="presentation"
       className={searchBoxContainer}
       onFocus={() => setIsFocused(true)}
       onBlur={() => {
         setIsFocused(false)
+      }}
+      onClick={() => {
+        inputRef.current?.focus()
       }}
     >
       <div className={searchBar()}>
@@ -137,6 +142,7 @@ export const SearchBox = () => {
         </div>
         <div className={inputContainer}>
           <input
+            ref={inputRef}
             className={inputBox()}
             placeholder="어떤 용어가 궁금하신가요?"
             value={query}
@@ -152,8 +158,10 @@ export const SearchBox = () => {
           <div
             role="presentation"
             className={iconContainer({ click: true, absoulte: true })}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation()
               setQuery('')
+              setRequestQuery()
             }}
           >
             <Icon name="close-circle" />
@@ -162,7 +170,8 @@ export const SearchBox = () => {
         <div
           role="presentation"
           className={iconContainer({ click: true })}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation()
             handleSearch()
           }}
         >
