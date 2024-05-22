@@ -1,11 +1,12 @@
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes'
 import { style } from '@vanilla-extract/css'
+import { vars } from '@vook-client/design-system/src/styles/global.css'
 
-import { vars } from '../../styles/global.css'
-
-export const searchBarContainer = style({
+export const searchBoxContainer = style({
+  top: 182,
+  position: 'absolute',
+  zIndex: 10,
   width: 580,
-
   backgroundColor: vars.colors['common-white'],
   border: `1px solid ${vars.colors['semantic-line-normal']}`,
   borderRadius: 6,
@@ -21,6 +22,7 @@ export const searchBarContainer = style({
 export const searchBar = recipe({
   base: {
     display: 'flex',
+    width: 580,
     height: 58,
     justifyContent: 'center',
     alignItems: 'center',
@@ -32,6 +34,9 @@ export const searchBar = recipe({
         ':hover': {
           cursor: 'pointer',
           backgroundColor: vars.colors['component-alternative'],
+        },
+        '&:hover #close-button': {
+          visibility: 'visible',
         },
       },
     },
@@ -48,14 +53,19 @@ export const iconContainer = recipe({
   },
   variants: {
     click: {
-      true: { ':hover': { cursor: 'pointer' } },
+      true: {
+        ':hover': { cursor: 'pointer' },
+      },
     },
     visibile: {
-      true: {
-        visibility: 'visible',
-      },
       false: {
         visibility: 'hidden',
+      },
+    },
+    absoulte: {
+      true: {
+        position: 'absolute',
+        right: 59,
       },
     },
   },
@@ -80,6 +90,7 @@ export const inputBox = recipe({
     '::placeholder': {
       color: vars.colors['semantic-label-assistive'],
     },
+    zIndex: 10,
   },
   variants: {
     text: {
@@ -90,4 +101,14 @@ export const inputBox = recipe({
       },
     },
   },
+})
+
+export const search = style({
+  position: 'relative',
+  height: 240,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  boxSizing: 'border-box',
+  paddingTop: 100,
 })

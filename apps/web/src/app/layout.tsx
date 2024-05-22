@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import '@/styles/reset.css'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { pretendard } from '@/styles/fonts'

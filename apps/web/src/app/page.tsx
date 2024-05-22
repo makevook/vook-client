@@ -1,30 +1,19 @@
-'use client'
-
-import { Button, Text, List, Icon, SearchBar } from '@vook-client/design-system'
-import { useState } from 'react'
-
-import { TestComponent } from '@/components/TestComponent'
-
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'https://dev.vook-api.seungyeop-lee.com'
+import { Header, Footer } from '@/components/layout'
+import { main } from '@/components/layout/Layout.css'
+import { Search } from '@/components/Search/Search'
+import { Term } from '@/components/Term/Term'
 
 const Home = () => {
-  const [wordState, setWordState] = useState('')
-
   return (
-    <main>
-      Hello world!
-      <Text>프리텐다드</Text>
-      <List>Label</List>
-      <SearchBar
-        wordHistory={['SDK', 'History', 'SDK']}
-        wordState={wordState}
-        setWordState={setWordState}
-      />
-      <Icon name="typo" size="typo" />
-      <TestComponent />
-      <Button>Button</Button>
-      <h1>API_URL: {API_URL}</h1>
+    <main className={main}>
+      <Header />
+
+      <div style={{ flex: 1 }}>
+        <Search />
+        <Term />
+      </div>
+
+      <Footer />
     </main>
   )
 }

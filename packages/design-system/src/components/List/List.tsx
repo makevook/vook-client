@@ -7,6 +7,7 @@ import { list } from './List.css'
 export interface ListType {
   variant?: 'page' | 'search'
   kind?: 'table' | 'synonym' | 'description' | 'title'
+  htmlContent?: string
 }
 
 export type ListProps = HTMLAttributes<HTMLDivElement> &
@@ -16,6 +17,7 @@ export type ListProps = HTMLAttributes<HTMLDivElement> &
 export const List = ({
   variant = 'page',
   kind = 'description',
+  htmlContent,
   children,
   ...rest
 }: ListProps) => {
@@ -24,6 +26,19 @@ export const List = ({
     variant === 'page' && (kind === 'table' || kind === 'title')
       ? 'medium'
       : 'regular'
+
+  if (htmlContent) {
+    return (
+      <div className={list({ [variant]: kind })} {...rest}>
+        <Text
+          type={textType}
+          fontWeight={fontWeight}
+          color="inherit"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className={list({ [variant]: kind })} {...rest}>
