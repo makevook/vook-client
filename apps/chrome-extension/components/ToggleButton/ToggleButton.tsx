@@ -20,6 +20,7 @@ export const ToggleButton = ({ position }: ToggleButtonProps) => {
         changeSearchWindow(true)
       }}
       position={position}
+      className="vook-toggle-button"
     >
       <img src={ToggleIcon} alt="toggle-icon" />
     </S.ToggleButtonBox>
