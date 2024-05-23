@@ -33,8 +33,11 @@
     "typescript": "5.2.2"
   },
   "manifest": {
+    "name": "vook chrome-extension",
+    "description": "vook chrome extension",
     "host_permissions": [
-      "https://*/*"
+      "https://*/*",
+      "http://*/*"
     ]
   }
 }
