@@ -21,7 +21,7 @@ const config: StorybookConfig = {
       files: '*.stories.*',
     },
     {
-      directory: '../../../apps/chrome-extension/src/**',
+      directory: '../../../apps/chrome-extension/**',
       titlePrefix: 'Vook-extension',
       files: '*.stories.*',
     },
@@ -77,8 +77,11 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   staticDirs: ['../public'],
-  async viteFinal(config) {
+  async viteFinal(config, { configType }) {
     return mergeConfig(config, {
+      define: {
+        'process.env.NEXT_PUBLIC_API_URL': false,
+      },
       plugins: [require('@vanilla-extract/vite-plugin').vanillaExtractPlugin()],
       esbuild: {
         jsx: 'automatic',

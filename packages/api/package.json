@@ -2,6 +2,7 @@
   "name": "@vook-client/api",
   "version": "0.0.0",
   "private": true,
+  "main": "./src",
   "exports": "./src/index.ts",
   "scripts": {},
   "dependencies": {
