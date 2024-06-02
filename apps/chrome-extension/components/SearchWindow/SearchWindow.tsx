@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { serchQueryOptions } from '@vook-client/api/src'
+import { serchQueryOptions } from '@vook-client/api'
 
 import ToggleIcon from '../../assets/toggle.svg'
 import { useSelectedText, useToggle } from '../../store/toggle'

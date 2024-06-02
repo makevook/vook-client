@@ -5,7 +5,7 @@ export interface Position {
   y: number
 }
 
-interface ToggleStore {
+export interface ToggleStore {
   selected: boolean
   isSelected: boolean
   isOpenSearchWindow: boolean
@@ -17,7 +17,7 @@ interface ToggleStore {
   changeIsSelected: (value: boolean) => void
 }
 
-const toggleStore = create<ToggleStore>((set) => ({
+export const toggleStore = create<ToggleStore>((set) => ({
   selected: false,
   isSelected: false,
   isOpenSearchWindow: false,

@@ -1,4 +1,4 @@
-import { type SearchResponse } from '@vook-client/api/src'
+import { type SearchResponse } from '@vook-client/api'
 
 import { TermItem } from '../TermItem'
 

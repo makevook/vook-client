@@ -1,39 +1,14 @@
 import { useEffect, useRef } from 'react'
 
-import { getSelectionNodeRect, getSelectionText } from '../utils/selection'
-import { useSelectedText, useToggle } from '../store/toggle'
+import { selectionUtils } from '../../utils/selection'
+import { useSelectedText, useToggle } from '../../store/toggle'
 
-async function delayPromise(ms: number) {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve(ms)
-    }, ms),
-  )
-}
-
-const skipLoopCycleOnce = async () => delayPromise(1)
-
-const getMousePosition = (e: MouseEvent) => {
-  return {
-    x: e.pageX,
-    y: e.pageY,
-  }
-}
-
-const getSelectionPosition = (domRect: DOMRect) => {
-  return {
-    x:
-      domRect.width > 300
-        ? domRect.left + scrollX
-        : domRect.right + window.scrollX,
-    y: domRect.bottom + window.scrollY,
-  }
-}
-
-const isExtensionArea = (target: EventTarget) => {
-  const ElementTarget = target as HTMLElement
-  return ElementTarget.nodeName === 'PLASMO-CSUI'
-}
+import {
+  skipLoopCycleOnce,
+  isExtensionArea,
+  getMousePosition,
+  getSelectionPosition,
+} from './lib'
 
 export const useDomRect = () => {
   const { changeIsSelected, setPosition, changeSearchWindow } = useToggle()
@@ -41,7 +16,7 @@ export const useDomRect = () => {
   const isDragged = useRef<boolean>(false)
   const isMousedown = useRef<boolean>(false)
 
-  useEffect(() => {
+  useEffect(function addMouseEvent() {
     const onMouseup = async (e: MouseEvent) => {
       await skipLoopCycleOnce()
 
@@ -51,9 +26,9 @@ export const useDomRect = () => {
 
       isMousedown.current = false
 
-      const selectedText = getSelectionText()
+      const selectedText = selectionUtils.getSelectionText()
 
-      const domRect = getSelectionNodeRect()
+      const domRect = selectionUtils.getSelectionNodeRect()
 
       if (selectedText.length > 0 && domRect) {
         setSelectedText(selectedText)
