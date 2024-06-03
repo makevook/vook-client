@@ -6,6 +6,8 @@ export const TermBox = styled.div`
 
   border-bottom: 1px solid rgba(112, 115, 124, 0.16);
 
+  font-size: 13px;
+
   &.header > div {
     background-color: #efeffc;
     color: #161719;

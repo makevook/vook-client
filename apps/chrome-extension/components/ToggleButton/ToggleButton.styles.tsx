@@ -29,6 +29,10 @@ export const ToggleButtonBox = styled.button<ToggleButtonProps>`
     cursor: pointer;
   }
 
+  &:focus {
+    outline: none;
+  }
+
   img {
     width: 16px;
     height: 16px;

@@ -1,12 +1,12 @@
-import { useCallback, useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { serchQueryOptions } from '@vook-client/api'
+import { useCallback } from 'react'
 
 import ToggleIcon from '../../assets/toggle.svg'
 import { useSelectedText, useToggle } from '../../store/toggle'
 import { TermList } from '../TermList'
 
 import * as S from './SearchWindow.styles'
+
+import { useSearch } from 'hooks/useSearch'
 
 const LinkExternalIcon = () => (
   <svg
@@ -52,46 +52,31 @@ export const SearchWindow = () => {
     changeIsSelected(false)
   }, [changeIsSelected, changeSearchWindow])
 
-  const query = useQuery({
-    ...serchQueryOptions.get({
-      query: selectedText,
-      withFormat: true,
-      highlightPreTag: '<strong>',
-      highlightPostTag: '</strong>',
-    }),
-    select: (data) => data.result.hits,
+  const { query, hitsTerms, headerText, tailText } = useSearch({
+    selectedText,
   })
-
-  const searchedTerms = useMemo(
-    () => query.data?.map((hit) => hit.term).splice(0, 3),
-    [query.data],
-  )
-
-  const headerText = useMemo(
-    () =>
-      searchedTerms?.length > 0
-        ? `${searchedTerms.join(', ')} 등의 용어를 찾았습니다.`
-        : `${selectedText}에 대한 검색 결과가 없습니다.`,
-    [searchedTerms, selectedText],
-  )
 
   return (
     <S.SearchWindowBox className="vook-search-window" position={position}>
       <S.SearchWindowHeader>
         <div className="term-header">
           <img src={ToggleIcon} alt="toggle-icon" />
-          <p
-            dangerouslySetInnerHTML={{
-              __html: searchedTerms ? headerText : '검색 중...',
-            }}
-          />
+          {headerText.length > 0 && (
+            <p
+              className="query"
+              dangerouslySetInnerHTML={{
+                __html: query.isLoading ? '검색 중...' : headerText,
+              }}
+            />
+          )}
+          {query.isFetched && <p className="tail">{tailText}</p>}
         </div>
         <button onClick={onClickClose}>
           <CloseIcon />
         </button>
       </S.SearchWindowHeader>
-      {!query.isLoading && query.data !== undefined && (
-        <TermList hits={query.data} />
+      {!query.isLoading && (
+        <TermList hits={hitsTerms?.length > 0 ? query.data : []} />
       )}
       <S.SearchWindowLink>
         <a href="naver.com" target="_blank">
