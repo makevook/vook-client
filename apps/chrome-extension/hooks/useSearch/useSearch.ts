@@ -43,7 +43,6 @@ export const useSearch = ({ selectedText }: UseSearchProps) => {
 
   return {
     query,
-    searchedTerms,
     hitsTerms,
     headerText,
     tailText,

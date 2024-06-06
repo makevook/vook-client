@@ -56,6 +56,38 @@ export const SearchWindow = () => {
     selectedText,
   })
 
+  if (query.isLoading) {
+    return (
+      <S.SearchWindowBox className="vook-search-window" position={position}>
+        <S.SearchWindowHeader>
+          <div className="term-header">
+            <img src={ToggleIcon} alt="toggle-icon" />
+            <p className="query">검색 중...</p>
+            <button onClick={onClickClose}>
+              <CloseIcon />
+            </button>
+          </div>
+        </S.SearchWindowHeader>
+      </S.SearchWindowBox>
+    )
+  }
+
+  if (query.isError) {
+    return (
+      <S.SearchWindowBox className="vook-search-window" position={position}>
+        <S.SearchWindowHeader>
+          <div className="term-header">
+            <img src={ToggleIcon} alt="toggle-icon" />
+            <p className="query">검색 중 에러가 발생하였습니다!</p>
+            <button onClick={onClickClose}>
+              <CloseIcon />
+            </button>
+          </div>
+        </S.SearchWindowHeader>
+      </S.SearchWindowBox>
+    )
+  }
+
   return (
     <S.SearchWindowBox className="vook-search-window" position={position}>
       <S.SearchWindowHeader>
