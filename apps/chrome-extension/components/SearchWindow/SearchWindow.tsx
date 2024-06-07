@@ -1,10 +1,10 @@
-import { useCallback } from 'react'
+import { isEmpty } from '@fxts/core'
 
-import ToggleIcon from '../../assets/toggle.svg'
 import { useSelectedText, useToggle } from '../../store/toggle'
 import { TermList } from '../TermList'
 
 import * as S from './SearchWindow.styles'
+import { SearchWindowHeader } from './SearchWindowHeader'
 
 import { useSearch } from 'hooks/useSearch'
 
@@ -26,31 +26,9 @@ const LinkExternalIcon = () => (
   </svg>
 )
 
-const CloseIcon = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 14 14"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M13 1L1 13M13 13L1 1"
-      stroke="#161719"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    />
-  </svg>
-)
-
 export const SearchWindow = () => {
-  const { position, changeSearchWindow, changeIsSelected } = useToggle()
+  const { position } = useToggle()
   const { selectedText } = useSelectedText()
-
-  const onClickClose = useCallback(() => {
-    changeSearchWindow(false)
-    changeIsSelected(false)
-  }, [changeIsSelected, changeSearchWindow])
 
   const { query, hitsTerms, headerText, tailText } = useSearch({
     selectedText,
@@ -59,15 +37,7 @@ export const SearchWindow = () => {
   if (query.isLoading) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
-        <S.SearchWindowHeader>
-          <div className="term-header">
-            <img src={ToggleIcon} alt="toggle-icon" />
-            <p className="query">검색 중...</p>
-            <button onClick={onClickClose}>
-              <CloseIcon />
-            </button>
-          </div>
-        </S.SearchWindowHeader>
+        <SearchWindowHeader tailText="검색 중..." />
       </S.SearchWindowBox>
     )
   }
@@ -75,37 +45,15 @@ export const SearchWindow = () => {
   if (query.isError) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
-        <S.SearchWindowHeader>
-          <div className="term-header">
-            <img src={ToggleIcon} alt="toggle-icon" />
-            <p className="query">검색 중 에러가 발생하였습니다!</p>
-            <button onClick={onClickClose}>
-              <CloseIcon />
-            </button>
-          </div>
-        </S.SearchWindowHeader>
+        <SearchWindowHeader tailText="검색 중 에러가 발생하였습니다!" />
       </S.SearchWindowBox>
     )
   }
 
   return (
     <S.SearchWindowBox className="vook-search-window" position={position}>
-      <S.SearchWindowHeader>
-        <div className="term-header">
-          <img src={ToggleIcon} alt="toggle-icon" />
-          <p
-            className="query"
-            dangerouslySetInnerHTML={{
-              __html: headerText,
-            }}
-          />
-          <p className="tail">{tailText}</p>
-        </div>
-        <button onClick={onClickClose}>
-          <CloseIcon />
-        </button>
-      </S.SearchWindowHeader>
-      <TermList hits={hitsTerms?.length > 0 ? query.data! : []} />
+      <SearchWindowHeader headerText={headerText} tailText={tailText} />
+      <TermList hits={isEmpty(hitsTerms) ? [] : query.data!} />
       <S.SearchWindowLink>
         <a href="naver.com" target="_blank">
           Vook 바로가기

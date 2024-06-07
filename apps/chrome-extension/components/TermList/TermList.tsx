@@ -1,4 +1,5 @@
 import { type SearchResponse } from '@vook-client/api'
+import { isEmpty } from '@fxts/core'
 
 import { TermItem } from '../TermItem'
 
@@ -26,7 +27,7 @@ interface TermListProps {
 }
 
 export const TermList = ({ hits }: TermListProps) => {
-  if (hits.length === 0 || !hits) {
+  if (isEmpty(hits)) {
     return (
       <S.BlankTermList>
         <p>등록된 용어가 없습니다.</p>
