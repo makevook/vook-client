@@ -6,5 +6,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "types": ["vitest/globals"],
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
   },
 }

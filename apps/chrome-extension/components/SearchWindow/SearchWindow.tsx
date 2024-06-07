@@ -93,23 +93,19 @@ export const SearchWindow = () => {
       <S.SearchWindowHeader>
         <div className="term-header">
           <img src={ToggleIcon} alt="toggle-icon" />
-          {headerText.length > 0 && (
-            <p
-              className="query"
-              dangerouslySetInnerHTML={{
-                __html: query.isLoading ? '검색 중...' : headerText,
-              }}
-            />
-          )}
-          {query.isFetched && <p className="tail">{tailText}</p>}
+          <p
+            className="query"
+            dangerouslySetInnerHTML={{
+              __html: headerText,
+            }}
+          />
+          <p className="tail">{tailText}</p>
         </div>
         <button onClick={onClickClose}>
           <CloseIcon />
         </button>
       </S.SearchWindowHeader>
-      {!query.isLoading && (
-        <TermList hits={hitsTerms?.length > 0 ? query.data : []} />
-      )}
+      <TermList hits={hitsTerms?.length > 0 ? query.data! : []} />
       <S.SearchWindowLink>
         <a href="naver.com" target="_blank">
           Vook 바로가기

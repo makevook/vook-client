@@ -20,14 +20,13 @@ export const useDomRect = () => {
     const onMouseup = async (e: MouseEvent) => {
       await skipLoopCycleOnce()
 
-      if (isExtensionArea(e.target)) {
+      if (e.target && isExtensionArea(e.target as HTMLElement)) {
         return
       }
 
       isMousedown.current = false
 
       const selectedText = selectionUtils.getSelectionText()
-
       const domRect = selectionUtils.getSelectionNodeRect()
 
       if (selectedText.length > 0 && domRect) {

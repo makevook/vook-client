@@ -25,7 +25,6 @@ export const getSelectionPosition = (domRect: DOMRect) => {
   }
 }
 
-export const isExtensionArea = (target: EventTarget) => {
-  const ElementTarget = target as HTMLElement
-  return ElementTarget.nodeName === 'PLASMO-CSUI'
+export const isExtensionArea = (target: HTMLElement) => {
+  return target.nodeName === 'PLASMO-CSUI'
 }

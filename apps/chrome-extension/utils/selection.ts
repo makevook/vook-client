@@ -1,16 +1,15 @@
 export const selectionUtils = {
-  getSelectionText(): string {
+  getSelectionText() {
     return window.getSelection()?.toString().trim() ?? ''
   },
 
-  getSelectionNodeRect(): DOMRect | undefined {
+  getSelectionNodeRect() {
     try {
       return (
-        window.getSelection()?.getRangeAt(0)?.getBoundingClientRect() ??
-        undefined
+        window.getSelection()?.getRangeAt(0)?.getBoundingClientRect() ?? null
       )
     } catch {
-      return undefined
+      return null
     }
   },
 }
