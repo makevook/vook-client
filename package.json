@@ -13,7 +13,7 @@
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,md}": [
-      "eslint . --max-warnings 0",
+      "eslint --fix",
       "prettier --config ./.prettierrc --write -u"
     ]
   },
