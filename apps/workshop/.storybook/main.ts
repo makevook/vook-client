@@ -13,17 +13,17 @@ const config: StorybookConfig = {
     {
       directory: '../../../packages/design-system/src/**',
       titlePrefix: 'Vook-Design-System',
-      files: '*.stories.*',
+      files: '*.stories.tsx',
     },
     {
       directory: '../../../apps/web/src/**',
       titlePrefix: 'Vook-web',
-      files: '*.stories.*',
+      files: '*.stories.tsx',
     },
     {
-      directory: '../../../apps/chrome-extension/**',
+      directory: '../../../apps/chrome-extension/components/**',
       titlePrefix: 'Vook-extension',
-      files: '*.stories.*',
+      files: '*.stories.tsx',
     },
   ],
   addons: [
