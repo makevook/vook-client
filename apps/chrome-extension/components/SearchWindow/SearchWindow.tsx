@@ -2,11 +2,10 @@ import { isEmpty } from '@fxts/core'
 
 import { useSelectedText, useToggle } from '../../store/toggle'
 import { TermList } from '../TermList'
+import { useSearch } from '../../hooks/useSearch'
 
 import * as S from './SearchWindow.styles'
 import { SearchWindowHeader } from './SearchWindowHeader'
-
-import { useSearch } from 'hooks/useSearch'
 
 const LinkExternalIcon = () => (
   <svg

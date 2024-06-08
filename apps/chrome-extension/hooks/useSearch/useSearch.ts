@@ -11,7 +11,7 @@ import {
   join,
 } from '@fxts/core'
 
-import { stripHtmlTags } from 'utils/parser'
+import { stripHtmlTags } from '../../utils/parser'
 
 interface UseSearchProps {
   selectedText: string

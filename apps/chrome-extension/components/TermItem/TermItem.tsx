@@ -10,9 +10,7 @@ interface TermItemProps {
   term: SearchResponse['result']['hits'][0]
 }
 
-export const TermItem = ({
-  term = null,
-}: TermItemProps | TermHeaderItemProps) => {
+export const TermItem = ({ term }: TermItemProps | TermHeaderItemProps) => {
   if (!term) {
     return (
       <S.TermBox className="header">
