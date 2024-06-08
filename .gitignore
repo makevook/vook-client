@@ -41,4 +41,4 @@ yarn-error.log*
 storybook-static
 
 .idea
-apps/chrome-extension/.plasmo
+apps/extension/.plasmo

@@ -1,8 +1,8 @@
 {
-  "name": "@vook-client/chrome-extension",
-  "displayName": "@vook-client/chrome-extension",
+  "name": "@vook-client/extension",
+  "displayName": "@vook-client/extension",
   "version": "0.0.1",
-  "description": "vook client chrome extension",
+  "description": "vook client extension",
   "author": "vook-client",
   "scripts": {
     "dev": "plasmo dev",
@@ -42,7 +42,7 @@
     "vitest": "^1.5.2"
   },
   "manifest": {
-    "name": "vook chrome-extension",
+    "name": "vook extension",
     "description": "vook chrome extension",
     "host_permissions": [
       "https://*/*",

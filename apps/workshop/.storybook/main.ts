@@ -21,7 +21,7 @@ const config: StorybookConfig = {
       files: '*.stories.tsx',
     },
     {
-      directory: '../../../apps/chrome-extension/components/**',
+      directory: '../../../apps/extension/components/**',
       titlePrefix: 'Vook-extension',
       files: '*.stories.tsx',
     },

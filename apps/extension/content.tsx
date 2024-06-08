@@ -6,8 +6,7 @@ import { ToggleButton } from './components/ToggleButton'
 import { SearchWindow } from './components/SearchWindow'
 import { useDomRect } from './hooks/useDomRect'
 import { useToggle } from './store/toggle'
-
-import { reset } from 'styles/reset'
+import { reset } from './styles/reset'
 
 const styleElement = document.createElement('style')
 
