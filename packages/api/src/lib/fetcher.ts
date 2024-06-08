@@ -66,6 +66,8 @@ export class Fetcher {
 }
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'https://dev.vook-api.seungyeop-lee.com'
+  process.env.NEXT_PUBLIC_API_URL ||
+  process.env.PLASMO_PUBLIC_API_URL ||
+  'https://dev.vook-api.seungyeop-lee.com'
 
 export const baseFetcher = new Fetcher(API_URL)

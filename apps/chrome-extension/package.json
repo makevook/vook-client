@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
+    "build:edge": "plasmo build --target=edge-mv3",
+    "build:firefox": "plasmo build --target=firefox-mv3",
     "package": "plasmo package",
     "test": "vitest",
     "lint": "eslint . --max-warnings 0"
