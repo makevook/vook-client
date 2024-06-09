@@ -9,7 +9,6 @@ import { Hyperlink } from '../common'
 
 import {
   highlight,
-  loadingWrapper,
   noTermContainer,
   spinner,
   termContainer,
@@ -24,9 +23,9 @@ import { searchStore } from 'src/store/store'
 // 로딩 상태 컴포넌트
 const LoadingComponent = () => (
   <div className={noTermContainer}>
-    <div className={loadingWrapper}>
-      <div className={spinner} />
-    </div>
+    {/* <div className={loadingWrapper}> */}
+    <div className={spinner} />
+    {/* </div> */}
   </div>
 )
 
