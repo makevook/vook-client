@@ -60,13 +60,13 @@ const TextContainer = ({ length }: { length?: number }) => {
 
 export const Term = () => {
   const { requestQuery } = searchStore()
-  const [sort, setSort] = useState<SearchSort>(searchSort.TermAsc)
+  const [sort, setSort] = useState<SearchSort>()
 
   const { data: response, isLoading } = useSearchQuery(
     // DTO
     {
       query: requestQuery,
-      sort: [sort],
+      sort: sort && [sort],
       withFormat: requestQuery !== '',
       highlightPreTag: '<span>',
       highlightPostTag: '</span>',
