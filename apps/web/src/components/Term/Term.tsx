@@ -102,7 +102,7 @@ export const Term = () => {
             <>
               <div className={termTitleContainer}>
                 <List
-                  variant="reading"
+                  variant="page"
                   kind="title"
                   onClick={() => {
                     handleSort('Term')
@@ -111,7 +111,7 @@ export const Term = () => {
                   용어
                 </List>
                 <List
-                  variant="reading"
+                  variant="page"
                   kind="title"
                   onClick={() => {
                     handleSort('Synonyms')
@@ -120,7 +120,7 @@ export const Term = () => {
                   동의어
                 </List>
                 <List
-                  variant="reading"
+                  variant="page"
                   kind="title"
                   style={{ flex: 1 }}
                   onClick={() => {
@@ -143,7 +143,7 @@ export const Term = () => {
                       )}
                     />
                     <List
-                      variant="reading"
+                      variant="page"
                       kind="description"
                       style={{ flex: 1 }}
                       htmlContent={data.meaning.replaceAll(

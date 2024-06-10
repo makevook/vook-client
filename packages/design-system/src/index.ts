@@ -2,8 +2,8 @@
 
 export type { Tokens } from './tokens'
 export { tokens } from './tokens'
-export type { IconProps } from './assets/Icon'
-export { Icon } from './assets/Icon'
+export type { IconProps } from './components/Icon'
+export { Icon } from './components/Icon'
 export type { ButtonProps } from './components/Button'
 export { Button } from './components/Button'
 export type { ListProps } from './components/List'

@@ -36,11 +36,12 @@
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
+    "dev": "vite build --mode ve && vite build --mode ve --watch",
     "build": "vite build && vite build --mode ve && vite build"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "@types/react": "^18.2.66"
+    "@types/react": "^18.2.66",
+    "react": ">=18.0.0"
   },
   "devDependencies": {
     "@storybook/react": "^8.0.10",
@@ -52,15 +53,18 @@
     "@vanilla-extract/sprinkles": "^1.6.1",
     "@vanilla-extract/vite-plugin": "^4.0.7",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "@vook-client/eslint-config": "*",
+    "@vook-client/typescript-config": "*",
     "clsx": "^2.1.1",
+    "eslint": "^8.57.0",
     "postcss-preset-env": "^9.5.14",
     "publint": "^0.2.7",
     "react": "^18.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "eslint": "^8.57.0",
-    "@vook-client/eslint-config": "*",
-    "@vook-client/typescript-config": "*",
     "vite-plugin-dts": "^3.9.1"
+  },
+  "dependencies": {
+    "vite-plugin-static-copy": "^1.0.5"
   }
 }

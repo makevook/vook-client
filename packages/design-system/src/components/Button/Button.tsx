@@ -1,15 +1,15 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 
 import { Text, TextProps } from '../Text'
-import { Icon } from '../../assets/Icon'
-import { IconType } from '../../assets/Icon/Icon'
+import { Icon, IconProps } from '../Icon'
 
 import { ButtonVariants, button } from './Button.css'
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   PropsWithChildren &
-  ButtonVariants &
-  IconType
+  ButtonVariants & {
+    icon?: Exclude<IconProps['name'], undefined>
+  }
 
 const ButtonLabelType: {
   [key in Exclude<ButtonProps['size'], undefined>]: TextProps['type']
@@ -25,6 +25,7 @@ export const Button = ({
   size = 'large',
   blueLine = true,
   disabled = false,
+  icon,
   name,
   children,
   ...rest
@@ -40,7 +41,7 @@ export const Button = ({
       type="button"
       {...rest}
     >
-      {name && <Icon name={name} size="small" />}
+      {icon && <Icon name={icon} size="small" />}
       <Text type={textType} fontWeight={fontWeight} color="inherit">
         {children}
       </Text>
