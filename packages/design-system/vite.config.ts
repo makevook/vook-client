@@ -36,39 +36,13 @@ const vanillaExtract = defineConfig({
     },
     rollupOptions: {
       output: {
-        dir: 'dist/vanilla-extract',
+        dir: 'dist/vanilla-extract/',
       },
       external: [...shared.external, /^@vanilla-extract/],
     },
   },
   plugins: [react(), dts({ outDir: 'dist/vanilla-extract' })],
 })
-
-// const chunk = defineConfig({
-//   build: {
-//     sourcemap: true,
-//     cssCodeSplit: true,
-
-//     lib: {
-//       entry: {
-//         theme: 'src/theme/index.ts',
-//         button: 'src/button/index.tsx',
-//         textarea: 'src/textarea/index.tsx',
-//       },
-//       formats: ['es', 'cjs'],
-//     },
-//     rollupOptions: {
-//       output: {
-//         dir: 'dist/chunk',
-//       },
-//       external: shared.external,
-//     },
-//   },
-//   plugins: [react(), vanillaExtractPlugin(), dts({ outDir: 'dist/chunk' })],
-//   css: {
-//     postcss: shared.postcss,
-//   },
-// })
 
 const bundle = defineConfig({
   build: {
@@ -85,24 +59,12 @@ const bundle = defineConfig({
     },
     rollupOptions: {
       output: {
-        dir: 'dist/bundle',
+        dir: 'dist/bundle/',
       },
       external: shared.external,
     },
   },
-  plugins: [
-    react(),
-    vanillaExtractPlugin(),
-    dts({ outDir: 'dist/bundle' }),
-    viteStaticCopy({
-      targets: [
-        {
-          src: path.resolve(__dirname, './public'),
-          dest: './bundle',
-        },
-      ],
-    }),
-  ],
+  plugins: [react(), vanillaExtractPlugin(), dts({ outDir: 'dist/bundle' })],
   css: {
     postcss: shared.postcss,
   },

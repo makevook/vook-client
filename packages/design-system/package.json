@@ -15,11 +15,11 @@
     "./style.css": "./dist/bundle/style.css",
     ".": {
       "import": {
-        "types": "./dist/bundle/index.d.ts",
+        "types": "./dist/bundle/src/index.d.ts",
         "default": "./dist/bundle/index.js"
       },
       "require": {
-        "types": "./dist/bundle/index.d.ts",
+        "types": "./dist/bundle/src/index.d.ts",
         "default": "./dist/bundle/index.cjs"
       }
     },
@@ -37,8 +37,8 @@
   "scripts": {
     "test": "vitest -c ./vitest.config.mts",
     "lint": "eslint . --max-warnings 0",
-    "dev": "vite build && vite build --mode ve && vite build --watch",
-    "build": "vite build && vite build --mode ve && vite build"
+    "dev": "vite build && vite build --mode ve --watch",
+    "build": "vite build && vite build --mode ve"
   },
   "peerDependencies": {
     "@types/react": "^18.2.66",
