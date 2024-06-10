@@ -11,9 +11,9 @@
     "prepare": "husky install",
     "build-storybook": "turbo run build --filter=workshop"
   },
-  "lint-front": {
+  "lint-staged": {
     "*.{js,ts,jsx,tsx,md}": [
-      "eslint --fix",
+      "turbo lint",
       "prettier --config ./.prettierrc --write -u"
     ]
   },
