@@ -11,6 +11,7 @@ const semantic = {
   'semantic-label-disabled': 'rgba(22, 23, 25, 0.16)',
   /* line  */
   'semantic-line-normal': 'rgba(112, 115, 124, 0.22)',
+  'semantic-line-alternative': 'rgba(112, 115, 124, 0.08)',
 }
 
 const link = {

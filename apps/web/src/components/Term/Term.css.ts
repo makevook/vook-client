@@ -19,6 +19,7 @@ export const termListContainer = style({
 export const termListDataContainer = style({
   display: 'flex',
   padding: '8px 0',
+  borderBottom: `1px solid ${vars.colors['semantic-line-alternative']}`,
 })
 
 export const textContainer = style({
