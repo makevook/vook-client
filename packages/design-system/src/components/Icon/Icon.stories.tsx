@@ -58,6 +58,27 @@ export const Close: Story = {
           <Icon name="close-square-medium">{props.children}</Icon>
           <Icon name="close-square-small">{props.children}</Icon>
         </IconRow>
+        <p className="storybook-subtitle">Chevron</p>
+        <IconRow>
+          <Icon name="chevron-down-big">{props.children}</Icon>
+          <Icon name="chevron-down-medium">{props.children}</Icon>
+          <Icon name="chevron-down-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="chevron-left-big">{props.children}</Icon>
+          <Icon name="chevron-left-medium">{props.children}</Icon>
+          <Icon name="chevron-left-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="chevron-right-big">{props.children}</Icon>
+          <Icon name="chevron-right-medium">{props.children}</Icon>
+          <Icon name="chevron-right-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="chevron-up-big">{props.children}</Icon>
+          <Icon name="chevron-up-medium">{props.children}</Icon>
+          <Icon name="chevron-up-small">{props.children}</Icon>
+        </IconRow>
       </div>
     )
   },
