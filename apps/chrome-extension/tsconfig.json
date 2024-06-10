@@ -1,9 +1,0 @@
-{
-  "extends": "@vook-client/typescript-config/vite.json",
-  "compilerOptions": {
-    "types": ["chrome", "vitest/globals", "@testing-library/jest-dom"],
-    "skipLibCheck": true
-  },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["manifest.ts"]
-}

@@ -1,0 +1,50 @@
+{
+  "name": "@vook-client/extension",
+  "displayName": "@vook-client/extension",
+  "version": "0.0.1",
+  "description": "vook client extension",
+  "author": "vook-client",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "build:edge": "plasmo build --target=edge-mv3",
+    "build:firefox": "plasmo build --target=firefox-mv3",
+    "package": "plasmo package",
+    "test": "vitest",
+    "lint": "eslint . --max-warnings 0"
+  },
+  "dependencies": {
+    "@emotion/cache": "11.11.0",
+    "@emotion/react": "11.11.3",
+    "@emotion/styled": "11.11.0",
+    "@fxts/core": "^1.0.0",
+    "@tanstack/react-query": "^5.32.0",
+    "@vook-client/api": "*",
+    "plasmo": "^0.86.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@babel/core": "7.23.7",
+    "@storybook/react": "^8.0.10",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^15.0.5",
+    "@types/chrome": "0.0.258",
+    "@types/node": "20.11.5",
+    "@vitest/ui": "^1.6.0",
+    "@vook-client/eslint-config": "*",
+    "eslint": "^8.57.0",
+    "prettier": "3.2.4",
+    "typescript": "5.2.2",
+    "vitest": "^1.5.2"
+  },
+  "manifest": {
+    "name": "vook extension",
+    "description": "vook chrome extension",
+    "host_permissions": [
+      "https://*/*",
+      "http://*/*"
+    ]
+  }
+}
