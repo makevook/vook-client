@@ -5,7 +5,7 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 # Set working directory
 WORKDIR /app
-RUN yarn global add turbo
+RUN npm i -g turbo
 COPY . .
 
 # Generate a partial monorepo with a pruned lockfile for a target workspace.
@@ -22,13 +22,14 @@ COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-RUN yarn global add pnpm && pnpm install
+RUN npm i -g pnpm && pnpm install
 
 # Build the project
 COPY --from=builder /app/out/full/ .
 # ref. https://github.com/vercel/next.js/blob/canary/examples/with-docker-multi-env/README.md
 COPY --from=builder /app/out/full/apps/web/.env.staging ./apps/web/.env.production
-RUN yarn turbo run build --filter=web...
+COPY ./turbo.json ./turbo.json
+RUN pnpm dlx turbo run build --filter=@vook-client/web
 
 FROM base AS runner
 WORKDIR /app
