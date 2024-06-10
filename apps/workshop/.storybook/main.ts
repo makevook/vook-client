@@ -13,17 +13,17 @@ const config: StorybookConfig = {
     {
       directory: '../../../packages/design-system/src/**',
       titlePrefix: 'Vook-Design-System',
-      files: '*.stories.*',
+      files: '*.stories.tsx',
     },
     {
       directory: '../../../apps/web/src/**',
       titlePrefix: 'Vook-web',
-      files: '*.stories.*',
+      files: '*.stories.tsx',
     },
     {
-      directory: '../../../apps/chrome-extension/src/**',
+      directory: '../../../apps/extension/components/**',
       titlePrefix: 'Vook-extension',
-      files: '*.stories.*',
+      files: '*.stories.tsx',
     },
   ],
   addons: [
@@ -77,8 +77,11 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   staticDirs: ['../public'],
-  async viteFinal(config) {
+  async viteFinal(config, { configType }) {
     return mergeConfig(config, {
+      define: {
+        'process.env.NEXT_PUBLIC_API_URL': false,
+      },
       plugins: [require('@vanilla-extract/vite-plugin').vanillaExtractPlugin()],
       esbuild: {
         jsx: 'automatic',
