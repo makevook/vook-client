@@ -4,8 +4,10 @@ import { Text, TextProps } from '../Text'
 
 import { list } from './List.css'
 
+type Variant = 'page' | 'search' | 'reading'
+
 export interface ListType {
-  variant?: 'page' | 'search'
+  variant?: 'page' | 'search' | 'reading'
   kind?: 'table' | 'synonym' | 'description' | 'title'
   htmlContent?: string
 }
@@ -21,7 +23,12 @@ export const List = ({
   children,
   ...rest
 }: ListProps) => {
-  const textType: TextProps['type'] = variant === 'page' ? 'body-2' : 'label'
+  const variantToTextTypeMap: Record<Variant, TextProps['type']> = {
+    page: 'body-2',
+    search: 'label',
+    reading: 'body-2-reading',
+  }
+  const textType: TextProps['type'] = variantToTextTypeMap[variant]
   const fontWeight: TextProps['fontWeight'] =
     variant === 'page' && (kind === 'table' || kind === 'title')
       ? 'medium'
