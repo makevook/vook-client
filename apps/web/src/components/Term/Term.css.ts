@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css'
-import { vars } from '@vook-client/design-system/src/styles/global.css'
+import { vars } from '@vook-client/design-system'
 
 export const termContainer = style({
   padding: '32px 0',

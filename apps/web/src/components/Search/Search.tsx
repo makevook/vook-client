@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Icon, Text } from '@vook-client/design-system/src/index'
+import { Icon, Text } from '@vook-client/design-system'
 
 import {
   iconContainer,

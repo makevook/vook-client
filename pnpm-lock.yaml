@@ -23,7 +23,7 @@ importers:
         version: 1.1.0(prettier@3.2.5)
       '@vanilla-extract/vite-plugin':
         specifier: ^4.0.9
-        version: 4.0.9(vite@5.2.11)
+        version: 4.0.9(@types/node@20.12.12)(vite@5.2.11)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
         version: 4.2.1(vite@5.2.11)
@@ -65,7 +65,7 @@ importers:
         version: 4.3.2(typescript@5.2.2)(vite@5.2.11)
       vitest:
         specifier: ^1.5.2
-        version: 1.6.0(@vitest/ui@1.6.0)(jsdom@24.0.0)
+        version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)
 
   apps/extension:
     dependencies:
@@ -74,10 +74,10 @@ importers:
         version: 11.11.0
       '@emotion/react':
         specifier: 11.11.3
-        version: 11.11.3(react@18.2.0)
+        version: 11.11.3(@types/react@18.3.2)(react@18.2.0)
       '@emotion/styled':
         specifier: 11.11.0
-        version: 11.11.0(@emotion/react@11.11.3)(react@18.2.0)
+        version: 11.11.0(@emotion/react@11.11.3)(@types/react@18.3.2)(react@18.2.0)
       '@fxts/core':
         specifier: ^1.0.0
         version: 1.0.0
@@ -98,7 +98,7 @@ importers:
         version: 18.2.0(react@18.2.0)
       zustand:
         specifier: ^4.5.2
-        version: 4.5.2(react@18.2.0)
+        version: 4.5.2(@types/react@18.3.2)(react@18.2.0)
     devDependencies:
       '@babel/core':
         specifier: 7.23.7
@@ -111,13 +111,19 @@ importers:
         version: 6.4.5(vitest@1.6.0)
       '@testing-library/react':
         specifier: ^15.0.5
-        version: 15.0.7(react-dom@18.2.0)(react@18.2.0)
+        version: 15.0.7(@types/react@18.3.2)(react-dom@18.2.0)(react@18.2.0)
       '@types/chrome':
         specifier: 0.0.258
         version: 0.0.258
       '@types/node':
-        specifier: 20.11.5
-        version: 20.11.5
+        specifier: ^20.11.24
+        version: 20.12.12
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.3.2
+      '@types/react-dom':
+        specifier: ^18.2.19
+        version: 18.3.0
       '@vitest/ui':
         specifier: ^1.6.0
         version: 1.6.0(vitest@1.6.0)
@@ -135,7 +141,7 @@ importers:
         version: 5.2.2
       vitest:
         specifier: ^1.5.2
-        version: 1.6.0(@types/node@20.11.5)(@vitest/ui@1.6.0)(jsdom@24.0.0)
+        version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)
 
   apps/web:
     dependencies:
@@ -272,7 +278,7 @@ importers:
         version: 4.0.9(vite@4.5.3)
       '@vanilla-extract/webpack-plugin':
         specifier: ^2.3.7
-        version: 2.3.8(webpack@5.91.0)
+        version: 2.3.8(@types/node@20.12.12)(webpack@5.91.0)
       '@vitejs/plugin-react':
         specifier: ^4.0.3
         version: 4.2.1(vite@4.5.3)
@@ -2362,7 +2368,7 @@ packages:
     resolution: {integrity: sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==}
     dev: false
 
-  /@emotion/react@11.11.3(react@18.2.0):
+  /@emotion/react@11.11.3(@types/react@18.3.2)(react@18.2.0):
     resolution: {integrity: sha512-Cnn0kuq4DoONOMcnoVsTOR8E+AdnKFf//6kUWc4LCdnxj31pZWn7rIULd6Y7/Js1PiPHzn7SKCM9vB/jBni8eA==}
     peerDependencies:
       '@types/react': '*'
@@ -2378,6 +2384,7 @@ packages:
       '@emotion/use-insertion-effect-with-fallbacks': 1.0.1(react@18.2.0)
       '@emotion/utils': 1.2.1
       '@emotion/weak-memoize': 0.3.1
+      '@types/react': 18.3.2
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
     dev: false
@@ -2396,7 +2403,7 @@ packages:
     resolution: {integrity: sha512-0QBtGvaqtWi+nx6doRwDdBIzhNdZrXUppvTM4dtZZWEGTXL/XE/yJxLMGlDT1Gt+UHH5IX1n+jkXyytE/av7OA==}
     dev: false
 
-  /@emotion/styled@11.11.0(@emotion/react@11.11.3)(react@18.2.0):
+  /@emotion/styled@11.11.0(@emotion/react@11.11.3)(@types/react@18.3.2)(react@18.2.0):
     resolution: {integrity: sha512-hM5Nnvu9P3midq5aaXj4I+lnSfNi7Pmd4EWk1fOZ3pxookaQTNew6bp4JaCBYM4HVFZF9g7UjJmsUmC2JlxOng==}
     peerDependencies:
       '@emotion/react': ^11.0.0-rc.0
@@ -2409,10 +2416,11 @@ packages:
       '@babel/runtime': 7.24.5
       '@emotion/babel-plugin': 11.11.0
       '@emotion/is-prop-valid': 1.2.2
-      '@emotion/react': 11.11.3(react@18.2.0)
+      '@emotion/react': 11.11.3(@types/react@18.3.2)(react@18.2.0)
       '@emotion/serialize': 1.1.4
       '@emotion/use-insertion-effect-with-fallbacks': 1.0.1(react@18.2.0)
       '@emotion/utils': 1.2.1
+      '@types/react': 18.3.2
       react: 18.2.0
     dev: false
 
@@ -6870,10 +6878,10 @@ packages:
       dom-accessibility-api: 0.6.3
       lodash: 4.17.21
       redent: 3.0.0
-      vitest: 1.6.0(@types/node@20.11.5)(@vitest/ui@1.6.0)(jsdom@24.0.0)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)
     dev: true
 
-  /@testing-library/react@15.0.7(react-dom@18.2.0)(react@18.2.0):
+  /@testing-library/react@15.0.7(@types/react@18.3.2)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-cg0RvEdD1TIhhkm1IeYMQxrzy0MtUNfa3minv4MjbgcYzJAZ7yD0i0lwoPOTPr+INtiXFezt2o8xMSnyHhEn2Q==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -6886,6 +6894,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.5
       '@testing-library/dom': 10.1.0
+      '@types/react': 18.3.2
       '@types/react-dom': 18.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -7227,12 +7236,6 @@ packages:
 
   /@types/node@18.19.33:
     resolution: {integrity: sha512-NR9+KrpSajr2qBVp/Yt5TU/rp+b5Mayi3+OlMlcg2cVCfRmcG5PWZ7S4+MG9PZ5gWBoc9Pd0BKSRViuBCRPu0A==}
-    dependencies:
-      undici-types: 5.26.5
-    dev: true
-
-  /@types/node@20.11.5:
-    resolution: {integrity: sha512-g557vgQjUUfN76MZAN/dt1z3dzcUsimuysco0KeluHgrPdJXkP/XdAURgyO2W9fZWHRtRBiVKzKn8vyOAwlG+w==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -7676,33 +7679,6 @@ packages:
       '@vanilla-extract/private': 1.0.4
     dev: false
 
-  /@vanilla-extract/integration@7.1.4:
-    resolution: {integrity: sha512-/9RYhOVvr28Vn5pDahgfccFqlfepyogdlGg3cabR9kVvKHQdNkAFuPp2mx8EzPPI2D9ZIcPwfb3jp8t2Beo/Vw==}
-    dependencies:
-      '@babel/core': 7.24.5
-      '@babel/plugin-syntax-typescript': 7.24.1(@babel/core@7.24.5)
-      '@vanilla-extract/babel-plugin-debug-ids': 1.0.5
-      '@vanilla-extract/css': 1.15.1
-      dedent: 1.5.3
-      esbuild: 0.19.12
-      eval: 0.1.8
-      find-up: 5.0.0
-      javascript-stringify: 2.1.0
-      mlly: 1.7.0
-      vite: 5.2.11(@types/node@20.11.5)
-      vite-node: 1.6.0
-    transitivePeerDependencies:
-      - '@types/node'
-      - babel-plugin-macros
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
   /@vanilla-extract/integration@7.1.4(@types/node@20.12.12):
     resolution: {integrity: sha512-/9RYhOVvr28Vn5pDahgfccFqlfepyogdlGg3cabR9kVvKHQdNkAFuPp2mx8EzPPI2D9ZIcPwfb3jp8t2Beo/Vw==}
     dependencies:
@@ -7791,27 +7767,8 @@ packages:
     peerDependencies:
       vite: ^4.0.3 || ^5.0.0
     dependencies:
-      '@vanilla-extract/integration': 7.1.4
+      '@vanilla-extract/integration': 7.1.4(@types/node@20.12.12)
       vite: 4.5.3
-    transitivePeerDependencies:
-      - '@types/node'
-      - babel-plugin-macros
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
-  /@vanilla-extract/vite-plugin@4.0.9(vite@5.2.11):
-    resolution: {integrity: sha512-O3SU6whsm01lD9Kwpkz9yF14u0SCF0jbGtvMpslXGDZ6f3B9oq0M6PViu94gEYy8Xt2B4y23NF8RCrMOwDn81g==}
-    peerDependencies:
-      vite: ^4.0.3 || ^5.0.0
-    dependencies:
-      '@vanilla-extract/integration': 7.1.4
-      vite: 5.2.11(@types/node@20.11.5)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -7830,28 +7787,6 @@ packages:
       webpack: ^4.30.0 || ^5.20.2
     dependencies:
       '@vanilla-extract/integration': 7.1.4(@types/node@20.12.12)
-      debug: 4.3.4
-      loader-utils: 2.0.4
-      picocolors: 1.0.1
-      webpack: 5.91.0(esbuild@0.20.2)
-    transitivePeerDependencies:
-      - '@types/node'
-      - babel-plugin-macros
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
-  /@vanilla-extract/webpack-plugin@2.3.8(webpack@5.91.0):
-    resolution: {integrity: sha512-etdNKd+lB4QowW7tNLWFCkAnUUYLiJWRdcVfgwUyaYSl4IOD4SabBbY/0uTDVE3LQaCHAsiWGFflWwoKD9F1SQ==}
-    peerDependencies:
-      webpack: ^4.30.0 || ^5.20.2
-    dependencies:
-      '@vanilla-extract/integration': 7.1.4
       debug: 4.3.4
       loader-utils: 2.0.4
       picocolors: 1.0.1
@@ -7906,7 +7841,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.24.1(@babel/core@7.23.7)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.2.11(@types/node@20.11.5)
+      vite: 5.2.11(@types/node@20.12.12)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7967,7 +7902,7 @@ packages:
       pathe: 1.1.2
       picocolors: 1.0.1
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@20.11.5)(@vitest/ui@1.6.0)(jsdom@24.0.0)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)
     dev: true
 
   /@vitest/utils@1.3.1:
@@ -10797,8 +10732,8 @@ packages:
     dependencies:
       '@typescript-eslint/utils': 6.21.0(eslint@8.57.0)(typescript@5.2.2)
       eslint: 8.57.0
-      vite: 5.2.11(@types/node@20.11.5)
-      vitest: 1.6.0(@vitest/ui@1.6.0)(jsdom@24.0.0)
+      vite: 5.2.11(@types/node@20.12.12)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -16959,48 +16894,6 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vite-node@1.6.0:
-    resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    dependencies:
-      cac: 6.7.14
-      debug: 4.3.4
-      pathe: 1.1.2
-      picocolors: 1.0.1
-      vite: 5.2.11(@types/node@20.11.5)
-    transitivePeerDependencies:
-      - '@types/node'
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
-  /vite-node@1.6.0(@types/node@20.11.5):
-    resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    dependencies:
-      cac: 6.7.14
-      debug: 4.3.4
-      pathe: 1.1.2
-      picocolors: 1.0.1
-      vite: 5.2.11(@types/node@20.11.5)
-    transitivePeerDependencies:
-      - '@types/node'
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
   /vite-node@1.6.0(@types/node@20.12.12):
     resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -17058,7 +16951,7 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 3.0.3(typescript@5.2.2)
-      vite: 5.2.11(@types/node@20.11.5)
+      vite: 5.2.11(@types/node@20.12.12)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -17099,42 +16992,6 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vite@5.2.11(@types/node@20.11.5):
-    resolution: {integrity: sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || >=20.0.0
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 20.11.5
-      esbuild: 0.20.2
-      postcss: 8.4.38
-      rollup: 4.17.2
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: true
-
   /vite@5.2.11(@types/node@20.12.12):
     resolution: {integrity: sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -17171,7 +17028,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@1.6.0(@types/node@20.11.5)(@vitest/ui@1.6.0)(jsdom@24.0.0):
+  /vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(jsdom@24.0.0):
     resolution: {integrity: sha512-H5r/dN06swuFnzNFhq/dnz37bPXnq8xB2xB5JOVk8K09rUtoeNN+LHWkoQ0A/i3hvbUKKcCei9KpbxqHMLhLLA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -17196,7 +17053,7 @@ packages:
       jsdom:
         optional: true
     dependencies:
-      '@types/node': 20.11.5
+      '@types/node': 20.12.12
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
       '@vitest/snapshot': 1.6.0
@@ -17216,65 +17073,8 @@ packages:
       strip-literal: 2.1.0
       tinybench: 2.8.0
       tinypool: 0.8.4
-      vite: 5.2.11(@types/node@20.11.5)
-      vite-node: 1.6.0(@types/node@20.11.5)
-      why-is-node-running: 2.2.2
-    transitivePeerDependencies:
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
-  /vitest@1.6.0(@vitest/ui@1.6.0)(jsdom@24.0.0):
-    resolution: {integrity: sha512-H5r/dN06swuFnzNFhq/dnz37bPXnq8xB2xB5JOVk8K09rUtoeNN+LHWkoQ0A/i3hvbUKKcCei9KpbxqHMLhLLA==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@edge-runtime/vm': '*'
-      '@types/node': ^18.0.0 || >=20.0.0
-      '@vitest/browser': 1.6.0
-      '@vitest/ui': 1.6.0
-      happy-dom: '*'
-      jsdom: '*'
-    peerDependenciesMeta:
-      '@edge-runtime/vm':
-        optional: true
-      '@types/node':
-        optional: true
-      '@vitest/browser':
-        optional: true
-      '@vitest/ui':
-        optional: true
-      happy-dom:
-        optional: true
-      jsdom:
-        optional: true
-    dependencies:
-      '@vitest/expect': 1.6.0
-      '@vitest/runner': 1.6.0
-      '@vitest/snapshot': 1.6.0
-      '@vitest/spy': 1.6.0
-      '@vitest/ui': 1.6.0(vitest@1.6.0)
-      '@vitest/utils': 1.6.0
-      acorn-walk: 8.3.2
-      chai: 4.4.1
-      debug: 4.3.4
-      execa: 8.0.1
-      jsdom: 24.0.0
-      local-pkg: 0.5.0
-      magic-string: 0.30.10
-      pathe: 1.1.2
-      picocolors: 1.0.1
-      std-env: 3.7.0
-      strip-literal: 2.1.0
-      tinybench: 2.8.0
-      tinypool: 0.8.4
-      vite: 5.2.11(@types/node@20.11.5)
-      vite-node: 1.6.0
+      vite: 5.2.11(@types/node@20.12.12)
+      vite-node: 1.6.0(@types/node@20.12.12)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -17627,6 +17427,26 @@ packages:
       commander: 9.5.0
     dev: true
 
+  /zustand@4.5.2(@types/react@18.3.2)(react@18.2.0):
+    resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0.6'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': 18.3.2
+      react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
+
   /zustand@4.5.2(@types/react@18.3.2)(react@18.3.1):
     resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
     engines: {node: '>=12.7.0'}
@@ -17645,23 +17465,4 @@ packages:
       '@types/react': 18.3.2
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
-    dev: false
-
-  /zustand@4.5.2(react@18.2.0):
-    resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
-    engines: {node: '>=12.7.0'}
-    peerDependencies:
-      '@types/react': '>=16.8'
-      immer: '>=9.0.6'
-      react: '>=16.8'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      immer:
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      react: 18.2.0
-      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false

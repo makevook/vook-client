@@ -1,0 +1,6 @@
+{
+  "*.{js,ts,jsx,tsx,md}": [
+    "turbo lint",
+    "prettier --config ./.prettierrc --write -u"
+  ]
+}
