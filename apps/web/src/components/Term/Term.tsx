@@ -9,7 +9,6 @@ import { Hyperlink } from '../common'
 
 import {
   highlight,
-  loadingWrapper,
   noTermContainer,
   spinner,
   termContainer,
@@ -24,9 +23,9 @@ import { searchStore } from 'src/store/store'
 // 로딩 상태 컴포넌트
 const LoadingComponent = () => (
   <div className={noTermContainer}>
-    <div className={loadingWrapper}>
-      <div className={spinner} />
-    </div>
+    {/* <div className={loadingWrapper}> */}
+    <div className={spinner} />
+    {/* </div> */}
   </div>
 )
 
@@ -61,13 +60,13 @@ const TextContainer = ({ length }: { length?: number }) => {
 
 export const Term = () => {
   const { requestQuery } = searchStore()
-  const [sort, setSort] = useState<SearchSort>(searchSort.TermAsc)
+  const [sort, setSort] = useState<SearchSort>()
 
   const { data: response, isLoading } = useSearchQuery(
     // DTO
     {
       query: requestQuery,
-      sort: [sort],
+      sort: sort && [sort],
       withFormat: requestQuery !== '',
       highlightPreTag: '<span>',
       highlightPostTag: '</span>',
@@ -103,6 +102,7 @@ export const Term = () => {
             <>
               <div className={termTitleContainer}>
                 <List
+                  variant="reading"
                   kind="title"
                   onClick={() => {
                     handleSort('Term')
@@ -111,6 +111,7 @@ export const Term = () => {
                   용어
                 </List>
                 <List
+                  variant="reading"
                   kind="title"
                   onClick={() => {
                     handleSort('Synonyms')
@@ -119,6 +120,7 @@ export const Term = () => {
                   동의어
                 </List>
                 <List
+                  variant="reading"
                   kind="title"
                   style={{ flex: 1 }}
                   onClick={() => {
@@ -141,6 +143,7 @@ export const Term = () => {
                       )}
                     />
                     <List
+                      variant="reading"
                       kind="description"
                       style={{ flex: 1 }}
                       htmlContent={data.meaning.replaceAll(

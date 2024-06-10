@@ -66,10 +66,6 @@ export const inner = style({
   height: '100%',
 })
 
-export const displayNone = style({
-  display: 'none',
-})
-
 export const main = style({
   minHeight: '100vh',
   display: 'flex',

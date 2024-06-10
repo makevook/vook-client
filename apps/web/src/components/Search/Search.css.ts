@@ -26,6 +26,9 @@ export const searchBar = recipe({
     height: 58,
     justifyContent: 'center',
     alignItems: 'center',
+    ':hover': {
+      cursor: 'text',
+    },
   },
   variants: {
     history: {
