@@ -31,7 +31,7 @@ const IconRow = ({ children }: PropsWithChildren) => (
   <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
 )
 
-export const Close: Story = {
+export const Icons: Story = {
   argTypes: {
     name: {
       table: {
@@ -78,6 +78,76 @@ export const Close: Story = {
           <Icon name="chevron-up-big">{props.children}</Icon>
           <Icon name="chevron-up-medium">{props.children}</Icon>
           <Icon name="chevron-up-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Arrow</p>
+        <IconRow>
+          <Icon name="arrow-down-big">{props.children}</Icon>
+          <Icon name="arrow-down-medium">{props.children}</Icon>
+          <Icon name="arrow-down-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="arrow-left-big">{props.children}</Icon>
+          <Icon name="arrow-left-medium">{props.children}</Icon>
+          <Icon name="arrow-left-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="arrow-right-big">{props.children}</Icon>
+          <Icon name="arrow-right-medium">{props.children}</Icon>
+          <Icon name="arrow-right-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="arrow-up-big">{props.children}</Icon>
+          <Icon name="arrow-up-medium">{props.children}</Icon>
+          <Icon name="arrow-up-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Search</p>
+        <IconRow>
+          <Icon name="search-big">{props.children}</Icon>
+          <Icon name="search-medium">{props.children}</Icon>
+          <Icon name="search-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Link External</p>
+        <IconRow>
+          <Icon name="link-external-big">{props.children}</Icon>
+          <Icon name="link-external-medium">{props.children}</Icon>
+          <Icon name="link-external-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Plus</p>
+        <IconRow>
+          <Icon name="plus-big">{props.children}</Icon>
+          <Icon name="plus-medium">{props.children}</Icon>
+          <Icon name="plus-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Backward</p>
+        <IconRow>
+          <Icon name="backward-big">{props.children}</Icon>
+          <Icon name="backward-medium">{props.children}</Icon>
+          <Icon name="backward-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">sns</p>
+        <IconRow>
+          <Icon name="instagram">{props.children}</Icon>
+          <Icon name="instagram-color">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="blog">{props.children}</Icon>
+          <Icon name="blog-color">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="X">{props.children}</Icon>
+          <Icon name="linkedin">{props.children}</Icon>
+          <Icon name="facebook">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Emoji</p>
+        <IconRow>
+          <Icon name="pencil">{props.children}</Icon>
+          <Icon name="laptop">{props.children}</Icon>
+          <Icon name="light-bulb">{props.children}</Icon>
+          <Icon name="sunglass">{props.children}</Icon>
+          <Icon name="sparkles">{props.children}</Icon>
+          <Icon name="artist-pallete">{props.children}</Icon>
+          <Icon name="silhouette">{props.children}</Icon>
+          <Icon name="speech-bulloon">{props.children}</Icon>
         </IconRow>
       </div>
     )
