@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 import { Text, TextProps } from '../Text'
 import { Icon, IconProps } from '../Icon'
 
-import { ButtonVariants, blankIcon, button } from './Button.css'
+import { ButtonVariants, button } from './Button.css'
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   PropsWithChildren &
@@ -37,9 +37,6 @@ export const Button = ({
   const fontWeight: TextProps['fontWeight'] =
     size === 'mini' ? 'medium' : 'bold'
 
-  const onlySuffixIcon = prefixIcon === undefined && suffixIcon !== undefined
-  const onlyPrefixIcon = prefixIcon !== undefined && suffixIcon === undefined
-
   return (
     <button
       disabled={disabled}
@@ -48,20 +45,10 @@ export const Button = ({
       {...rest}
     >
       {prefixIcon && <Icon name={prefixIcon} />}
-      {onlySuffixIcon && (
-        <div className={blankIcon}>
-          <Icon className={blankIcon} name={suffixIcon} />
-        </div>
-      )}
       <Text type={textType} fontWeight={fontWeight} color="inherit">
         {children}
       </Text>
       {suffixIcon && <Icon name={suffixIcon} />}
-      {onlyPrefixIcon && (
-        <div className={blankIcon}>
-          <Icon className={blankIcon} name={prefixIcon} />
-        </div>
-      )}
     </button>
   )
 }

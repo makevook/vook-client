@@ -60,6 +60,7 @@ const hiliting = {
 
 const label = {
   'label-neutral': 'rgba(22, 23, 25, 0.88)',
+  'label-alternative': 'rgba(22, 23, 25, 0.6)',
 }
 
 const status = {
