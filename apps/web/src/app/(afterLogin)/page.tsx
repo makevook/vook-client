@@ -5,16 +5,14 @@ import { Term } from '@/components/Term/Term'
 
 const Home = () => {
   return (
-    <main className={main}>
+    <div className={main}>
       <Header />
-
       <div style={{ flex: 1 }}>
         <Search />
         <Term />
       </div>
-
       <Footer />
-    </main>
+    </div>
   )
 }
 

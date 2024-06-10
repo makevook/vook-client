@@ -2,11 +2,13 @@ import type { StorybookConfig } from '@storybook/react-vite'
 
 import { join, dirname } from 'path'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import { mergeConfig } from 'vite'
+import { loadConfigFromFile, mergeConfig } from 'vite'
 
 function getAbsolutePath(value: string): any {
   return dirname(require.resolve(join(value, 'package.json')))
 }
+
+import path from 'path'
 
 const config: StorybookConfig = {
   stories: [
@@ -77,7 +79,7 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   staticDirs: ['../public'],
-  async viteFinal(config, { configType }) {
+  async viteFinal(config, type) {
     return mergeConfig(config, {
       define: {
         'process.env.NEXT_PUBLIC_API_URL': false,

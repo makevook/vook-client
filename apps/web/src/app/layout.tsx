@@ -4,6 +4,9 @@ import '@vook-client/design-system/style.css'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { pretendard } from '@/styles/fonts'
+import { Sidebar } from '@/components/Sidebar'
+
+import { mainArea } from './layout.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,7 +21,10 @@ const RootLayout = ({
   return (
     <html lang="kr">
       <body className={pretendard.className}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <Sidebar />
+          <main className={mainArea}>{children}</main>
+        </ReactQueryProvider>
       </body>
     </html>
   )
