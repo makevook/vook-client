@@ -17,16 +17,14 @@ export const list = recipe({
         width: 220,
         color: vars.colors['semantic-label-alternative'],
       },
-    },
-    reading: {
+      description: {
+        width: 480,
+        paddingRight: 100,
+      },
       title: {
         width: 220,
         backgroundColor: vars.colors['component-alternative'],
         color: vars.colors['semantic-label-alternative'],
-      },
-      description: {
-        width: 480,
-        paddingRight: 100,
       },
     },
     search: {

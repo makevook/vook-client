@@ -1,29 +1,66 @@
 {
   "name": "@vook-client/design-system",
-  "version": "0.0.0",
   "private": true,
-  "main": "./src",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/bundle/index.cjs",
+  "module": "dist/build/index.js",
+  "types": "dist/bundle/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "exports": {
+    "./style.css": "./dist/bundle/style.css",
+    ".": {
+      "import": {
+        "types": "./dist/bundle/index.d.ts",
+        "default": "./dist/bundle/index.js"
+      },
+      "require": {
+        "types": "./dist/bundle/index.d.ts",
+        "default": "./dist/bundle/index.cjs"
+      }
+    },
+    "./vanilla-extract": {
+      "import": {
+        "types": "./dist/vanilla-extract/index.d.ts",
+        "default": "./dist/vanilla-extract/index.js"
+      },
+      "require": {
+        "types": "./dist/vanilla-extract/index.d.ts",
+        "default": "./dist/vanilla-extract/index.cjs"
+      }
+    }
+  },
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "build": "vite build && vite build --mode ve && vite build"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "@types/react": "^18.2.66"
   },
   "devDependencies": {
     "@storybook/react": "^8.0.10",
     "@storybook/test": "^8.0.10",
     "@turbo/gen": "^1.12.4",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.24",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
     "@vanilla-extract/css": "^1.15.1",
     "@vanilla-extract/css-utils": "^0.1.3",
-    "@vanilla-extract/next-plugin": "^2.4.0",
     "@vanilla-extract/recipes": "^0.5.2",
     "@vanilla-extract/sprinkles": "^1.6.1",
-    "@vanilla-extract/vite-plugin": "^4.0.9",
+    "@vanilla-extract/vite-plugin": "^4.0.7",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "clsx": "^2.1.1",
+    "postcss-preset-env": "^9.5.14",
+    "publint": "^0.2.7",
+    "react": "^18.2.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "eslint": "^8.57.0",
     "@vook-client/eslint-config": "*",
     "@vook-client/typescript-config": "*",
-    "clsx": "^2.1.1",
-    "eslint": "^8.57.0",
-    "react": "^18.2.0"
+    "vite-plugin-dts": "^3.9.1"
   }
 }
