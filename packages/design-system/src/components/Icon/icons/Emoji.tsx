@@ -10,6 +10,7 @@ export const emogiIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>pencil</title>
         <rect width="24" height="24" fill="url(#pattern0_559_4290)" />
         <defs>
           <pattern
@@ -39,6 +40,7 @@ export const emogiIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>laptop</title>
         <rect width="24" height="24" fill="url(#pattern0_559_4292)" />
         <defs>
           <pattern
@@ -68,6 +70,7 @@ export const emogiIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>light bulb</title>
         <rect width="24" height="24" fill="url(#pattern0_559_4294)" />
         <defs>
           <pattern
@@ -97,6 +100,7 @@ export const emogiIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>sunglass</title>
         <rect width="24" height="24" fill="url(#pattern0_559_4298)" />
         <defs>
           <pattern
@@ -126,6 +130,7 @@ export const emogiIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>sparkles</title>
         <rect width="24" height="24" fill="url(#pattern0_559_4300)" />
         <defs>
           <pattern
@@ -155,6 +160,7 @@ export const emogiIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>artist pallete</title>
         <rect width="24" height="24" fill="url(#pattern0_559_4296)" />
         <defs>
           <pattern
@@ -184,6 +190,7 @@ export const emogiIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>silhouette</title>
         <rect width="24" height="24" fill="url(#pattern0_559_4284)" />
         <defs>
           <pattern
@@ -213,6 +220,7 @@ export const emogiIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>speech bulloon</title>
         <rect width="24" height="24" fill="url(#pattern0_559_4287)" />
         <defs>
           <pattern

@@ -10,6 +10,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron down big</title>
         <path
           d="M1 1L6.00081 5.58L11 1"
           stroke="#161719"
@@ -29,6 +30,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron down medium</title>
         <path
           d="M1 1L5.16735 4.81667L9.33333 1"
           stroke="#161719"
@@ -48,6 +50,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron down small</title>
         <path
           d="M1.6665 1.66699L5.00038 4.72033L8.33317 1.66699"
           stroke="#161719"
@@ -67,6 +70,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron left big</title>
         <path
           d="M6 11L1 6L6 1"
           stroke="#161719"
@@ -86,6 +90,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron left medium</title>
         <path
           d="M5.16667 10L1 5.83333L5.16667 1.66667"
           stroke="#161719"
@@ -105,6 +110,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron left small</title>
         <path
           d="M4.99984 8.33301L1.6665 4.99967L4.99984 1.66634"
           stroke="#161719"
@@ -124,6 +130,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron right big</title>
         <path
           d="M6 11L1 6L6 1"
           stroke="#161719"
@@ -143,6 +150,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron right medium</title>
         <path
           d="M1.83333 1L6 5.16667L1.83333 9.33333"
           stroke="#161719"
@@ -162,6 +170,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron right small</title>
         <path
           d="M1.66667 1.66699L5 5.00033L1.66667 8.33366"
           stroke="#161719"
@@ -181,6 +190,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron up big</title>
         <path
           d="M1 5.58344L6.00081 1L11 5.58344"
           stroke="#161719"
@@ -200,6 +210,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron up medium</title>
         <path
           d="M1 4.81953L5.16734 1L9.33333 4.81953"
           stroke="#161719"
@@ -219,6 +230,7 @@ export const chevronIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>chevron up small</title>
         <path
           d="M1.6665 4.72262L5.00038 1.66699L8.33317 4.72262"
           stroke="#161719"

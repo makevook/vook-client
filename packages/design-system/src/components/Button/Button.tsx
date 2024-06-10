@@ -3,12 +3,13 @@ import { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 import { Text, TextProps } from '../Text'
 import { Icon, IconProps } from '../Icon'
 
-import { ButtonVariants, button } from './Button.css'
+import { ButtonVariants, blankIcon, button } from './Button.css'
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   PropsWithChildren &
   ButtonVariants & {
-    icon?: Exclude<IconProps['name'], undefined>
+    prefixIcon?: Exclude<IconProps['name'], undefined>
+    suffixIcon?: Exclude<IconProps['name'], undefined>
   }
 
 const ButtonLabelType: {
@@ -25,7 +26,9 @@ export const Button = ({
   size = 'large',
   blueLine = true,
   disabled = false,
-  icon,
+  fit = 'fill',
+  prefixIcon,
+  suffixIcon,
   name,
   children,
   ...rest
@@ -34,17 +37,31 @@ export const Button = ({
   const fontWeight: TextProps['fontWeight'] =
     size === 'mini' ? 'medium' : 'bold'
 
+  const onlySuffixIcon = prefixIcon === undefined && suffixIcon !== undefined
+  const onlyPrefixIcon = prefixIcon !== undefined && suffixIcon === undefined
+
   return (
     <button
       disabled={disabled}
-      className={button({ filled, size, disabled, blueLine })}
+      className={button({ filled, fit, size, disabled, blueLine })}
       type="button"
       {...rest}
     >
-      {icon && <Icon name={icon} />}
+      {prefixIcon && <Icon name={prefixIcon} />}
+      {onlySuffixIcon && (
+        <div className={blankIcon}>
+          <Icon className={blankIcon} name={suffixIcon} />
+        </div>
+      )}
       <Text type={textType} fontWeight={fontWeight} color="inherit">
         {children}
       </Text>
+      {suffixIcon && <Icon name={suffixIcon} />}
+      {onlyPrefixIcon && (
+        <div className={blankIcon}>
+          <Icon className={blankIcon} name={prefixIcon} />
+        </div>
+      )}
     </button>
   )
 }

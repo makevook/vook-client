@@ -10,6 +10,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close icon big</title>
         <path
           d="M17 1L1 17M17 17L1 1"
           stroke="#161719"
@@ -28,6 +29,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close icon medium</title>
         <path
           d="M13 1L1 13M13 13L1 1"
           stroke="#161719"
@@ -46,6 +48,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close icon small</title>
         <path
           d="M9 1L1 9M9 9L1 0.999998"
           stroke="#161719"
@@ -64,6 +67,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close circle big</title>
         <circle cx="11" cy="11" r="11" fill="#70737C" fillOpacity="0.15" />
         <path
           d="M14.1818 7.81836L10.9999 11.0003M10.9999 11.0003L7.81787 14.1823M10.9999 11.0003L14.1818 14.1823M10.9999 11.0003L7.81787 7.81836"
@@ -83,6 +87,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close circle medium</title>
         <circle cx="9" cy="9" r="8.5" fill="#70737C" fillOpacity="0.15" />
         <path
           d="M11.4586 6.54102L8.99982 8.99982M8.99982 8.99982L6.54102 11.4586M8.99982 8.99982L11.4586 11.4586M8.99982 8.99982L6.54102 6.54102"
@@ -102,6 +107,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close circle small</title>
         <circle cx="6" cy="6" r="6" fill="#70737C" fillOpacity="0.15" />
         <path
           d="M7.63876 4.36133L5.99955 6.00053M5.99955 6.00053L4.36035 7.63973M5.99955 6.00053L7.63876 7.63973M5.99955 6.00053L4.36035 4.36133"
@@ -120,6 +126,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close square big</title>
         <path
           d="M6.375 21C4.51104 21 3 19.489 3 17.625V6.37498C3 4.51103 4.51104 3 6.375 3H17.625C19.489 3 21 4.51103 21 6.37498L21 17.625C21 19.489 19.489 21 17.625 21H6.375Z"
           stroke="#70737C"
@@ -145,6 +152,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close square medium</title>
         <path
           d="M7.625 19C6.17525 19 5 17.8248 5 16.375V7.62499C5 6.17525 6.17525 5 7.625 5H16.375C17.8247 5 19 6.17525 19 7.62499L19 16.375C19 17.8248 17.8247 19 16.375 19H7.625Z"
           stroke="#70737C"
@@ -170,6 +178,7 @@ export const closeIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>close square small</title>
         <path
           d="M4.875 13C3.83947 13 3 12.1605 3 11.125V4.87499C3 3.83946 3.83947 3 4.875 3H11.125C12.1605 3 13 3.83946 13 4.87499L13 11.125C13 12.1605 12.1605 13 11.125 13H4.875Z"
           stroke="#70737C"

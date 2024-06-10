@@ -10,6 +10,7 @@ export const plusIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>plus big</title>
         <path
           d="M9 1L9 17M17 9L1 9"
           stroke="#161719"
@@ -28,6 +29,7 @@ export const plusIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>plus medium</title>
         <path
           d="M7 1L7 13M13 7L1 7"
           stroke="#161719"
@@ -46,6 +48,7 @@ export const plusIcons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>plus small</title>
         <path
           d="M5 1L5 9M9 5L1 5"
           stroke="#161719"

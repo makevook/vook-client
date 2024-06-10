@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { iconNames } from '../Icon/icons'
+
 import { Button, ButtonProps } from './Button'
 
 const BUTTON_SIZES: Array<ButtonProps['size']> = [
@@ -22,10 +24,25 @@ const meta = {
   },
   argTypes: {
     children: { control: 'text', description: '버튼 텍스트' },
+    prefixIcon: {
+      options: [...iconNames, null],
+      control: { type: 'select' },
+      description: '버튼 prefix 아이콘',
+    },
+    suffixIcon: {
+      options: [...iconNames, null],
+      control: { type: 'select' },
+      description: '버튼 suffix 아이콘',
+    },
     size: {
       options: BUTTON_SIZES,
       control: { type: 'select' },
       description: '버튼 크기',
+    },
+    fit: {
+      options: ['fill', 'hug'],
+      control: { type: 'select' },
+      description: '버튼 너비',
     },
     filled: { control: 'boolean', description: '버튼 색상 채움 여부' },
     blueLine: {
