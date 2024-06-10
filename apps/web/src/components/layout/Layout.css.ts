@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@vook-client/design-system/src/styles/global.css'
+import { vars } from '@vook-client/design-system'
 
 export const flexCenter = style({
   display: 'flex',

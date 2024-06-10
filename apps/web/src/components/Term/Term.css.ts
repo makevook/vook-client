@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css'
-import { vars } from '@vook-client/design-system/src/styles/global.css'
+import { vars } from '@vook-client/design-system'
 
 export const termContainer = style({
   padding: '32px 0',
@@ -19,6 +19,7 @@ export const termListContainer = style({
 export const termListDataContainer = style({
   display: 'flex',
   padding: '8px 0',
+  borderBottom: `1px solid ${vars.colors['semantic-line-alternative']}`,
 })
 
 export const textContainer = style({

@@ -9,6 +9,19 @@ const nextConfig = {
     styledComponents: true,
   },
   output: 'standalone',
+  webpack(config, { nextRuntime, webpack }) {
+    if (!nextRuntime) {
+      config.plugins.push(
+        new webpack.BannerPlugin({
+          banner: '$RefreshReg$ = () => {};\n$RefreshSig$ = () => () => {};\n',
+          raw: true,
+          entryOnly: true,
+          include: /\.css.ts$/,
+        }),
+      )
+    }
+    return config
+  },
 }
 
 export default withVanillaExtract(nextConfig)

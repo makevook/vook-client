@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import '@/styles/reset.css'
+import '@vook-client/design-system/style.css'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { pretendard } from '@/styles/fonts'

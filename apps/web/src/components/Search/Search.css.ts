@@ -1,6 +1,6 @@
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes'
 import { style } from '@vanilla-extract/css'
-import { vars } from '@vook-client/design-system/src/styles/global.css'
+import { vars } from '@vook-client/design-system'
 
 export const searchBoxContainer = style({
   top: 182,

@@ -1,12 +1,12 @@
 import React from 'react'
-import { Icon } from '@vook-client/design-system'
+import { SymbolLogo, TypoLogo } from '@vook-client/design-system'
 
 import { flexAlignCenter } from '../layout/Layout.css'
 
 export const Logo = () => (
   <div className={flexAlignCenter}>
-    <Icon name="symbol" />
-    <Icon name="typo" size="typo" />
+    <SymbolLogo size={24} />
+    <TypoLogo size="small" />
   </div>
 )
 

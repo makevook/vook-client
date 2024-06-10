@@ -1,10 +1,13 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
+import { style } from '@vanilla-extract/css'
 
 import { vars } from '../../styles/global.css'
 
 export const button = recipe({
   base: {
     display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     border: 'none',
     borderRadius: 6,
     gap: 6,
@@ -27,6 +30,14 @@ export const button = recipe({
         height: 30,
         padding: '6px 10px',
         borderRadius: 4,
+      },
+    },
+    fit: {
+      fill: {
+        width: '100%',
+      },
+      hug: {
+        width: 'fit-content',
       },
     },
     filled: {
@@ -84,6 +95,10 @@ export const button = recipe({
       },
     },
   ],
+})
+
+export const blankIcon = style({
+  visibility: 'hidden',
 })
 
 export type ButtonVariants = RecipeVariants<typeof button>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Icon, Text } from '@vook-client/design-system/src/index'
+import { Icon, SymbolLogo, Text, TypoLogo } from '@vook-client/design-system'
 
 import {
   iconContainer,
@@ -45,7 +45,7 @@ const HistoryBar = ({ word, handleSearch }: HistoryBarType) => {
       }}
     >
       <div className={iconContainer()}>
-        <Icon name="backward" />
+        <Icon name="backward-big" />
       </div>
       <div className={inputContainer}>
         <Text className={inputBox({ text: true })}>{word}</Text>
@@ -60,7 +60,7 @@ const HistoryBar = ({ word, handleSearch }: HistoryBarType) => {
           removeWordFromHistory(word)
         }}
       >
-        <Icon name="close" size="small" />
+        <Icon name="close-icon-small" />
       </div>
     </div>
   )
@@ -138,7 +138,7 @@ export const SearchBox = () => {
     >
       <div className={searchBar()}>
         <div className={iconContainer()}>
-          <Icon name="symbol" />
+          <SymbolLogo size={24} />
         </div>
         <div className={inputContainer}>
           <input
@@ -164,7 +164,7 @@ export const SearchBox = () => {
               setRequestQuery()
             }}
           >
-            <Icon name="close-circle" />
+            <Icon name="close-circle-big" />
           </div>
         )}
         <div
@@ -175,7 +175,7 @@ export const SearchBox = () => {
             handleSearch()
           }}
         >
-          <Icon name="search" />
+          <Icon name="search-big" />
         </div>
       </div>
 
@@ -192,7 +192,7 @@ export const SearchBox = () => {
 export const Search = () => {
   return (
     <div className={search}>
-      <Icon name="typo" size="largeTypo" />
+      <TypoLogo />
       <SearchBox />
     </div>
   )
