@@ -41,7 +41,7 @@ export const Button = ({
       type="button"
       {...rest}
     >
-      {icon && <Icon name={icon} size="small" />}
+      {icon && <Icon name={icon} />}
       <Text type={textType} fontWeight={fontWeight} color="inherit">
         {children}
       </Text>

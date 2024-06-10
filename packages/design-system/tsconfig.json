@@ -1,5 +1,6 @@
 {
   "extends": "@vook-client/typescript-config/vite.json",
-  "include": ["src"],
+
+  "include": ["src", "vitest.config.mts"],
   "exclude": ["node_modules"]
 }

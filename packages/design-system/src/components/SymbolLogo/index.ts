@@ -1,0 +1,1 @@
+export { SymbolLogo } from './SymbolLogo'

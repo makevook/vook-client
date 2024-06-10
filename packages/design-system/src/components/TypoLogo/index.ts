@@ -1,0 +1,1 @@
+export { TypoLogo } from './TypoLogo'

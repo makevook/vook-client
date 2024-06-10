@@ -15,10 +15,10 @@ import {
 const FooterIcons = () => (
   <div className={flexAlignCenter}>
     <Hyperlink url="https://www.instagram.com/yong4.zip/">
-      <Icon name="instagram" size="footer" isClick />
+      <Icon name="instagram" />
     </Hyperlink>
     <Hyperlink url="https://vook.tistory.com/">
-      <Icon name="blog" size="footer" isClick />
+      <Icon name="blog" />
     </Hyperlink>
   </div>
 )
