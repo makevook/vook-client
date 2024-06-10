@@ -58,6 +58,14 @@ const hiliting = {
   yellow: '#FFF2B2',
 }
 
+const label = {
+  'label-neutral': 'rgba(22, 23, 25, 0.88)',
+}
+
+const status = {
+  'status-error': '#FF3333',
+}
+
 export const colors = {
   ...semantic,
   ...link,
@@ -65,5 +73,7 @@ export const colors = {
   ...palette,
   ...component,
   ...hiliting,
+  ...label,
+  ...status,
   inherit: 'inherit',
 } as const
