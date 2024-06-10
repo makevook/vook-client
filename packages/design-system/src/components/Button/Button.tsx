@@ -26,7 +26,7 @@ export const Button = ({
   size = 'large',
   blueLine = true,
   disabled = false,
-  fit = 'fill',
+  fit = 'hug',
   prefixIcon,
   suffixIcon,
   name,
