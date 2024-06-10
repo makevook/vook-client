@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 
-import { vars } from '../..'
+import { vars } from '../../styles/global.css'
 
 export const inputLabel = style({
   display: 'flex',

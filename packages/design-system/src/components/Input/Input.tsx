@@ -4,7 +4,8 @@ import { InputHTMLAttributes } from 'react'
 import clsx from 'clsx'
 
 import { Text } from '../Text'
-import { Icon, sprinkles } from '../..'
+import { Icon } from '../Icon'
+import { sprinkles } from '../../styles/sprinkles.css'
 import { IconNames } from '../Icon/icons'
 
 import {

@@ -1,3 +1,4 @@
+import '@vook-client/design-system/style.css'
 import './storybook.css'
 
 const preview = {

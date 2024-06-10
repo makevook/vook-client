@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable simple-import-sort/exports */
 
 export type { Tokens } from './tokens'
@@ -8,10 +10,13 @@ export type { ButtonProps } from './components/Button'
 export { Button } from './components/Button'
 export type { ListProps } from './components/List'
 export { List } from './components/List'
-export type { TextProps } from './components/Text'
 export { Text } from './components/Text'
+export type { TextProps } from './components/Text'
 export { SymbolLogo } from './components/SymbolLogo'
 export { TypoLogo } from './components/TypoLogo'
+export { Input } from './components/Input'
+export type { InputProps } from './components/Input'
+export { Checkbox } from './components/Checkbox'
 export type { Sprinkles } from './styles/sprinkles.css'
 export { sprinkles } from './styles/sprinkles.css'
 export { vars } from './styles/vars'
