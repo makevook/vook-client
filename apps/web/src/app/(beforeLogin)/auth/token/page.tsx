@@ -27,7 +27,10 @@ const AuthCallbackPage = ({
     })
 
     const checkUserRegistered = async () => {
-      const userInfo = await userInfoService.getUserInfo()
+      const userInfo = await userInfoService.getUserInfo({
+        access,
+        refresh,
+      })
       const isRegistered = userInfo.result.status === UserStatus.Registered
 
       if (isRegistered) {

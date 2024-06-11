@@ -9,7 +9,7 @@ import { OnBoardingProvider } from './_context/useOnboarding'
 const Layout = async ({ children }: PropsWithChildren) => {
   const cookieStore = cookies()
   const accessToken = cookieStore.get('access')?.value
-  const refreshToken = cookieStore.get('access')?.value
+  const refreshToken = cookieStore.get('refresh')?.value
 
   if (!accessToken && !refreshToken) {
     redirect('/login')

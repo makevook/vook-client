@@ -1,5 +1,7 @@
 import Cookies from 'js-cookie'
 
+import { Tokens } from '../shared/type'
+
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.PLASMO_PUBLIC_API_URL ||
@@ -8,14 +10,17 @@ const API_URL =
 export class Fetcher {
   private baseUrl: string
 
-  private unAuthorizedHandler: VoidFunction | null = null
+  private tokenRefresher = (tokens: Tokens) => {
+    Cookies.set('access', tokens.access)
+    Cookies.set('refresh', tokens.refresh)
+  }
 
   public constructor(baseUrl: string) {
     this.baseUrl = baseUrl
   }
 
-  public setUnAuthorizedHandler(handler: VoidFunction) {
-    this.unAuthorizedHandler = handler
+  public setTokenRefresher(handler: (tokens: Tokens) => void) {
+    this.tokenRefresher = handler
   }
 
   private async request<ResponseType>(
@@ -66,35 +71,34 @@ export class Fetcher {
     options?: RequestInit,
   ) => {
     try {
-      if (!options?.headers) {
-        return this.unAuthorizedHandler?.()
-      }
-
       const response = await fetch(`${API_URL}/auth/refresh`, options)
 
       const newAccessToken = response.headers.get('Authorization')
-      const newRefreshToken = response.headers.get('Authorization')
+      const newRefreshToken = response.headers.get('X-Refresh-Authorization')
 
       if (!newAccessToken || !newRefreshToken) {
-        if (this.unAuthorizedHandler) {
-          return this.unAuthorizedHandler?.()
-        }
-
         throw new Error('토큰 갱신에 실패하였습니다.')
       }
 
-      Cookies.set('access', newAccessToken)
-      Cookies.set('refresh', newRefreshToken)
+      this.tokenRefresher({
+        access: newAccessToken,
+        refresh: newRefreshToken,
+      })
 
-      return this.request<ResponseType>(url, options)
+      return this.request<ResponseType>(url, {
+        ...options,
+        headers: {
+          ...options?.headers,
+          Authorization: newAccessToken,
+          'X-Refresh-Authorization': newRefreshToken,
+        },
+      })
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err)
-      if (this.unAuthorizedHandler) {
-        return this.unAuthorizedHandler?.()
-      }
-      if (location) {
-        location.href = '/login'
+
+      if (global.location) {
+        global.location.href = '/login'
       }
     }
   }

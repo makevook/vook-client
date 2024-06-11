@@ -1,60 +1,85 @@
 import { NextRequest, NextResponse } from 'next/server'
-import {
-  UserInfoResponse,
-  UserStatus,
-} from 'node_modules/@vook-client/api/src/services/useUserInfoQuery/model'
+import { UserInfoResponse, UserStatus } from 'node_modules/@vook-client/api/'
 
-const beforeLoginMatcher = (pathname: string) => {
-  const beforeLoginPaths = ['/login', '/signup']
-  return beforeLoginPaths.some((path) => pathname.includes(path))
-}
+/**
+ * NOTE
+ * 1. 액세스 토큰과 리프레시 토큰이 모두 없는 경우 => 로그인 페이지로 리다이렉트
+ * 2. 액세스 토큰만 있는 경우 => 로그인 페이지로 리다이렉트
+ * 3. 리프레시 토큰만 있는 경우 => 리프레시 토큰으로 액세스 토큰을 갱신
+ * 4. 액세스 토큰과 리프레시 토큰이 모두 있는 경우 => 액세스 토큰이 유효한지 확인
+ */
 
-const beforeLoginMiddleware = async (req: NextRequest) => {
-  const accessToken = req.cookies.get('access')
-  const refreshToken = req.cookies.get('refresh')
+const onlyRegisteredMatch = ['/']
 
-  // 토큰이 모두 없는 경우
-  if (!accessToken && !refreshToken) {
-    return
+const isOnlyRegistered = async (
+  req: NextRequest,
+  finalResponse: NextResponse,
+) => {
+  const accessToken = req.cookies.get('access')?.value
+  const refreshToken = req.cookies.get('refresh')?.value
+
+  // 1 & 2
+  if ((!accessToken && !refreshToken) || (accessToken && !refreshToken)) {
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/login`)
   }
 
-  if (refreshToken) {
-    // TODO: 리프레시 토큰을 이용해 엑세스 토큰 재발급
-  }
-
-  if ((accessToken && !refreshToken) || !accessToken || !refreshToken) {
-    return
-  }
-
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, {
+  // 3
+  if (!accessToken && refreshToken) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
       headers: {
-        Authorization: accessToken.value,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'X-Refresh-Authorization': refreshToken,
       },
     })
-
-    if (res.status === 401) {
+    if (
+      res.ok &&
+      res.headers.get('Authorization') &&
+      res.headers.get('X-Refresh-Authorization')
+    ) {
+      finalResponse.cookies.set('access', res.headers.get('Authorization')!)
+      finalResponse.cookies.set(
+        'refresh',
+        res.headers.get('X-Refresh-Authorization')!,
+      )
+    } else {
       return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/login`)
     }
+  }
 
-    if (res.ok && res.status === 200) {
-      const userInfo = (await res.json()) as UserInfoResponse
+  const userInfoRes = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/user/info`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization:
+          finalResponse.cookies.get('access')?.value || accessToken || '',
+      },
+    },
+  )
 
-      if (
-        [UserStatus.SocialLoginCompleted, UserStatus.Registered].includes(
-          userInfo.result.status,
-        )
-      ) {
-        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/`)
-      }
+  if (userInfoRes.ok) {
+    const userInfo = (await userInfoRes.json()) as UserInfoResponse
+
+    // 회원가입이 완료되지 않은 경우
+    if (userInfo.result.status === UserStatus.SocialLoginCompleted) {
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/login`)
+    } else {
+      return finalResponse
     }
-  } catch {
+  } else {
     return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/login`)
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/require-await
 export async function middleware(req: NextRequest) {
-  if (beforeLoginMatcher(req.nextUrl.pathname)) {
-    return beforeLoginMiddleware(req)
+  const response = NextResponse.next()
+
+  if (onlyRegisteredMatch.includes(req.nextUrl.pathname)) {
+    await isOnlyRegistered(req, response)
   }
+
+  return response
 }

@@ -18,6 +18,8 @@ export {
 export { searchService } from './services/useSearchQuery/searchService'
 export type { SignUpDTO } from './services/useSignUpMutation/model'
 export { useSignUpMutation } from './services/useSignUpMutation/queries'
+export type { UserInfoResponse } from './services/useUserInfoQuery/model'
+export { UserStatus } from './services/useUserInfoQuery/model'
 export {
   useUserInfoQuery,
   useUserInfoSuspenseQuery,
