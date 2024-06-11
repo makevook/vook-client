@@ -1,9 +1,8 @@
 'use client'
 
-import { userInfoService } from '@vook-client/api'
+import { userInfoService, UserStatus } from '@vook-client/api'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import { UserStatus } from 'node_modules/@vook-client/api/src/services/useUserInfoQuery/model'
 import { useEffect } from 'react'
 
 interface AuthCallbackQueryParams {
