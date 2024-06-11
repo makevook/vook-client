@@ -4,7 +4,12 @@ import React, { PropsWithChildren } from 'react'
 import { usePathname } from 'next/navigation'
 import { Step, Text } from '@vook-client/design-system'
 
-import { onboardingContainer, onboardingLayout, stepArea } from './layout.css'
+import {
+  onboardingContainer,
+  onboardingHeader,
+  onboardingLayout,
+  stepArea,
+} from './layout.css'
 
 const Layout = ({ children }: PropsWithChildren) => {
   const pathname = usePathname()
@@ -16,9 +21,15 @@ const Layout = ({ children }: PropsWithChildren) => {
         <div className={stepArea}>
           <Step current={step} total={2} />
         </div>
-        <Text type="body-1" color="semantic-primary-normal" fontWeight="medium">
-          Onboarding
-        </Text>
+        <div className={onboardingHeader}>
+          <Text
+            type="body-1"
+            color="semantic-primary-normal"
+            fontWeight="medium"
+          >
+            Onboarding
+          </Text>
+        </div>
         {children}
       </div>
     </div>

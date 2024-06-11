@@ -1,4 +1,8 @@
 export { baseFetcher, Fetcher } from './lib/fetcher'
+export {
+  OnboardingFunnel,
+  OnboardingJob,
+} from './services/useOnboardingMutation/model'
 export type {
   SearchDTO,
   SearchHit,
