@@ -4,7 +4,6 @@ import { fontWeights } from '../../tokens/typography'
 
 export const text = recipe({
   base: {
-    display: 'inline',
     margin: 0,
     letterSpacing: '0.01em',
     whiteSpace: 'pre-wrap',

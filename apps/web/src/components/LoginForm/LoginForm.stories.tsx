@@ -9,6 +9,13 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+} satisfies Meta<typeof LoginForm>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Preview: Story = {
   decorators: [
     (Story) => (
       <div style={{ width: 400 }}>
@@ -16,10 +23,4 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof LoginForm>
-
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const Preview: Story = {}
+}

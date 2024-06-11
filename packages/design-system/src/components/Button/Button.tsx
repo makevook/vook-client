@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, PropsWithChildren } from 'react'
+import { ButtonHTMLAttributes, PropsWithChildren, forwardRef } from 'react'
 
 import { Text, TextProps } from '../Text'
 import { Icon, IconProps } from '../Icon'
@@ -21,34 +21,41 @@ const ButtonLabelType: {
   mini: 'label',
 }
 
-export const Button = ({
-  filled = true,
-  size = 'large',
-  blueLine = true,
-  disabled = false,
-  fit = 'hug',
-  prefixIcon,
-  suffixIcon,
-  name,
-  children,
-  ...rest
-}: ButtonProps) => {
-  const textType = ButtonLabelType[size]
-  const fontWeight: TextProps['fontWeight'] =
-    size === 'mini' ? 'medium' : 'bold'
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (props, ref) => {
+    const {
+      filled = true,
+      size = 'large',
+      blueLine = true,
+      disabled = false,
+      fit = 'hug',
+      prefixIcon,
+      suffixIcon,
+      name,
+      children,
+      ...rest
+    } = props
 
-  return (
-    <button
-      disabled={disabled}
-      className={button({ filled, fit, size, disabled, blueLine })}
-      type="button"
-      {...rest}
-    >
-      {prefixIcon && <Icon name={prefixIcon} />}
-      <Text type={textType} fontWeight={fontWeight} color="inherit">
-        {children}
-      </Text>
-      {suffixIcon && <Icon name={suffixIcon} />}
-    </button>
-  )
-}
+    const textType = ButtonLabelType[size]
+    const fontWeight: TextProps['fontWeight'] =
+      size === 'mini' ? 'medium' : 'bold'
+
+    return (
+      <button
+        disabled={disabled}
+        className={button({ filled, fit, size, disabled, blueLine })}
+        type="button"
+        ref={ref}
+        {...rest}
+      >
+        {prefixIcon && <Icon name={prefixIcon} />}
+        <Text type={textType} fontWeight={fontWeight} color="inherit">
+          {children}
+        </Text>
+        {suffixIcon && <Icon name={suffixIcon} />}
+      </button>
+    )
+  },
+)
+
+Button.displayName = 'Button'

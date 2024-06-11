@@ -1,4 +1,10 @@
-import { ChangeEventHandler, InputHTMLAttributes, useState } from 'react'
+import {
+  ChangeEventHandler,
+  InputHTMLAttributes,
+  forwardRef,
+  useLayoutEffect,
+  useState,
+} from 'react'
 
 import {
   checkIcon,
@@ -32,32 +38,37 @@ const CheckIcon = (
   </svg>
 )
 
-export const Checkbox = ({
-  defaultChecked = false,
-  tabIndex = 0,
-  onChange,
-  ...rest
-}: CheckboxProps) => {
-  const [checked, setChecked] = useState<boolean>(defaultChecked)
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+  (props, ref) => {
+    const { onChange, ...rest } = props
+    const [checked, setChecked] = useState(
+      rest.checked === undefined ? false : rest.checked,
+    )
 
-  return (
-    <div className={checkboxContainer}>
-      <div className={checkboxOutline}>
-        {checked && <div className={checkedBox} />}
-        {checked && CheckIcon}
+    useLayoutEffect(() => {
+      setChecked(rest.checked === undefined ? false : rest.checked)
+    }, [rest.checked])
+
+    return (
+      <div className={checkboxContainer}>
+        <div className={checkboxOutline} aria-checked={checked}>
+          {checked && <div className={checkedBox} />}
+          {checked && CheckIcon}
+        </div>
+        <input
+          onChange={(e) => {
+            setChecked((prev) => !prev)
+            onChange(e)
+          }}
+          className={realCheckboxInput}
+          ref={ref}
+          type="checkbox"
+          checked={checked}
+          {...rest}
+        />
       </div>
-      <input
-        className={realCheckboxInput}
-        onChange={(e) => {
-          onChange(e)
-          setChecked(e.target.checked)
-        }}
-        type="checkbox"
-        aria-checked={checked}
-        tabIndex={tabIndex}
-        checked={checked}
-        {...rest}
-      />
-    </div>
-  )
-}
+    )
+  },
+)
+
+Checkbox.displayName = 'Checkbox'

@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.PLASMO_PUBLIC_API_URL ||
@@ -47,7 +49,7 @@ export class Fetcher {
       if (response.ok) {
         data = (await response.json()) as Promise<ResponseType>
       } else {
-        throw new Error(response.statusText)
+        throw new Error('네트워크 통신 과정에서 에러가 발생하였습니다!')
       }
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -63,21 +65,36 @@ export class Fetcher {
     options?: RequestInit,
   ) => {
     try {
+      const refreshToken = Cookies.get('refresh')
+
+      if (!refreshToken) {
+        return this.unAuthorizedHandler?.()
+      }
+
       const response = await fetch(`${API_URL}/auth/refresh`, {
         headers: {
-          Authorization: 'token',
+          'X-Refresh-Authorization': refreshToken + 'das',
         },
       })
 
-      if (response.status === 401) {
-        return this.unAuthorizedHandler?.()
-      } else {
-        return this.request<ResponseType>(url, options)
+      const newAccessToken = response.headers.get('Authorization')
+      const newRefreshToken = response.headers.get('Authorization')
+
+      if (!newAccessToken || !newRefreshToken) {
+        if (this.unAuthorizedHandler) {
+          return this.unAuthorizedHandler?.()
+        }
+
+        throw new Error('토큰 갱신에 실패하였습니다.')
       }
+
+      Cookies.set('access', newAccessToken)
+      Cookies.set('refresh', newRefreshToken)
+
+      return this.request<ResponseType>(url, options)
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err)
-
       if (this.unAuthorizedHandler) {
         return this.unAuthorizedHandler?.()
       }

@@ -1,6 +1,6 @@
 'use client'
 
-import { InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, forwardRef } from 'react'
 import clsx from 'clsx'
 
 import { Text } from '../Text'
@@ -26,15 +26,17 @@ export type InputProps = {
 } & InputVariants &
   InputHTMLAttributes<HTMLInputElement>
 
-export const Input = ({
-  label,
-  width,
-  invalid = false,
-  requirement = '',
-  readOnly = false,
-  icon,
-  ...rest
-}: InputProps) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+  const {
+    label,
+    width,
+    invalid = false,
+    requirement = '',
+    readOnly = false,
+    icon,
+    ...rest
+  } = props
+
   const inputElement = (
     <span
       className={sprinkles({
@@ -46,6 +48,7 @@ export const Input = ({
           [input({ invalid })]: true,
           [withIcon]: icon !== undefined,
         })}
+        ref={ref}
         readOnly={readOnly}
         aria-invalid={invalid}
         {...rest}
@@ -80,4 +83,6 @@ export const Input = ({
   }
 
   return <span>{inputElement}</span>
-}
+})
+
+Input.displayName = 'Input'

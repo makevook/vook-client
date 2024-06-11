@@ -7,8 +7,7 @@ const meta = {
   component: Checkbox,
   args: {
     onChange: () => {},
-    defaultChecked: false,
-    tabIndex: 0,
+    checked: true,
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof Checkbox>
@@ -24,12 +23,7 @@ export const Preview: Story = {
         disable: true,
       },
     },
-    defaultChecked: {
-      table: {
-        disable: true,
-      },
-    },
-    tabIndex: {
+    checked: {
       table: {
         disable: true,
       },

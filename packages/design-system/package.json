@@ -37,7 +37,7 @@
   "scripts": {
     "test": "vitest -c ./vitest.config.mts",
     "lint": "eslint . --max-warnings 0",
-    "dev": "vite build && vite build --mode ve --watch",
+    "dev": "vite build --watch ",
     "build": "vite build && vite build --mode ve"
   },
   "peerDependencies": {

@@ -1,6 +1,5 @@
-'use client'
-
 /* eslint-disable simple-import-sort/exports */
+'use client'
 
 export type { Tokens } from './tokens'
 export { tokens } from './tokens'
