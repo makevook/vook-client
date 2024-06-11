@@ -23,10 +23,6 @@ export const onboardingLayout = style({
   animation: `${backgroundColorChange} 1s forwards`,
 })
 
-export const onboardingHeader = style({
-  marginBottom: 8,
-})
-
 export const onboardingContainer = style({
   width: 'fit-content',
   height: 'fit-content',
@@ -42,8 +38,4 @@ export const onboardingContainer = style({
 
   animation: `${appearBottom} 0.3s ease-out forwards`,
   animationDelay: '0.2s',
-})
-
-export const stepArea = style({
-  marginBottom: 40,
 })

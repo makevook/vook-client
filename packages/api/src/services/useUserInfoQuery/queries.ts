@@ -2,7 +2,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 
 import { CustomQueryOptions } from '../../shared/type'
 
-import { userInfoService } from './searchService'
+import { userInfoService } from './userInfoService'
 import { UserInfoResponse } from './model'
 
 export const userInfoQueryOptions = {

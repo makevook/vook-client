@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Button,
   ButtonProps,
@@ -6,57 +8,89 @@ import {
 } from '@vook-client/design-system'
 import Link from 'next/link'
 import React from 'react'
-import { OnboardingJob } from '@vook-client/api'
+import { OnboardingJob, useOnboardingMutation } from '@vook-client/api'
+import { useRouter } from 'next/navigation'
 
 import { SelectBoxGroup } from '../_components/SelectBoxGroup'
+import { useOnBoarding } from '../_context/useOnboarding'
+import { OnboardingHeader } from '../_components/OnboardingHeader'
 
 import { buttonGroup, header, jobGroup } from './page.css'
 
 const JOBS: Array<{
   icon: ButtonProps['prefixIcon']
   content: string
-  value: OnboardingJob
+  job: OnboardingJob
 }> = [
   {
     icon: 'pencil',
     content: '기획자',
-    value: OnboardingJob.PLANNER,
+    job: OnboardingJob.PLANNER,
   },
   {
     icon: 'artist-pallete',
     content: '디자이너',
-    value: OnboardingJob.DESIGNER,
+    job: OnboardingJob.DESIGNER,
   },
   {
     icon: 'laptop',
     content: '개발자',
-    value: OnboardingJob.DEVELOPER,
+    job: OnboardingJob.DEVELOPER,
   },
   {
     icon: 'light-bulb',
     content: '마케터',
-    value: OnboardingJob.MARKETER,
+    job: OnboardingJob.MARKETER,
   },
   {
     icon: 'sunglass',
     content: 'CEO',
-    value: OnboardingJob.CEO,
+    job: OnboardingJob.CEO,
   },
   {
     icon: 'sparkles',
     content: 'HR',
-    value: OnboardingJob.HR,
+    job: OnboardingJob.HR,
   },
   {
     icon: 'speech-bulloon',
     content: '기타',
-    value: OnboardingJob.OTHER,
+    job: OnboardingJob.OTHER,
   },
 ]
 
 const JobPage = () => {
+  const router = useRouter()
+  const { setJob, job: selectedJob, funnel } = useOnBoarding()
+
+  const mutation = useOnboardingMutation(
+    {
+      funnel,
+      job: selectedJob,
+    },
+    {
+      onSuccess: () => {
+        router.push('/')
+      },
+    },
+  )
+
+  const onSubmitFunnel = () => {
+    mutation.mutate()
+  }
+
+  const onClickJob = (job: OnboardingJob) => {
+    if (job === selectedJob) {
+      setJob(null)
+      return
+    }
+
+    setJob(job)
+  }
+
   return (
     <div>
+      <OnboardingHeader step={2} />
       <div className={header}>
         <Text
           as="h1"
@@ -69,8 +103,13 @@ const JobPage = () => {
       </div>
       <div className={jobGroup}>
         <SelectBoxGroup>
-          {JOBS.map(({ icon, content }) => (
-            <SelectBox key={content} prefixIcon={icon}>
+          {JOBS.map(({ icon, content, job }) => (
+            <SelectBox
+              onClick={() => onClickJob(job)}
+              key={content}
+              prefixIcon={icon}
+              selected={job === selectedJob}
+            >
               {content}
             </SelectBox>
           ))}
@@ -88,7 +127,18 @@ const JobPage = () => {
           </Button>
         </Link>
         <Link href="/onboarding/job">
-          <Button size="middle" disabled>
+          <Button
+            onClick={onSubmitFunnel}
+            size="middle"
+            disabled={
+              selectedJob === null || mutation.isPending || mutation.isSuccess
+            }
+            suffixIcon={
+              mutation.isPending || mutation.isSuccess
+                ? 'spinner-medium'
+                : undefined
+            }
+          >
             시작하기
           </Button>
         </Link>

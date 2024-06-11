@@ -154,8 +154,16 @@ export const SignUpForm = () => {
       <Button
         type="submit"
         fit="fill"
-        disabled={!formState.isValid || signUpMutation.isPending}
-        suffixIcon={signUpMutation.isPending ? 'spinner-big' : undefined}
+        disabled={
+          !formState.isValid ||
+          signUpMutation.isPending ||
+          signUpMutation.isSuccess
+        }
+        suffixIcon={
+          signUpMutation.isPending || signUpMutation.isSuccess
+            ? 'spinner-big'
+            : undefined
+        }
       >
         가입하기
       </Button>

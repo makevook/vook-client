@@ -17,3 +17,12 @@ export enum OnboardingJob {
   HR = 'HR',
   OTHER = 'OTHER',
 }
+
+export interface OnboardingDTO {
+  funnel: OnboardingFunnel | null
+  job: OnboardingJob | null
+}
+
+export interface OnboardingResponse {
+  code: string
+}

@@ -5,10 +5,10 @@ import { baseFetcher } from '../..'
 import { UserInfoResponse } from './model'
 
 export const userInfoService = {
-  async getUserInfo() {
+  async getUserInfo(token?: string) {
     return baseFetcher.get<UserInfoResponse>('/user/info', {
       headers: {
-        Authorization: Cookies.get('access') || '',
+        Authorization: token || Cookies.get('access') || '',
       },
     })
   },

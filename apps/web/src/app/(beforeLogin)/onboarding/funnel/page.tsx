@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Button,
   ButtonProps,
@@ -12,54 +14,67 @@ import { OnboardingFunnel } from '@vook-client/api'
 import { appearBottom } from '@/styles/animations.css'
 
 import { SelectBoxGroup } from '../_components/SelectBoxGroup'
+import { useOnBoarding } from '../_context/useOnboarding'
+import { OnboardingHeader } from '../_components/OnboardingHeader'
 
 import { buttonGroup, funnelGroup, header } from './page.css'
 
 const FUNNELS: Array<{
   icon: ButtonProps['prefixIcon']
   content: string
-  value: OnboardingFunnel
+  funnel: OnboardingFunnel
 }> = [
   {
     icon: 'X',
     content: '엑스',
-    value: OnboardingFunnel.X,
+    funnel: OnboardingFunnel.X,
   },
   {
     icon: 'facebook',
     content: '페이스북',
-    value: OnboardingFunnel.FACEBOOK,
+    funnel: OnboardingFunnel.FACEBOOK,
   },
   {
     icon: 'linkedin',
     content: '링크드인',
-    value: OnboardingFunnel.LINKEDIN,
+    funnel: OnboardingFunnel.LINKEDIN,
   },
   {
     icon: 'instagram-color',
     content: '인스타그램',
-    value: OnboardingFunnel.INSTAGRAM,
+    funnel: OnboardingFunnel.INSTAGRAM,
   },
   {
     icon: 'blog-color',
     content: '네이버 블로그',
-    value: OnboardingFunnel.BLOG,
+    funnel: OnboardingFunnel.BLOG,
   },
   {
     icon: 'silhouette',
     content: '친구/지인 추천',
-    value: OnboardingFunnel.RECOMMENDATION,
+    funnel: OnboardingFunnel.RECOMMENDATION,
   },
   {
     icon: 'speech-bulloon',
     content: '기타',
-    value: OnboardingFunnel.OTHER,
+    funnel: OnboardingFunnel.OTHER,
   },
 ]
 
 const FunnelPage = () => {
+  const { setFunnel, funnel: selectedFunnel } = useOnBoarding()
+
+  const onClinkFunnel = (funnel: OnboardingFunnel) => {
+    if (funnel === selectedFunnel) {
+      setFunnel(null)
+      return
+    }
+    setFunnel(funnel)
+  }
+
   return (
     <div>
+      <OnboardingHeader step={1} />
       <div className={clsx(header, appearBottom)}>
         <Text
           as="h1"
@@ -72,8 +87,13 @@ const FunnelPage = () => {
       </div>
       <div className={funnelGroup}>
         <SelectBoxGroup>
-          {FUNNELS.map(({ icon, content }) => (
-            <SelectBox key={content} prefixIcon={icon}>
+          {FUNNELS.map(({ icon, content, funnel }) => (
+            <SelectBox
+              onClick={() => onClinkFunnel(funnel)}
+              selected={funnel === selectedFunnel}
+              key={content}
+              prefixIcon={icon}
+            >
               {content}
             </SelectBox>
           ))}
@@ -86,7 +106,9 @@ const FunnelPage = () => {
           </Text>
         </Link>
         <Link href="/onboarding/job">
-          <Button size="middle">다음</Button>
+          <Button disabled={selectedFunnel === null} size="middle">
+            다음
+          </Button>
         </Link>
       </div>
     </div>

@@ -1,38 +1,26 @@
-'use client'
-
 import React, { PropsWithChildren } from 'react'
-import { usePathname } from 'next/navigation'
-import { Step, Text } from '@vook-client/design-system'
+import { cookies } from 'next/headers'
+import { userInfoService } from '@vook-client/api'
+import { redirect } from 'next/navigation'
 
-import {
-  onboardingContainer,
-  onboardingHeader,
-  onboardingLayout,
-  stepArea,
-} from './layout.css'
+import { onboardingContainer, onboardingLayout } from './layout.css'
+import { OnBoardingProvider } from './_context/useOnboarding'
 
-const Layout = ({ children }: PropsWithChildren) => {
-  const pathname = usePathname()
-  const step = pathname.includes('funnel') ? 1 : 2
+const Layout = async ({ children }: PropsWithChildren) => {
+  const cookieStore = cookies()
+  const accessToken = cookieStore.get('access')?.value
+  const userInfo = await userInfoService.getUserInfo(accessToken)
+
+  if (userInfo.result.onboardingCompleted) {
+    redirect('/')
+  }
 
   return (
-    <div className={onboardingLayout}>
-      <div className={onboardingContainer}>
-        <div className={stepArea}>
-          <Step current={step} total={2} />
-        </div>
-        <div className={onboardingHeader}>
-          <Text
-            type="body-1"
-            color="semantic-primary-normal"
-            fontWeight="medium"
-          >
-            Onboarding
-          </Text>
-        </div>
-        {children}
+    <OnBoardingProvider>
+      <div className={onboardingLayout}>
+        <div className={onboardingContainer}>{children}</div>
       </div>
-    </div>
+    </OnBoardingProvider>
   )
 }
 

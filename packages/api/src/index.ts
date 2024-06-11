@@ -3,6 +3,7 @@ export {
   OnboardingFunnel,
   OnboardingJob,
 } from './services/useOnboardingMutation/model'
+export { useOnboardingMutation } from './services/useOnboardingMutation/queries'
 export type {
   SearchDTO,
   SearchHit,
@@ -21,4 +22,4 @@ export {
   useUserInfoQuery,
   useUserInfoSuspenseQuery,
 } from './services/useUserInfoQuery/queries'
-export { userInfoService } from './services/useUserInfoQuery/searchService'
+export { userInfoService } from './services/useUserInfoQuery/userInfoService'
