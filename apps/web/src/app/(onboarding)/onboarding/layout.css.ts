@@ -27,6 +27,9 @@ export const onboardingContainer = style({
   width: 'fit-content',
   height: 'fit-content',
 
+  minWidth: 980,
+  minHeight: 610,
+
   padding: 100,
 
   backgroundColor: vars.colors['common-white'],

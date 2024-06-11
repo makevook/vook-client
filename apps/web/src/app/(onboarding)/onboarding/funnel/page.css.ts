@@ -15,7 +15,7 @@ export const funnelGroup = style({
   opacity: 0,
 
   animation: `${appearBottom} 0.5s ease-out forwards`,
-  animationDelay: '1.1s',
+  animationDelay: '1s',
 })
 
 export const buttonGroup = style({

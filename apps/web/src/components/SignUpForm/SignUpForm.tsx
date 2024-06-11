@@ -124,7 +124,7 @@ export const SignUpForm = () => {
           />
           <label htmlFor="terms-of-use">
             <Text as="span" color="semantic-label-alternative" type="body-1">
-              <a href="/terms/privacy" target="_blank" className={termsLink}>
+              <a href="/terms/use" target="_blank" className={termsLink}>
                 이용 약관
               </a>{' '}
               동의(필수)
