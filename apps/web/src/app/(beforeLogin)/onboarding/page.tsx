@@ -1,7 +1,7 @@
-import React from 'react'
+import { redirect } from 'next/navigation'
 
 const OnboardingPage = () => {
-  return <div>온보딩</div>
+  redirect('/onboarding/funnel')
 }
 
 export default OnboardingPage
