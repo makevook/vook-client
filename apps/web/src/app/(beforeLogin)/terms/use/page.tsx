@@ -1,386 +1,483 @@
 import { Text } from '@vook-client/design-system'
 import React from 'react'
 
-const PrivacyTermPage = () => {
+const TermsOfUsePage = () => {
   return (
     <div>
       <div>
         <Text as="h1" type="display-1" fontWeight="bold">
-          개인정보 처리방침
+          이용약관
         </Text>
       </div>
-      <br />
       <div>
         <Text as="h2" type="title-2" fontWeight="bold">
-          부크 개인정보 처리방침
-        </Text>
-      </div>
-      <br />
-      <div>
-        <Text type="heading-2" fontWeight="medium">
-          용사팀(이하‘회사’)은 개인정보 보호법 제30조에 따라 정보주체의 개인정보
-          보호 및 권익을 보호하고 개인정보와 관련한 정보주체의 고충을 원활하게
-          처리할 수 있도록 다음과 같이 개인정보 처리 방침을 수립 공개합니다.
+          Vook 약관
         </Text>
       </div>
       <br />
       <article>
-        <Text type="heading-2" fontWeight="medium">
-          제1조(수집하는 개인정보 항목 및 수집 방법)
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 회원가입, 원활한 고객상담, 각종 서비스 등 기본적인 서비스
-          제공을 위한 개인정보를 수집할 수 있습니다. 이용자의 기본적 인권 침해의
-          우려가 있는 민감한 개인정보(인종, 사상 및 신조, 정치적 성향이나
-          범죄기록, 의료 정보 등)는 기본적으로 수집하지 않습니다. 단, 불가피하게
-          수집이 필요한 경우 반드시 사전에 동의 절차를 거치도록 하겠습니다.
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 수집항목 : 닉네임, 이메일 주소
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 개인정보 수집 방법 : 웹 회원가입, 회원정보 수정
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          인터넷 서비스 이용과정에서 아래 개인정보 항목이 자동으로 생성되어
-          수집될 수 있습니다. • IP 주소, 쿠키, 서비스 이용 기록, 방문 기록, 불량
-          이용 기록 등
-        </Text>
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제2조(개인정보의 수집 및 이용목적)
+          제 1조(목적)
         </Text>
         <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다. 이용자가
-          제공한 모든 정보는 하기 목적에 필요한 용도 이외로는 사용되지 않으며
-          이용 목적이 변경될 시에는 사전 동의를 구할 것입니다.
-        </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 회원 관리 : 회원제 서비스 이용에 따른 본인확인, 개인 식별, 불량
-          회원의 부정 이용 방지와 비인가 사용 방지, 가입 의사 확인, 불만 처리 등
-          민원처리, 고지사항 전달
+          본 약관은 (이하 “회사”라 합니다)이 부크 웹페이지를 통해(이하 “서비스
+          페이지”라 합니다) 제공하는 부크 및 부크 관련 제반 서비스(이하
+          “서비스”라 합니다)의 이용과 관련하여, 회사와 회원과의 권리, 의무 및
+          책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
         </Text>
         <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 마케팅 및 광고에 활용 : 신규 서비스 개발과 이벤트 행사에 따른 정보
-          전달 및 맞춤 서비스 제공, 인구통계학적 특성에 따른 서비스 제공, 접속
-          빈도 파악 또는 회원의 서비스 이용에 대한 통계
-        </Text>
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제3조(개인정보의 보유 및 이용기간)
+          제 2조(용어의 정의)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① "서비스"란 회사가 서비스 페이지를 통해 제공하는 용어집 관리 관련
+          모든 서비스를 통칭하며, 아울러 서비스를 운영하는 회사의 의미로도
+          사용합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 정보주체로부터 개인정보를 수집할 때 동의 받은 개인정보 보유 및
-          이용기간 또는 법령에 따른 개인정보 보유 및 이용기간 내에서 개인정보를
-          처리․보유합니다.
+          ② "이용자"란 서비스에 접속하여 이 약관에 따라 서비스를 받는 회원 및
+          비회원을 말합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          원칙적으로, 개인정보 수집 및 이용목적이 달성된 후에는 해당 정보를 지체
-          없이 파기합니다. 단, 관계법령의 규정에 의하여 보존할 필요가 있는 경우
-          회사는 아래와 같이 관계법령에서 정한 일정한 기간 동안 회원정보를
-          보관합니다.
+          ③ "회원"이라 함은 서비스에 개인정보를 제공하여 등록을 한 자로서,
+          서비스의 정보를 지속적으로 제공받으며, 서비스를 계속적으로 이용할 수
+          있는 자를 말합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 표시/광고에 관한 기록 : 6개월 (전자상거래등에서의 소비자보호에 관한
-          법률)
+          ⑤ "비회원"이라 함은 회원에 가입하지 않고 회사가 제공하는 서비스를
+          이용하는 자를 말합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 계약 또는 청약철회 등에 관한 기록 : 5년 (전자상거래등에서의
-          소비자보호에 관한 법률)
+          ⑥ 이 약관에서 사용하는 용어의 정의는 제1항, 제2항, 제3항, 제4항에서
+          정하는 것을 제외하고는 관련법령에서 정하는 바에 의하며, 관련 법령에서
+          정하지 않는 것은 일반적인 상관례에 의합니다.
         </Text>
         <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ③ 대금결제 및 재화 등의 공급에 관한 기록 : 5년 (전자상거래등에서의
-          소비자보호에 관한 법률)
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ④ 소비자의 불만 또는 분쟁처리에 관한 기록 : 3년 (전자상거래등에서의
-          소비자보호에 관한 법률)
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ⑤ 신용정보의 수집/처리 및 이용 등에 관한 기록 : 3년 (신용정보의 이용
-          및 보호에 관한 법률)
-        </Text>
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제4조(개인정보의 제3자 제공)
+          제 3조(약관의 명시와 개정)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사는 본 약관의 내용과 상호, 이메일 등을 회원이 쉽게 알 수 있도록
+          서비스 초기 화면에 게시하거나 기타의 방법으로 회원에게 공지합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 정보주체의 개인정보를 제1조(개인정보의 처리 목적)에서 명시한
-          범위 내에서만 처리하며, 정보주체의 동의, 법률의 특별한 규정 등
-          개인정보 보호법 제17조에 해당하는 경우에만 개인정보를 제3자에게
-          제공합니다.
+          ② 회사는 「약관의 규제에 관한 법률」, 「전기통신기본법」,
+          「전기통신사업법」, 「정보통신망 이용 촉진 및 정보보호 등에 관한
+          법률」, 「개인정보 보호법」 등 관련 법령을 위배하지 않는 범위에서 이
+          약관을 개정할 수 있습니다.
         </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ③ 회사가 약관을 개정할 경우에는 적용일자 및 개정 사유를 명시하여 현행
+          약관과 함께 개정약관의 적용일자 7일 전부터 적용일자 전일까지 서비스
+          페이지에 공지합니다. 다만, 회원의 권리, 의무에 중대한 영향을 주는
+          변경의 경우에는 적용일자 30일 전까지 공지합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ④ 회원은 개정 약관에 대하여 거부할 권리가 있습니다. 다만, 회사가
+          제3항에 따라 공지한 개정 약관의 적용/시행일까지 회원이 거부 의사를
+          표시하지 아니할 경우 회사는 회원이 적용/시행일자부로 변경 약관에
+          동의한 것으로 봅니다. 개정/변경 약관에 대하여 거부 의사를 표시한
+          회원은 계약의 해지 또는 회원 탈퇴를 선택할 수 있습니다.
+        </Text>
+        <br />
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제5조(개인정보처리 위탁)
+          제 4조(약관 외 준칙)
         </Text>
         <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 경영 효율성의 제고, 서비스 품질 향상 등을 위하여 업무의 일부를
-          외부 전문업체 등 제 3자에게 용역을 주어 수행하며, 이를 위해 제3자에게
-          매니저의 개인정보 및 사업자가 보유하고 있는 고객 정보를 수집, 보관,
-          처리, 이용, 제공, 관리, 파기 등을 할 수 있도록 업무를 처리위탁합니다.
-          이와 관련하여, 수탁자 및 위탁업무의 내용은 다음과 같습니다.
-        </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          수탁업체 : Oracle Cloud Infrastructure(OCI)
+          본 약관에 규정되지 않은 사항에 대해서는 관련법령 또는 회사가 정한 개별
+          서비스의 이용약관, 운영정책 및 규칙 등(이하 ‘세부지침’)의 규정에
+          따릅니다.
         </Text>
         <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          위탁업무 : 서비스 제공을 위한 서버 운영
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          개인정보 보유 및 이용기간 : 회원 탈퇴 시, 서비스 종료 시 혹은 위탁
-          계약 종료 시까지
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 개인정보를 국외의 다른 사업자에게 제공하지 않습니다. 다만,
-          정보통신서비스의 제공에 관한 계약 이행 및 이용자 편의 증진 등을 위하여
-          다음과 같이 개인정보 처리 업무를 국외에 위탁하고 있습니다.
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          수탁업체 : Goolge
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          이전목적 : 사용자 데이터 관리
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          이전되는 국가 : 미국
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          이전일시 및 방법 : 서비스 이용 시마다 네트워크를 통해 이전
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          개인정보 보유 및 이용기간 : 회원 탈퇴 시, 서비스 종료 시 혹은 위탁
-          계약 종료 시까지
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 위탁계약 체결시 개인정보 보호법 제25조에 따라 위탁업무 수행목적
-          외 개인정보 처리금지, 기술적․관리적 보호조치, 재위탁 제한, 수탁자에
-          대한 관리․감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에
-          명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          위탁업무의 내용이나 수탁자가 변경될 경우에는 지체없이 본 개인정보
-          처리방침을 통하여 공개하도록 하겠습니다.
-        </Text>
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제6조(개인정보 자동수집장치의 설치, 운영에 대한 사항)
+          제 5조(이용계약의 성립)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사와 회원 사이의 서비스 이용계약(이하 “이용계약”이라 합니다)은
+          서비스를 이용하고자 하는 자(이하 “가입신청자”라 합니다)가 회원 가입에
+          필요한 정보를 기입 후 이용약관과 개인정보 수집 및 이용 등에 명시적인
+          동의 의사표시를 하고, 회사가 이에 대하여 이용 승낙을 함으로써
+          성립합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 제공하는 서비스를 통해 이용자의 정보를 저장하고 수시로 찾아내는
-          쿠키(cookie)를 설치하고 운용할 수도 있습니다. 회사가 쿠키(cookie)를
-          통해 수집한 고객의 정보는 다음의 목적을 위해 사용될 수 있습니다.
+          ② 회사는 가입신청자의 신청에 대하여 서비스 이용을 승낙함을 원칙으로
+          합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 용어 작성/검색 시 회원별 차별화된 정보를 제공
+          ③ 회사는 서비스 관련설비의 여유가 없거나, 기술상 또는 업무상 문제가
+          있는 경우에는 승낙을 유보할 수 있습니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 회원과 비회원의 접속빈도 또는 머문 시간 등을 분석하여 이용자의
-          취향과 관심분야를 파악하여 특화된 서비스 제공
+          ④ 회사가 제2항, 제3항에 따라 회원가입신청을 승낙하지 아니하거나
+          유보하는 경우, 회사는 원칙적으로 그 사실을 해당 사유와 함께
+          가입신청자가 기입한 이메일 주소로 통지합니다. 단 회사는 이러한 승낙의
+          거부 또는 유보에 대한 사실을 통지하는 행위가 법령에 위반되거나 기타
+          회사의 본 서비스 제공에 중대하게 부정적인 영향을 미칠 경우 이러한
+          통지를 생략할 수 있습니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ③ 이용자들의 습관을 분석하여 서비스 개편 등의 척도로 활용
+          ⑤ 이용계약의 성립 시기는 회사가 가입 완료를 신청 절차 상에서 표시한
+          시점으로 합니다. 회사는 회원에 대해 회사 정책에 따라 등급별로 구분하여
+          제공하는 서비스 기능 등을 세분하여 이용에 차등을 둘 수 있습니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          이용자는 쿠키 설치에 대해 거부할 수 있습니다. 단, 쿠키 설치를
-          거부하였을 경우 서비스를 정상적으로 이용하지 못 할 수 있습니다. 쿠키
-          설치 거부 방법은 다음과 같습니다. (인터넷 익스플로러 기준) 웹 브라우저
-          상단의 도구 {'>'} 인터넷 옵션 {'>'} 개인정보 {'>'} 사이트 차단
+          ⑥ 이 약관은 회원이 이 약관에 동의한 날로부터 회원 탈퇴 시까지 적용하는
+          것을 원칙으로 합니다. 단, 이 약관의 일부 조항은 회원이 탈퇴 후에도
+          유효하게 적용될 수 있습니다.
         </Text>
+        <br />
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제7조(개인정보의 파기절차 및 방법)
+          제 6조(회원가입)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 이용자는 회사가 정한 가입 양식에 따라 회원정보를 기입한 후 이 약관에
+          동의한다는 의사표시를 함으로서 회원가입을 신청합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 수집 및 이용목적이 달성되면 매니저의 개인정보를 지체없이
-          파기하며, 절차 및 방법은 아래와 같습니다.
+          ② 회사는 제1항과 같이 회원으로 가입할 것을 신청한 이용자 중 다음 각
+          호에 해당하지 않는 한 회원으로 등록합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 전자적 파일 형태인 경우 복구 및 재생되지 않도록 안전하게 삭제하고,
-          그 밖에 기록물, 인쇄물, 서면 등의 경우 분쇄하거나 소각하여 파기합니다.
+          1. 등록 내용에 허위, 기재누락, 오기가 있는 경우
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 파기절차이용자가 입력한 정보는 목적 달성 후 별도의 DB에
-          옮겨져(종이의 경우 별도의 서류) 내부 방침 및 기타 관련 법령에 따라
-          일정기간 저장된 후 혹은 즉시 파기됩니다. 이 때, DB로 옮겨진 개인정보는
-          법률에 의한 경우가 아니고서는 다른 목적으로 이용되지 않습니다.
+          2. 기타 회원으로 등록하는 것이 서비스의 기술상 현저히 지장이 있다고
+          판단되는 경우
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ③ 파기기한이용자의 개인정보는 개인정보의 보유기간이 경과된 경우에는
-          보유기간의 종료일로부터 5일 이내에, 개인정보의 처리 목적 달성, 해당
-          서비스의 폐지, 사업의 종료 등 그 개인정보가 불필요하게 되었을 때에는
-          개인정보의 처리가 불필요한 것으로 인정되는 날로부터 5일 이내에 그
-          개인정보를 파기합니다.
+          ③ 회원가입계약의 성립 시기는 회사의 승낙이 회원에게 도달한 시점으로
+          합니다.
         </Text>
         <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 전자금융거래법
-          및 기타 관계법령에 따른 개인정보 보관 규칙을 성실하게 수행하고
-          있습니다.
-        </Text>
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제8조(개인정보의 안전성 확보)
+          제 7조(개인 정보 보호 및 관리)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사는 「개인정보 보호법」 등 관계 법령이 정하는 바에 따라 계정
+          정보를 포함한 회원의 개인정보를 보호하기 위하여 노력합니다. 회원의
+          개인정보 보호 및 사용에 대해서는 회사가 별도로 고지하는 개인정보처리
+          방침에 따릅니다. 다만, 회사가 제공하는 공식 서비스 사이트 이외의
+          링크된 사이트에서는 회사의 개인정보처리 방침이 적용되지 않습니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고
+          ② 제공된 개인정보는 당해 이용자의 동의 없이 목적 외의 이용이나
+          제3자에게 제공할 수 없으며, 이에 대한 모든 책임은 회사가 집니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ③ 회사는 제2항에 의해 이용자의 동의를 받아야 하는 경우에는
+          개인정보관리 책임자의 신원(소속, 성명 및 전화번호 기타 연락처), 정보의
+          수집목적 및 이용목적, 제3자에 대한 정보 제공 관련사항 등 「정보통신망
+          이용촉진 및 정보보호 등에 관한 법률」 제22조제2항이 규정한 사항을 미리
+          명시하거나 고지해야 하며, 이용자는 언제든지 이 동의를 철회할 수
           있습니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 개인정보 보호책임자의 지정 등 개인정보 보호 조직의 구성 및 운영에
-          관한 사항 등을 포함하여 개인정보 내부관리 계획을 수립하고, 매년
-          내부관리 계획을 잘 시행하고 있는지를 점검하고 있습니다.
+          ④ 이용자는 언제든지 회사가 가지고 있는 자신의 개인정보에 대해 열람 및
+          오류정정을 요구할 수 있으며, 회사는 이에 대해 지체 없이 필요한 조치를
+          취할 의무를 집니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 개인정보를 처리하는 데이터베이스 시스템에 대한 접근 권한 관리를 통해
-          개인정보에 대한 접근을 통제하고 내∙외부로부터의 무단 접근을 통제하고
+          ⑤ 회사는 회원이 이용 계약을 해지하거나 회원 자격을 상실하는 경우 당해
+          회원의 개인정보를 지체 없이 파기합니다.
+        </Text>
+        <br />
+        <br />
+        <Text type="heading-2" fontWeight="medium">
+          제 8조(회원에 대한 통지)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사가 회원에 대한 통지를 하는 경우, 회원이 회사에 제공한 이메일
+          주소로 할 수 있습니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ② 회사는 불특정 다수 회원에 대한 통지의 경우 1주일 이상 서비스
+          페이지의 공지사항에 게시함으로서 개별 통지에 갈음할 수 있습니다.
+        </Text>
+        <br />
+        <br />
+        <Text type="heading-2" fontWeight="medium">
+          제 9조(서비스 이용)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회원은 본 약관 및 회사가 정한 규정에 따라 서비스를 이용할 수
           있습니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ③ 개인정보 취급자가 개인정보처리시스템에 접속한 기록을 보관 및
-          관리하며, 개인정보의 오남용, 분실, 위조 및 변조 등을 방지하기 위하여
-          접속기록 등을 정기적으로 점검하며, 개인정보 취급자의 접속기록이 위,
-          변조 및 도난, 분실되지 않도록 해당 접속기록을 안전하게 보관하고
+          ② 서비스는 연중무휴, 1일 24시간 제공함을 원칙으로 합니다. 다만, 회사의
+          업무상 또는 기술상의 이유로 서비스가 일시 중지될 수 있으며, 운영상의
+          목적으로 회사가 정한 기간에는 서비스가 일시 중지될 수 있습니다. 이
+          경우 회사는 사전 또는 사후에 이를 공지합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ③ 회사는 서비스를 일정 범위로 분할하여 각 범위 별로 이용 가능한 시간을
+          별도로 정할 수 있으며, 이 경우 사전에 공지를 통해 그 내용을 알립니다.
+        </Text>
+        <br />
+        <br />
+        <Text type="heading-2" fontWeight="medium">
+          제 10조(서비스 제공의 변경 및 중지)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사는 상당한 이유가 있는 경우에 운영상, 기술상의 필요에 따라
+          제공하고 있는 전부 또는 일부 서비스를 변경하거나 중지할 수 있습니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ② 서비스의 내용, 이용 방법, 이용 시간에 대하여 변경 또는 서비스 중지의
+          경우에는 변경 또는 중지될 서비스의 내용 및 사유와 일자 등은 그 변경
+          또는 중지 전에 회원에게 통지하여야 합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ③ 회사는 무료로 제공되는 서비스의 일부 또는 전부를 회사의 정책 및
+          운영의 필요 상 수정, 중단, 변경할 수 있으며, 이에 대하여 관련법에
+          특별한 규정이 없는 한 회원에게 별도의 보상을 하지 않습니다.
+        </Text>
+        <br />
+        <br />
+        <Text type="heading-2" fontWeight="medium">
+          제 11조(서비스의 이용제한 및 정지)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사는 회원이 본 약관의 의무를 위반하거나 서비스의 정상적인 운영을
+          방해한 경우, 서비스 이용을 제한하거나 중지할 수 있습니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ② 전항에 따라 서비스 이용을 제한하거나 중지한 경우 그 사유 및 제한
+          기간 등을 회원에게 통지합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ③ 회사는 회원이 계속해서 1년 이상 로그인하지 않는 경우, 회원정보의
+          보호 및 운영의 효율성을 위해 이용을 제한할 수 있습니다.
+        </Text>
+        <br />
+        <br />
+        <Text type="heading-2" fontWeight="medium">
+          제 12조(회사의 의무)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사는 관련 법령과 본 약관이 금지하거나 공서양속에 반하는 행위를
+          하지 않으며, 계속적이고 안정적으로 서비스를 제공하기 위하여 최선을
+          다하여 노력합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ② 회사는 회원이 안전하게 서비스를 이용할 수 있도록 개인정보(신용정보
+          포함) 보호를 위해 보안 시스템을 갖추어야 하며 개인정보처리방침을
+          공시하고 준수합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ③ 회사는 회원이 수신 동의를 하지 않은 영리 목적의 광고성 전자 우편,
+          SMS 문자 메시지 등을 발송하지 않습니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ④ 회사는 회원이 서비스를 이용함에 있어 회사의 고의 또는 중대한 과실로
+          인하여 입은 손해를 배상할 책임을 부담합니다.
+        </Text>
+        <br />
+        <br />
+        <Text type="heading-2" fontWeight="medium">
+          제 13조(회원의 의무)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회원은 다음 행위를 하여서는 안 됩니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          1. 신청 또는 변경 시 허위 내용의 등록
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          2. 타인의 정보 도용
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          3. 회사가 게시한 정보의 변경
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          4. 회사가 정한 정보 이외의 정보(컴퓨터 프로그램 등) 등의 송신 또는
+          게시
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          5. 회사와 기타 제3자의 저작권 등 지적재산권에 대한 침해
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          6. 회사 및 기타 제3자의 명예를 손상시키거나 업무를 방해하는 행위
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          7. 외설 또는 폭력적인 메시지, 화상, 음성, 기타 공서양속에 반하는
+          정보를 서비스에 공개 또는 게시하는 행위
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          8. 회사의 동의 없이 영리를 목적으로 서비스를 사용하는 행위
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ② 회원은 관계법, 본 약관의 규정, 이용안내 및 서비스와 관련하여 공지한
+          주의사항, 회사가 통지하는 사항 등을 준수하여야 하며, 기타 회사의
+          업무에 방해되는 행위를 하여서는 안 됩니다.
+        </Text>
+        <br />
+        <br />
+        <Text type="heading-2" fontWeight="medium">
+          제 14조(유료 서비스의 이용)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사는 유료 서비스의 이용요금을 회사가 정한 정책에 따라 청구하며,
+          회원은 회사가 정한 정책에 따라 이용요금을 납부합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ② 회원이 유료 서비스를 이용하는 경우, 회사는 회원이 선택한 결제 방식에
+          따라 이용요금을 청구합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ③ 회원이 선택한 결제 방식에 따라 결제하는 경우, 회원은 결제 대행
+          업체가 정하는 정책 및 절차에 따라야 합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ④ 유료 서비스의 이용요금, 결제 방법, 결제 시기 등에 관련된 사항은
+          회사가 정한 정책에 따르며, 회사는 이를 회원에게 사전에 공지합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ⑤ 회사는 유료 서비스의 결제와 관련된 회원의 문의, 이의 제기 등에
+          성실히 응답하여야 합니다.
+        </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ⑥ 회원이 이용요금을 연체한 경우, 회사는 회원에 대하여 서비스 이용을
+          제한할 수 있으며, 연체된 이용요금에 대해 별도의 지연손해금을 청구할 수
           있습니다.
         </Text>
         <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ④ 개인정보를 보관하고 있는 물리적 보관 장소를 별도로 두고 이에 대해
-          출입통제 절차를 수립, 운영하고 있습니다.
-        </Text>
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제9조(개인정보 보호책임자)
+          제 15조(면책조항)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 회사는 천재지변, 전쟁, 테러, 폭동, 정부의 규제, 전염병, 통신사업자의
+          서비스 중지 등 불가항력적인 사유로 인하여 서비스를 제공할 수 없는
+          경우, 서비스 제공에 대한 책임이 면제됩니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          회사는 이용자의 개인정보를 보호하고 개인정보와 관련한 불만을 처리하기
-          위하여 아래와 같이 개인정보관리 책임자를 지정하고 있습니다. 이용자는
-          회사의 서비스를 이용하시며 발생하는 모든 개인정보보호 관련 민원을
-          개인정보관리 책임자로 신고하실 수 있습니다. 회사는 이용자들의
-          신고사항에 대해 신속하게 충분한 답변을 드릴 것입니다.
+          ② 회사는 회원의 귀책 사유로 인한 서비스의 이용 장애에 대하여 책임을
+          지지 않습니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          개인정보 관리책임자 • 성명 : 박재은 • 연락처 : pitapan1248@gmail.com
+          ③ 회사는 회원이 서비스와 관련하여 게재한 정보, 자료, 사실의 신뢰도,
+          정확성 등 내용에 대해서는 책임을 지지 않습니다.
         </Text>
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ④ 회사는 무료로 제공되는 서비스 이용과 관련하여 관련법에 특별한 규정이
+          없는 한 책임을 지지 않습니다.
+        </Text>
+        <br />
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제10조(개인정보 처리방침 변경)
+          제 16조(준거법 및 관할법원)
+        </Text>
+        <br />
+        <br />
+        <Text type="body-2-reading" color="semantic-label-alternative">
+          ① 본 약관의 해석 및 적용에 관하여는 대한민국 법을 준거법으로 합니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 회사는 이 개인정보 처리방침의 내용과 상호 및 대표자 성명, 영업소
-          소재지 주소, 전자우편주소, 사업자등록번호, 통신판매업 신고번호,
-          개인정보관리책임자등을 연결화면을 통하여 게시합니다.
+          ② 서비스 이용과 관련하여 회사와 회원 간에 발생한 분쟁에 대해서는
+          민사소송법 상의 관할 법원에 제소합니다.
         </Text>
         <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 회사는 회원가입시 이용자에게 회원가입 행위가 개인정보 처리방침에
-          동의하는 행위임을 알리고 개인정보 처리방침의 내용을 연결화면을 통하여
-          볼 수 있도록 합니다.
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ③ 회사는 관련 법을 위배하지 않는 범위에서 이 개인정보 처리방침을
-          개정할 수 있습니다.
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ④ 회사가 개인정보 처리방침을 개정할 경우에는 개정사유를 명시하여 현행
-          개인정보 처리방침, 개정 개인정보 처리방침을 모두 볼 수 있도록 하여
-          서비스의 게시판에 개정 개인정보 처리방침 적용 7일 이전 부터 적용일자
-          전일 까지 공지하며 회원 각 개인의 이메일로 개정 개인정보 처리방침 적용
-          7일 이전에 개정 내용을 발송합니다.
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ⑤ 회사가 개인정보처리방침은 시행일로부터 적용되며, 법령, 정부의 정책
-          또는 회사 내 부정책 등에 따른 변경 내용의 추가, 삭제 및 정정이 있는
-          경우에는 변경 사항의 시행 7일 전부터 공지사항을 통하여 고지할
-          것입니다. 개인정보 처리방침 적용 7일 이전 부터 적용일자 전일 까지 이의
-          의사를 회사측에 표명하지 않으면 개정 개인정보 처리방침에 동의하는
-          것으로 간주합니다.
-        </Text>
         <br />
         <Text type="heading-2" fontWeight="medium">
-          제11조(권익침해 구제방법)
+          부칙
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          개인정보주체는 개인정보침해로 인한 구제를 받기 위하여
-          개인정보분쟁조정위원회, 한국인터넷진흥원 개인정보침해신고센터 등에
-          분쟁해결이나 상담 등을 신청할 수 있습니다. 이 밖에 기타 개인정보침해의
-          신고 및 상담에 대하여는 아래의 기관에 문의하시기를 바랍니다.
+          ① 이 약관은 2024년 6월 11일부터 시행됩니다.
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 개인분쟁조정위원회 : (국번없이)118
+          ② 2023년 6월 11일부터 시행되던 종전의 약관은 본 약관으로 대체합니다.
         </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 정보보호마크인증위원회 : 02-580-0533~4 (
-          <a href="http://eprivacy.or.kr">http://eprivacy.or.kr</a>)
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ③ 대검찰청 사이버범죄수사단 : 02-3480-3573 (
-          <a href="http://www.spo.go.kr/">http://www.spo.go.kr/</a>)
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ④ 경찰청 사이버테러대응센터 : 02-1566-0112 (
-          <a href="http://www.netan.go.kr/">http://www.netan.go.kr/</a>)
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          부칙 이 약관은 2024. 06. 07부터 시행합니다.
-        </Text>
-
         <br />
       </article>
     </div>
   )
 }
 
-export default PrivacyTermPage
+export default TermsOfUsePage
