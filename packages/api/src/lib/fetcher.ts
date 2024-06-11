@@ -66,17 +66,11 @@ export class Fetcher {
     options?: RequestInit,
   ) => {
     try {
-      const refreshToken = Cookies.get('refresh')
-
-      if (!refreshToken) {
+      if (!options?.headers) {
         return this.unAuthorizedHandler?.()
       }
 
-      const response = await fetch(`${API_URL}/auth/refresh`, {
-        headers: {
-          'X-Refresh-Authorization': refreshToken + 'das',
-        },
-      })
+      const response = await fetch(`${API_URL}/auth/refresh`, options)
 
       const newAccessToken = response.headers.get('Authorization')
       const newRefreshToken = response.headers.get('Authorization')

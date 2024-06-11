@@ -1,7 +1,9 @@
 'use client'
 
+import { userInfoService } from '@vook-client/api'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
+import { UserStatus } from 'node_modules/@vook-client/api/src/services/useUserInfoQuery/model'
 import { useEffect } from 'react'
 
 interface AuthCallbackQueryParams {
@@ -24,7 +26,18 @@ const AuthCallbackPage = ({
       secure: true,
     })
 
-    router.push('/signup')
+    const checkUserRegistered = async () => {
+      const userInfo = await userInfoService.getUserInfo()
+      const isRegistered = userInfo.result.status === UserStatus.Registered
+
+      if (isRegistered) {
+        router.push('/')
+        return
+      }
+      router.push('/signup')
+    }
+
+    checkUserRegistered()
   }, [access, refresh, router])
 
   return null

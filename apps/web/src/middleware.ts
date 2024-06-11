@@ -1,36 +1,60 @@
-import { baseFetcher } from '@vook-client/api'
 import { NextRequest, NextResponse } from 'next/server'
+import {
+  UserInfoResponse,
+  UserStatus,
+} from 'node_modules/@vook-client/api/src/services/useUserInfoQuery/model'
 
-export async function middleware(req: NextRequest) {
+const beforeLoginMatcher = (pathname: string) => {
+  const beforeLoginPaths = ['/login', '/signup']
+  return beforeLoginPaths.some((path) => pathname.includes(path))
+}
+
+const beforeLoginMiddleware = async (req: NextRequest) => {
   const accessToken = req.cookies.get('access')
   const refreshToken = req.cookies.get('refresh')
 
-  const requestHeaders = new Headers(req.headers)
-  requestHeaders.set('x-pathname', req.nextUrl.pathname)
-
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  })
-
-  baseFetcher.setUnAuthorizedHandler(() => {
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/login`)
-  })
-
+  // 토큰이 모두 없는 경우
   if (!accessToken && !refreshToken) {
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/login`)
-  }
-
-  if (!accessToken) {
     return
   }
 
-  const userInfo = await baseFetcher.get('/user/info', {
-    headers: {
-      Authorization: accessToken.value,
-    },
-  })
+  if (refreshToken) {
+    // TODO: 리프레시 토큰을 이용해 엑세스 토큰 재발급
+  }
 
-  return userInfo
+  if ((accessToken && !refreshToken) || !accessToken || !refreshToken) {
+    return
+  }
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, {
+      headers: {
+        Authorization: accessToken.value,
+      },
+    })
+
+    if (res.status === 401) {
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/login`)
+    }
+
+    if (res.ok && res.status === 200) {
+      const userInfo = (await res.json()) as UserInfoResponse
+
+      if (
+        [UserStatus.SocialLoginCompleted, UserStatus.Registered].includes(
+          userInfo.result.status,
+        )
+      ) {
+        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/`)
+      }
+    }
+  } catch {
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_DOMAIN}/login`)
+  }
+}
+
+export async function middleware(req: NextRequest) {
+  if (beforeLoginMatcher(req.nextUrl.pathname)) {
+    return beforeLoginMiddleware(req)
+  }
 }
