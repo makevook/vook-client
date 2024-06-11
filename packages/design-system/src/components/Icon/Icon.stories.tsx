@@ -124,6 +124,12 @@ export const Icons: Story = {
           <Icon name="backward-medium">{props.children}</Icon>
           <Icon name="backward-small">{props.children}</Icon>
         </IconRow>
+        <p className="storybook-subtitle">Spinner</p>
+        <IconRow>
+          <Icon name="spinner-big">{props.children}</Icon>
+          <Icon name="spinner-medium">{props.children}</Icon>
+          <Icon name="spinner-small">{props.children}</Icon>
+        </IconRow>
         <p className="storybook-subtitle">sns</p>
         <IconRow>
           <Icon name="instagram">{props.children}</Icon>

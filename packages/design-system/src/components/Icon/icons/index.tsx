@@ -7,6 +7,7 @@ import { plusIcons } from './Plus'
 import { backwardIcons } from './Backward'
 import { snsIcons } from './SNS'
 import { emogiIcons } from './Emoji'
+import { spinnerIcons } from './Spinner'
 
 export type IconNames =
   | keyof typeof closeIcons
@@ -18,6 +19,7 @@ export type IconNames =
   | keyof typeof backwardIcons
   | keyof typeof snsIcons
   | keyof typeof emogiIcons
+  | keyof typeof spinnerIcons
 
 export const Icons: {
   [key in IconNames]: JSX.Element
@@ -31,6 +33,7 @@ export const Icons: {
   ...backwardIcons,
   ...snsIcons,
   ...emogiIcons,
+  ...spinnerIcons,
 }
 
 export const iconNames = Object.keys(Icons) as IconNames[]
