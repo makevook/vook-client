@@ -1,7 +1,6 @@
 export interface SignUpDTO {
   nickname: string
   requiredTermsAgree: boolean
-  policyAgree: boolean
   marketingEmailOptIn: boolean
 }
 

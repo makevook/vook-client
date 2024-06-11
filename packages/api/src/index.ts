@@ -11,8 +11,8 @@ export {
   useSearchQuery,
 } from './services/useSearchQuery/queries'
 export { searchService } from './services/useSearchQuery/searchService'
-export type { SignUpDTO } from './services/useSignUpQuery/model'
-export { useSignUpQuery } from './services/useSignUpQuery/queries'
+export type { SignUpDTO } from './services/useSignUpMutation/model'
+export { useSignUpMutation } from './services/useSignUpMutation/queries'
 export {
   useUserInfoQuery,
   useUserInfoSuspenseQuery,

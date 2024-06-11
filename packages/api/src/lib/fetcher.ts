@@ -26,11 +26,12 @@ export class Fetcher {
 
     try {
       const fetchOptions: RequestInit = {
+        ...options,
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          ...options?.headers,
         },
-        ...options,
       }
 
       const response = await fetch(`${this.baseUrl}${url}`, fetchOptions)

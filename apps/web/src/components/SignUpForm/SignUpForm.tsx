@@ -1,11 +1,12 @@
 'use client'
 
 import { Button, Checkbox, Input, Text } from '@vook-client/design-system'
-import { SignUpDTO, useUserInfoQuery } from '@vook-client/api'
+import { useSignUpMutation, useUserInfoQuery } from '@vook-client/api'
 import { useForm } from 'react-hook-form'
-import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChangeEventHandler } from 'react'
+import { useRouter } from 'next/navigation'
+import z from 'zod'
 
 import {
   checkboxGroup,
@@ -26,32 +27,49 @@ const signUpSchema = z.object({
 
 export const SignUpForm = () => {
   const userInfoQuery = useUserInfoQuery()
-  const email = userInfoQuery.data?.result.email
-  const { register, handleSubmit, setValue, watch, formState } =
-    useForm<SignUpDTO>({
-      resolver: zodResolver(signUpSchema),
-      defaultValues: {
-        nickname: '',
-        requiredTermsAgree: false,
-        policyAgree: false,
-        marketingEmailOptIn: false,
+  const { register, handleSubmit, setValue, watch, formState } = useForm({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      nickname: '',
+      requiredTermsAgree: false,
+      policyAgree: false,
+      marketingEmailOptIn: false,
+    },
+  })
+  const router = useRouter()
+
+  const signUpMutation = useSignUpMutation(
+    {
+      nickname: watch('nickname'),
+      requiredTermsAgree: watch('requiredTermsAgree'),
+      marketingEmailOptIn: watch('marketingEmailOptIn'),
+    },
+    {
+      onSuccess: () => {
+        router.push('/onboarding')
       },
-    })
+    },
+  )
+
+  if (!userInfoQuery.data) {
+    return null
+  }
+
+  const email = userInfoQuery.data.result.email
 
   const isAllChecked =
     watch('requiredTermsAgree') &&
     watch('policyAgree') &&
     watch('marketingEmailOptIn')
 
-  const onSubmit = handleSubmit((data) => {
-    // eslint-disable-next-line no-console
-    console.log(data)
+  const onSubmit = handleSubmit(() => {
+    signUpMutation.mutate()
   })
 
   const onCheckAll: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setValue('requiredTermsAgree', e.target.checked)
-    setValue('policyAgree', e.target.checked)
-    setValue('marketingEmailOptIn', e.target.checked)
+    setValue('requiredTermsAgree', e.target.checked, { shouldValidate: true })
+    setValue('policyAgree', e.target.checked, { shouldValidate: true })
+    setValue('marketingEmailOptIn', e.target.checked, { shouldValidate: true })
   }
 
   return (
@@ -62,7 +80,7 @@ export const SignUpForm = () => {
         </Text>
       </div>
       <div className={signUpInputField}>
-        <Input icon="google" label="구글 계정" value={email || ''} disabled />
+        <Input icon="google" label="구글 계정" value={email} disabled />
         <Input
           {...register('nickname')}
           label="닉네임"
@@ -133,7 +151,11 @@ export const SignUpForm = () => {
           </label>
         </div>
       </div>
-      <Button type="submit" fit="fill" disabled={!formState.isValid}>
+      <Button
+        type="submit"
+        fit="fill"
+        disabled={!formState.isValid || signUpMutation.isPending}
+      >
         가입하기
       </Button>
     </form>

@@ -6,7 +6,7 @@ import { SignUpResponse, SignUpDTO } from './model'
 
 export const signUpService = {
   async register(body: SignUpDTO) {
-    return baseFetcher.get<SignUpResponse>('/user/register', {
+    return baseFetcher.post<SignUpResponse>('/user/register', {
       headers: {
         Authorization: Cookies.get('access') || '',
       },
