@@ -10,17 +10,23 @@ const API_URL =
 export class Fetcher {
   private baseUrl: string
 
-  private tokenRefresher = (tokens: Tokens) => {
-    Cookies.set('access', tokens.access)
-    Cookies.set('refresh', tokens.refresh)
+  private unAuthorizationHandler = () => {}
+
+  private changeTokenHandler = (tokens: Tokens) => {
+    Cookies.set('accessToken', tokens.access)
+    Cookies.set('refreshToken', tokens.refresh)
+  }
+
+  public setUnAuthorizationHandler = (handler: VoidFunction) => {
+    this.unAuthorizationHandler = handler
+  }
+
+  public setChangeTokenHandler = (handler: (tokens: Tokens) => void) => {
+    this.changeTokenHandler = handler
   }
 
   public constructor(baseUrl: string) {
     this.baseUrl = baseUrl
-  }
-
-  public setTokenRefresher(handler: (tokens: Tokens) => void) {
-    this.tokenRefresher = handler
   }
 
   private async request<ResponseType>(
@@ -44,7 +50,7 @@ export class Fetcher {
       if (response.status === 401) {
         const result = await this.generateNewAccessToken<ResponseType>(
           url,
-          options,
+          fetchOptions,
         )
 
         if (result) {
@@ -70,8 +76,20 @@ export class Fetcher {
     url: string,
     options?: RequestInit,
   ) => {
+    const headers = {
+      ...options?.headers,
+    } as {
+      'X-Refresh-Authorization': string
+    }
+
     try {
-      const response = await fetch(`${API_URL}/auth/refresh`, options)
+      const response = await fetch(`${API_URL}/auth/refresh`, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-Refresh-Authorization': headers['X-Refresh-Authorization'],
+        },
+      })
 
       const newAccessToken = response.headers.get('Authorization')
       const newRefreshToken = response.headers.get('X-Refresh-Authorization')
@@ -80,7 +98,7 @@ export class Fetcher {
         throw new Error('토큰 갱신에 실패하였습니다.')
       }
 
-      this.tokenRefresher({
+      this.changeTokenHandler({
         access: newAccessToken,
         refresh: newRefreshToken,
       })
@@ -99,6 +117,11 @@ export class Fetcher {
 
       if (global.location) {
         global.location.href = '/login'
+        return
+      }
+
+      if (this.unAuthorizationHandler) {
+        this.unAuthorizationHandler()
       }
     }
   }
