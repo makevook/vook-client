@@ -10,7 +10,8 @@
     "paths": {
       "@/providers/*": ["./src/providers/*"],
       "@/components/*": ["./src/components/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/styles/*": ["./src/styles/*"],
+      "@/utils/*": ["./src/utils/*"]
     }
   },
   "include": [

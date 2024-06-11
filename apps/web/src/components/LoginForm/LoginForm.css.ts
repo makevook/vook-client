@@ -14,3 +14,7 @@ export const loginFormHeader = style({
   gap: 8,
   marginBottom: 80,
 })
+
+export const loginButton = style({
+  width: '100%',
+})

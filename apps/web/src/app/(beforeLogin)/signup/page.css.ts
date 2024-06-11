@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
 
-export const loginFormArea = style({
+export const signupForm = style({
   width: 380,
 })

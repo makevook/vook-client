@@ -1,4 +1,4 @@
-export { Fetcher } from './lib/fetcher'
+export { baseFetcher, Fetcher } from './lib/fetcher'
 export type {
   SearchDTO,
   SearchHit,

@@ -147,6 +147,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.32.0
         version: 5.37.1(react@18.3.1)
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@vanilla-extract/css':
         specifier: ^1.14.2
         version: 1.15.1
@@ -168,6 +171,9 @@ importers:
       '@vook-client/design-system':
         specifier: '*'
         version: link:../../packages/design-system
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       next:
         specifier: ^14.1.1
         version: 14.2.3(@babel/core@7.24.5)(react-dom@18.3.1)(react@18.3.1)
@@ -9040,6 +9046,13 @@ packages:
       rxjs: 6.6.7
     dev: true
 
+  /@types/js-cookie@3.0.6:
+    resolution:
+      {
+        integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==,
+      }
+    dev: false
+
   /@types/json-schema@7.0.15:
     resolution:
       {
@@ -16122,6 +16135,14 @@ packages:
         integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==,
       }
     engines: { node: '>=10' }
+    dev: false
+
+  /js-cookie@3.0.5:
+    resolution:
+      {
+        integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==,
+      }
+    engines: { node: '>=14' }
     dev: false
 
   /js-tokens@4.0.0:

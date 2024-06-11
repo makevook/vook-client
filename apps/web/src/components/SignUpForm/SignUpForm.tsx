@@ -1,3 +1,5 @@
+'use client'
+
 import { Button, Checkbox, Input, Text } from '@vook-client/design-system'
 
 import {
