@@ -7,6 +7,12 @@ import { initialize, mswLoader } from 'msw-storybook-addon'
 
 import { Preview } from '@storybook/react'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  AppRouterContext,
+  type AppRouterInstance,
+} from 'next/dist/shared/lib/app-router-context.shared-runtime'
+
 initialize()
 
 const preview: Preview = {
@@ -24,6 +30,15 @@ const preview: Preview = {
     },
   },
   loaders: [mswLoader],
+  decorators: [
+    (Story) => (
+      <AppRouterContext.Provider value={{} as AppRouterInstance}>
+        <QueryClientProvider client={new QueryClient()}>
+          <Story />
+        </QueryClientProvider>
+      </AppRouterContext.Provider>
+    ),
+  ],
 }
 
 export default preview

@@ -1,10 +1,5 @@
-import {
-  AppRouterContext,
-  type AppRouterInstance,
-} from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { OnBoardingProvider } from '../_context/useOnboarding'
 
@@ -18,13 +13,9 @@ const meta: Meta<typeof OnboardingJobPage> = {
   },
   decorators: [
     (Story) => (
-      <AppRouterContext.Provider value={{} as AppRouterInstance}>
-        <QueryClientProvider client={new QueryClient()}>
-          <OnBoardingProvider>
-            <Story />
-          </OnBoardingProvider>
-        </QueryClientProvider>
-      </AppRouterContext.Provider>
+      <OnBoardingProvider>
+        <Story />
+      </OnBoardingProvider>
     ),
   ],
 }

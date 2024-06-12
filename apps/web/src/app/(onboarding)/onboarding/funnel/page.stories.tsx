@@ -5,20 +5,12 @@ import { OnBoardingProvider } from '../_context/useOnboarding'
 
 import OnboardingFunnel from './page'
 
-const meta = {
+const meta: Meta<typeof OnboardingFunnel> = {
   title: 'OnboardingFunnel',
   component: OnboardingFunnel,
   parameters: {
     layout: 'centered',
-    msw: {},
   },
-} satisfies Meta<typeof OnboardingFunnel>
-
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const Preview: Story = {
   decorators: [
     (Story) => (
       <OnBoardingProvider>
@@ -27,3 +19,9 @@ export const Preview: Story = {
     ),
   ],
 }
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Preview: Story = {}

@@ -1,3 +1,5 @@
+'use client'
+
 import { Step, Text } from '@vook-client/design-system'
 
 import { onboardingHeader, stepArea } from './OnboardingHeader.css'

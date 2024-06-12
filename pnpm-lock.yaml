@@ -243,12 +243,18 @@ importers:
 
   apps/workshop:
     dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.32.0
+        version: 5.37.1(react@18.3.1)
       '@vook-client/api':
         specifier: '*'
         version: link:../../packages/api
       '@vook-client/design-system':
         specifier: '*'
         version: link:../../packages/design-system
+      next:
+        specifier: ^14.1.1
+        version: 14.2.3(@babel/core@7.23.7)(react-dom@18.3.1)(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1

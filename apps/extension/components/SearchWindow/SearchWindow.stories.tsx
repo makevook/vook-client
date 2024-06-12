@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { SearchWindow } from './SearchWindow'
 
@@ -14,9 +13,7 @@ const meta = {
           height: '600px',
         }}
       >
-        <QueryClientProvider client={new QueryClient()}>
-          <Story />
-        </QueryClientProvider>
+        <Story />
       </div>
     ),
   ],
