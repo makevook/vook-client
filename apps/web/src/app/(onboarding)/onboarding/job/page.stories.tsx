@@ -10,19 +10,12 @@ import { OnBoardingProvider } from '../_context/useOnboarding'
 
 import OnboardingJobPage from './page'
 
-const meta = {
+const meta: Meta<typeof OnboardingJobPage> = {
   title: 'OnboardingJob',
   component: OnboardingJobPage,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof OnboardingJobPage>
-
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const Preview: Story = {
   decorators: [
     (Story) => (
       <AppRouterContext.Provider value={{} as AppRouterInstance}>
@@ -35,3 +28,9 @@ export const Preview: Story = {
     ),
   ],
 }
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Preview: Story = {}
