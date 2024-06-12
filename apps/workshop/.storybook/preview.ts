@@ -1,7 +1,15 @@
 import '@vook-client/design-system/style.css'
 import './storybook.css'
 
-const preview = {
+import { handlers } from '@vook-client/api'
+
+import { initialize, mswLoader } from 'msw-storybook-addon'
+
+import { Preview } from '@storybook/react'
+
+initialize()
+
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -9,7 +17,13 @@ const preview = {
         date: /Date$/i,
       },
     },
+    msw: {
+      handlers: {
+        ...handlers,
+      },
+    },
   },
+  loaders: [mswLoader],
 }
 
 export default preview

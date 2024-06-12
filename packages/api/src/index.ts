@@ -1,4 +1,5 @@
 export { baseFetcher, Fetcher } from './lib/fetcher'
+export { handlers } from './mocks/handlers'
 export {
   OnboardingFunnel,
   OnboardingJob,

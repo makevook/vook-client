@@ -4,7 +4,7 @@ import { Button, Checkbox, Input, Text } from '@vook-client/design-system'
 import { useSignUpMutation, useUserInfoQuery } from '@vook-client/api'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ChangeEventHandler } from 'react'
+import { ChangeEventHandler, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import z from 'zod'
 import Cookies from 'js-cookie'
@@ -59,16 +59,32 @@ export const SignUpForm = () => {
     },
   )
 
+  const isAllChecked = useMemo(
+    () =>
+      watch('requiredTermsAgree') &&
+      watch('policyAgree') &&
+      watch('marketingEmailOptIn'),
+    [watch],
+  )
+
+  const isSubmitting = useMemo(
+    () => signUpMutation.isPending,
+    [signUpMutation.isPending],
+  )
+
+  const canSubmit = useMemo(
+    () =>
+      !formState.isValid ||
+      signUpMutation.isPending ||
+      signUpMutation.isSuccess,
+    [formState.isValid, signUpMutation.isPending, signUpMutation.isSuccess],
+  )
+
   if (!userInfoQuery.data) {
     return null
   }
 
   const email = userInfoQuery.data.result.email
-
-  const isAllChecked =
-    watch('requiredTermsAgree') &&
-    watch('policyAgree') &&
-    watch('marketingEmailOptIn')
 
   const onSubmit = handleSubmit(() => {
     signUpMutation.mutate()
@@ -162,16 +178,8 @@ export const SignUpForm = () => {
       <Button
         type="submit"
         fit="fill"
-        disabled={
-          !formState.isValid ||
-          signUpMutation.isPending ||
-          signUpMutation.isSuccess
-        }
-        suffixIcon={
-          signUpMutation.isPending || signUpMutation.isSuccess
-            ? 'spinner-big'
-            : undefined
-        }
+        disabled={canSubmit}
+        suffixIcon={isSubmitting ? 'spinner-big' : undefined}
       >
         가입하기
       </Button>
