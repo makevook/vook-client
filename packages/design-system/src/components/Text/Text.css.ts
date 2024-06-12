@@ -7,6 +7,7 @@ export const text = recipe({
     margin: 0,
     letterSpacing: '0.01em',
     whiteSpace: 'pre-wrap',
+    textDecoration: 'none',
   },
   variants: {
     type: {

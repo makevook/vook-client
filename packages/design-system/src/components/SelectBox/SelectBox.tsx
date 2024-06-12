@@ -38,18 +38,21 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>(
         {...rest}
       >
         {prefixIcon && <Icon name={prefixIcon} />}
-        <Text type="body-2" fontWeight="medium" color="common-black">
-          {children}
-        </Text>
-        <input
-          type="checkbox"
-          checked={selected}
-          className={fakeSelectBox}
-          onChange={() => {
-            setSelected((prev) => !prev)
-          }}
-        />
-        {suffixIcon && <Icon name={suffixIcon} />}
+        <label>
+          <Text type="body-2" fontWeight="medium" color="common-black">
+            {children}
+          </Text>
+          <input
+            type="checkbox"
+            checked={selected}
+            name={children?.toString()}
+            className={fakeSelectBox}
+            onChange={() => {
+              setSelected((prev) => !prev)
+            }}
+          />
+          {suffixIcon && <Icon name={suffixIcon} />}
+        </label>
       </div>
     )
   },

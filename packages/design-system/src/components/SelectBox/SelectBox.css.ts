@@ -52,12 +52,13 @@ export const fakeSelectBox = style({
   width: '100%',
   height: '100%',
   opacity: 0,
+  margin: 0,
 
   ':hover': {
     cursor: 'pointer',
   },
 
-  transform: 'translateX(-16px)',
+  transform: 'translate(-54px, -38px)',
 })
 
 export type SelectBoxVariants = RecipeVariants<typeof selectBox>

@@ -59,7 +59,7 @@ const JOBS: Array<{
   },
 ]
 
-const JobPage = () => {
+const OnboardingJobPage = () => {
   const router = useRouter()
   const { setJob, job: selectedJob, funnel } = useOnBoarding()
 
@@ -147,4 +147,4 @@ const JobPage = () => {
   )
 }
 
-export default JobPage
+export default OnboardingJobPage

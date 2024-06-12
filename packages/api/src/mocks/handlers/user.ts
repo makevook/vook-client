@@ -13,7 +13,7 @@ export const userHandlers = [
       result: {
         uid: 'uid',
         email: 'dummyuser1234@vook.com',
-        status: UserStatus.SocialLoginCompleted,
+        status: UserStatus.Registered,
         onboardingCompleted: false,
         nickname: '',
       },
@@ -21,6 +21,13 @@ export const userHandlers = [
     return HttpResponse.json(res)
   }),
   http.post(`${API_URL}/user/register`, async () => {
+    const res = {
+      code: 'SUCCESS',
+    }
+    await delay(1000)
+    return HttpResponse.json(res)
+  }),
+  http.post(`${API_URL}/user/onboarding`, async () => {
     const res = {
       code: 'SUCCESS',
     }

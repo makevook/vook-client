@@ -1,6 +1,5 @@
 export { baseFetcher, Fetcher } from './lib/fetcher'
 export { handlers } from './mocks/handlers'
-export { mswServer } from './mocks/node'
 export {
   OnboardingFunnel,
   OnboardingJob,

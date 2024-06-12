@@ -11,8 +11,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { OnboardingFunnel } from '@vook-client/api'
 
-import { appearBottom } from '@/styles/animations.css'
-
+import { appearBottom } from '../../../../styles/animations.css'
 import { SelectBoxGroup } from '../_components/SelectBoxGroup'
 import { useOnBoarding } from '../_context/useOnboarding'
 import { OnboardingHeader } from '../_components/OnboardingHeader'
