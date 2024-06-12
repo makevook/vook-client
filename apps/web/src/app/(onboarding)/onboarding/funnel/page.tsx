@@ -61,7 +61,7 @@ const FUNNELS: Array<{
   },
 ]
 
-const FunnelPage = () => {
+const OnboardingFunnelPage = () => {
   const { setFunnel, funnel: selectedFunnel } = useOnBoarding()
 
   const onClinkFunnel = (funnel: OnboardingFunnel) => {
@@ -115,4 +115,4 @@ const FunnelPage = () => {
   )
 }
 
-export default FunnelPage
+export default OnboardingFunnelPage

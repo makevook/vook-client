@@ -17,7 +17,6 @@
     "@vook-client/typescript-config": "*",
     "eslint-plugin-vitest": "^0.2.6",
     "husky": "^9.0.11",
-    "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "turbo": "latest",
@@ -31,8 +30,5 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],
-  "dependencies": {
-    "@testing-library/user-event": "^14.5.2"
-  }
+  ]
 }

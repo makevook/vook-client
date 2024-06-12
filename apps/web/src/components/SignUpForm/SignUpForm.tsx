@@ -170,7 +170,7 @@ export const SignUpForm = () => {
           />
           <label htmlFor="receive-marketing-emails">
             <Text as="span" color="semantic-label-alternative" type="body-1">
-              마케팅 메일 수신 동의(필수)
+              마케팅 메일 수신 동의(선택)
             </Text>
           </label>
         </div>
