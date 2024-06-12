@@ -11,7 +11,7 @@ const Layout = async ({ children }: PropsWithChildren) => {
   const accessToken = cookieStore.get('access')?.value
   const refreshToken = cookieStore.get('refresh')?.value
 
-  if ((!accessToken && !refreshToken) || !accessToken) {
+  if (!accessToken && !refreshToken) {
     redirect('/login')
   }
 
