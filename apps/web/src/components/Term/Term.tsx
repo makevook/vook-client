@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react'
 import { Button, List, Text } from '@vook-client/design-system'
 import { SearchSort, searchSort, useSearchQuery } from '@vook-client/api'
 
@@ -61,6 +61,11 @@ const TextContainer = ({ length }: { length?: number }) => {
 export const Term = () => {
   const { requestQuery } = searchStore()
   const [sort, setSort] = useState<SearchSort>()
+  const [minimumDelayDone, setMinimumDelayDone] = useState<boolean>(false)
+
+  useLayoutEffect(() => {
+    setTimeout(() => setMinimumDelayDone(true), 500)
+  }, [])
 
   const { data: response, isLoading } = useSearchQuery(
     // DTO
@@ -77,7 +82,7 @@ export const Term = () => {
     },
   )
 
-  const handleSort = (kind: string) => {
+  const handleSort = useCallback((kind: string) => {
     setSort((prevSort) => {
       const ascKey = `${kind}Asc` as keyof typeof searchSort
       const descKey = `${kind}Desc` as keyof typeof searchSort
@@ -87,18 +92,29 @@ export const Term = () => {
         return searchSort[ascKey]
       }
     })
-  }
+  }, [])
+
+  const done = useMemo(
+    () => (minimumDelayDone && !isLoading) || !response,
+    [isLoading, minimumDelayDone, response],
+  )
+  const noResult = useMemo(
+    () => done && response?.result.hits.length === 0,
+    [done, response?.result.hits.length],
+  )
+  const hasResult = useMemo(
+    () => ((done && response?.result.hits.length) || 0) > 0,
+    [done, response?.result.hits.length],
+  )
 
   return (
     <div className={termContainer}>
       <div className={inner}>
         <div className={termListContainer}>
           <TextContainer length={response?.result.hits.length} />
-          {isLoading ? (
-            <LoadingComponent />
-          ) : response?.result.hits.length === 0 ? (
-            <NoSearchResults />
-          ) : (
+          {!done && <LoadingComponent />}
+          {noResult && <NoSearchResults />}
+          {hasResult && (
             <>
               <div className={termTitleContainer}>
                 <List
@@ -130,7 +146,6 @@ export const Term = () => {
                   뜻
                 </List>
               </div>
-
               {response?.result.hits.map((data, index) => {
                 return (
                   <div key={index} className={termListDataContainer}>

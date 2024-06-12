@@ -1,8 +1,8 @@
-import { QueryOptions } from '@tanstack/react-query'
+import { DefaultedQueryObserverOptions } from '@tanstack/react-query'
 
 export type CustomQueryOptions<T> = Omit<
-  QueryOptions<T>,
-  'queryFn' | 'queryKey'
+  DefaultedQueryObserverOptions<T>,
+  'queryFn' | 'queryKey' | 'throwOnError' | 'refetchOnReconnect' | 'queryHash'
 >
 
 export interface DefaultResponse<T extends object> {
