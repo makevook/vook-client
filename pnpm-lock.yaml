@@ -340,6 +340,9 @@ importers:
       vite:
         specifier: ^4.4.5
         version: 4.5.3
+      vite-tsconfig-paths:
+        specifier: ^4.3.2
+        version: 4.3.2(typescript@5.2.2)(vite@4.5.3)
 
   packages/api:
     dependencies:
@@ -15364,7 +15367,6 @@ packages:
       {
         integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==,
       }
-    dev: false
 
   /gopd@1.0.1:
     resolution:
@@ -22340,7 +22342,6 @@ packages:
         optional: true
     dependencies:
       typescript: 5.2.2
-    dev: false
 
   /tsconfig-paths@3.15.0:
     resolution:
@@ -23202,6 +23203,26 @@ packages:
       picocolors: 1.0.1
       vite: 5.2.11(@types/node@20.14.2)
     dev: false
+
+  /vite-tsconfig-paths@4.3.2(typescript@5.2.2)(vite@4.5.3):
+    resolution:
+      {
+        integrity: sha512-0Vd/a6po6Q+86rPlntHye7F31zA2URZMbH8M3saAZ/xR9QoGN/L21bxEGfXdWmFdNkqPpRdxFT7nmNe12e9/uA==,
+      }
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      debug: 4.3.4
+      globrex: 0.1.2
+      tsconfck: 3.1.0(typescript@5.2.2)
+      vite: 4.5.3
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
 
   /vite-tsconfig-paths@4.3.2(typescript@5.2.2)(vite@5.2.11):
     resolution:

@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-import { appearBottom } from '../../../../styles/animations.css'
+import { appearBottom } from '@/styles/animations.css'
 
 export const header = style({
   marginBottom: 40,

@@ -6,12 +6,13 @@ import {
   SelectBox,
   Text,
 } from '@vook-client/design-system'
-import Link from 'next/link'
 import React from 'react'
 import clsx from 'clsx'
 import { OnboardingFunnel } from '@vook-client/api'
 
-import { appearBottom } from '../../../../styles/animations.css'
+import { Link } from '@/components/Link'
+import { appearBottom } from '@/styles/animations.css'
+
 import { SelectBoxGroup } from '../_components/SelectBoxGroup'
 import { useOnBoarding } from '../_context/useOnboarding'
 import { OnboardingHeader } from '../_components/OnboardingHeader'
@@ -71,8 +72,6 @@ const OnboardingFunnelPage = () => {
     setFunnel(funnel)
   }
 
-  const isStorybook = process.env.IS_STORYBOOK !== undefined
-
   return (
     <div>
       <OnboardingHeader step={1} />
@@ -101,12 +100,12 @@ const OnboardingFunnelPage = () => {
         </SelectBoxGroup>
       </div>
       <div className={buttonGroup}>
-        <Link prefetch={!isStorybook} href="/onboarding/job">
+        <Link href="/onboarding/job">
           <Text type="body-2" color="label-alternative">
             건너뛰기
           </Text>
         </Link>
-        <Link prefetch={!isStorybook} href="/onboarding/job">
+        <Link href="/onboarding/job">
           <Button disabled={selectedFunnel === null} size="middle">
             다음
           </Button>

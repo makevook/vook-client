@@ -6,10 +6,11 @@ import {
   SelectBox,
   Text,
 } from '@vook-client/design-system'
-import Link from 'next/link'
 import React from 'react'
 import { OnboardingJob, useOnboardingMutation } from '@vook-client/api'
 import { useRouter } from 'next/navigation'
+
+import { Link } from '@/components/Link'
 
 import { SelectBoxGroup } from '../_components/SelectBoxGroup'
 import { useOnBoarding } from '../_context/useOnboarding'
@@ -88,8 +89,6 @@ const OnboardingJobPage = () => {
     setJob(job)
   }
 
-  const isStorybook = process.env.IS_STORYBOOK !== undefined
-
   return (
     <div>
       <OnboardingHeader step={2} />
@@ -118,17 +117,17 @@ const OnboardingJobPage = () => {
         </SelectBoxGroup>
       </div>
       <div className={buttonGroup}>
-        <Link prefetch={!isStorybook} href="/">
+        <Link href="/">
           <Text type="body-2" color="label-alternative">
             건너뛰기
           </Text>
         </Link>
-        <Link prefetch={!isStorybook} href="/onboarding/funnel">
+        <Link href="/onboarding/funnel">
           <Button filled={false} blueLine={false} size="middle">
             뒤로가기
           </Button>
         </Link>
-        <Link prefetch={!isStorybook} href="/onboarding/job">
+        <Link href="/onboarding/job">
           <Button
             onClick={onSubmitFunnel}
             size="middle"

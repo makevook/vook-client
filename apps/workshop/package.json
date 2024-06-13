@@ -42,7 +42,8 @@
     "msw-storybook-addon": "^2.0.2",
     "storybook": "^8.0.10",
     "style-loader": "^4.0.0",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-tsconfig-paths": "^4.3.2"
   },
   "msw": {
     "workerDirectory": [
