@@ -11,6 +11,7 @@ export const button = recipe({
     border: 'none',
     borderRadius: 6,
     gap: 6,
+    textDecoration: 'none',
   },
   variants: {
     size: {

@@ -60,6 +60,7 @@ const bundle = defineConfig({
     rollupOptions: {
       output: {
         dir: 'dist/bundle/',
+        banner: '"use client"',
       },
       external: shared.external,
     },

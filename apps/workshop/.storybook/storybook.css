@@ -4,6 +4,10 @@
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 .storybook-list {
   display: flex;
   flex-direction: column;

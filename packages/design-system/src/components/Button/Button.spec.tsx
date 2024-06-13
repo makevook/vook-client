@@ -46,18 +46,18 @@ describe('Button Test', () => {
 
   it('Button은 prefixIcon이 있을 때 정상적으로 렌더링된다.', () => {
     // given
-    const { getAllByTitle } = render(<Button prefixIcon="X">Button</Button>)
+    const { getByTitle } = render(<Button prefixIcon="X">Button</Button>)
 
     // when & then
-    expect(getAllByTitle('X')[0]).toBeInTheDocument()
+    expect(getByTitle('X')).toBeInTheDocument()
   })
 
   it('Button은 suffixIcon이 있을 때 정상적으로 렌더링된다.', () => {
     // given
-    const { getAllByTitle } = render(<Button suffixIcon="X">Button</Button>)
+    const { getByTitle } = render(<Button suffixIcon="X">Button</Button>)
 
     // when & then
-    expect(getAllByTitle('X')[1]).toBeInTheDocument()
+    expect(getByTitle('X')).toBeInTheDocument()
   })
 
   it('Button은 prefixIcon과 suffixIcon이 모두 있을 때 정상적으로 렌더링된다.', () => {

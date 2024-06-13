@@ -10,7 +10,9 @@
     "paths": {
       "@/providers/*": ["./src/providers/*"],
       "@/components/*": ["./src/components/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/styles/*": ["./src/styles/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/mocks/*": ["./src/mocks/*"]
     }
   },
   "include": [
@@ -18,7 +20,8 @@
     "next.config.mjs",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/app/(onboarding)/onboarding/funnel/fsafs"
   ],
   "exclude": ["node_modules"]
 }

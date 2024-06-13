@@ -1,4 +1,13 @@
 {
   "extends": "@vook-client/typescript-config/vite.json",
-  "include": [".storybook/*"]
+  "include": [".storybook/*"],
+  "compilerOptions": {
+    "paths": {
+      "@/providers/*": ["./src/providers/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/styles/*": ["./src/styles/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/mocks/*": ["./src/mocks/*"]
+    }
+  }
 }
