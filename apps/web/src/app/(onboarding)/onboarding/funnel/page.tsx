@@ -71,6 +71,8 @@ const OnboardingFunnelPage = () => {
     setFunnel(funnel)
   }
 
+  const isStorybook = process.env.IS_STORYBOOK !== undefined
+
   return (
     <div>
       <OnboardingHeader step={1} />
@@ -99,12 +101,12 @@ const OnboardingFunnelPage = () => {
         </SelectBoxGroup>
       </div>
       <div className={buttonGroup}>
-        <Link href="/onboarding/job">
+        <Link prefetch={!isStorybook} href="/onboarding/job">
           <Text type="body-2" color="label-alternative">
             건너뛰기
           </Text>
         </Link>
-        <Link href="/onboarding/job">
+        <Link prefetch={!isStorybook} href="/onboarding/job">
           <Button disabled={selectedFunnel === null} size="middle">
             다음
           </Button>

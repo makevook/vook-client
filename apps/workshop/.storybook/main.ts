@@ -88,6 +88,7 @@ const config: StorybookConfig = {
     return mergeConfig(config, {
       define: {
         'process.env.NEXT_PUBLIC_API_URL': false,
+        'process.env.IS_STORYBOOK': true,
       },
       plugins: [require('@vanilla-extract/vite-plugin').vanillaExtractPlugin()],
       esbuild: {
