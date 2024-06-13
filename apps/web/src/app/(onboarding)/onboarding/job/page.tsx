@@ -122,11 +122,6 @@ const OnboardingJobPage = () => {
             건너뛰기
           </Text>
         </Link>
-        <Link href="/onboarding/funnel">
-          <Button filled={false} blueLine={false} size="middle">
-            뒤로가기
-          </Button>
-        </Link>
         <Link href="/onboarding/job">
           <Button
             onClick={onSubmitFunnel}
