@@ -2,10 +2,17 @@
 
 * {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
 }
 
 a {
   text-decoration: none;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .storybook-list {

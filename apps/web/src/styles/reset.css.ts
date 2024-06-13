@@ -23,3 +23,9 @@ globalStyle('a', {
 globalStyle('ul', {
   listStyle: 'none',
 })
+
+globalStyle('button', {
+  border: 'none',
+  background: 'none',
+  cursor: 'pointer',
+})
