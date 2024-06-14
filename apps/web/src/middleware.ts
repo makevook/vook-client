@@ -116,7 +116,14 @@ const onlyUnregisteredSocialUser = checkUserStatusMiddleware([
 ])
 
 export async function middleware(req: NextRequest) {
-  const response = NextResponse.next()
+  const requestHeaders = new Headers(req.headers)
+  requestHeaders.set('X-pathname', req.nextUrl.pathname)
+
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  })
 
   if (
     onlyRegisteredMatch.some((url) => req.nextUrl.pathname.includes(url)) ||
@@ -128,4 +135,6 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname === '/signup') {
     return onlyUnregisteredSocialUser(req, response, '/login')
   }
+
+  return response
 }

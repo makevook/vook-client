@@ -1,9 +1,15 @@
 export const localStorageUtils = {
   setLocalStorage: (key: string, value: unknown) => {
+    if (global?.document === undefined) {
+      return
+    }
     localStorage.setItem(key, JSON.stringify(value))
   },
 
   getLocalStorage: <T>(key: string): T | null => {
+    if (global?.document === undefined) {
+      return null
+    }
     try {
       const value = localStorage.getItem(key)
 

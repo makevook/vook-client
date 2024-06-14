@@ -5,10 +5,16 @@ import {
   useRef,
   useState,
 } from 'react'
+import clsx from 'clsx'
 
 import { SelectProvider, useSelect } from '../../context/select'
 
-import { selectContainer, selectGroup, selectOption } from './Select.css'
+import {
+  selectContainer,
+  selectGroup,
+  selectOption,
+  selectTrigger,
+} from './Select.css'
 
 interface SelectProps extends PropsWithChildren {
   vertical: 'top' | 'bottom'
@@ -24,7 +30,11 @@ const Trigger = ({ children }: PropsWithChildren) => {
   }, [setTrigger])
 
   return (
-    <button onClick={toggle} ref={triggerRef}>
+    <button
+      className={clsx(['select-trigger', selectTrigger])}
+      onClick={toggle}
+      ref={triggerRef}
+    >
       {children}
     </button>
   )
@@ -67,7 +77,7 @@ const Group = ({ children, vertical, horizontal }: SelectProps) => {
 
   return (
     <ul
-      className={selectGroup}
+      className={clsx(selectGroup, 'select-group')}
       ref={groupRef}
       style={{
         top,

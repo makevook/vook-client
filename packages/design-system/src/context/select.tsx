@@ -4,7 +4,7 @@ import {
   createContext,
   PropsWithChildren,
   useContext,
-  useReducer,
+  useLayoutEffect,
   useState,
 } from 'react'
 
@@ -18,9 +18,31 @@ interface SelectContextType {
 const SelectContext = createContext<SelectContextType | undefined>(undefined)
 
 export const SelectProvider = ({ children }: PropsWithChildren) => {
-  const [open, toggle] = useReducer((state) => !state, false)
+  const [open, setOpen] = useState(false)
+
+  const toggle = () => {
+    setOpen((prev) => !prev)
+  }
+
   const [trigger, setTrigger] =
     useState<React.RefObject<HTMLButtonElement> | null>(null)
+
+  useLayoutEffect(() => {
+    document.addEventListener('click', (e) => {
+      const dom = e.target as HTMLElement
+
+      if (dom.closest('.select-trigger')) {
+        setOpen(true)
+        return
+      }
+
+      if (dom.closest('.select-group')) {
+        setOpen(true)
+      } else {
+        setOpen(false)
+      }
+    })
+  }, [])
 
   return (
     <SelectContext.Provider value={{ open, toggle, trigger, setTrigger }}>

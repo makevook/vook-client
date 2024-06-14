@@ -1,8 +1,16 @@
+'use client'
+
 import { Text } from '@vook-client/design-system'
+import { UserInfoResponse } from '@vook-client/api'
 
 import { sideBar } from './Sidebar.css'
+import { Profile } from './Profile/Profile'
 
-export const Sidebar = () => {
+interface SidebarProps {
+  user: UserInfoResponse['result']
+}
+
+export const Sidebar = ({ user }: SidebarProps) => {
   return (
     <aside className={sideBar}>
       <nav>
@@ -15,6 +23,7 @@ export const Sidebar = () => {
           </li>
         </ul>
       </nav>
+      <Profile user={user} />
     </aside>
   )
 }

@@ -60,6 +60,10 @@ export const SearchBox = () => {
     submitSearch(searchValue)
   }, [searchValue, submitSearch])
 
+  if (!mounted) {
+    return null
+  }
+
   const searchBoxId = `search-box-${vocabularyID}`
 
   return (
@@ -93,27 +97,25 @@ export const SearchBox = () => {
             </button>
           )}
         </div>
-        {mounted && (
-          <ul
-            className={historyList}
-            style={assignInlineVars({
-              [historyListHeight]: isFocused
-                ? `${searchHistory.length * 44}px`
-                : '0',
-            })}
-          >
-            <li />
-            {searchHistory.map((history, i) => (
-              <li key={`${history}-${i}`}>
-                <SearchHistory
-                  vocabularyID={vocabularyID}
-                  history={history}
-                  historyIndex={i}
-                />
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul
+          className={historyList}
+          style={assignInlineVars({
+            [historyListHeight]: isFocused
+              ? `${searchHistory.length * 44}px`
+              : '0',
+          })}
+        >
+          <li />
+          {searchHistory.map((history, i) => (
+            <li key={`${history}-${i}`}>
+              <SearchHistory
+                vocabularyID={vocabularyID}
+                history={history}
+                historyIndex={i}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   )

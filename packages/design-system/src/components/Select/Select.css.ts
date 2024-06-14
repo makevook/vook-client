@@ -40,6 +40,11 @@ export const selectGroup = style({
   animation: `${appearAnimation} 0.5s ease forwards`,
 })
 
+export const selectTrigger = style({
+  display: 'flex',
+  height: 'fit-content',
+})
+
 export const selectOption = style({
   width: '100%',
   padding: '8px 10px',
