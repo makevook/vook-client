@@ -2,7 +2,7 @@
 
 import { Icon, SymbolLogo } from '@vook-client/design-system'
 import clsx from 'clsx'
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useLayoutEffect, useState } from 'react'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 
 import {
@@ -11,6 +11,7 @@ import {
   resetButton,
   searchBox,
   searchBoxContainer,
+  searchBoxPositioner,
   searchIcon,
   searchInputArea,
   searchLogo,
@@ -20,6 +21,12 @@ import { SearchHistory } from './SearchHistory'
 import { useSearchHistory } from './hooks/useSearchHistory'
 
 export const SearchBox = () => {
+  const [mounted, setMounted] = useState(false)
+
+  useLayoutEffect(() => {
+    setMounted(true)
+  }, [])
+
   const { searchHistory, isFocused, onFocus, submitSearch, resetSearchValue } =
     useSearchBox()
 
@@ -53,53 +60,61 @@ export const SearchBox = () => {
     submitSearch(searchValue)
   }, [searchValue, submitSearch])
 
+  const searchBoxId = `search-box-${vocabularyID}`
+
   return (
-    <div
-      className={clsx({
-        [searchBoxContainer]: true,
-        active: isFocused,
-      })}
-      id={`${vocabularyID}-search-box`}
-    >
-      <div className={searchInputArea}>
-        <div className={searchLogo}>
-          <SymbolLogo size={24} />
-        </div>
-        <input
-          onFocus={onFocus}
-          onChange={onSearchChangeHandler}
-          onKeyDown={onEnterHandler}
-          value={searchValue}
-          placeholder="어떤 용어가 궁금하신가요?"
-          className={searchBox}
-        />
-        <button className={searchIcon} onClick={onSubmitHandler}>
-          <Icon name="search-big" />
-        </button>
-        {isFocused && (
-          <button className={resetButton} onClick={resetSearchValue}>
-            <Icon name="close-circle-big" />
+    <div className={searchBoxPositioner}>
+      <div
+        className={clsx({
+          [searchBoxContainer]: true,
+          active: isFocused,
+        })}
+        id={searchBoxId}
+      >
+        <div className={searchInputArea}>
+          <div className={searchLogo}>
+            <SymbolLogo size={24} />
+          </div>
+          <input
+            type="search"
+            onFocus={onFocus}
+            onChange={onSearchChangeHandler}
+            onKeyDown={onEnterHandler}
+            value={searchValue}
+            placeholder="어떤 용어가 궁금하신가요?"
+            className={searchBox}
+          />
+          <button className={searchIcon} onClick={onSubmitHandler}>
+            <Icon name="search-big" />
           </button>
+          {isFocused && (
+            <button className={resetButton} onClick={resetSearchValue}>
+              <Icon name="close-circle-big" />
+            </button>
+          )}
+        </div>
+        {mounted && (
+          <ul
+            className={historyList}
+            style={assignInlineVars({
+              [historyListHeight]: isFocused
+                ? `${searchHistory.length * 44}px`
+                : '0',
+            })}
+          >
+            <li />
+            {searchHistory.map((history, i) => (
+              <li key={`${history}-${i}`}>
+                <SearchHistory
+                  vocabularyID={vocabularyID}
+                  history={history}
+                  historyIndex={i}
+                />
+              </li>
+            ))}
+          </ul>
         )}
       </div>
-      <ul
-        className={historyList}
-        style={assignInlineVars({
-          [historyListHeight]: isFocused
-            ? `${searchHistory.length * 44}px`
-            : '0',
-        })}
-      >
-        {searchHistory.map((history, i) => (
-          <li key={`${history}-${i}`}>
-            <SearchHistory
-              vocabularyID={vocabularyID}
-              history={history}
-              historyIndex={i}
-            />
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }

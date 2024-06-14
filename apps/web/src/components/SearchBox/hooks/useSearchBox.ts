@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useLayoutEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 import { localStorageUtils } from '@/utils/localStorage'
 
@@ -33,11 +33,9 @@ export const useSearchBox = () => {
 
   const deleteHistory = useCallback(
     (index: number) => {
-      setTimeout(() => {
-        const newHistory = searchHistory.filter((_, i) => i !== index)
-        localStorageUtils.setLocalStorage(localStorageKey, newHistory)
-        setSearchHistory(newHistory)
-      }, 10)
+      const newHistory = searchHistory.filter((_, i) => i !== index)
+      localStorageUtils.setLocalStorage(localStorageKey, newHistory)
+      setSearchHistory(newHistory)
     },
     [localStorageKey, searchHistory, setSearchHistory],
   )
@@ -54,14 +52,14 @@ export const useSearchBox = () => {
     setFocus(true)
   }, [])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const blurHandler = (e: MouseEvent) => {
       const dom = e.target as HTMLElement
+      const searchBoxId = `#search-box-${vocabularyID}`
+      const isCurrentSearchBox = dom.closest(searchBoxId) !== null
+      const isDeleteButton = dom.closest('.delete-button') !== null
 
-      const isCurrentSearchBox =
-        dom.closest(`#${vocabularyID}-search-box`) !== null
-
-      setFocus(isCurrentSearchBox)
+      setFocus(isCurrentSearchBox || isDeleteButton || false)
     }
 
     document.addEventListener('click', blurHandler)

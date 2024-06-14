@@ -1,13 +1,10 @@
-import { Text, TypoLogo } from '@vook-client/design-system'
+import { Text } from '@vook-client/design-system'
 
 import { sideBar } from './Sidebar.css'
 
 export const Sidebar = () => {
   return (
     <aside className={sideBar}>
-      <div>
-        <TypoLogo size="big" />
-      </div>
       <nav>
         <ul>
           <li>

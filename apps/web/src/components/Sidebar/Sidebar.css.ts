@@ -1,10 +1,10 @@
 import { style } from '@vanilla-extract/css'
 
-import { SIDE_BAR_WIDTH } from '../../styles/layout'
+import { HEADER_HEIGHT, SIDE_BAR_WIDTH } from '../../styles/layout'
 
 export const sideBar = style({
   position: 'fixed',
-  top: 0,
+  top: HEADER_HEIGHT,
   left: 0,
 
   width: SIDE_BAR_WIDTH,

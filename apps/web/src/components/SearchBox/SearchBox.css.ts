@@ -1,9 +1,19 @@
 import { createVar, style } from '@vanilla-extract/css'
 import { vars } from '@vook-client/design-system'
 
+export const searchBoxPositioner = style({
+  position: 'relative',
+  width: 580,
+  height: 60,
+})
+
 export const searchBoxContainer = style({
   display: 'flex',
   flexDirection: 'column',
+
+  position: 'absolute',
+  top: 0,
+  left: 0,
 
   width: 580,
   height: 'fit-content',

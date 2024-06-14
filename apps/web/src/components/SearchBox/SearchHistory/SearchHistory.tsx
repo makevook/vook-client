@@ -1,4 +1,7 @@
+'use client'
+
 import { Icon, Text } from '@vook-client/design-system'
+import clsx from 'clsx'
 
 import { useSearchBox } from '../hooks/useSearchBox'
 
@@ -25,7 +28,7 @@ export const SearchHistory = ({
         {history}
       </Text>
       <button
-        className={deleteButton}
+        className={clsx([deleteButton, 'delete-button'])}
         onClick={() => deleteHistory(historyIndex)}
       >
         <Icon name="close-icon-small" />
