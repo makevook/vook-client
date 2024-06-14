@@ -34,12 +34,14 @@ export const selectGroup = style({
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.08)',
   borderRadius: 6,
 
+  backgroundColor: vars.colors['common-white'],
+
   opacity: 0,
   animation: `${appearAnimation} 0.5s ease forwards`,
 })
 
 export const selectOption = style({
-  width: 'fit-content',
+  width: '100%',
   padding: '8px 10px',
 
   whiteSpace: 'nowrap',

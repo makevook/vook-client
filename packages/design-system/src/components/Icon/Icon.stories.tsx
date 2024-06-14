@@ -124,13 +124,55 @@ export const Icons: Story = {
           <Icon name="backward-medium">{props.children}</Icon>
           <Icon name="backward-small">{props.children}</Icon>
         </IconRow>
+        <p className="storybook-subtitle">Dot Vertical</p>
+        <IconRow>
+          <Icon name="dot-vertical-big">{props.children}</Icon>
+          <Icon name="dot-vertical-medium">{props.children}</Icon>
+          <Icon name="dot-vertical-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Download</p>
+        <IconRow>
+          <Icon name="download-big">{props.children}</Icon>
+          <Icon name="download-medium">{props.children}</Icon>
+          <Icon name="download-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Edit</p>
+        <IconRow>
+          <Icon name="edit-big">{props.children}</Icon>
+          <Icon name="edit-medium">{props.children}</Icon>
+          <Icon name="edit-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Logout</p>
+        <IconRow>
+          <Icon name="logout-big">{props.children}</Icon>
+          <Icon name="logout-medium">{props.children}</Icon>
+          <Icon name="logout-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Setting</p>
+        <IconRow>
+          <Icon name="setting-big">{props.children}</Icon>
+          <Icon name="setting-medium">{props.children}</Icon>
+          <Icon name="setting-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Trash</p>
+        <IconRow>
+          <Icon name="trash-big">{props.children}</Icon>
+          <Icon name="trash-medium">{props.children}</Icon>
+          <Icon name="trash-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">User</p>
+        <IconRow>
+          <Icon name="user-big">{props.children}</Icon>
+          <Icon name="user-medium">{props.children}</Icon>
+          <Icon name="user-small">{props.children}</Icon>
+        </IconRow>
         <p className="storybook-subtitle">Spinner</p>
         <IconRow>
           <Icon name="spinner-big">{props.children}</Icon>
           <Icon name="spinner-medium">{props.children}</Icon>
           <Icon name="spinner-small">{props.children}</Icon>
         </IconRow>
-        <p className="storybook-subtitle">sns</p>
+        <p className="storybook-subtitle">SNS</p>
         <IconRow>
           <Icon name="instagram">{props.children}</Icon>
           <Icon name="instagram-color">{props.children}</Icon>

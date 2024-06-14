@@ -45,9 +45,9 @@ const meta: Meta = {
             vertical={(props?.vertical as 'top' | 'bottom') || 'top'}
             horizontal={(props?.horizontal as 'left' | 'right') || 'right'}
           >
-            <Select.Option>아이템</Select.Option>
-            <Select.Option>아이템</Select.Option>
-            <Select.Option>아이템</Select.Option>
+            <Select.Option>환경설정</Select.Option>
+            <Select.Option>더보기</Select.Option>
+            <Select.Option>메인 </Select.Option>
             <Select.Option>아이템</Select.Option>
           </Select.Group>
         </Select>
