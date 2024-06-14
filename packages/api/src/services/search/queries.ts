@@ -5,8 +5,8 @@ import { CustomQueryOptions } from '../../shared/type'
 import { SearchDTO, SearchResponse, searchSort } from './model'
 import { searchService } from './searchService'
 
-export const serchQueryKeysGenerator = {
-  get: (options: SearchDTO) => {
+export const searchQueryKeysGenerator = {
+  search: (options: SearchDTO) => {
     const keys: Array<string> = ['search', options.query]
 
     keys.push(options.withFormat ? 'formmated' : 'raw')
@@ -19,10 +19,10 @@ export const serchQueryKeysGenerator = {
   },
 }
 
-export const serchQueryOptions = {
-  get: (options: SearchDTO) => ({
-    queryKey: serchQueryKeysGenerator.get(options),
-    queryFn: () => searchService.get(options),
+export const searchQueryOptions = {
+  search: (options: SearchDTO) => ({
+    queryKey: searchQueryKeysGenerator.search(options),
+    queryFn: () => searchService.search(options),
   }),
 }
 
@@ -31,7 +31,7 @@ export const useSearchQuery = (
   queryOptions: CustomQueryOptions<SearchResponse> = {},
 ) => {
   return useQuery<SearchResponse>({
-    ...serchQueryOptions.get(dto),
+    ...searchQueryOptions.search(dto),
     ...queryOptions,
   })
 }

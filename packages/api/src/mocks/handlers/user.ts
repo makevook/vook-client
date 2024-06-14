@@ -1,10 +1,7 @@
 import { delay, http, HttpResponse } from 'msw'
 
 import { API_URL } from '../config'
-import {
-  UserInfoResponse,
-  UserStatus,
-} from '../../services/useUserInfoQuery/model'
+import { UserInfoResponse, UserStatus } from '../../services/user/model'
 
 export const userHandlers = [
   http.get(`${API_URL}/user/info`, () => {
@@ -28,6 +25,13 @@ export const userHandlers = [
     return HttpResponse.json(res)
   }),
   http.post(`${API_URL}/user/onboarding`, async () => {
+    const res = {
+      code: 'SUCCESS',
+    }
+    await delay(1000)
+    return HttpResponse.json(res)
+  }),
+  http.post(`${API_URL}/user/withdraw`, async () => {
     const res = {
       code: 'SUCCESS',
     }

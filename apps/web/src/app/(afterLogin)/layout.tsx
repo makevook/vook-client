@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { userInfoService } from '@vook-client/api'
+import { userService } from '@vook-client/api'
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -20,7 +20,7 @@ const Layout = async ({ children }: PropsWithChildren) => {
     redirect('/login')
   }
 
-  const user = await userInfoService.getUserInfo({
+  const user = await userService.userInfo({
     access: accessToken || '',
     refresh: refreshToken || '',
   })

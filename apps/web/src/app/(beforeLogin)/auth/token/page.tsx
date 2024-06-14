@@ -1,6 +1,6 @@
 'use client'
 
-import { userInfoService, UserStatus } from '@vook-client/api'
+import { userService, UserStatus } from '@vook-client/api'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -26,7 +26,7 @@ const AuthCallbackPage = ({
     })
 
     const checkUserRegistered = async () => {
-      const userInfo = await userInfoService.getUserInfo({
+      const userInfo = await userService.userInfo({
         access,
         refresh,
       })

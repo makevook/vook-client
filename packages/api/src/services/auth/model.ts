@@ -7,3 +7,7 @@ export interface SignUpDTO {
 export interface SignUpResponse {
   code: string
 }
+
+export interface UserWithdrawResponse {
+  code: string
+}
