@@ -31,14 +31,14 @@ export const Profile = ({ user }: ProfileProps) => {
           </div>
         </Dropbox.Trigger>
         <Dropbox.Group horizontal="right" vertical="top">
-          <Dropbox.Option>
-            <Link href="/user/edit">
+          <Link href="/user/edit">
+            <Dropbox.Option>
               <div className={profileSettingItem}>
                 <Icon name="user-medium" />
                 <Text type="body-2">프로필</Text>
               </div>
-            </Link>
-          </Dropbox.Option>
+            </Dropbox.Option>
+          </Link>
           <Dropbox.Option>
             <div className={profileSettingItem}>
               <Icon name="download-medium" />

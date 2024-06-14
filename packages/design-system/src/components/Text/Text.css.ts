@@ -38,7 +38,7 @@ export const text = recipe({
       },
       'heading-1': {
         fontSize: 20,
-        letterSpacing: '-0.15em',
+        letterSpacing: '-0.015em',
         lineHeight: '140%',
       },
       'heading-2': {

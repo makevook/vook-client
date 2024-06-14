@@ -108,7 +108,7 @@ const onlyRegisteredMatch = ['/onboarding']
 
 const onlyRegisteredMiddleware = checkUserStatusMiddleware([
   UserStatus.Registered,
-  UserStatus.Withdrawn,
+  UserStatus.SocialLoginCompleted,
 ])
 
 const onlyUnregisteredSocialUser = checkUserStatusMiddleware([

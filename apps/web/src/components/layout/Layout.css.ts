@@ -44,6 +44,7 @@ export const footer = style([
     width: '100%',
     backgroundColor: vars.colors['component-normal'],
     padding: '40px 0',
+    zIndex: -10,
   },
 ])
 
@@ -58,6 +59,7 @@ export const footerContainer = style({
   flexDirection: 'column',
   justifyContent: 'space-between',
   height: '100%',
+  zIndex: -10,
 })
 
 export const footerLine = style({

@@ -5,7 +5,7 @@ import { useUserInfoQuery } from '@vook-client/api'
 import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
 
-import { Link } from '../Link'
+import { useModal } from '@/hooks/useModal'
 
 import {
   profileEditForm,
@@ -13,6 +13,8 @@ import {
   profileEditFormInputField,
   profileEditFormWithdrawLink,
 } from './ProfileEditForm.css'
+
+import { Modal } from 'src/modals/Modal/Modal'
 
 export const ProfileEditForm = () => {
   const access = Cookies.get('access')
@@ -22,6 +24,8 @@ export const ProfileEditForm = () => {
     access: access || '',
     refresh: refresh || '',
   })
+
+  const { toggleModal, open } = useModal()
 
   const [nickname, setNickname] = useState(
     userInfoQuery.data?.result.nickname || '',
@@ -47,36 +51,42 @@ export const ProfileEditForm = () => {
     return null
   }
 
+  const onClickWithdraw = () => {
+    toggleModal()
+  }
+
   return (
-    <form className={profileEditForm}>
-      <Text type="title-2" color="label-neutral" fontWeight="bold">
-        프로필 수정
-      </Text>
-      <fieldset className={profileEditFormInputField}>
-        <Input
-          icon="google"
-          label="구글 계정"
-          value={userInfoQuery.data.result.email}
-          disabled
-        />
-        <Input
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          label="닉네임"
-        />
-      </fieldset>
-      <fieldset className={profileEditFormButtonField}>
-        <Button disabled={!isValid}>저장하기</Button>
-        <Link href="/">
+    <>
+      <form className={profileEditForm}>
+        <Text type="title-2" color="label-neutral" fontWeight="bold">
+          프로필 수정
+        </Text>
+        <fieldset className={profileEditFormInputField}>
+          <Input
+            icon="google"
+            label="구글 계정"
+            value={userInfoQuery.data.result.email}
+            disabled
+          />
+          <Input
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            label="닉네임"
+          />
+        </fieldset>
+        <fieldset className={profileEditFormButtonField}>
+          <Button disabled={!isValid}>저장하기</Button>
           <Text
             type="body-1-reading"
             color="semantic-label-alternative"
             className={profileEditFormWithdrawLink}
+            onClick={onClickWithdraw}
           >
             계정 탈퇴
           </Text>
-        </Link>
-      </fieldset>
-    </form>
+        </fieldset>
+      </form>
+      {open && <Modal>탈퇴 모달</Modal>}
+    </>
   )
 }

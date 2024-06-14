@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { ModalContextProvider } from '@/hooks/useModal/useModal'
+
 import { ProfileEditForm } from './ProfileEditForm'
 
 const meta = {
@@ -18,7 +20,9 @@ export const Preview: Story = {
   decorators: [
     (Story) => (
       <div style={{ width: 400 }}>
-        <Story />
+        <ModalContextProvider>
+          <Story />
+        </ModalContextProvider>
       </div>
     ),
   ],

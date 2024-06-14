@@ -5,6 +5,8 @@ import { HEADER_HEIGHT, SIDE_BAR_WIDTH } from '@/styles/layout'
 export const mainArea = style({
   position: 'relative',
 
+  minHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
+
   padding: 40,
   paddingBottom: 400,
 

@@ -33,4 +33,5 @@ export const profileEditFormButtonField = style({
 export const profileEditFormWithdrawLink = style({
   lineHeight: '100%',
   borderBottom: `1px solid ${vars.colors['semantic-label-alternative']}`,
+  cursor: 'pointer',
 })

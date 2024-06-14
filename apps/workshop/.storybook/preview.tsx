@@ -13,6 +13,8 @@ import {
   type AppRouterInstance,
 } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import { ModalContextProvider } from '../../web/src/hooks/useModal/useModal'
+
 initialize()
 
 const preview: Preview = {
@@ -34,7 +36,10 @@ const preview: Preview = {
     (Story) => (
       <AppRouterContext.Provider value={{} as AppRouterInstance}>
         <QueryClientProvider client={new QueryClient()}>
-          <Story />
+          <ModalContextProvider>
+            <Story />
+            <div id="modal" />
+          </ModalContextProvider>
         </QueryClientProvider>
       </AppRouterContext.Provider>
     ),
