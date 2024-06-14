@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Sidebar } from '.'
 
 const meta = {
-  title: 'Sidebar',
+  title: 'GNB/Sidebar',
   component: Sidebar,
 } satisfies Meta<typeof Sidebar>
 

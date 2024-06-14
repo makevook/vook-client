@@ -6,7 +6,7 @@ import { SearchBox } from './SearchBox'
 import { SearchHistoryProvider } from './hooks/useSearchHistory'
 
 const meta: Meta<typeof SearchBox> = {
-  title: 'SearchBox',
+  title: 'GNB/SearchBox',
   component: SearchBox,
   parameters: {
     layout: 'centered',
