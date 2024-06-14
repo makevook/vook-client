@@ -13,7 +13,19 @@ export const sideBar = style({
   justifyContent: 'space-between',
 
   width: SIDE_BAR_WIDTH,
-  height: '100dvh',
+  height: `calc(100dvh - ${HEADER_HEIGHT}px)`,
 
-  border: `1px solid ${vars.colors['semantic-line-normal']}`,
+  borderRight: `1px solid ${vars.colors['semantic-line-normal']}`,
+})
+
+export const sideBarWorkspace = style({
+  display: 'flex',
+  flexDirection: 'column',
+
+  gap: 6,
+
+  height: '100%',
+  width: '100%',
+
+  padding: '22px 20px',
 })

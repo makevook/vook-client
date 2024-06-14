@@ -1,9 +1,9 @@
 'use client'
 
-import { Text } from '@vook-client/design-system'
+import { Text, Accordion } from '@vook-client/design-system'
 import { UserInfoResponse } from '@vook-client/api'
 
-import { sideBar } from './Sidebar.css'
+import { sideBar, sideBarWorkspace } from './Sidebar.css'
 import { Profile } from './Profile/Profile'
 
 interface SidebarProps {
@@ -13,15 +13,20 @@ interface SidebarProps {
 export const Sidebar = ({ user }: SidebarProps) => {
   return (
     <aside className={sideBar}>
-      <nav>
-        <ul>
-          <li>
-            <Text type="heading-1">용어집 1</Text>
-          </li>
-          <li>
-            <Text type="heading-1">용어집 2</Text>
-          </li>
-        </ul>
+      <nav className={sideBarWorkspace}>
+        <Text type="caption-1" color="semantic-label-assistive">
+          MY WORKSPACE
+        </Text>
+        <Accordion title="Workspace 1">
+          <Accordion.Item>Terms1</Accordion.Item>
+          <Accordion.Item>Terms2</Accordion.Item>
+          <Accordion.Item>Terms3</Accordion.Item>
+        </Accordion>
+        <Accordion title="Workspace 2">
+          <Accordion.Item>Terms1</Accordion.Item>
+          <Accordion.Item>Terms2</Accordion.Item>
+          <Accordion.Item>Terms3</Accordion.Item>
+        </Accordion>
       </nav>
       <Profile user={user} />
     </aside>

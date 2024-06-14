@@ -27,7 +27,7 @@ export const SearchBox = () => {
     setMounted(true)
   }, [])
 
-  const { searchHistory, isFocused, onFocus, submitSearch, resetSearchValue } =
+  const { searchHistory, isFocused, onFocus, submitSearch, changeSearchValue } =
     useSearchBox()
 
   const { vocabularyID } = useSearchHistory()
@@ -60,6 +60,11 @@ export const SearchBox = () => {
     submitSearch(searchValue)
   }, [searchValue, submitSearch])
 
+  const onClearHandler = useCallback(() => {
+    changeSearchValue('')
+    setSearchValue('')
+  }, [changeSearchValue])
+
   if (!mounted) {
     return null
   }
@@ -80,7 +85,6 @@ export const SearchBox = () => {
             <SymbolLogo size={24} />
           </div>
           <input
-            type="search"
             onFocus={onFocus}
             onChange={onSearchChangeHandler}
             onKeyDown={onEnterHandler}
@@ -92,7 +96,7 @@ export const SearchBox = () => {
             <Icon name="search-big" />
           </button>
           {isFocused && (
-            <button className={resetButton} onClick={resetSearchValue}>
+            <button className={resetButton} onClick={onClearHandler}>
               <Icon name="close-circle-big" />
             </button>
           )}

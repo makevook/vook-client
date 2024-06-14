@@ -1,9 +1,4 @@
-import React, {
-  LiHTMLAttributes,
-  PropsWithChildren,
-  ReactNode,
-  useReducer,
-} from 'react'
+import React, { LiHTMLAttributes, PropsWithChildren, useReducer } from 'react'
 import clsx from 'clsx'
 
 import { Icon } from '../Icon'
@@ -53,7 +48,7 @@ export const AccordionItem = ({ children, ...rest }: AccordionItemProps) => {
 
 export const AccordionMain = ({ title, children }: AccordionProps) => {
   const [open, toggle] = useReducer((prev) => !prev, false)
-  const quantity = (children as Array<ReactNode>).length
+  const quantity = Array.isArray(children) ? children.length : 1
 
   return (
     <div

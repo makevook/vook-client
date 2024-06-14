@@ -40,8 +40,8 @@ export const useSearchBox = () => {
     [localStorageKey, searchHistory, setSearchHistory],
   )
 
-  const resetSearchValue = useCallback(() => {
-    setSearchValue('')
+  const changeSearchValue = useCallback((value: string) => {
+    setSearchValue(value)
   }, [])
 
   const onFocus = useCallback(() => {
@@ -76,6 +76,6 @@ export const useSearchBox = () => {
     offFocus,
     submitSearch,
     deleteHistory,
-    resetSearchValue,
+    changeSearchValue,
   }
 }
