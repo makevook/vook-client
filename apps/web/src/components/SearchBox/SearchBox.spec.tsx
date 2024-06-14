@@ -23,7 +23,7 @@ describe('useSearchBox', () => {
         <SearchBox />
       </SearchHistoryProvider>,
     )
-    const searchInput = await findByRole('searchbox')
+    const searchInput = await findByRole('textbox')
 
     // when
     await user.click(searchInput)
@@ -40,7 +40,7 @@ describe('useSearchBox', () => {
         <SearchBox />
       </SearchHistoryProvider>,
     )
-    const searchInput = await findByRole('searchbox')
+    const searchInput = await findByRole('textbox')
 
     // when
     await user.type(searchInput, '검색어2{enter}')
@@ -59,7 +59,7 @@ describe('useSearchBox', () => {
         <SearchBox />
       </SearchHistoryProvider>,
     )
-    const searchInput = await findByRole('searchbox')
+    const searchInput = await findByRole('textbox')
 
     // when
     const searchIcon = await findByTitle('search big')
@@ -80,7 +80,7 @@ describe('useSearchBox', () => {
         <SearchBox />
       </SearchHistoryProvider>,
     )
-    const searchInput = await findByRole('searchbox')
+    const searchInput = await findByRole('textbox')
 
     // when
     await user.click(searchInput)
