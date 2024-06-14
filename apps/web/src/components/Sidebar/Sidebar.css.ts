@@ -31,3 +31,7 @@ export const sideBarWorkspace = style({
 
   padding: '22px 20px',
 })
+
+export const sideBarWorkspaceInner = style({
+  overflowY: 'auto',
+})

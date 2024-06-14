@@ -1,26 +1,30 @@
-import React, { LiHTMLAttributes, PropsWithChildren, useReducer } from 'react'
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import { Children, LiHTMLAttributes, PropsWithChildren } from 'react'
 import clsx from 'clsx'
 
 import { Icon } from '../Icon'
+import { AccordionContextProvider, useAccordion } from '../../context/accordion'
 
 import {
   accordion,
   accordionDepth,
   accordionItem,
   accordionList,
+  accordionTitle,
 } from './Accordion.css'
 
-export interface AccordionProps extends PropsWithChildren {
-  title: string
-}
+const AccordionTitle = ({ children }: PropsWithChildren) => {
+  const { toggle, open } = useAccordion()
 
-export interface AccordionTitleProps extends PropsWithChildren {
-  open: boolean
-}
-
-export const AccordionTitle = ({ children, open }: AccordionTitleProps) => {
   return (
-    <div className={accordionItem}>
+    <div
+      onClick={(e) => {
+        e.stopPropagation()
+        toggle()
+      }}
+      className={accordionItem}
+    >
       <div
         className={clsx({
           [accordionDepth]: true,
@@ -29,7 +33,7 @@ export const AccordionTitle = ({ children, open }: AccordionTitleProps) => {
       >
         <Icon name="chevron-right-medium" />
       </div>
-      {children}
+      <div className={accordionTitle}>{children}</div>
     </div>
   )
 }
@@ -37,7 +41,7 @@ export const AccordionTitle = ({ children, open }: AccordionTitleProps) => {
 export type AccordionItemProps = PropsWithChildren &
   LiHTMLAttributes<HTMLLIElement>
 
-export const AccordionItem = ({ children, ...rest }: AccordionItemProps) => {
+const AccordionItem = ({ children, ...rest }: AccordionItemProps) => {
   return (
     <li className={accordionItem} {...rest}>
       <div className={accordionDepth} />
@@ -46,26 +50,31 @@ export const AccordionItem = ({ children, ...rest }: AccordionItemProps) => {
   )
 }
 
-export const AccordionMain = ({ title, children }: AccordionProps) => {
-  const [open, toggle] = useReducer((prev) => !prev, false)
-  const quantity = Array.isArray(children) ? children.length : 1
+const AccordionList = ({ children }: PropsWithChildren) => {
+  const { open } = useAccordion()
+  const quantity = Children.toArray(children).length
 
   return (
     <div
       className={accordion}
       style={{
-        height: open ? `${44 * (quantity + 1) - 4}px` : '40px',
+        height: open ? `${44 * quantity - 4}px` : '40px',
       }}
     >
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-      <div onClick={toggle}>
-        <AccordionTitle open={open}>{title}</AccordionTitle>
-      </div>
       <ul className={accordionList}>{children}</ul>
     </div>
   )
 }
 
+const AccordionMain = ({ children }: PropsWithChildren) => {
+  return (
+    <AccordionContextProvider>
+      <AccordionList>{children}</AccordionList>
+    </AccordionContextProvider>
+  )
+}
+
 export const Accordion = Object.assign(AccordionMain, {
+  Title: AccordionTitle,
   Item: AccordionItem,
 })

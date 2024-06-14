@@ -16,9 +16,9 @@ import {
   dropboxTrigger,
 } from './Dropbox.css'
 
-interface DropboxProps extends PropsWithChildren {
+export interface DropboxProps extends PropsWithChildren {
   vertical: 'top' | 'bottom'
-  horizontal: 'left' | 'right'
+  horizontal: 'left' | 'right' | 'center'
 }
 
 const Trigger = ({ children }: PropsWithChildren) => {
@@ -33,7 +33,10 @@ const Trigger = ({ children }: PropsWithChildren) => {
     <button
       className={dropboxTrigger}
       id={`dropbox-trigger-${id}`}
-      onClick={toggle}
+      onClick={(e) => {
+        e.stopPropagation()
+        toggle()
+      }}
       ref={triggerRef}
     >
       {children}
@@ -52,16 +55,39 @@ const Group = ({ children, vertical, horizontal }: DropboxProps) => {
       return
     }
 
-    if (vertical === 'top') {
-      setTop(-groupRef.current!.getBoundingClientRect().height)
-    } else {
-      setTop(trigger.current!.getBoundingClientRect().height)
+    switch (vertical) {
+      case 'bottom':
+        setTop(
+          trigger.current!.getBoundingClientRect().y +
+            trigger.current!.getBoundingClientRect().height,
+        )
+        break
+      case 'top':
+        setTop(
+          trigger.current!.getBoundingClientRect().y -
+            groupRef.current!.getBoundingClientRect().height,
+        )
     }
 
-    if (horizontal === 'right') {
-      setLeft(trigger.current!.getBoundingClientRect().width)
-    } else {
-      setLeft(-groupRef.current!.getBoundingClientRect().width)
+    switch (horizontal) {
+      case 'right':
+        setLeft(
+          trigger.current!.getBoundingClientRect().x +
+            trigger.current!.getBoundingClientRect().width,
+        )
+        break
+      case 'left':
+        setLeft(
+          trigger.current!.getBoundingClientRect().x -
+            groupRef.current!.getBoundingClientRect().width,
+        )
+        break
+      case 'center':
+        setLeft(
+          trigger.current!.getBoundingClientRect().x +
+            trigger.current!.getBoundingClientRect().width / 2 -
+            groupRef.current!.getBoundingClientRect().width / 2,
+        )
     }
   }, [
     horizontal,

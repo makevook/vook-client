@@ -23,7 +23,8 @@ const meta = {
   render: (props: { title: string; content: string[] }) => {
     return (
       <div style={{ width: 300 }}>
-        <Accordion title={props.title}>
+        <Accordion>
+          <Accordion.Title>아코디언</Accordion.Title>
           {props.content.map((item, idx) => (
             <Accordion.Item key={item + idx}>{item}</Accordion.Item>
           ))}

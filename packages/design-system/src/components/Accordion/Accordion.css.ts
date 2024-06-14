@@ -11,6 +11,10 @@ export const accordion = style({
   transition: 'height 0.3s',
 })
 
+export const accordionTitle = style({
+  width: '100%',
+})
+
 export const accordionList = style({
   display: 'flex',
   flexDirection: 'column',
@@ -21,6 +25,8 @@ export const accordionList = style({
 export const accordionItem = style({
   display: 'flex',
   alignItems: 'center',
+
+  width: '100%',
   height: 40,
 
   transition: 'background-color 0.3s',

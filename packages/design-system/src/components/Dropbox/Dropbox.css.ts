@@ -18,7 +18,7 @@ const appearAnimation = keyframes({
 })
 
 export const dropboxGroup = style({
-  position: 'absolute',
+  position: 'fixed',
   top: 0,
   left: 0,
 

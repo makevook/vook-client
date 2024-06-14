@@ -1,8 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Icon } from '../Icon'
-
-import { Dropbox } from './Dropbox'
+import { Dropbox, DropboxProps } from './Dropbox'
 
 const meta: Meta = {
   title: 'Dropbox',
@@ -18,7 +16,7 @@ const meta: Meta = {
       description: '상하 위치',
     },
     horizontal: {
-      options: ['left', 'right'],
+      options: ['left', 'right', 'center'],
       control: { type: 'radio' },
       description: '좌우 위치',
     },
@@ -26,7 +24,9 @@ const meta: Meta = {
   parameters: {
     layout: 'centered',
   },
-  render: (props) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  render: (props: DropboxProps) => {
     return (
       <div
         style={{
@@ -39,12 +39,17 @@ const meta: Meta = {
       >
         <Dropbox>
           <Dropbox.Trigger>
-            <Icon name="search-big" />
+            <div
+              style={{
+                border: '1px solid black',
+                borderRadius: '4px',
+                padding: '8px',
+              }}
+            >
+              Trigger
+            </div>
           </Dropbox.Trigger>
-          <Dropbox.Group
-            vertical={(props?.vertical as 'top' | 'bottom') || 'top'}
-            horizontal={(props?.horizontal as 'left' | 'right') || 'right'}
-          >
+          <Dropbox.Group {...props}>
             <Dropbox.Option>환경설정</Dropbox.Option>
             <Dropbox.Option>더보기</Dropbox.Option>
             <Dropbox.Option>메인 </Dropbox.Option>
