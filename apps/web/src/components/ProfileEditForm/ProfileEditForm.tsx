@@ -14,7 +14,7 @@ import {
   profileEditFormWithdrawLink,
 } from './ProfileEditForm.css'
 
-import { Modal } from 'src/modals/Modal/Modal'
+import { WithdrawModal } from 'src/modals/WithdrawModal'
 
 export const ProfileEditForm = () => {
   const access = Cookies.get('access')
@@ -86,7 +86,7 @@ export const ProfileEditForm = () => {
           </Text>
         </fieldset>
       </form>
-      {open && <Modal>탈퇴 모달</Modal>}
+      {open && <WithdrawModal />}
     </>
   )
 }
