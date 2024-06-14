@@ -51,9 +51,7 @@ export const WorkspaceItem = ({
       {vocabularies.map((vocabulary) => (
         <div key={vocabulary.id} className={workspaceItem}>
           <Accordion.Item>
-            <div>
-              <Text type="body-2">{vocabulary.name}</Text>
-            </div>
+            <Text type="body-2">{vocabulary.name}</Text>
           </Accordion.Item>
           <div className={vocabularyDropbox}>
             <Dropbox>

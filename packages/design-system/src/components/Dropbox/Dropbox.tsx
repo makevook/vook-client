@@ -1,4 +1,6 @@
 import {
+  ButtonHTMLAttributes,
+  HTMLAttributes,
   PropsWithChildren,
   useEffect,
   useLayoutEffect,
@@ -16,12 +18,10 @@ import {
   dropboxTrigger,
 } from './Dropbox.css'
 
-export interface DropboxProps extends PropsWithChildren {
-  vertical: 'top' | 'bottom'
-  horizontal: 'left' | 'right' | 'center'
-}
-
-const Trigger = ({ children }: PropsWithChildren) => {
+const Trigger = ({
+  children,
+  ...rest
+}: Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'id'>) => {
   const { toggle, setTrigger, id } = useDropbox()
   const triggerRef = useRef<HTMLButtonElement>(null)
 
@@ -31,11 +31,13 @@ const Trigger = ({ children }: PropsWithChildren) => {
 
   return (
     <button
-      className={dropboxTrigger}
+      {...rest}
+      className={clsx(dropboxTrigger, rest.className)}
       id={`dropbox-trigger-${id}`}
       onClick={(e) => {
         e.stopPropagation()
         toggle()
+        rest.onClick?.(e)
       }}
       ref={triggerRef}
     >
@@ -44,7 +46,17 @@ const Trigger = ({ children }: PropsWithChildren) => {
   )
 }
 
-const Group = ({ children, vertical, horizontal }: DropboxProps) => {
+export interface DropboxGroupProps extends HTMLAttributes<HTMLUListElement> {
+  vertical: 'top' | 'bottom'
+  horizontal: 'left' | 'right' | 'center'
+}
+
+const Group = ({
+  children,
+  vertical,
+  horizontal,
+  ...rest
+}: DropboxGroupProps) => {
   const groupRef = useRef<HTMLUListElement>(null)
   const [top, setTop] = useState(0)
   const [left, setLeft] = useState(0)
@@ -89,14 +101,7 @@ const Group = ({ children, vertical, horizontal }: DropboxProps) => {
             groupRef.current!.getBoundingClientRect().width / 2,
         )
     }
-  }, [
-    horizontal,
-    open,
-    trigger,
-    vertical,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    groupRef.current?.getBoundingClientRect(),
-  ])
+  }, [horizontal, open, trigger, vertical])
 
   if (!open) {
     return null
@@ -104,7 +109,8 @@ const Group = ({ children, vertical, horizontal }: DropboxProps) => {
 
   return (
     <ul
-      className={clsx(dropboxGroup, 'dropbox-group')}
+      {...rest}
+      className={clsx(dropboxGroup, 'dropbox-group', rest.className)}
       ref={groupRef}
       style={{
         top,
@@ -120,10 +126,15 @@ const Option = ({ children }: PropsWithChildren) => {
   return <li className={dropboxOption}>{children}</li>
 }
 
-export const DropboxContainer = ({ children }: PropsWithChildren) => {
+export const DropboxContainer = ({
+  children,
+  ...rest
+}: HTMLAttributes<HTMLDivElement>) => {
   return (
     <DropboxProvider>
-      <div className={dropboxContainer}>{children}</div>
+      <div {...rest} className={clsx([dropboxContainer, rest.className])}>
+        {children}
+      </div>
     </DropboxProvider>
   )
 }

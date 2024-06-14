@@ -1,6 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { Children, LiHTMLAttributes, PropsWithChildren } from 'react'
+import {
+  Children,
+  HTMLAttributes,
+  LiHTMLAttributes,
+  PropsWithChildren,
+} from 'react'
 import clsx from 'clsx'
 
 import { Icon } from '../Icon'
@@ -38,10 +43,10 @@ const AccordionTitle = ({ children }: PropsWithChildren) => {
   )
 }
 
-export type AccordionItemProps = PropsWithChildren &
-  LiHTMLAttributes<HTMLLIElement>
-
-const AccordionItem = ({ children, ...rest }: AccordionItemProps) => {
+const AccordionItem = ({
+  children,
+  ...rest
+}: LiHTMLAttributes<HTMLLIElement>) => {
   return (
     <li className={accordionItem} {...rest}>
       <div className={accordionDepth} />
@@ -50,26 +55,33 @@ const AccordionItem = ({ children, ...rest }: AccordionItemProps) => {
   )
 }
 
-const AccordionList = ({ children }: PropsWithChildren) => {
+const AccordionList = ({
+  children,
+  ...rest
+}: HTMLAttributes<HTMLDivElement>) => {
   const { open } = useAccordion()
   const quantity = Children.toArray(children).length
 
   return (
     <div
-      className={accordion}
+      className={clsx(accordion, rest.className)}
       style={{
         height: open ? `${44 * quantity - 4}px` : '40px',
       }}
+      {...rest}
     >
       <ul className={accordionList}>{children}</ul>
     </div>
   )
 }
 
-const AccordionMain = ({ children }: PropsWithChildren) => {
+const AccordionMain = ({
+  children,
+  ...rest
+}: HTMLAttributes<HTMLDivElement>) => {
   return (
     <AccordionContextProvider>
-      <AccordionList>{children}</AccordionList>
+      <AccordionList {...rest}>{children}</AccordionList>
     </AccordionContextProvider>
   )
 }

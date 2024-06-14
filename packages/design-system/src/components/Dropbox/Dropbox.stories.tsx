@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Dropbox, DropboxProps } from './Dropbox'
+import { Dropbox, DropboxGroupProps } from './Dropbox'
 
 const meta: Meta = {
   title: 'Dropbox',
@@ -26,7 +26,7 @@ const meta: Meta = {
   },
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  render: (props: DropboxProps) => {
+  render: (props: DropboxGroupProps) => {
     return (
       <div
         style={{
