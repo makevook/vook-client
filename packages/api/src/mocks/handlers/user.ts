@@ -15,7 +15,7 @@ export const userHandlers = [
         email: 'dummyuser1234@vook.com',
         status: UserStatus.Registered,
         onboardingCompleted: false,
-        nickname: '',
+        nickname: 'John Doe',
       },
     }
     return HttpResponse.json(res)

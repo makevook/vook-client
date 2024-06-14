@@ -1,6 +1,8 @@
 import { UserInfoResponse } from '@vook-client/api'
 import { Icon, Dropbox, SymbolLogo, Text } from '@vook-client/design-system'
 
+import { Link } from '@/components/Link'
+
 import {
   profile,
   profileDropboxTrigger,
@@ -30,10 +32,12 @@ export const Profile = ({ user }: ProfileProps) => {
         </Dropbox.Trigger>
         <Dropbox.Group horizontal="right" vertical="top">
           <Dropbox.Option>
-            <div className={profileSettingItem}>
-              <Icon name="user-medium" />
-              <Text type="body-2">프로필</Text>
-            </div>
+            <Link href="/user/edit">
+              <div className={profileSettingItem}>
+                <Icon name="user-medium" />
+                <Text type="body-2">프로필</Text>
+              </div>
+            </Link>
           </Dropbox.Option>
           <Dropbox.Option>
             <div className={profileSettingItem}>
