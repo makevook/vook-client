@@ -6,6 +6,11 @@ import { ModalContextProvider, useModal } from './useModal'
 describe('useModal 테스트', () => {
   beforeEach(() => {
     global.innerHeight = 1080
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   const wrapper = ({ children }: PropsWithChildren) => (
@@ -22,7 +27,7 @@ describe('useModal 테스트', () => {
     expect(result.current.open).toBe(false)
   })
 
-  it('toggleModal 호출 시 모달 상태가 토글된다.', () => {
+  it('toggleModal 호출 시 모달 상태가 토글된다.', async () => {
     const { result } = renderHook(() => useModal(), {
       wrapper,
     })
@@ -31,6 +36,9 @@ describe('useModal 테스트', () => {
     expect(result.current.open).toBe(true)
 
     renderHook(() => result.current.toggleModal())
+
+    await vi.advanceTimersByTimeAsync(500)
+
     expect(result.current.open).toBe(false)
   })
 

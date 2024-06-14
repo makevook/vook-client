@@ -7,6 +7,7 @@ import { SignUpForm } from './SignUpForm'
 describe('SignUpForm test', () => {
   const getFormElements = async () => {
     const nicknameInput = await screen.findByLabelText('닉네임')
+    const allCheckButton = await screen.findByLabelText('전체 동의')
     const termsOfUseButton =
       await screen.findByLabelText('이용 약관 동의(필수)')
     const policyButton =
@@ -21,6 +22,7 @@ describe('SignUpForm test', () => {
       policyButton,
       marketingButton,
       submitButton,
+      allCheckButton,
     }
   }
 
@@ -136,5 +138,88 @@ describe('SignUpForm test', () => {
 
     // then
     expect(submitButton).toBeDisabled()
+  })
+
+  it('전체 동의를 체크하면 모든 약관에 동의한다.', async () => {
+    // given
+    const { user } = renderer(<SignUpForm />)
+    const {
+      nicknameInput,
+      termsOfUseButton,
+      policyButton,
+      marketingButton,
+      submitButton,
+      allCheckButton,
+    } = await getFormElements()
+
+    // when
+    await user.type(nicknameInput, 'nickname')
+    await user.click(allCheckButton)
+
+    // then
+    expect(termsOfUseButton).toBeChecked()
+    expect(policyButton).toBeChecked()
+    expect(marketingButton).toBeChecked()
+    expect(submitButton).toBeEnabled()
+  })
+
+  it('모든 약관을 체크하면 전체 동의가 체크된다.', async () => {
+    // given
+    const { user } = renderer(<SignUpForm />)
+    const { termsOfUseButton, policyButton, marketingButton, allCheckButton } =
+      await getFormElements()
+
+    // when
+    await user.click(termsOfUseButton)
+    await user.click(policyButton)
+    await user.click(marketingButton)
+
+    // then
+    expect(allCheckButton).toBeChecked()
+  })
+
+  it('모든 약관을 체크한 후 하나라도 체크를 해제하면 전체 동의가 해제된다.', async () => {
+    // given
+    const { user } = renderer(<SignUpForm />)
+    const { termsOfUseButton, allCheckButton } = await getFormElements()
+
+    // when
+    await user.click(allCheckButton)
+    await user.click(termsOfUseButton)
+
+    // then
+    expect(allCheckButton).not.toBeChecked()
+  })
+
+  it('일부 약관을 체크한 후 전체 동의를 체크하면 모든 약관이 체크된다.', async () => {
+    // given
+    const { user } = renderer(<SignUpForm />)
+    const { termsOfUseButton, policyButton, marketingButton, allCheckButton } =
+      await getFormElements()
+
+    // when
+    await user.click(termsOfUseButton)
+    await user.click(allCheckButton)
+
+    // then
+    expect(termsOfUseButton).toBeChecked()
+    expect(policyButton).toBeChecked()
+    expect(marketingButton).toBeChecked()
+  })
+
+  it('전체 동의된 상태에서 한번 더 클릭하면 모든 약관이 체크 해제된다.', async () => {
+    // given
+    const { user } = renderer(<SignUpForm />)
+    const { termsOfUseButton, policyButton, marketingButton, allCheckButton } =
+      await getFormElements()
+
+    // when
+    await user.click(allCheckButton)
+    await user.click(allCheckButton)
+
+    // then
+    expect(termsOfUseButton).not.toBeChecked()
+    expect(policyButton).not.toBeChecked()
+    expect(marketingButton).not.toBeChecked()
   })
 })

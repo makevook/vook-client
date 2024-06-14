@@ -59,13 +59,10 @@ export const SignUpForm = () => {
     },
   )
 
-  const isAllChecked = useMemo(
-    () =>
-      watch('requiredTermsAgree') &&
-      watch('policyAgree') &&
-      watch('marketingEmailOptIn'),
-    [watch],
-  )
+  const isAllChecked =
+    watch('requiredTermsAgree') &&
+    watch('policyAgree') &&
+    watch('marketingEmailOptIn')
 
   const isSubmitting = useMemo(
     () => signUpMutation.isPending,
