@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { Sidebar } from '@/components/Sidebar'
 import { Header } from '@/components/Header'
+import { Footer } from '@/components/layout'
 
 import { mainArea } from './layout.css'
 
@@ -31,6 +32,7 @@ const Layout = async ({ children }: PropsWithChildren) => {
       <Header vocabularyID={vocabularyID} />
       <Sidebar user={user.result} />
       {children}
+      <Footer />
     </div>
   )
 }

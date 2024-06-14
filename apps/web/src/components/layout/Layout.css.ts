@@ -37,7 +37,11 @@ export const header = style([
 export const footer = style([
   flexCenter,
   {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
     height: 257,
+    width: '100%',
     backgroundColor: vars.colors['component-normal'],
     padding: '40px 0',
   },

@@ -1,4 +1,3 @@
-import { Footer } from '@/components/layout'
 import { main } from '@/components/layout/Layout.css'
 import { Search } from '@/components/Search/Search'
 import { Term } from '@/components/Term/Term'
@@ -10,7 +9,6 @@ const Home = () => {
         <Search />
         <Term />
       </div>
-      <Footer />
     </div>
   )
 }
