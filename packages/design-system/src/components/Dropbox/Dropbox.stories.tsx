@@ -2,11 +2,11 @@ import { Meta, StoryObj } from '@storybook/react'
 
 import { Icon } from '../Icon'
 
-import { Select } from './Select'
+import { Dropbox } from './Dropbox'
 
 const meta: Meta = {
-  title: 'Select',
-  component: Select,
+  title: 'Dropbox',
+  component: Dropbox,
   args: {
     vertical: 'top',
     horizontal: 'left',
@@ -37,20 +37,20 @@ const meta: Meta = {
           width: '500px',
         }}
       >
-        <Select>
-          <Select.Trigger>
+        <Dropbox>
+          <Dropbox.Trigger>
             <Icon name="search-big" />
-          </Select.Trigger>
-          <Select.Group
+          </Dropbox.Trigger>
+          <Dropbox.Group
             vertical={(props?.vertical as 'top' | 'bottom') || 'top'}
             horizontal={(props?.horizontal as 'left' | 'right') || 'right'}
           >
-            <Select.Option>환경설정</Select.Option>
-            <Select.Option>더보기</Select.Option>
-            <Select.Option>메인 </Select.Option>
-            <Select.Option>아이템</Select.Option>
-          </Select.Group>
-        </Select>
+            <Dropbox.Option>환경설정</Dropbox.Option>
+            <Dropbox.Option>더보기</Dropbox.Option>
+            <Dropbox.Option>메인 </Dropbox.Option>
+            <Dropbox.Option>아이템</Dropbox.Option>
+          </Dropbox.Group>
+        </Dropbox>
       </div>
     )
   },
@@ -58,6 +58,6 @@ const meta: Meta = {
 
 export default meta
 
-type Story = StoryObj<typeof Select>
+type Story = StoryObj<typeof Dropbox>
 
 export const Playground: Story = {}

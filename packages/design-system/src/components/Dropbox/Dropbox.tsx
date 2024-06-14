@@ -7,22 +7,22 @@ import {
 } from 'react'
 import clsx from 'clsx'
 
-import { SelectProvider, useSelect } from '../../context/select'
+import { DropboxProvider, useDropbox } from '../../context/dropbox'
 
 import {
-  selectContainer,
-  selectGroup,
-  selectOption,
-  selectTrigger,
-} from './Select.css'
+  dropboxContainer,
+  dropboxGroup,
+  dropboxOption,
+  dropboxTrigger,
+} from './Dropbox.css'
 
-interface SelectProps extends PropsWithChildren {
+interface DropboxProps extends PropsWithChildren {
   vertical: 'top' | 'bottom'
   horizontal: 'left' | 'right'
 }
 
 const Trigger = ({ children }: PropsWithChildren) => {
-  const { toggle, setTrigger } = useSelect()
+  const { toggle, setTrigger, id } = useDropbox()
   const triggerRef = useRef<HTMLButtonElement>(null)
 
   useLayoutEffect(() => {
@@ -31,7 +31,8 @@ const Trigger = ({ children }: PropsWithChildren) => {
 
   return (
     <button
-      className={clsx(['select-trigger', selectTrigger])}
+      className={dropboxTrigger}
+      id={`dropbox-trigger-${id}`}
       onClick={toggle}
       ref={triggerRef}
     >
@@ -40,11 +41,11 @@ const Trigger = ({ children }: PropsWithChildren) => {
   )
 }
 
-const Group = ({ children, vertical, horizontal }: SelectProps) => {
+const Group = ({ children, vertical, horizontal }: DropboxProps) => {
   const groupRef = useRef<HTMLUListElement>(null)
   const [top, setTop] = useState(0)
   const [left, setLeft] = useState(0)
-  const { open, trigger } = useSelect()
+  const { open, trigger } = useDropbox()
 
   useEffect(() => {
     if (!open || !trigger) {
@@ -77,7 +78,7 @@ const Group = ({ children, vertical, horizontal }: SelectProps) => {
 
   return (
     <ul
-      className={clsx(selectGroup, 'select-group')}
+      className={clsx(dropboxGroup, 'dropbox-group')}
       ref={groupRef}
       style={{
         top,
@@ -90,18 +91,18 @@ const Group = ({ children, vertical, horizontal }: SelectProps) => {
 }
 
 const Option = ({ children }: PropsWithChildren) => {
-  return <li className={selectOption}>{children}</li>
+  return <li className={dropboxOption}>{children}</li>
 }
 
-export const SelectContainer = ({ children }: PropsWithChildren) => {
+export const DropboxContainer = ({ children }: PropsWithChildren) => {
   return (
-    <SelectProvider>
-      <div className={selectContainer}>{children}</div>
-    </SelectProvider>
+    <DropboxProvider>
+      <div className={dropboxContainer}>{children}</div>
+    </DropboxProvider>
   )
 }
 
-export const Select = Object.assign(SelectContainer, {
+export const Dropbox = Object.assign(DropboxContainer, {
   Option,
   Group,
   Trigger,

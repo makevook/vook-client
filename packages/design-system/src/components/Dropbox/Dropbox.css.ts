@@ -2,7 +2,7 @@ import { keyframes, style } from '@vanilla-extract/css'
 
 import { vars } from '../../styles/global.css'
 
-export const selectContainer = style({
+export const dropboxContainer = style({
   position: 'relative',
   width: 'fit-content',
   height: 'fit-content',
@@ -17,7 +17,7 @@ const appearAnimation = keyframes({
   },
 })
 
-export const selectGroup = style({
+export const dropboxGroup = style({
   position: 'absolute',
   top: 0,
   left: 0,
@@ -40,12 +40,12 @@ export const selectGroup = style({
   animation: `${appearAnimation} 0.5s ease forwards`,
 })
 
-export const selectTrigger = style({
+export const dropboxTrigger = style({
   display: 'flex',
   height: 'fit-content',
 })
 
-export const selectOption = style({
+export const dropboxOption = style({
   width: '100%',
   padding: '8px 10px',
 

@@ -24,8 +24,10 @@ export const sideBarWorkspace = style({
 
   gap: 6,
 
-  height: '100%',
   width: '100%',
+  maxHeight: '100%',
+
+  overflowY: 'hidden',
 
   padding: '22px 20px',
 })

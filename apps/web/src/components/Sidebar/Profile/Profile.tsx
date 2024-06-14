@@ -1,5 +1,5 @@
 import { UserInfoResponse } from '@vook-client/api'
-import { Icon, Select, SymbolLogo, Text } from '@vook-client/design-system'
+import { Icon, Dropbox, SymbolLogo, Text } from '@vook-client/design-system'
 
 import {
   profile,
@@ -22,33 +22,33 @@ export const Profile = ({ user }: ProfileProps) => {
         </Text>
       </div>
 
-      <Select>
-        <Select.Trigger>
+      <Dropbox>
+        <Dropbox.Trigger>
           <div className={profileDropboxTrigger}>
             <Icon name="setting-medium" />
           </div>
-        </Select.Trigger>
-        <Select.Group horizontal="right" vertical="top">
-          <Select.Option>
+        </Dropbox.Trigger>
+        <Dropbox.Group horizontal="right" vertical="top">
+          <Dropbox.Option>
             <div className={profileSettingItem}>
               <Icon name="user-medium" />
               <Text type="body-2">프로필</Text>
             </div>
-          </Select.Option>
-          <Select.Option>
+          </Dropbox.Option>
+          <Dropbox.Option>
             <div className={profileSettingItem}>
               <Icon name="download-medium" />
               <Text type="body-2">확장 프로그램 다운</Text>
             </div>
-          </Select.Option>
-          <Select.Option>
+          </Dropbox.Option>
+          <Dropbox.Option>
             <div className={profileSettingItem}>
               <Icon name="logout-medium" />
               <Text type="body-2">로그아웃</Text>
             </div>
-          </Select.Option>
-        </Select.Group>
-      </Select>
+          </Dropbox.Option>
+        </Dropbox.Group>
+      </Dropbox>
     </div>
   )
 }
