@@ -67,7 +67,6 @@ export const footerLine = style({
 })
 
 export const inner = style({
-  position: 'relative',
   width: 1180,
   height: '100%',
 })

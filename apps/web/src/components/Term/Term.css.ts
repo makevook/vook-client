@@ -6,6 +6,7 @@ export const termContainer = style({
   marginBottom: 100,
   display: 'flex',
   justifyContent: 'center',
+  zIndex: -10,
 })
 
 export const termListContainer = style({
@@ -60,7 +61,6 @@ const spin = keyframes({
 })
 
 export const loadingWrapper = style({
-  position: 'fixed',
   top: 0,
   left: 0,
   width: '100%',
@@ -69,7 +69,6 @@ export const loadingWrapper = style({
   justifyContent: 'center',
   alignItems: 'center',
   backgroundColor: 'rgba(255, 255, 255, 0.7)',
-  zIndex: 1000,
 })
 
 export const spinner = style({
