@@ -101,10 +101,12 @@ const checkUserStatusMiddleware =
       return loginRedirectResponse
     }
 
+    finalResponse.headers.set('X-AuthConfirm', 'confirmed')
+
     return finalResponse
   }
 
-const onlyRegisteredMatch = ['/onboarding']
+const onlyRegisteredMatch = ['/onboarding', '/user/edit']
 
 const onlyRegisteredMiddleware = checkUserStatusMiddleware([
   UserStatus.Registered,

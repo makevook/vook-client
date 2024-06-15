@@ -31,36 +31,36 @@ export const userOptions = {
 }
 
 export const useUserInfoQuery = (
-  queryOptions: CustomQueryOptions<UserInfoResponse> = {},
+  options: CustomQueryOptions<UserInfoResponse> = {},
 ) => {
   const queryClient = useQueryClient()
 
   return useQuery<UserInfoResponse>({
     ...userOptions.userInfo(queryClient),
-    ...queryOptions,
+    ...options,
   })
 }
 
 export const useOnboardingMutation = (
   dto: OnboardingDTO,
-  queryOptions: MutationOptions<OnboardingResponse> = {},
+  options: MutationOptions<OnboardingResponse> = {},
 ) => {
   const queryClient = useQueryClient()
 
   return useMutation<OnboardingResponse>({
     ...userOptions.onboarding(queryClient, dto),
-    ...queryOptions,
+    ...options,
   })
 }
 
 export const useEditUserMutation = (
   dto: UserEditDTO,
-  MutationOptions: MutationOptions<UserEditResponse> = {},
+  options: MutationOptions<UserEditResponse> = {},
 ) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     ...userOptions.editUser(queryClient, dto),
-    ...MutationOptions,
+    ...options,
   })
 }

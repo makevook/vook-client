@@ -13,8 +13,8 @@
       "@/styles/*": ["./src/styles/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/hooks/*": ["./src/hooks/*"],
-      "@/store/*": ["./src/store/*"],
-      "@/mocks/*": ["./src/mocks/*"]
+      "@/mock/*": ["./src/mock/*"],
+      "@/store/*": ["./src/store/*"]
     }
   },
   "include": [

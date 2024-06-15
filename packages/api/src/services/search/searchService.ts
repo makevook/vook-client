@@ -1,11 +1,13 @@
-import { baseFetcher } from '../../lib/fetcher'
+import { APIBuilder } from '../../lib/fetcher'
 
 import { SearchDTO, SearchResponse } from './model'
 
 export const searchService = {
-  async search(body: SearchDTO) {
-    return baseFetcher.post<SearchResponse>('/demo/terms/search', {
-      body: JSON.stringify(body),
-    })
+  async search(dto: SearchDTO) {
+    return APIBuilder.post('/demo/terms/search')
+      .build()
+      .call<SearchResponse>({
+        body: JSON.stringify(dto),
+      })
   },
 }

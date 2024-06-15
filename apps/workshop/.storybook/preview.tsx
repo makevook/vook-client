@@ -33,16 +33,22 @@ const preview: Preview = {
   },
   loaders: [mswLoader],
   decorators: [
-    (Story) => (
-      <AppRouterContext.Provider value={{} as AppRouterInstance}>
-        <QueryClientProvider client={new QueryClient()}>
-          <ModalContextProvider>
-            <Story />
-            <div id="modal" />
-          </ModalContextProvider>
-        </QueryClientProvider>
-      </AppRouterContext.Provider>
-    ),
+    (Story) => {
+      const queryClient = new QueryClient()
+      queryClient.setQueryData(['access'], 'access')
+      queryClient.setQueryData(['refresh'], 'refresh')
+
+      return (
+        <AppRouterContext.Provider value={{} as AppRouterInstance}>
+          <QueryClientProvider client={queryClient}>
+            <ModalContextProvider>
+              <Story />
+              <div id="modal" />
+            </ModalContextProvider>
+          </QueryClientProvider>
+        </AppRouterContext.Provider>
+      )
+    },
   ],
 }
 

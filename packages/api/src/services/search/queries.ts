@@ -6,12 +6,12 @@ import { SearchDTO, SearchResponse, searchSort } from './model'
 import { searchService } from './searchService'
 
 export const searchQueryKeysGenerator = {
-  search: (options: SearchDTO) => {
-    const keys: Array<string> = ['search', options.query]
+  search: (dto: SearchDTO) => {
+    const keys: Array<string> = ['search', dto.query]
 
-    keys.push(options.withFormat ? 'formmated' : 'raw')
-    const sort = options.sort
-      ? [...options.sort.sort((a, b) => a.localeCompare(b))]
+    keys.push(dto.withFormat ? 'formmated' : 'raw')
+    const sort = dto.sort
+      ? [...dto.sort.sort((a, b) => a.localeCompare(b))]
       : [searchSort.SynonymsAsc]
     keys.push(...sort)
 
@@ -20,18 +20,18 @@ export const searchQueryKeysGenerator = {
 }
 
 export const searchQueryOptions = {
-  search: (options: SearchDTO) => ({
-    queryKey: searchQueryKeysGenerator.search(options),
-    queryFn: () => searchService.search(options),
+  search: (dto: SearchDTO) => ({
+    queryKey: searchQueryKeysGenerator.search(dto),
+    queryFn: () => searchService.search(dto),
   }),
 }
 
 export const useSearchQuery = (
   dto: SearchDTO,
-  queryOptions: CustomQueryOptions<SearchResponse> = {},
+  options: CustomQueryOptions<SearchResponse> = {},
 ) => {
   return useQuery<SearchResponse>({
     ...searchQueryOptions.search(dto),
-    ...queryOptions,
+    ...options,
   })
 }

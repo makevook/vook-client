@@ -1,24 +1,23 @@
-import Cookies from 'js-cookie'
+import { QueryClient } from '@tanstack/react-query'
 
-import { baseFetcher } from '../..'
+import { APIBuilder } from '../../lib/fetcher'
 
 import { SignUpResponse, SignUpDTO } from './model'
 
 export const authService = {
-  async register(body: SignUpDTO) {
-    return baseFetcher.post<SignUpResponse>('/user/register', {
-      headers: {
-        Authorization: Cookies.get('access') || '',
-      },
-      body: JSON.stringify(body),
-    })
+  async register(client: QueryClient, dto: SignUpDTO) {
+    return APIBuilder.post('/user/register')
+      .withCredentials(client)
+      .build()
+      .call<SignUpResponse>({
+        body: JSON.stringify(dto),
+      })
   },
 
-  async withdraw() {
-    return baseFetcher.post<void>('/user/withdraw', {
-      headers: {
-        Authorization: Cookies.get('access') || '',
-      },
-    })
+  async withdraw(client: QueryClient) {
+    return APIBuilder.post('/user/withdraw')
+      .withCredentials(client)
+      .build()
+      .call<unknown>()
   },
 }

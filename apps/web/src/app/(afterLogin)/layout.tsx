@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { userService } from '@vook-client/api'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
@@ -9,11 +9,17 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/layout'
 import { UserProvider } from '@/store/user'
 import { getQueryClient } from '@/utils/react-query'
+import { SilentRefresh } from '@/components/SilentRefresh/SilentRefresh'
 
 import { mainArea } from './layout.css'
 
 const Layout = async ({ children }: PropsWithChildren) => {
   const cookieStore = cookies()
+  const isAuthorization = headers().get('X-AuthConfirm')
+
+  if (isAuthorization !== 'confirmed') {
+    redirect('/login')
+  }
 
   const access = cookieStore.get('access')?.value || ''
   const refresh = cookieStore.get('refresh')?.value || ''
@@ -27,6 +33,7 @@ const Layout = async ({ children }: PropsWithChildren) => {
   queryClient.setQueryData(['refresh'], refresh)
 
   const user = await userService.userInfo(queryClient)
+
   const vocabularyID = 'default'
   const dehydrateState = dehydrate(queryClient)
 
@@ -39,6 +46,7 @@ const Layout = async ({ children }: PropsWithChildren) => {
           {children}
           <Footer />
         </UserProvider>
+        <SilentRefresh />
       </HydrationBoundary>
     </div>
   )

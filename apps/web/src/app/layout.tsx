@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { pretendard } from '@/styles/fonts'
+import { MSWComponent } from '@/mock/MSWComponent'
 
 import { ModalContextProvider } from 'src/hooks/useModal/useModal'
 
@@ -21,12 +22,23 @@ const RootLayout = ({
   return (
     <html lang="kr">
       <body className={pretendard.className}>
-        <ReactQueryProvider>
-          <ModalContextProvider>
-            <div>{children}</div>
-            <div id="modal" />
-          </ModalContextProvider>
-        </ReactQueryProvider>
+        {process.env.NEXT_PUBLIC_MSW === 'enable' ? (
+          <MSWComponent>
+            <ReactQueryProvider>
+              <ModalContextProvider>
+                <div>{children}</div>
+                <div id="modal" />
+              </ModalContextProvider>
+            </ReactQueryProvider>
+          </MSWComponent>
+        ) : (
+          <ReactQueryProvider>
+            <ModalContextProvider>
+              <div>{children}</div>
+              <div id="modal" />
+            </ModalContextProvider>
+          </ReactQueryProvider>
+        )}
       </body>
     </html>
   )

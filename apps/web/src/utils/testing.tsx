@@ -5,11 +5,14 @@ import userEvent from '@testing-library/user-event'
 
 export const renderer = (component: ReactNode) => {
   const user = userEvent.setup()
+  const queryClient = new QueryClient()
+  queryClient.setQueryData(['access'], 'access')
+  queryClient.setQueryData(['refresh'], 'refresh')
 
   return {
     user,
     ...RTL.render(
-      <QueryClientProvider client={new QueryClient()}>
+      <QueryClientProvider client={queryClient}>
         {component}
       </QueryClientProvider>,
     ),

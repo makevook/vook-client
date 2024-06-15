@@ -1,7 +1,5 @@
-import Cookies from 'js-cookie'
 import { QueryClient } from '@tanstack/react-query'
-
-import { Tokens } from '../shared/type'
+import Cookies from 'js-cookie'
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -10,11 +8,6 @@ const API_URL =
 
 export class Fetcher {
   private baseUrl: string
-
-  private changeTokenHandler = (tokens: Tokens) => {
-    Cookies.set('accessToken', tokens.access)
-    Cookies.set('refreshToken', tokens.refresh)
-  }
 
   public constructor(baseUrl: string) {
     this.baseUrl = baseUrl
@@ -84,7 +77,7 @@ export class Fetcher {
 
       if (response.status === 401) {
         if (retry) {
-          throw new Error('토큰 갱신에 실패하였습니다.')
+          throw new Error('생성된 토큰이 비정상적입니다! 다시 로그인해주세요')
         }
 
         await this.generateNewAccessToken(refresh!, client)
@@ -120,6 +113,13 @@ export class Fetcher {
 
       const newAccessToken = res.headers.get('Authorization')
       const newRefreshToken = res.headers.get('X-Refresh-Authorization')
+
+      if (!newAccessToken || !newRefreshToken) {
+        throw new Error('토큰 갱신에 실패하였습니다.')
+      }
+
+      Cookies.set('access', newAccessToken)
+      Cookies.set('refresh', newRefreshToken)
 
       client.setQueryData(['access'], newAccessToken)
       client.setQueryData(['refresh'], newRefreshToken)
@@ -252,7 +252,6 @@ export class API {
     if (!this.queryClient) {
       throw new Error('QueryClient is not set')
     }
-
     switch (this.method) {
       case 'GET':
         return baseFetcher.authGet<ResponseType>(

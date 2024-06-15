@@ -1,5 +1,8 @@
+import { UserStatus } from '@vook-client/api'
+
 import { renderer } from '@/utils/testing'
 import { ModalContextProvider } from '@/hooks/useModal/useModal'
+import { UserProvider } from '@/store/user'
 
 import { ProfileEditForm } from './ProfileEditForm'
 
@@ -8,15 +11,25 @@ describe('ProfileEditForm test', () => {
     // given
     const { user, findByRole, findByLabelText } = renderer(
       <ModalContextProvider>
-        <ProfileEditForm />
+        <UserProvider
+          user={{
+            nickname: 'John',
+            email: '',
+            onboardingCompleted: false,
+            status: UserStatus.Registered,
+            uid: '',
+          }}
+        >
+          <ProfileEditForm />
+        </UserProvider>
       </ModalContextProvider>,
     )
-    const nicknameInput = await findByLabelText('닉네임')
+    const nicknameInput = (await findByLabelText('닉네임')) as HTMLInputElement
     const saveButton = await findByRole('button', { name: '저장하기' })
 
     // when
     await user.clear(nicknameInput)
-    await user.type(nicknameInput, 'John Doe')
+    await user.type(nicknameInput, 'John')
 
     expect(saveButton).toBeDisabled()
   })
