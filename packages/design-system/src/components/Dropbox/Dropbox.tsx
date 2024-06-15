@@ -1,6 +1,7 @@
 import {
   ButtonHTMLAttributes,
   HTMLAttributes,
+  LiHTMLAttributes,
   PropsWithChildren,
   useEffect,
   useLayoutEffect,
@@ -128,8 +129,15 @@ const Group = ({
   )
 }
 
-const Option = ({ children }: PropsWithChildren) => {
-  return <li className={dropboxOption}>{children}</li>
+const Option = ({
+  children,
+  ...rest
+}: LiHTMLAttributes<HTMLLIElement> & PropsWithChildren) => {
+  return (
+    <li className={clsx(dropboxOption, rest.className)} {...rest}>
+      {children}
+    </li>
+  )
 }
 
 export const DropboxContainer = ({

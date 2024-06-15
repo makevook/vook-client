@@ -1,14 +1,8 @@
 import { UserInfoResponse } from '@vook-client/api'
-import { Icon, Dropbox, SymbolLogo, Text } from '@vook-client/design-system'
+import { SymbolLogo, Text } from '@vook-client/design-system'
 
-import { Link } from '@/components/Link'
-
-import {
-  profile,
-  profileDropboxTrigger,
-  profileNickname,
-  profileSettingItem,
-} from './Profile.css'
+import { profile, profileNickname } from './Profile.css'
+import ProfileDropbox from './ProfileDropbox/ProfileDropbox'
 
 interface ProfileProps {
   user: UserInfoResponse['result']
@@ -23,36 +17,7 @@ export const Profile = ({ user }: ProfileProps) => {
           {user.nickname}
         </Text>
       </div>
-
-      <Dropbox>
-        <Dropbox.Trigger>
-          <div className={profileDropboxTrigger}>
-            <Icon name="setting-medium" />
-          </div>
-        </Dropbox.Trigger>
-        <Dropbox.Group horizontal="right" vertical="top">
-          <Link href="/user/edit">
-            <Dropbox.Option>
-              <div className={profileSettingItem}>
-                <Icon name="user-medium" />
-                <Text type="body-2">프로필</Text>
-              </div>
-            </Dropbox.Option>
-          </Link>
-          <Dropbox.Option>
-            <div className={profileSettingItem}>
-              <Icon name="download-medium" />
-              <Text type="body-2">확장 프로그램 다운</Text>
-            </div>
-          </Dropbox.Option>
-          <Dropbox.Option>
-            <div className={profileSettingItem}>
-              <Icon name="logout-medium" />
-              <Text type="body-2">로그아웃</Text>
-            </div>
-          </Dropbox.Option>
-        </Dropbox.Group>
-      </Dropbox>
+      <ProfileDropbox />
     </div>
   )
 }

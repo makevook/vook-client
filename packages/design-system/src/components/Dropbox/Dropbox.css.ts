@@ -80,6 +80,8 @@ export const dropboxOption = style({
 
   whiteSpace: 'nowrap',
 
+  transition: 'background-color 0.4s',
+
   ':hover': {
     backgroundColor: vars.colors['palette-gray-50'],
     cursor: 'pointer',
