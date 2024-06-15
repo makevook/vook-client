@@ -14,6 +14,10 @@ import {
   SignUpResponse,
   UserWithdrawResponse,
 } from '../../services/auth/model'
+import {
+  ACCESS_TOKEN_HEADER_KEY,
+  REFRESH_TOKEN_HEADER_KEY,
+} from '../../constants/header-key'
 
 const user = {
   uid: 'b8baa3c7-7ad4-46b5-a85c-2405b9bc7095',
@@ -27,8 +31,8 @@ export const userHandlers = [
   http.get(`${API_URL}/auth/refresh`, () => {
     return new HttpResponse(null, {
       headers: {
-        Authorization: 'Fake Access',
-        'X-Refresh-Authorization': 'Fake Refresh',
+        [ACCESS_TOKEN_HEADER_KEY]: 'Fake Access',
+        [REFRESH_TOKEN_HEADER_KEY]: 'Fake Refresh',
       },
     })
   }),

@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { UserInfoResponse, UserStatus } from 'node_modules/@vook-client/api'
+import {
+  ACCESS_TOKEN_HEADER_KEY,
+  REFRESH_TOKEN_HEADER_KEY,
+  UserInfoResponse,
+  UserStatus,
+} from 'node_modules/@vook-client/api'
 
 /**
  * 권한 검사를 위한 미들웨어 생성 함수
@@ -35,13 +40,13 @@ const checkUserStatusMiddleware =
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
-            'X-Refresh-Authorization': refresh,
+            [REFRESH_TOKEN_HEADER_KEY]: refresh,
           },
         },
       )
       if (res.ok) {
-        newAccessToken = res.headers.get('Authorization')
-        newRefreshToken = res.headers.get('X-Refresh-Authorization')
+        newAccessToken = res.headers.get(ACCESS_TOKEN_HEADER_KEY)
+        newRefreshToken = res.headers.get(REFRESH_TOKEN_HEADER_KEY)
         finalResponse.cookies.set('access', newAccessToken!)
         finalResponse.cookies.set('refresh', newRefreshToken!)
       } else {
@@ -56,7 +61,7 @@ const checkUserStatusMiddleware =
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: token,
+          [ACCESS_TOKEN_HEADER_KEY]: token,
         },
       })
       if (res.ok) {

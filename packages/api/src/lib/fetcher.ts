@@ -1,6 +1,11 @@
 import { QueryClient } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
 
+import {
+  ACCESS_TOKEN_HEADER_KEY,
+  REFRESH_TOKEN_HEADER_KEY,
+} from '../constants/header-key'
+
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.PLASMO_PUBLIC_API_URL ||
@@ -67,7 +72,7 @@ export class Fetcher {
       const fetchOptions: RequestInit = {
         ...options,
         headers: {
-          Authorization: client.getQueryData<string>(['access'])!,
+          [ACCESS_TOKEN_HEADER_KEY]: client.getQueryData<string>(['access'])!,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
@@ -107,12 +112,12 @@ export class Fetcher {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'X-Refresh-Authorization': refresh,
+          [REFRESH_TOKEN_HEADER_KEY]: refresh,
         },
       })
 
-      const newAccessToken = res.headers.get('Authorization')
-      const newRefreshToken = res.headers.get('X-Refresh-Authorization')
+      const newAccessToken = res.headers.get(ACCESS_TOKEN_HEADER_KEY)
+      const newRefreshToken = res.headers.get(REFRESH_TOKEN_HEADER_KEY)
 
       if (!newAccessToken || !newRefreshToken) {
         throw new Error('토큰 갱신에 실패하였습니다.')
