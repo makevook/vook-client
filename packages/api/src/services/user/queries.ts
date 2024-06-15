@@ -8,15 +8,24 @@ import {
 import { CustomQueryOptions, Tokens } from '../../shared/type'
 
 import { userService } from './service'
-import { OnboardingDTO, OnboardingResponse, UserInfoResponse } from './model'
+import {
+  OnboardingDTO,
+  OnboardingResponse,
+  UserEditDTO,
+  UserEditResponse,
+  UserInfoResponse,
+} from './model'
 
-export const options = {
-  getUserInfo: (token: Tokens) => ({
+export const userOptions = {
+  userInfo: (token: Tokens) => ({
     queryKey: [],
     queryFn: () => userService.userInfo(token),
   }),
   onboarding: (dto: OnboardingDTO) => ({
     mutationFn: () => userService.onboarding(dto),
+  }),
+  editUser: (token: Tokens, dto: UserEditDTO) => ({
+    mutationFn: () => userService.editUser(token, dto),
   }),
 }
 
@@ -25,7 +34,7 @@ export const useUserInfoQuery = (
   queryOptions: CustomQueryOptions<UserInfoResponse> = {},
 ) => {
   return useQuery<UserInfoResponse>({
-    ...options.getUserInfo(token),
+    ...userOptions.userInfo(token),
     ...queryOptions,
   })
 }
@@ -35,7 +44,7 @@ export const useUserInfoSuspenseQuery = (
   queryOptions: CustomQueryOptions<UserInfoResponse> = {},
 ) => {
   return useSuspenseQuery<UserInfoResponse>({
-    ...options.getUserInfo(token),
+    ...userOptions.userInfo(token),
     ...queryOptions,
   })
 }
@@ -45,7 +54,18 @@ export const useOnboardingMutation = (
   queryOptions: MutationOptions<OnboardingResponse> = {},
 ) => {
   return useMutation<OnboardingResponse>({
-    ...options.onboarding(dto),
+    ...userOptions.onboarding(dto),
     ...queryOptions,
+  })
+}
+
+export const useEditUserMutation = (
+  token: Tokens,
+  dto: UserEditDTO,
+  MutationOptions: MutationOptions<UserEditResponse> = {},
+) => {
+  return useMutation({
+    ...userOptions.editUser(token, dto),
+    ...MutationOptions,
   })
 }

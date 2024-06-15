@@ -137,6 +137,13 @@ export class Fetcher {
     })
   }
 
+  public async put<ResponseType = Error>(url: string, options?: RequestInit) {
+    return this.request<ResponseType>(url, {
+      method: 'PUT',
+      ...options,
+    })
+  }
+
   public async patch<ResponseType = Error>(url: string, options?: RequestInit) {
     return this.request<ResponseType>(url, {
       method: 'PATCH',

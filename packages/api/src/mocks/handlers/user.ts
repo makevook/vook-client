@@ -17,6 +17,14 @@ export const userHandlers = [
     }
     return HttpResponse.json(res)
   }),
+  http.put(`${API_URL}/user/info`, async () => {
+    const res = {
+      code: '202',
+    }
+    await delay(1000)
+    return HttpResponse.json(res)
+  }),
+
   http.post(`${API_URL}/user/register`, async () => {
     const res = {
       code: 'SUCCESS',

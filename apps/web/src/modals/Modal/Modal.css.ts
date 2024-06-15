@@ -84,17 +84,17 @@ export const modalContainer = style({
   },
 })
 
-export const modalHeadline = style({
-  marginBottom: 8,
-})
+export const modalHeadline = style({})
 
 export const modalContent = style({
-  marginBottom: 24,
+  marginTop: 8,
 })
 
 export const modalButtonGroup = style({
   display: 'flex',
   gap: 12,
+
+  marginTop: 24,
 
   width: '100%',
   height: 'fit-content',

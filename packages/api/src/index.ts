@@ -12,6 +12,8 @@ export { OnboardingFunnel, OnboardingJob } from './services/user/model'
 export { UserStatus } from './services/user/model'
 export { useOnboardingMutation } from './services/user/queries'
 export {
+  useEditUserMutation,
+  userOptions,
   useUserInfoQuery,
   useUserInfoSuspenseQuery,
 } from './services/user/queries'

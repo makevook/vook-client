@@ -1,11 +1,12 @@
 'use client'
 
 import { Button, Input, Text } from '@vook-client/design-system'
-import { useUserInfoQuery } from '@vook-client/api'
+import { useEditUserMutation, useUserInfoQuery } from '@vook-client/api'
 import Cookies from 'js-cookie'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 import { useModal } from '@/hooks/useModal'
+import { useUser } from '@/store/user'
 
 import {
   profileEditForm,
@@ -15,44 +16,79 @@ import {
 } from './ProfileEditForm.css'
 
 import { WithdrawModal } from 'src/modals/WithdrawModal'
+import { CompleteModal } from 'src/modals/CompleteModal/CompleteModal'
 
 export const ProfileEditForm = () => {
-  const access = Cookies.get('access')
-  const refresh = Cookies.get('refresh')
+  const access = Cookies.get('access') || ''
+  const refresh = Cookies.get('refresh') || ''
 
-  const userInfoQuery = useUserInfoQuery({
-    access: access || '',
-    refresh: refresh || '',
-  })
-
+  const { user, setUser } = useUser()
   const { toggleModal, open } = useModal()
 
-  const [nickname, setNickname] = useState(
-    userInfoQuery.data?.result.nickname || '',
-  )
+  const [modalType, setModalType] = useState<'withdraw' | 'edit' | null>(null)
   const [isValid, setIsValid] = useState(false)
+  const [nickname, setNickname] = useState(user.nickname)
 
-  useEffect(() => {
-    setNickname(userInfoQuery.data?.result.nickname || '')
-  }, [userInfoQuery.data?.result.nickname])
+  const userEditMutation = useEditUserMutation(
+    {
+      access,
+      refresh,
+    },
+    {
+      nickname,
+    },
+    {
+      onSuccess: () => {
+        setModalType('edit')
+        setUser({
+          ...user,
+          nickname,
+        })
+        toggleModal()
+      },
+    },
+  )
 
-  useEffect(() => {
-    const isBlankNickname = nickname.length === 0
-    const isSameNickname = nickname === userInfoQuery.data?.result.nickname
+  const userInfo = useUserInfoQuery(
+    {
+      access,
+      refresh,
+    },
+    {
+      enabled: false,
+    },
+  )
 
-    if (isBlankNickname || isSameNickname) {
-      setIsValid(false)
-      return
-    }
-    setIsValid(true)
-  }, [nickname, userInfoQuery.data?.result.nickname])
+  useLayoutEffect(
+    function setDefaultNickname() {
+      setNickname(user.nickname)
+    },
+    [user.nickname],
+  )
 
-  if (!userInfoQuery.data) {
-    return null
-  }
+  useEffect(
+    function checkValidateNickname() {
+      const isBlankNickname = nickname.length === 0
+      const isSameNickname = nickname === user?.nickname
+
+      if (isBlankNickname || isSameNickname) {
+        setIsValid(false)
+        return
+      }
+
+      setIsValid(true)
+    },
+    [nickname, user?.nickname],
+  )
 
   const onClickWithdraw = () => {
+    setModalType('withdraw')
     toggleModal()
+  }
+
+  const onClickSave = () => {
+    userEditMutation.mutate()
+    userInfo.refetch()
   }
 
   return (
@@ -62,12 +98,7 @@ export const ProfileEditForm = () => {
           프로필 수정
         </Text>
         <fieldset className={profileEditFormInputField}>
-          <Input
-            icon="google"
-            label="구글 계정"
-            value={userInfoQuery.data.result.email}
-            disabled
-          />
+          <Input icon="google" label="구글 계정" value={user.email} disabled />
           <Input
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
@@ -75,7 +106,15 @@ export const ProfileEditForm = () => {
           />
         </fieldset>
         <fieldset className={profileEditFormButtonField}>
-          <Button disabled={!isValid}>저장하기</Button>
+          <Button
+            onClick={onClickSave}
+            prefixIcon={
+              userEditMutation.isPending ? 'spinner-medium' : undefined
+            }
+            disabled={!isValid || userEditMutation.isPending}
+          >
+            저장하기
+          </Button>
           <Text
             type="body-1-reading"
             color="semantic-label-alternative"
@@ -86,7 +125,10 @@ export const ProfileEditForm = () => {
           </Text>
         </fieldset>
       </form>
-      {open && <WithdrawModal />}
+      {open && modalType === 'withdraw' && <WithdrawModal />}
+      {open && modalType === 'edit' && (
+        <CompleteModal completeMessage="저장이 완료되었습니다." />
+      )}
     </>
   )
 }

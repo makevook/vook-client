@@ -1,22 +1,48 @@
-import { UserInfoResponse } from '@vook-client/api'
+'use client'
+
+import { UserInfoResponse, UserStatus } from '@vook-client/api'
+import { PropsWithChildren } from 'react'
 import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 
-interface UserState {
-  user: UserInfoResponse['result'] | null
-  setUser: (newUser: UserInfoResponse['result'] | null) => void
+export interface UserState {
+  user: UserInfoResponse['result']
 }
 
-export const searchStore = create<UserState>((set) => ({
-  user: null,
-  setUser: (newUser) => set(() => ({ user: newUser })),
-}))
-
-export const useUserInfo = () => {
-  const { user } = searchStore()
-  return { user }
+export interface UserActions {
+  setUser: (newUser: UserInfoResponse['result']) => void
 }
 
-export const useSetUserInfo = () => {
-  const { setUser } = searchStore()
-  return { setUser }
+export type UserStore = UserState & UserActions
+
+export const userStore = create(
+  devtools<UserStore>((set) => ({
+    user: {
+      uid: '',
+      email: '',
+      nickname: '',
+      status: UserStatus.SocialLoginCompleted,
+      onboardingCompleted: false,
+    },
+    setUser: (newUser) =>
+      set((prev) => ({
+        ...prev,
+        user: newUser,
+      })),
+  })),
+)
+
+export const UserProvider = ({
+  user,
+  children,
+}: UserState & PropsWithChildren) => {
+  userStore.setState({ user })
+
+  return children
+}
+
+export const useUser = () => {
+  const { user, setUser } = userStore()
+
+  return { user, setUser }
 }

@@ -3,7 +3,13 @@ import Cookies from 'js-cookie'
 import { baseFetcher } from '../..'
 import { Tokens } from '../../shared/type'
 
-import { OnboardingDTO, OnboardingResponse, UserInfoResponse } from './model'
+import {
+  OnboardingDTO,
+  OnboardingResponse,
+  UserEditDTO,
+  UserEditResponse,
+  UserInfoResponse,
+} from './model'
 
 export const userService = {
   async userInfo(tokens: Tokens) {
@@ -12,6 +18,16 @@ export const userService = {
         Authorization: tokens.access,
         'X-Refresh-Authorization': tokens.refresh,
       },
+    })
+  },
+
+  async editUser(tokens: Tokens, dto: UserEditDTO) {
+    return baseFetcher.put<UserEditResponse>('/user/info', {
+      headers: {
+        Authorization: tokens.access,
+        'X-Refresh-Authorization': tokens.refresh,
+      },
+      body: JSON.stringify(dto),
     })
   },
 

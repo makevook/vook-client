@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { UserStatus } from '@vook-client/api'
 
 import { HEADER_HEIGHT } from '@/styles/layout'
+import { UserProvider, UserState } from '@/store/user'
 
 import { Sidebar } from '.'
 
@@ -18,11 +19,16 @@ const meta: Meta<typeof Sidebar> = {
     },
   },
   decorators: [
-    (Story) => (
-      <div style={{ transform: `translate(0, -${HEADER_HEIGHT + 10}px)` }}>
-        <Story />
-      </div>
-    ),
+    (Story, _ctx) => {
+      const ctx = _ctx as unknown as { args: { user: UserState['user'] } }
+      return (
+        <div style={{ transform: `translate(0, -${HEADER_HEIGHT + 10}px)` }}>
+          <UserProvider user={ctx.args.user}>
+            <Story />
+          </UserProvider>
+        </div>
+      )
+    },
   ],
 }
 

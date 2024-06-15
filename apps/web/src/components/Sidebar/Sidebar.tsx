@@ -1,15 +1,12 @@
 'use client'
 
 import { Text } from '@vook-client/design-system'
-import { UserInfoResponse } from '@vook-client/api'
 
-import { sideBar, sideBarWorkspace, sideBarWorkspaceInner } from './Sidebar.css'
+import { useUser } from '@/store/user'
+
 import { Profile } from './Profile/Profile'
+import { sideBar, sideBarWorkspace, sideBarWorkspaceInner } from './Sidebar.css'
 import { WorkspaceItem } from './WorkspaceItem'
-
-interface SidebarProps {
-  user: UserInfoResponse['result']
-}
 
 const DUMMY_WORKSPACES = [
   {
@@ -42,7 +39,9 @@ const DUMMY_WORKSPACES = [
   },
 ]
 
-export const Sidebar = ({ user }: SidebarProps) => {
+export const Sidebar = () => {
+  const { user } = useUser()
+
   return (
     <aside className={sideBar}>
       <div className={sideBarWorkspace}>

@@ -15,6 +15,14 @@ export interface UserInfoResponse {
   }
 }
 
+export interface UserEditDTO {
+  nickname: string
+}
+
+export interface UserEditResponse {
+  code: string
+}
+
 export enum OnboardingFunnel {
   X = 'X',
   FACEBOOK = 'FACEBOOK',
