@@ -54,7 +54,17 @@ export const DropboxProvider = ({ children }: PropsWithChildren) => {
 
   useLayoutEffect(() => {
     document.addEventListener('click', (e) => {
+      e.stopPropagation()
+      e.preventDefault()
       const dom = e.target as HTMLElement
+
+      if (
+        (dom.closest('button') as HTMLButtonElement)?.id ===
+        `dropbox-trigger-${id}`
+      ) {
+        setOpen((prev) => !prev)
+        return
+      }
 
       if (dom.closest(`#${id}`)) {
         setOpen(true)

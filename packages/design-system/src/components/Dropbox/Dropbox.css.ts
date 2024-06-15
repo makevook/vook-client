@@ -9,11 +9,17 @@ export const dropboxContainer = style({
 })
 
 const appearAnimation = keyframes({
-  from: {
+  '0%': {
     opacity: 0,
+    transform: 'scale(0.8)',
   },
-  to: {
+  '50%': {
+    opacity: 0.8,
+    transform: 'scale(1.05)',
+  },
+  '100%': {
     opacity: 1,
+    transform: 'scale(1)',
   },
 })
 
@@ -34,10 +40,33 @@ export const dropboxGroup = style({
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.08)',
   borderRadius: 6,
 
+  transformOrigin: 'center center',
   backgroundColor: vars.colors['common-white'],
 
   opacity: 0,
-  animation: `${appearAnimation} 0.5s ease forwards`,
+  animation: `${appearAnimation} 0.3s ease forwards`,
+  animationDelay: '0.01s',
+
+  selectors: {
+    '&.top.center': {
+      transformOrigin: 'center bottom',
+    },
+    '&.top.left': {
+      transformOrigin: 'right bottom',
+    },
+    '&.top.right': {
+      transformOrigin: 'left bottom',
+    },
+    '&.bottom.center': {
+      transformOrigin: 'center top',
+    },
+    '&.bottom.left': {
+      transformOrigin: 'right top',
+    },
+    '&.bottom.right': {
+      transformOrigin: 'left top',
+    },
+  },
 })
 
 export const dropboxTrigger = style({

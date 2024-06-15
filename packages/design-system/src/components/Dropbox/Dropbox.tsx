@@ -110,7 +110,13 @@ const Group = ({
   return (
     <ul
       {...rest}
-      className={clsx(dropboxGroup, 'dropbox-group', rest.className)}
+      className={clsx(
+        dropboxGroup,
+        vertical,
+        horizontal,
+        'dropbox-group',
+        rest.className,
+      )}
       ref={groupRef}
       style={{
         top,
