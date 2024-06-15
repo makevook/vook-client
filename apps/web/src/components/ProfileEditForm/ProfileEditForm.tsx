@@ -2,7 +2,6 @@
 
 import { Button, Input, Text } from '@vook-client/design-system'
 import { useEditUserMutation, useUserInfoQuery } from '@vook-client/api'
-import Cookies from 'js-cookie'
 import { useEffect, useLayoutEffect, useState } from 'react'
 
 import { useModal } from '@/hooks/useModal'
@@ -19,9 +18,6 @@ import { WithdrawModal } from 'src/modals/WithdrawModal'
 import { CompleteModal } from 'src/modals/CompleteModal/CompleteModal'
 
 export const ProfileEditForm = () => {
-  const access = Cookies.get('access') || ''
-  const refresh = Cookies.get('refresh') || ''
-
   const { user, setUser } = useUser()
   const { toggleModal, open } = useModal()
 
@@ -30,10 +26,6 @@ export const ProfileEditForm = () => {
   const [nickname, setNickname] = useState(user.nickname)
 
   const userEditMutation = useEditUserMutation(
-    {
-      access,
-      refresh,
-    },
     {
       nickname,
     },
@@ -49,15 +41,9 @@ export const ProfileEditForm = () => {
     },
   )
 
-  const userInfo = useUserInfoQuery(
-    {
-      access,
-      refresh,
-    },
-    {
-      enabled: false,
-    },
-  )
+  const userInfo = useUserInfoQuery({
+    enabled: false,
+  })
 
   useLayoutEffect(
     function setDefaultNickname() {
@@ -108,9 +94,9 @@ export const ProfileEditForm = () => {
         <fieldset className={profileEditFormButtonField}>
           <Button
             onClick={onClickSave}
-            prefixIcon={
-              userEditMutation.isPending ? 'spinner-medium' : undefined
-            }
+            // prefixIcon={
+            //   userEditMutation.isPending ? 'spinner-medium' : undefined
+            // }
             disabled={!isValid || userEditMutation.isPending}
           >
             저장하기

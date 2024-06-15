@@ -1,7 +1,6 @@
-import Cookies from 'js-cookie'
+import { QueryClient } from '@tanstack/react-query'
 
-import { baseFetcher } from '../..'
-import { Tokens } from '../../shared/type'
+import { APIBuilder } from '../../lib/fetcher'
 
 import {
   OnboardingDTO,
@@ -12,31 +11,28 @@ import {
 } from './model'
 
 export const userService = {
-  async userInfo(tokens: Tokens) {
-    return baseFetcher.get<UserInfoResponse>('/user/info', {
-      headers: {
-        Authorization: tokens.access,
-        'X-Refresh-Authorization': tokens.refresh,
-      },
-    })
+  async userInfo(client: QueryClient) {
+    return APIBuilder.get('/user/info')
+      .withCredentials(client)
+      .build()
+      .call<UserInfoResponse>()
   },
 
-  async editUser(tokens: Tokens, dto: UserEditDTO) {
-    return baseFetcher.put<UserEditResponse>('/user/info', {
-      headers: {
-        Authorization: tokens.access,
-        'X-Refresh-Authorization': tokens.refresh,
-      },
-      body: JSON.stringify(dto),
-    })
+  async editUser(client: QueryClient, dto: UserEditDTO) {
+    return APIBuilder.put('/user/info')
+      .withCredentials(client)
+      .build()
+      .call<UserEditResponse>({
+        body: JSON.stringify(dto),
+      })
   },
 
-  async onboarding(body: OnboardingDTO) {
-    return baseFetcher.post<OnboardingResponse>('/user/onboarding', {
-      headers: {
-        Authorization: Cookies.get('access') || '',
-      },
-      body: JSON.stringify(body),
-    })
+  async onboarding(client: QueryClient, dto: OnboardingDTO) {
+    return APIBuilder.post('/user/onboarding')
+      .withCredentials(client)
+      .build()
+      .call<OnboardingResponse>({
+        body: JSON.stringify(dto),
+      })
   },
 }

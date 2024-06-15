@@ -2,6 +2,7 @@
   "extends": "@vook-client/typescript-config/vite.json",
   "compilerOptions": {
     "declaration": false,
-    "declarationMap": false
+    "declarationMap": false,
+    "types": ["node"]
   }
 }

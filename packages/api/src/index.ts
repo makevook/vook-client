@@ -15,7 +15,6 @@ export {
   useEditUserMutation,
   userOptions,
   useUserInfoQuery,
-  useUserInfoSuspenseQuery,
 } from './services/user/queries'
 export { userService } from './services/user/service'
 

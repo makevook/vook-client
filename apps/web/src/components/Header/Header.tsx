@@ -1,5 +1,3 @@
-'use client'
-
 import { TypoLogo } from '@vook-client/design-system'
 
 import { Link } from '../Link'

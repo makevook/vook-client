@@ -11,6 +11,7 @@
     "js-cookie": "^3.0.5"
   },
   "devDependencies": {
+    "@types/node": "^20.11.24",
     "@vook-client/eslint-config": "*",
     "@vook-client/typescript-config": "*",
     "msw": "^2.3.1",
