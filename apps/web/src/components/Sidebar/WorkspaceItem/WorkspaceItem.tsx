@@ -1,9 +1,11 @@
 import { Accordion, Dropbox, Icon, Text } from '@vook-client/design-system'
 
 import {
-  vocabularyDropbox,
   vocabularyDropboxItem,
-  workspaceItem,
+  vocabularyDropboxTrigger,
+  vocabularyTitle,
+  workspaceItemDropdownItem,
+  workspaceItemDropdownTrigger,
   workspaceItemTitle,
 } from './WorkspaceItem.css'
 
@@ -29,18 +31,18 @@ export const WorkspaceItem = ({
           </div>
         </Accordion.Title>
         <Dropbox>
-          <Dropbox.Trigger>
+          <Dropbox.Trigger className={workspaceItemDropdownTrigger}>
             <Icon name="dot-vertical-medium" />
           </Dropbox.Trigger>
           <Dropbox.Group horizontal="right" vertical="bottom">
             <Dropbox.Option>
-              <div className={vocabularyDropboxItem} id="hi">
+              <div className={workspaceItemDropdownItem} id="hi">
                 <Icon name="edit-medium" />
                 <Text type="body-2">수정</Text>
               </div>
             </Dropbox.Option>
             <Dropbox.Option>
-              <div className={vocabularyDropboxItem}>
+              <div className={workspaceItemDropdownItem}>
                 <Icon name="trash-medium" />
                 <Text type="body-2">삭제</Text>
               </div>
@@ -49,33 +51,29 @@ export const WorkspaceItem = ({
         </Dropbox>
       </div>
       {vocabularies.map((vocabulary) => (
-        <div key={vocabulary.id} className={workspaceItem}>
+        <div key={vocabulary.id} className={vocabularyTitle}>
           <Accordion.Item>
             <Text type="body-2">{vocabulary.name}</Text>
           </Accordion.Item>
-          <div className={vocabularyDropbox}>
-            <Dropbox>
-              <Dropbox.Trigger>
-                <div>
-                  <Icon name="dot-vertical-medium" />
+          <Dropbox>
+            <Dropbox.Trigger className={vocabularyDropboxTrigger}>
+              <Icon name="dot-vertical-medium" />
+            </Dropbox.Trigger>
+            <Dropbox.Group horizontal="right" vertical="bottom">
+              <Dropbox.Option>
+                <div className={vocabularyDropboxItem} id="hi">
+                  <Icon name="edit-medium" />
+                  <Text type="body-2">수정</Text>
                 </div>
-              </Dropbox.Trigger>
-              <Dropbox.Group horizontal="right" vertical="bottom">
-                <Dropbox.Option>
-                  <div className={vocabularyDropboxItem} id="hi">
-                    <Icon name="edit-medium" />
-                    <Text type="body-2">수정</Text>
-                  </div>
-                </Dropbox.Option>
-                <Dropbox.Option>
-                  <div className={vocabularyDropboxItem}>
-                    <Icon name="trash-medium" />
-                    <Text type="body-2">삭제</Text>
-                  </div>
-                </Dropbox.Option>
-              </Dropbox.Group>
-            </Dropbox>
-          </div>
+              </Dropbox.Option>
+              <Dropbox.Option>
+                <div className={vocabularyDropboxItem}>
+                  <Icon name="trash-medium" />
+                  <Text type="body-2">삭제</Text>
+                </div>
+              </Dropbox.Option>
+            </Dropbox.Group>
+          </Dropbox>
         </div>
       ))}
     </Accordion>
