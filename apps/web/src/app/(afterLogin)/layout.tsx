@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { userService } from '@vook-client/api'
+import { userService, UserStatus } from '@vook-client/api'
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
@@ -33,6 +33,10 @@ const Layout = async ({ children }: PropsWithChildren) => {
   queryClient.setQueryData(['refresh'], refresh)
 
   const user = await userService.userInfo(queryClient)
+
+  if (user.result.status !== UserStatus.Registered) {
+    redirect('/signup')
+  }
 
   const vocabularyID = 'default'
   const dehydrateState = dehydrate(queryClient)
