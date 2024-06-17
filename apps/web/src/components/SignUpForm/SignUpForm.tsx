@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ChangeEventHandler, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import z from 'zod'
-import Cookies from 'js-cookie'
 
 import {
   checkboxGroup,
@@ -27,13 +26,7 @@ const signUpSchema = z.object({
 })
 
 export const SignUpForm = () => {
-  const access = Cookies.get('access')
-  const refresh = Cookies.get('refresh')
-
-  const userInfoQuery = useUserInfoQuery({
-    access: access || '',
-    refresh: refresh || '',
-  })
+  const userInfoQuery = useUserInfoQuery()
 
   const { register, handleSubmit, setValue, watch, formState } = useForm({
     resolver: zodResolver(signUpSchema),
@@ -59,13 +52,10 @@ export const SignUpForm = () => {
     },
   )
 
-  const isAllChecked = useMemo(
-    () =>
-      watch('requiredTermsAgree') &&
-      watch('policyAgree') &&
-      watch('marketingEmailOptIn'),
-    [watch],
-  )
+  const isAllChecked =
+    watch('requiredTermsAgree') &&
+    watch('policyAgree') &&
+    watch('marketingEmailOptIn')
 
   const isSubmitting = useMemo(
     () => signUpMutation.isPending,

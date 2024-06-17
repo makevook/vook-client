@@ -37,9 +37,14 @@ export const header = style([
 export const footer = style([
   flexCenter,
   {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
     height: 257,
+    width: '100%',
     backgroundColor: vars.colors['component-normal'],
     padding: '40px 0',
+    zIndex: -10,
   },
 ])
 
@@ -54,6 +59,7 @@ export const footerContainer = style({
   flexDirection: 'column',
   justifyContent: 'space-between',
   height: '100%',
+  zIndex: -10,
 })
 
 export const footerLine = style({
@@ -61,7 +67,6 @@ export const footerLine = style({
 })
 
 export const inner = style({
-  position: 'relative',
   width: 1180,
   height: '100%',
 })

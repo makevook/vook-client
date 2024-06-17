@@ -6,7 +6,7 @@ globalStyle('html', {
 })
 
 globalStyle('body', {
-  overflowX: 'hidden',
+  overflow: 'auto',
 })
 
 globalStyle('*', {
@@ -22,4 +22,14 @@ globalStyle('a', {
 
 globalStyle('ul', {
   listStyle: 'none',
+})
+
+globalStyle('button', {
+  border: 'none',
+  background: 'none',
+  cursor: 'pointer',
+})
+
+globalStyle('body.scroll-locked', {
+  overflow: 'hidden',
 })

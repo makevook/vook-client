@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { UserInfoResponse, UserStatus } from 'node_modules/@vook-client/api'
+import {
+  ACCESS_TOKEN_HEADER_KEY,
+  REFRESH_TOKEN_HEADER_KEY,
+  UserInfoResponse,
+  UserStatus,
+} from 'node_modules/@vook-client/api'
 
 /**
  * 권한 검사를 위한 미들웨어 생성 함수
@@ -35,13 +40,13 @@ const checkUserStatusMiddleware =
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
-            'X-Refresh-Authorization': refresh,
+            [REFRESH_TOKEN_HEADER_KEY]: refresh,
           },
         },
       )
       if (res.ok) {
-        newAccessToken = res.headers.get('Authorization')
-        newRefreshToken = res.headers.get('X-Refresh-Authorization')
+        newAccessToken = res.headers.get(ACCESS_TOKEN_HEADER_KEY)
+        newRefreshToken = res.headers.get(REFRESH_TOKEN_HEADER_KEY)
         finalResponse.cookies.set('access', newAccessToken!)
         finalResponse.cookies.set('refresh', newRefreshToken!)
       } else {
@@ -56,7 +61,7 @@ const checkUserStatusMiddleware =
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: token,
+          [ACCESS_TOKEN_HEADER_KEY]: token,
         },
       })
       if (res.ok) {
@@ -101,14 +106,16 @@ const checkUserStatusMiddleware =
       return loginRedirectResponse
     }
 
+    finalResponse.headers.set('X-AuthConfirm', 'confirmed')
+
     return finalResponse
   }
 
-const onlyRegisteredMatch = ['/onboarding']
+const onlyRegisteredMatch = ['/onboarding', '/user/edit']
 
 const onlyRegisteredMiddleware = checkUserStatusMiddleware([
   UserStatus.Registered,
-  UserStatus.Withdrawn,
+  UserStatus.SocialLoginCompleted,
 ])
 
 const onlyUnregisteredSocialUser = checkUserStatusMiddleware([
@@ -116,7 +123,14 @@ const onlyUnregisteredSocialUser = checkUserStatusMiddleware([
 ])
 
 export async function middleware(req: NextRequest) {
-  const response = NextResponse.next()
+  const requestHeaders = new Headers(req.headers)
+  requestHeaders.set('X-pathname', req.nextUrl.pathname)
+
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  })
 
   if (
     onlyRegisteredMatch.some((url) => req.nextUrl.pathname.includes(url)) ||
@@ -128,4 +142,6 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname === '/signup') {
     return onlyUnregisteredSocialUser(req, response, '/login')
   }
+
+  return response
 }

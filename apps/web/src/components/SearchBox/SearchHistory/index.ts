@@ -1,0 +1,1 @@
+export { SearchHistory } from './SearchHistory'

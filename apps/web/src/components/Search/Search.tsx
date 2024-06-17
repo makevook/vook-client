@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Icon, SymbolLogo, Text, TypoLogo } from '@vook-client/design-system'
 
+import { searchStore } from '@/store/search'
+
 import {
   iconContainer,
   inputBox,
@@ -11,8 +13,6 @@ import {
   searchBar,
   searchBoxContainer,
 } from './Search.css'
-
-import { searchStore } from 'src/store/store'
 
 interface HistoryBarType {
   word: string

@@ -24,7 +24,7 @@ const FooterIcons = () => (
 )
 
 export const Footer = () => (
-  <div className={footer}>
+  <footer className={footer}>
     <div className={inner}>
       <div className={footerContainer}>
         <Logo />
@@ -36,5 +36,5 @@ export const Footer = () => (
         </div>
       </div>
     </div>
-  </div>
+  </footer>
 )

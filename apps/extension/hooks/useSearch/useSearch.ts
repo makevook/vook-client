@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { serchQueryOptions, type SearchResponse } from '@vook-client/api'
+import { searchQueryOptions, type SearchResponse } from '@vook-client/api'
 import {
   pipe,
   take,
@@ -45,7 +45,7 @@ export const getTailText = (terms: string[]) =>
 
 export const useSearch = ({ selectedText }: UseSearchProps) => {
   const query = useQuery({
-    ...serchQueryOptions.get({
+    ...searchQueryOptions.search({
       query: `${selectedText}`,
       withFormat: true,
       highlightPreTag: '<strong>',

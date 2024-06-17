@@ -1,7 +1,9 @@
 import React, { PropsWithChildren } from 'react'
 import { cookies } from 'next/headers'
-import { userInfoService } from '@vook-client/api'
+import { userService } from '@vook-client/api'
 import { redirect } from 'next/navigation'
+
+import { getQueryClient } from '@/utils/react-query'
 
 import { onboardingContainer, onboardingLayout } from './layout.css'
 import { OnBoardingProvider } from './_context/useOnboarding'
@@ -15,10 +17,11 @@ const Layout = async ({ children }: PropsWithChildren) => {
     redirect('/login')
   }
 
-  const userInfo = await userInfoService.getUserInfo({
-    access: accessToken || '',
-    refresh: refreshToken || '',
-  })
+  const queryClient = getQueryClient()
+  queryClient.setQueryData(['access'], accessToken)
+  queryClient.setQueryData(['refresh'], refreshToken)
+
+  const userInfo = await userService.userInfo(queryClient)
 
   if (userInfo.result.onboardingCompleted) {
     redirect('/')

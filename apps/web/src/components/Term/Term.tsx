@@ -4,6 +4,8 @@ import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react'
 import { Button, List, Text } from '@vook-client/design-system'
 import { SearchSort, searchSort, useSearchQuery } from '@vook-client/api'
 
+import { searchStore } from '@/store/search'
+
 import { inner } from '../layout/Layout.css'
 import { Hyperlink } from '../common'
 
@@ -17,8 +19,6 @@ import {
   termTitleContainer,
   textContainer,
 } from './Term.css'
-
-import { searchStore } from 'src/store/store'
 
 // 로딩 상태 컴포넌트
 const LoadingComponent = () => (

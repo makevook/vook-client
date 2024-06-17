@@ -2,36 +2,93 @@ import { delay, http, HttpResponse } from 'msw'
 
 import { API_URL } from '../config'
 import {
+  OnboardingDTO,
+  OnboardingResponse,
+  UserEditDTO,
+  UserEditResponse,
   UserInfoResponse,
   UserStatus,
-} from '../../services/useUserInfoQuery/model'
+} from '../../services/user/model'
+import {
+  SignUpDTO,
+  SignUpResponse,
+  UserWithdrawResponse,
+} from '../../services/auth/model'
+import {
+  ACCESS_TOKEN_HEADER_KEY,
+  REFRESH_TOKEN_HEADER_KEY,
+} from '../../constants/header-key'
+
+const user = {
+  uid: 'b8baa3c7-7ad4-46b5-a85c-2405b9bc7095',
+  email: 'johndoe1234@vook.com',
+  status: UserStatus.Registered,
+  onboardingCompleted: false,
+  nickname: 'John Doe',
+}
 
 export const userHandlers = [
-  http.get(`${API_URL}/user/info`, () => {
-    const res: UserInfoResponse = {
-      code: '202',
-      result: {
-        uid: 'uid',
-        email: 'dummyuser1234@vook.com',
-        status: UserStatus.Registered,
-        onboardingCompleted: false,
-        nickname: '',
+  http.get(`${API_URL}/auth/refresh`, () => {
+    return new HttpResponse(null, {
+      headers: {
+        [ACCESS_TOKEN_HEADER_KEY]: 'Fake Access',
+        [REFRESH_TOKEN_HEADER_KEY]: 'Fake Refresh',
       },
-    }
-    return HttpResponse.json(res)
+    })
   }),
-  http.post(`${API_URL}/user/register`, async () => {
+
+  http.get<never, never, UserInfoResponse>(`${API_URL}/user/info`, () => {
     const res = {
       code: 'SUCCESS',
+      result: user,
     }
-    await delay(1000)
     return HttpResponse.json(res)
   }),
-  http.post(`${API_URL}/user/onboarding`, async () => {
-    const res = {
-      code: 'SUCCESS',
-    }
-    await delay(1000)
-    return HttpResponse.json(res)
-  }),
+
+  http.put<never, UserEditDTO, UserEditResponse>(
+    `${API_URL}/user/info`,
+    async ({ request }) => {
+      const req = await request.json()
+
+      const res = {
+        code: 'SUCCESS',
+      }
+
+      user.nickname = req.nickname
+
+      await delay(1000)
+      return HttpResponse.json(res)
+    },
+  ),
+
+  http.post<never, SignUpDTO, SignUpResponse>(
+    `${API_URL}/user/register`,
+    async () => {
+      const res = {
+        code: 'SUCCESS',
+      }
+      await delay(1000)
+      return HttpResponse.json(res)
+    },
+  ),
+  http.post<never, OnboardingDTO, OnboardingResponse>(
+    `${API_URL}/user/onboarding`,
+    async () => {
+      const res = {
+        code: 'SUCCESS',
+      }
+      await delay(1000)
+      return HttpResponse.json(res)
+    },
+  ),
+  http.post<never, never, UserWithdrawResponse>(
+    `${API_URL}/user/withdraw`,
+    async () => {
+      const res = {
+        code: 'SUCCESS',
+      }
+      await delay(1000)
+      return HttpResponse.json(res)
+    },
+  ),
 ]

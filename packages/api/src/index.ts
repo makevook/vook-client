@@ -1,28 +1,39 @@
 export { baseFetcher, Fetcher } from './lib/fetcher'
 export { handlers } from './mocks/handlers'
+
+// auth
+export type { SignUpDTO } from './services/auth/model'
+export { useSignUpMutation, useWithdrawMutation } from './services/auth/queries'
+export { authService } from './services/auth/service'
+
+// user
+export type { UserInfoResponse } from './services/user/model'
+export { OnboardingFunnel, OnboardingJob } from './services/user/model'
+export { UserStatus } from './services/user/model'
+export { useOnboardingMutation } from './services/user/queries'
 export {
-  OnboardingFunnel,
-  OnboardingJob,
-} from './services/useOnboardingMutation/model'
-export { useOnboardingMutation } from './services/useOnboardingMutation/queries'
+  useEditUserMutation,
+  userOptions,
+  useUserInfoQuery,
+} from './services/user/queries'
+export { userService } from './services/user/service'
+
+// search
+export {
+  ACCESS_TOKEN_HEADER_KEY,
+  REFRESH_TOKEN_HEADER_KEY,
+} from './constants/header-key'
+export { APIBuilder } from './lib/fetcher'
 export type {
   SearchDTO,
   SearchHit,
   SearchResponse,
   SearchSort,
-} from './services/useSearchQuery/model'
-export { searchSort } from './services/useSearchQuery/model'
+} from './services/search/model'
+export { searchSort } from './services/search/model'
 export {
-  serchQueryOptions,
+  searchQueryKeysGenerator,
+  searchQueryOptions,
   useSearchQuery,
-} from './services/useSearchQuery/queries'
-export { searchService } from './services/useSearchQuery/searchService'
-export type { SignUpDTO } from './services/useSignUpMutation/model'
-export { useSignUpMutation } from './services/useSignUpMutation/queries'
-export type { UserInfoResponse } from './services/useUserInfoQuery/model'
-export { UserStatus } from './services/useUserInfoQuery/model'
-export {
-  useUserInfoQuery,
-  useUserInfoSuspenseQuery,
-} from './services/useUserInfoQuery/queries'
-export { userInfoService } from './services/useUserInfoQuery/userInfoService'
+} from './services/search/queries'
+export { searchService } from './services/search/searchService'

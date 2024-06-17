@@ -6,7 +6,7 @@ import { OnBoardingProvider } from '../_context/useOnboarding'
 import OnboardingFunnel from './page'
 
 const meta: Meta<typeof OnboardingFunnel> = {
-  title: 'OnboardingFunnel',
+  title: 'Onboarding/Funnel',
   component: OnboardingFunnel,
   parameters: {
     layout: 'centered',

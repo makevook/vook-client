@@ -6,7 +6,7 @@ import { OnBoardingProvider } from '../_context/useOnboarding'
 import OnboardingJobPage from './page'
 
 const meta: Meta<typeof OnboardingJobPage> = {
-  title: 'OnboardingJob',
+  title: 'Onboarding/Job',
   component: OnboardingJobPage,
   parameters: {
     layout: 'centered',
