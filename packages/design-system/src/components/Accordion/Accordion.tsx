@@ -5,6 +5,7 @@ import {
   HTMLAttributes,
   LiHTMLAttributes,
   PropsWithChildren,
+  useLayoutEffect,
 } from 'react'
 import clsx from 'clsx'
 
@@ -57,10 +58,17 @@ const AccordionItem = ({
 
 const AccordionList = ({
   children,
+  defaultOpen = false,
   ...rest
-}: HTMLAttributes<HTMLDivElement>) => {
-  const { open } = useAccordion()
+}: AccordionProps) => {
+  const { open, toggle } = useAccordion()
   const quantity = Children.toArray(children).length
+
+  useLayoutEffect(() => {
+    if (defaultOpen) {
+      toggle()
+    }
+  }, [defaultOpen, toggle])
 
   return (
     <div
@@ -75,13 +83,20 @@ const AccordionList = ({
   )
 }
 
+export interface AccordionProps extends HTMLAttributes<HTMLDivElement> {
+  defaultOpen?: boolean
+}
+
 const AccordionMain = ({
   children,
+  defaultOpen = false,
   ...rest
-}: HTMLAttributes<HTMLDivElement>) => {
+}: AccordionProps) => {
   return (
     <AccordionContextProvider>
-      <AccordionList {...rest}>{children}</AccordionList>
+      <AccordionList defaultOpen={defaultOpen} {...rest}>
+        {children}
+      </AccordionList>
     </AccordionContextProvider>
   )
 }
