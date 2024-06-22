@@ -4,17 +4,16 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:web": "turbo dev --filter=@vook-client/web",
+    "dev:workshop": "turbo dev --filter=@vook-client/workshop",
     "dev:extension": "turbo dev --filter=@vook-client/extension",
     "lint": "turbo lint",
     "lint-front": "lint-staged",
     "test": "turbo test",
-    "prepare": "husky install",
-    "build-storybook": "turbo run build --filter=workshop"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@titicaca/prettier-config-triple": "^1.1.0",
-    "@vook-client/eslint-config": "*",
-    "@vook-client/typescript-config": "*",
     "eslint-plugin-vitest": "^0.2.6",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
