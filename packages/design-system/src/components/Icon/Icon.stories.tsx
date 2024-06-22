@@ -49,6 +49,11 @@ export const Icons: Story = {
           <Icon name="close-icon-small">{props.children}</Icon>
         </IconRow>
         <IconRow>
+          <Icon name="close-grey-icon-big">{props.children}</Icon>
+          <Icon name="close-grey-icon-medium">{props.children}</Icon>
+          <Icon name="close-grey-icon-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
           <Icon name="close-circle-big">{props.children}</Icon>
           <Icon name="close-circle-medium">{props.children}</Icon>
           <Icon name="close-circle-small">{props.children}</Icon>
@@ -174,24 +179,24 @@ export const Icons: Story = {
         </IconRow>
         <p className="storybook-subtitle">Alert</p>
         <IconRow>
-          <Icon name="alert-info-icon-big">{props.children}</Icon>
-          <Icon name="alert-info-icon-medium">{props.children}</Icon>
-          <Icon name="alert-info-icon-small">{props.children}</Icon>
+          <Icon name="alert-info-big">{props.children}</Icon>
+          <Icon name="alert-info-medium">{props.children}</Icon>
+          <Icon name="alert-info-small">{props.children}</Icon>
         </IconRow>
         <IconRow>
-          <Icon name="alert-success-icon-big">{props.children}</Icon>
-          <Icon name="alert-success-icon-medium">{props.children}</Icon>
-          <Icon name="alert-success-icon-small">{props.children}</Icon>
+          <Icon name="alert-success-big">{props.children}</Icon>
+          <Icon name="alert-success-medium">{props.children}</Icon>
+          <Icon name="alert-success-small">{props.children}</Icon>
         </IconRow>
         <IconRow>
-          <Icon name="alert-warning-icon-big">{props.children}</Icon>
-          <Icon name="alert-warning-icon-medium">{props.children}</Icon>
-          <Icon name="alert-warning-icon-small">{props.children}</Icon>
+          <Icon name="alert-warning-big">{props.children}</Icon>
+          <Icon name="alert-warning-medium">{props.children}</Icon>
+          <Icon name="alert-warning-small">{props.children}</Icon>
         </IconRow>
         <IconRow>
-          <Icon name="alert-error-icon-big">{props.children}</Icon>
-          <Icon name="alert-error-icon-medium">{props.children}</Icon>
-          <Icon name="alert-error-icon-small">{props.children}</Icon>
+          <Icon name="alert-error-big">{props.children}</Icon>
+          <Icon name="alert-error-medium">{props.children}</Icon>
+          <Icon name="alert-error-small">{props.children}</Icon>
         </IconRow>
         <p className="storybook-subtitle">SNS</p>
         <IconRow>

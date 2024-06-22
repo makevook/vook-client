@@ -1,7 +1,7 @@
 import { icon } from '../Icon.css'
 
 export const alertIcons = {
-  'alert-success-icon-big': (
+  'alert-success-big': (
     <span className={icon({ size: 'big' })}>
       <svg
         width="24"
@@ -24,7 +24,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-success-icon-medium': (
+  'alert-success-medium': (
     <span className={icon({ size: 'medium' })}>
       <svg
         width="24"
@@ -47,7 +47,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-success-icon-small': (
+  'alert-success-small': (
     <span className={icon({ size: 'small' })}>
       <svg
         width="16"
@@ -69,7 +69,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-info-icon-big': (
+  'alert-info-big': (
     <span className={icon({ size: 'big' })}>
       <svg
         width="24"
@@ -92,7 +92,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-info-icon-medium': (
+  'alert-info-medium': (
     <span className={icon({ size: 'medium' })}>
       <svg
         width="24"
@@ -115,7 +115,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-info-icon-small': (
+  'alert-info-small': (
     <span className={icon({ size: 'small' })}>
       <svg
         width="16"
@@ -138,7 +138,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-warning-icon-big': (
+  'alert-warning-big': (
     <span className={icon({ size: 'big' })}>
       <svg
         width="24"
@@ -161,7 +161,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-warning-icon-medium': (
+  'alert-warning-medium': (
     <span className={icon({ size: 'medium' })}>
       <svg
         width="24"
@@ -184,7 +184,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-warning-icon-small': (
+  'alert-warning-small': (
     <span className={icon({ size: 'small' })}>
       <svg
         width="16"
@@ -207,7 +207,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-error-icon-big': (
+  'alert-error-big': (
     <span className={icon({ size: 'big' })}>
       <svg
         width="24"
@@ -229,7 +229,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-error-icon-medium': (
+  'alert-error-medium': (
     <span className={icon({ size: 'medium' })}>
       <svg
         width="24"
@@ -251,7 +251,7 @@ export const alertIcons = {
       </svg>
     </span>
   ),
-  'alert-error-icon-small': (
+  'alert-error-small': (
     <span className={icon({ size: 'small' })}>
       <svg
         width="16"
