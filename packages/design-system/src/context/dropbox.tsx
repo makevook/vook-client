@@ -39,6 +39,19 @@ function sanitizeId(input: string): string {
   return sanitized
 }
 
+function isDescendant(parent: Element, child: Element): boolean {
+  let node = child.parentNode
+
+  while (node !== null) {
+    if (node === parent) {
+      return true
+    }
+    node = node.parentNode
+  }
+
+  return false
+}
+
 export const DropboxProvider = ({ children }: PropsWithChildren) => {
   const [open, setOpen] = useState(false)
 
@@ -54,25 +67,22 @@ export const DropboxProvider = ({ children }: PropsWithChildren) => {
 
   useLayoutEffect(() => {
     document.addEventListener('click', (e) => {
-      e.stopPropagation()
-      e.preventDefault()
-      const dom = e.target as HTMLElement
-
-      if (
-        (dom.closest('button') as HTMLButtonElement)?.id ===
-        `dropbox-trigger-${id}`
-      ) {
-        setOpen((prev) => !prev)
+      if (!trigger) {
         return
       }
 
-      if (dom.closest(`#${id}`)) {
+      e.stopPropagation()
+      e.preventDefault()
+
+      const dom = e.target as HTMLElement
+
+      if (isDescendant(trigger?.current as Element, dom)) {
         setOpen(true)
       } else {
         setOpen(false)
       }
     })
-  }, [id])
+  }, [id, trigger])
 
   return (
     <DropboxContext.Provider value={{ open, id, toggle, trigger, setTrigger }}>
