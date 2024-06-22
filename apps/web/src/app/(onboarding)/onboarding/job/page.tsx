@@ -99,7 +99,7 @@ const OnboardingJobPage = () => {
           fontWeight="bold"
           color="semantic-label-normal"
         >
-          선택한 직업에 맞춰 기본 용어집을 생성합니다.
+          현재 하고 계신 직업을 선택해주세요.
         </Text>
       </div>
       <div className={jobGroup}>
