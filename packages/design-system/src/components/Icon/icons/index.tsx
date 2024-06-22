@@ -15,6 +15,7 @@ import { editIcons } from './Edit'
 import { logoutIcons } from './Logout'
 import { settingIcons } from './Setting'
 import { trashIcons } from './Trash'
+import { alertIcons } from './Alert'
 
 export type IconNames =
   | keyof typeof closeIcons
@@ -34,6 +35,7 @@ export type IconNames =
   | keyof typeof logoutIcons
   | keyof typeof settingIcons
   | keyof typeof trashIcons
+  | keyof typeof alertIcons
 
 export const Icons: {
   [key in IconNames]: JSX.Element
@@ -55,6 +57,7 @@ export const Icons: {
   ...logoutIcons,
   ...settingIcons,
   ...trashIcons,
+  ...alertIcons,
 }
 
 export const iconNames = Object.keys(Icons) as IconNames[]
