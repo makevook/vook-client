@@ -6,6 +6,7 @@ import { useEffect, useLayoutEffect, useState } from 'react'
 
 import { useModal } from '@/hooks/useModal'
 import { useUser } from '@/store/user'
+import { useToast } from '@/hooks/useToast'
 
 import {
   profileEditForm,
@@ -15,13 +16,12 @@ import {
 } from './ProfileEditForm.css'
 
 import { WithdrawModal } from 'src/modals/WithdrawModal'
-import { CompleteModal } from 'src/modals/CompleteModal/CompleteModal'
 
 export const ProfileEditForm = () => {
   const { user, setUser } = useUser()
   const { toggleModal, open } = useModal()
+  const { addToast } = useToast()
 
-  const [modalType, setModalType] = useState<'withdraw' | 'edit' | null>(null)
   const [isValid, setIsValid] = useState(false)
   const [nickname, setNickname] = useState(user.nickname)
 
@@ -31,12 +31,14 @@ export const ProfileEditForm = () => {
     },
     {
       onSuccess: () => {
-        setModalType('edit')
         setUser({
           ...user,
           nickname,
         })
-        toggleModal()
+        addToast({
+          message: '저장이 완료되었습니다.',
+          type: 'success',
+        })
       },
     },
   )
@@ -68,7 +70,6 @@ export const ProfileEditForm = () => {
   )
 
   const onClickWithdraw = () => {
-    setModalType('withdraw')
     toggleModal()
   }
 
@@ -94,9 +95,6 @@ export const ProfileEditForm = () => {
         <fieldset className={profileEditFormButtonField}>
           <Button
             onClick={onClickSave}
-            // prefixIcon={
-            //   userEditMutation.isPending ? 'spinner-medium' : undefined
-            // }
             disabled={!isValid || userEditMutation.isPending}
           >
             저장하기
@@ -111,10 +109,7 @@ export const ProfileEditForm = () => {
           </Text>
         </fieldset>
       </form>
-      {open && modalType === 'withdraw' && <WithdrawModal />}
-      {open && modalType === 'edit' && (
-        <CompleteModal completeMessage="저장이 완료되었습니다." />
-      )}
+      {open && <WithdrawModal />}
     </>
   )
 }

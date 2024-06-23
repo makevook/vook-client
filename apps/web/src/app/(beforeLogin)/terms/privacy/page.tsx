@@ -6,13 +6,7 @@ const PrivacyTermPage = () => {
     <div>
       <div>
         <Text as="h1" type="display-1" fontWeight="bold">
-          개인정보 처리방침
-        </Text>
-      </div>
-      <br />
-      <div>
-        <Text as="h2" type="title-2" fontWeight="bold">
-          부크 개인정보 처리방침
+          Vook 개인정보 처리방침
         </Text>
       </div>
       <br />
@@ -374,7 +368,7 @@ const PrivacyTermPage = () => {
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          부칙 이 약관은 2024. 06. 07부터 시행합니다.
+          부칙 이 약관은 2024. 07. 24 부터 시행합니다.
         </Text>
 
         <br />

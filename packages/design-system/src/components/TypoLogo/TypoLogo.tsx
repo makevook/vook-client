@@ -42,6 +42,7 @@ const typoLogos: {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <title>Typo Logo</title>
       <path
         d="M27.8291 4H34.842L23.0192 33.9222H15.8228L4 4H11.5636L19.7147 26.0286L27.8291 4Z"
         fill="black"

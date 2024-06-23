@@ -1,6 +1,64 @@
+import { tokens } from '../../../tokens'
 import { icon } from '../Icon.css'
 
 export const closeIcons = {
+  'close-grey-icon-big': (
+    <span className={icon({ size: 'big' })}>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>close icon big</title>
+        <path
+          d="M17 1L1 17M17 17L1 1"
+          stroke={tokens.colors['palette-gray-300']}
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    </span>
+  ),
+  'close-grey-icon-medium': (
+    <span className={icon({ size: 'medium' })}>
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>close icon medium</title>
+        <path
+          d="M13 1L1 13M13 13L1 1"
+          stroke={tokens.colors['palette-gray-300']}
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+      </svg>
+    </span>
+  ),
+  'close-grey-icon-small': (
+    <span className={icon({ size: 'small' })}>
+      <svg
+        width="10"
+        height="10"
+        viewBox="0 0 10 10"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>close icon small</title>
+        <path
+          d="M9 1L1 9M9 9L1 0.999998"
+          stroke={tokens.colors['palette-gray-300']}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+    </span>
+  ),
   'close-icon-big': (
     <span className={icon({ size: 'big' })}>
       <svg

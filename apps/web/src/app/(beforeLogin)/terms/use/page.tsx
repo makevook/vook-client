@@ -6,12 +6,7 @@ const TermsOfUsePage = () => {
     <div>
       <div>
         <Text as="h1" type="display-1" fontWeight="bold">
-          이용약관
-        </Text>
-      </div>
-      <div>
-        <Text as="h2" type="title-2" fontWeight="bold">
-          Vook 약관
+          Vook 이용약관
         </Text>
       </div>
       <br />
@@ -468,11 +463,7 @@ const TermsOfUsePage = () => {
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          ① 이 약관은 2024년 6월 11일부터 시행됩니다.
-        </Text>
-        <br />
-        <Text type="body-2-reading" color="semantic-label-alternative">
-          ② 2023년 6월 11일부터 시행되던 종전의 약관은 본 약관으로 대체합니다.
+          ① 이 약관은 2024년 7월 24일부터 시행됩니다.
         </Text>
         <br />
       </article>

@@ -41,12 +41,17 @@ export const Icons: Story = {
   },
   render: (props) => {
     return (
-      <div>
+      <div className="storybook-list">
         <p className="storybook-subtitle">Close</p>
         <IconRow>
           <Icon name="close-icon-big">{props.children}</Icon>
           <Icon name="close-icon-medium">{props.children}</Icon>
           <Icon name="close-icon-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="close-grey-icon-big">{props.children}</Icon>
+          <Icon name="close-grey-icon-medium">{props.children}</Icon>
+          <Icon name="close-grey-icon-small">{props.children}</Icon>
         </IconRow>
         <IconRow>
           <Icon name="close-circle-big">{props.children}</Icon>
@@ -171,6 +176,27 @@ export const Icons: Story = {
           <Icon name="spinner-big">{props.children}</Icon>
           <Icon name="spinner-medium">{props.children}</Icon>
           <Icon name="spinner-small">{props.children}</Icon>
+        </IconRow>
+        <p className="storybook-subtitle">Alert</p>
+        <IconRow>
+          <Icon name="alert-info-big">{props.children}</Icon>
+          <Icon name="alert-info-medium">{props.children}</Icon>
+          <Icon name="alert-info-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="alert-success-big">{props.children}</Icon>
+          <Icon name="alert-success-medium">{props.children}</Icon>
+          <Icon name="alert-success-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="alert-warning-big">{props.children}</Icon>
+          <Icon name="alert-warning-medium">{props.children}</Icon>
+          <Icon name="alert-warning-small">{props.children}</Icon>
+        </IconRow>
+        <IconRow>
+          <Icon name="alert-error-big">{props.children}</Icon>
+          <Icon name="alert-error-medium">{props.children}</Icon>
+          <Icon name="alert-error-small">{props.children}</Icon>
         </IconRow>
         <p className="storybook-subtitle">SNS</p>
         <IconRow>

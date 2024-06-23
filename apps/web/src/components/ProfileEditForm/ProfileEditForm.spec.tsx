@@ -3,6 +3,7 @@ import { UserStatus } from '@vook-client/api'
 import { renderer } from '@/utils/testing'
 import { ModalContextProvider } from '@/hooks/useModal/useModal'
 import { UserProvider } from '@/store/user'
+import { ToastContextProvider } from '@/hooks/useToast'
 
 import { ProfileEditForm } from './ProfileEditForm'
 
@@ -11,17 +12,19 @@ describe('ProfileEditForm test', () => {
     // given
     const { user, findByRole, findByLabelText } = renderer(
       <ModalContextProvider>
-        <UserProvider
-          user={{
-            nickname: 'John',
-            email: '',
-            onboardingCompleted: false,
-            status: UserStatus.Registered,
-            uid: '',
-          }}
-        >
-          <ProfileEditForm />
-        </UserProvider>
+        <ToastContextProvider>
+          <UserProvider
+            user={{
+              nickname: 'John',
+              email: '',
+              onboardingCompleted: false,
+              status: UserStatus.Registered,
+              uid: '',
+            }}
+          >
+            <ProfileEditForm />
+          </UserProvider>
+        </ToastContextProvider>
       </ModalContextProvider>,
     )
     const nicknameInput = (await findByLabelText('닉네임')) as HTMLInputElement
@@ -38,7 +41,9 @@ describe('ProfileEditForm test', () => {
     // given
     const { user, findByRole, findByLabelText } = renderer(
       <ModalContextProvider>
-        <ProfileEditForm />
+        <ToastContextProvider>
+          <ProfileEditForm />
+        </ToastContextProvider>
       </ModalContextProvider>,
     )
     const nicknameInput = await findByLabelText('닉네임')
@@ -54,7 +59,9 @@ describe('ProfileEditForm test', () => {
     // given
     const { user, findByRole, findByLabelText } = renderer(
       <ModalContextProvider>
-        <ProfileEditForm />
+        <ToastContextProvider>
+          <ProfileEditForm />
+        </ToastContextProvider>
       </ModalContextProvider>,
     )
     const nicknameInput = await findByLabelText('닉네임')
