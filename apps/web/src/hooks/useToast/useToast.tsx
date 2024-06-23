@@ -5,6 +5,7 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react'
 import { toastContainer } from './toast.css'
 
 import CompleteToast from 'src/toasts/CompleteToast/CompleteToast'
+import ErrorToast from 'src/toasts/ErrorToast/ErrorToast'
 
 export interface ToastItem {
   message: string
@@ -63,6 +64,17 @@ export const ToastContextProvider = ({ children }: PropsWithChildren) => {
       if (toast.type === 'success') {
         return (
           <CompleteToast
+            key={toast.id}
+            id={toast.id}
+            message={toast.message}
+            disappear={toast.disappear}
+          />
+        )
+      }
+
+      if (toast.type === 'error') {
+        return (
+          <ErrorToast
             key={toast.id}
             id={toast.id}
             message={toast.message}

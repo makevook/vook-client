@@ -88,6 +88,7 @@ export const ProfileEditForm = () => {
           <Input icon="google" label="구글 계정" value={user.email} disabled />
           <Input
             value={nickname}
+            maxLength={10}
             onChange={(e) => setNickname(e.target.value)}
             label="닉네임"
           />
