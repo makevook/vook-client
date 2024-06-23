@@ -14,8 +14,14 @@ const API_URL =
 export class Fetcher {
   private baseUrl: string
 
+  private errorHandler: (error: Error) => void = () => {}
+
   public constructor(baseUrl: string) {
     this.baseUrl = baseUrl
+  }
+
+  public setErrorHandler(handler: (error: Error) => void) {
+    this.errorHandler = handler
   }
 
   private async request<ResponseType>(
@@ -39,11 +45,13 @@ export class Fetcher {
       if (response.ok) {
         data = (await response.json()) as Promise<ResponseType>
       } else {
-        throw new Error('네트워크 통신 과정에서 에러가 발생하였습니다!')
+        const error = (await response.json()) as { code: string }
+        throw new Error(error.code)
       }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
+      this.errorHandler(error as Error)
       throw error
     }
 
@@ -92,11 +100,13 @@ export class Fetcher {
       if (response.ok) {
         data = (await response.json()) as Promise<ResponseType>
       } else {
-        throw new Error('네트워크 통신 과정에서 에러가 발생하였습니다!')
+        const error = (await response.json()) as { code: string }
+        throw new Error(error.code)
       }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
+      this.errorHandler(error as Error)
       throw error
     }
 

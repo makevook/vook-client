@@ -7,6 +7,7 @@ import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { pretendard } from '@/styles/fonts'
 import { MSWComponent } from '@/mock/MSWComponent'
 import { ToastContextProvider } from '@/hooks/useToast'
+import { InitialSetting } from '@/components/InitialSetting'
 
 import { ModalContextProvider } from 'src/hooks/useModal/useModal'
 
@@ -24,6 +25,7 @@ const RootLayout = ({
     <ReactQueryProvider>
       <ModalContextProvider>
         <ToastContextProvider>
+          <InitialSetting />
           <div>{children}</div>
           <div id="modal" />
         </ToastContextProvider>
