@@ -8,7 +8,7 @@ type Variant = 'page' | 'search' | 'reading'
 
 export interface ListType {
   variant?: 'page' | 'search' | 'reading'
-  kind?: 'table' | 'synonym' | 'description' | 'title'
+  kind?: 'table' | 'synonym' | 'description' | 'title' | 'icon'
   htmlContent?: string
 }
 

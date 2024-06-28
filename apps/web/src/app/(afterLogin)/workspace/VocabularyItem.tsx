@@ -63,7 +63,7 @@ export const VocabularyItem = ({
                   toggleModal()
                 }}
               >
-                <div className={dropboxItem} id={id}>
+                <div className={dropboxItem}>
                   <Icon name="edit-medium" />
                   <Text type="body-2">수정</Text>
                 </div>

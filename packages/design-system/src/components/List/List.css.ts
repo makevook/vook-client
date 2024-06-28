@@ -10,23 +10,30 @@ export const list = recipe({
   variants: {
     page: {
       table: {
-        width: 220,
+        width: 200,
         color: vars.colors['semantic-primary-normal'],
       },
       synonym: {
-        width: 220,
+        width: 200,
         color: vars.colors['semantic-label-alternative'],
+      },
+      icon: {
+        width: 50,
       },
     },
     reading: {
       title: {
-        width: 220,
+        width: 200,
         backgroundColor: vars.colors['component-alternative'],
         color: vars.colors['semantic-label-alternative'],
       },
       description: {
-        width: 480,
+        width: 600,
         paddingRight: 100,
+      },
+      icon: {
+        width: 50,
+        backgroundColor: vars.colors['component-alternative'],
       },
     },
     search: {

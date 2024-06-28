@@ -2,9 +2,10 @@
 
 import React from 'react'
 import { Button, Text } from '@vook-client/design-system'
-import { useGetTermQuery } from '@vook-client/api'
+import { usePathname } from 'next/navigation'
 
 import { Term } from '@/components/Term/Term'
+import { useWorkspace } from '@/store/workspace'
 
 import {
   vocabularyContainer,
@@ -12,21 +13,31 @@ import {
   vocabularyHeaderButton,
 } from './page.css'
 
-const Page = () => {
-  const { data } = useGetTermQuery('74456063-f107-4b0a-846e-e641452e1ce4')
+const Vocabulary = () => {
+  const { workspace } = useWorkspace()
+  const path = usePathname()
+  const id = path.split('/').pop()
+
+  const currentWorkspace = workspace.find((value) => value.uid === id)
 
   return (
     <div className={vocabularyContainer}>
       <div className={vocabularyHeader}>
-        <Text>비개발자를 위한 용어집</Text>
+        <Text type="title-2" fontWeight="bold">
+          {currentWorkspace?.name}
+        </Text>
         <div className={vocabularyHeaderButton}>
-          <Button>삭제</Button>
-          <Button>용어생성</Button>
+          <Button prefixIcon="trash-big" blueLine={false} filled={false}>
+            삭제
+          </Button>
+          <Button blueLine={false} filled={false}>
+            용어생성
+          </Button>
         </div>
       </div>
-      {data !== null && <Term response={data!} />}
+      <Term id={id as string} />
     </div>
   )
 }
 
-export default Page
+export default Vocabulary
