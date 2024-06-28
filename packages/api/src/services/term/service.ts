@@ -6,7 +6,7 @@ import { GetTermResponse } from './model'
 
 export const termService = {
   async getTerm(client: QueryClient, vocabularyUid: string) {
-    return APIBuilder.get(`/term?vocabularyUid=${vocabularyUid}`)
+    return APIBuilder.get(`/terms?vocabularyUid=${vocabularyUid}`)
       .withCredentials(client)
       .build()
       .call<GetTermResponse>()
