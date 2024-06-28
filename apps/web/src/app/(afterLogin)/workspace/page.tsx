@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { Button, Text } from '@vook-client/design-system'
+import { useRouter } from 'next/navigation'
 
 import { useWorkspace } from '@/store/workspace'
 import { useModal } from '@/hooks/useModal'
@@ -32,6 +33,7 @@ const WorkspaceList = () => {
     uid: '',
     defaultValue: '',
   })
+  const router = useRouter()
 
   const data = workspace.map((vocabulary) => ({
     id: vocabulary.uid,
@@ -39,17 +41,25 @@ const WorkspaceList = () => {
     createdAt: new Date(vocabulary.createdAt),
   }))
 
+  const handleNavigation = (id: string) => {
+    router.push(`/vocabulary/${id}`) // 해당 경로로 이동
+  }
+
   return (
     <>
       {data.length > 0 ? (
         <div className={workspaceInnerAlignRow}>
           {data.map((vocubulary) => {
             return (
-              <VocabularyItem
+              <div
+                onClick={() => {
+                  handleNavigation(vocubulary.id)
+                }}
                 key={vocubulary.id}
-                setModalData={setModalData}
-                {...vocubulary}
-              />
+                role="presentation"
+              >
+                <VocabularyItem setModalData={setModalData} {...vocubulary} />
+              </div>
             )
           })}
         </div>

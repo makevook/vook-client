@@ -49,3 +49,8 @@ export {
   workspaceOptions,
 } from './services/workspace/queries'
 export { workspaceService } from './services/workspace/service'
+
+// term
+export type { GetTermDTO, GetTermResponse } from './services/term/model'
+export { useGetTermQuery } from './services/term/quries'
+export { termService } from './services/term/service'
