@@ -1,11 +1,14 @@
 'use client'
 
 import React from 'react'
-import { Button, Text } from '@vook-client/design-system'
+import { Button, Icon, Text } from '@vook-client/design-system'
 import { usePathname } from 'next/navigation'
+import { useGetTermQuery } from '@vook-client/api'
 
 import { Term } from '@/components/Term/Term'
 import { useWorkspace } from '@/store/workspace'
+
+import { warningContainer } from '../../layout.css'
 
 import {
   vocabularyContainer,
@@ -19,7 +22,12 @@ const Vocabulary = () => {
   const id = path.split('/').pop()
 
   const currentWorkspace = workspace.find((value) => value.uid === id)
+  const { data: response } = useGetTermQuery(id as string)
 
+  if (response === undefined) {
+    return null
+  }
+  const isDisabled = response?.result.length >= 100
   return (
     <div className={vocabularyContainer}>
       <div className={vocabularyHeader}>
@@ -30,11 +38,24 @@ const Vocabulary = () => {
           <Button prefixIcon="trash-big" blueLine={false} filled={false}>
             삭제
           </Button>
-          <Button blueLine={false} filled={false}>
+          <Button
+            prefixIcon={isDisabled ? undefined : 'plus-big'}
+            blueLine={isDisabled}
+            filled={isDisabled}
+            disabled={isDisabled}
+          >
             용어생성
           </Button>
         </div>
       </div>
+      {isDisabled && (
+        <div className={warningContainer}>
+          <Icon name="alert-warning-big" />
+          <Text type="body-1" fontWeight="medium" color="label-neutral">
+            용어는 100개까지만 생성 가능합니다.
+          </Text>
+        </div>
+      )}
       <Term id={id as string} />
     </div>
   )

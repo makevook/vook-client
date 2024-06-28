@@ -1,13 +1,7 @@
-import { Accordion, Dropbox, Icon, Text } from '@vook-client/design-system'
+import { Accordion, Text } from '@vook-client/design-system'
+import { useRouter } from 'next/navigation'
 
-import {
-  vocabularyDropboxItem,
-  vocabularyDropboxTrigger,
-  vocabularyTitle,
-  workspaceItemDropdownItem,
-  workspaceItemDropdownTrigger,
-  workspaceItemTitle,
-} from './WorkspaceItem.css'
+import { vocabularyTitle, workspaceItemTitle } from './WorkspaceItem.css'
 
 interface WorkspaceItemProps {
   workspaceId: string
@@ -22,15 +16,17 @@ export const WorkspaceItem = ({
   workspaceName,
   vocabularies,
 }: WorkspaceItemProps) => {
+  const router = useRouter()
+
   return (
     <Accordion defaultOpen>
       <div className={workspaceItemTitle}>
-        <Accordion.Title>
+        <Accordion.Title isSideBar>
           <div>
             <Text type="body-2">{workspaceName}</Text>
           </div>
         </Accordion.Title>
-        <Dropbox>
+        {/* <Dropbox>
           <Dropbox.Trigger className={workspaceItemDropdownTrigger}>
             <Icon name="dot-vertical-medium" />
           </Dropbox.Trigger>
@@ -48,14 +44,19 @@ export const WorkspaceItem = ({
               </div>
             </Dropbox.Option>
           </Dropbox.Group>
-        </Dropbox>
+        </Dropbox> */}
       </div>
       {vocabularies.map((vocabulary) => (
         <div key={vocabulary.id} className={vocabularyTitle}>
-          <Accordion.Item>
+          <Accordion.Item
+            onClick={() => {
+              router.push(`/vocabulary/${vocabulary.id}`)
+            }}
+            isSideBar
+          >
             <Text type="body-2">{vocabulary.name}</Text>
           </Accordion.Item>
-          <Dropbox>
+          {/* <Dropbox>
             <Dropbox.Trigger className={vocabularyDropboxTrigger}>
               <Icon name="dot-vertical-medium" />
             </Dropbox.Trigger>
@@ -73,7 +74,7 @@ export const WorkspaceItem = ({
                 </div>
               </Dropbox.Option>
             </Dropbox.Group>
-          </Dropbox>
+          </Dropbox> */}
         </div>
       ))}
     </Accordion>

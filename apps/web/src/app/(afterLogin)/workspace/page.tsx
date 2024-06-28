@@ -41,24 +41,20 @@ const WorkspaceList = () => {
     createdAt: new Date(vocabulary.createdAt),
   }))
 
-  const handleNavigation = (id: string) => {
-    router.push(`/vocabulary/${id}`) // 해당 경로로 이동
-  }
-
   return (
     <>
       {data.length > 0 ? (
         <div className={workspaceInnerAlignRow}>
-          {data.map((vocubulary) => {
+          {data.map((vocabulary) => {
             return (
               <div
                 onClick={() => {
-                  handleNavigation(vocubulary.id)
+                  router.push(`/vocabulary/${vocabulary.id}`)
                 }}
-                key={vocubulary.id}
+                key={vocabulary.id}
                 role="presentation"
               >
-                <VocabularyItem setModalData={setModalData} {...vocubulary} />
+                <VocabularyItem setModalData={setModalData} {...vocabulary} />
               </div>
             )
           })}

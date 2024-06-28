@@ -9,6 +9,12 @@ export const vocabularyItemContainer = style({
   justifyContent: 'space-between',
   border: `1px solid ${vars.colors['semantic-line-normal']}`,
   borderRadius: 10,
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  cursor: 'pointer',
+
+  ':hover': {
+    boxShadow: `0 4px 8px ${vars.colors['palette-gray-300']}`,
+  },
 })
 
 export const vocabularyItemHeader = style({
@@ -28,4 +34,8 @@ export const dropboxItem = style({
   alignItems: 'center',
   width: 174,
   gap: 10,
+})
+
+export const dropboxIndex = style({
+  zIndex: 5,
 })
