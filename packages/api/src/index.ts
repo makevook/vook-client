@@ -37,3 +37,15 @@ export {
   useSearchQuery,
 } from './services/search/queries'
 export { searchService } from './services/search/searchService'
+
+// workspace
+export type {
+  WorkspaceInfo,
+  WorkspaceInfoResponse,
+} from './services/workspace/model'
+export {
+  useCreateWorkspaceMutation,
+  useWorkspaceInfoQuery,
+  workspaceOptions,
+} from './services/workspace/queries'
+export { workspaceService } from './services/workspace/service'

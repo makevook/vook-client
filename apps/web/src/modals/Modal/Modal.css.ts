@@ -90,6 +90,12 @@ export const modalContent = style({
   marginTop: 8,
 })
 
+export const modalInputContent = style({
+  marginTop: 24,
+  width: '100%',
+  alignSelf: 'start',
+})
+
 export const modalButtonGroup = style({
   display: 'flex',
   gap: 12,

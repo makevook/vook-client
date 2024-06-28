@@ -1,15 +1,15 @@
 import { PropsWithChildren } from 'react'
-import { userService, UserStatus } from '@vook-client/api'
+import { userService, UserStatus, workspaceService } from '@vook-client/api'
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { Sidebar } from '@/components/Sidebar'
 import { Header } from '@/components/Header'
-import { Footer } from '@/components/layout'
 import { UserProvider } from '@/store/user'
 import { getQueryClient } from '@/utils/react-query'
 import { SilentRefresh } from '@/components/SilentRefresh/SilentRefresh'
+import { WorkspaceProvider } from '@/store/workspace'
 
 import { mainArea } from './layout.css'
 
@@ -37,6 +37,7 @@ const Layout = async ({ children }: PropsWithChildren) => {
   if (user.result.status !== UserStatus.Registered) {
     redirect('/signup')
   }
+  const workspace = await workspaceService.getWorkspaceInfo(queryClient)
 
   const vocabularyID = 'default'
   const dehydrateState = dehydrate(queryClient)
@@ -45,10 +46,12 @@ const Layout = async ({ children }: PropsWithChildren) => {
     <div className={mainArea}>
       <HydrationBoundary state={dehydrateState}>
         <UserProvider user={user.result}>
-          <Header vocabularyID={vocabularyID} />
-          <Sidebar />
-          {children}
-          <Footer />
+          <WorkspaceProvider workspace={workspace.result}>
+            <Header vocabularyID={vocabularyID} />
+            <Sidebar />
+            {children}
+            {/* <Footer /> */}
+          </WorkspaceProvider>
         </UserProvider>
         <SilentRefresh />
       </HydrationBoundary>

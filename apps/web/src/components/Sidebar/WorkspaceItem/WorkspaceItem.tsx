@@ -23,7 +23,7 @@ export const WorkspaceItem = ({
   vocabularies,
 }: WorkspaceItemProps) => {
   return (
-    <Accordion>
+    <Accordion defaultOpen>
       <div className={workspaceItemTitle}>
         <Accordion.Title>
           <div>

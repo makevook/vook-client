@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { PropsWithChildren } from 'react'
+import { ChangeEvent, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
-import { Text } from '@vook-client/design-system'
+import { Input, Text } from '@vook-client/design-system'
 import clsx from 'clsx'
 
 import { useModal } from '@/hooks/useModal'
@@ -13,9 +13,13 @@ import {
   modalContainer,
   modalContent,
   modalHeadline,
+  modalInputContent,
 } from './Modal.css'
 
-interface ModalProps extends PropsWithChildren {}
+interface ModalProps extends PropsWithChildren {
+  inputValue?: string
+  onInputChange?: (e: ChangeEvent<HTMLInputElement>) => void
+}
 
 const ModalMain = ({ children }: ModalProps) => {
   const { open, toggleModal, closing } = useModal()
@@ -80,6 +84,26 @@ const ModalContent = ({ children }: ModalProps) => {
   )
 }
 
+const ModalInputContent = ({
+  children,
+  inputValue,
+  onInputChange,
+}: ModalProps) => {
+  return (
+    <div className={modalInputContent}>
+      <Text type="body-2" color="label-neutral">
+        {children}
+      </Text>
+      <Input
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+        value={inputValue}
+        onChange={onInputChange}
+      />
+    </div>
+  )
+}
+
 const ModalButtonGroup = ({ children }: ModalProps) => {
   return <div className={modalButtonGroup}>{children}</div>
 }
@@ -87,5 +111,6 @@ const ModalButtonGroup = ({ children }: ModalProps) => {
 export const Modal = Object.assign(ModalMain, {
   Headline: ModalHeadline,
   Content: ModalContent,
+  Input: ModalInputContent,
   ButtonGroup: ModalButtonGroup,
 })
