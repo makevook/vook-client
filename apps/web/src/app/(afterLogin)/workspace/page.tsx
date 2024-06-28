@@ -8,10 +8,10 @@ import { useWorkspace } from '@/store/workspace'
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
 import {
-  WorkspaceCreateModal,
-  WorkspaceDeleteModal,
-  WorkspaceEditModal,
-} from '@/modals/WorkspaceModal/WorkspaceModal'
+  VocabularyCreateModal,
+  VocabularyDeleteModal,
+  VocabularyEditModal,
+} from '@/modals/VocabularyModal/VocabularyModal'
 
 import {
   workspaceInnerAlignCenter,
@@ -83,12 +83,12 @@ const WorkspaceList = () => {
         </div>
       )}
 
-      {open && type === ModalTypes.CREATE && <WorkspaceCreateModal />}
+      {open && type === ModalTypes.CREATE && <VocabularyCreateModal />}
       {open && type === ModalTypes.DELETE && (
-        <WorkspaceDeleteModal uid={modalData.uid} />
+        <VocabularyDeleteModal uid={modalData.uid} />
       )}
       {open && type === ModalTypes.EDIT && (
-        <WorkspaceEditModal
+        <VocabularyEditModal
           uid={modalData.uid}
           defaultValue={modalData.defaultValue}
         />

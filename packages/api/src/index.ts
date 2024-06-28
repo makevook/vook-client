@@ -38,17 +38,17 @@ export {
 } from './services/search/queries'
 export { searchService } from './services/search/searchService'
 
-// workspace
+// Vocabulary
 export type {
-  WorkspaceInfo,
-  WorkspaceInfoResponse,
-} from './services/workspace/model'
+  VocabularyInfo,
+  VocabularyInfoResponse,
+} from './services/vocabulary/model'
 export {
-  useCreateWorkspaceMutation,
-  useWorkspaceInfoQuery,
-  workspaceOptions,
-} from './services/workspace/queries'
-export { workspaceService } from './services/workspace/service'
+  useCreateVocabularyMutation,
+  useVacabularyInfoQuery,
+  vocabularyOptions,
+} from './services/vocabulary/queries'
+export { vocabularyService } from './services/vocabulary/service'
 
 // term
 export type { GetTermDTO, GetTermResponse } from './services/term/model'

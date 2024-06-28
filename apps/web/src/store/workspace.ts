@@ -1,16 +1,16 @@
 'use client'
 
-import { WorkspaceInfoResponse } from '@vook-client/api'
+import { VocabularyInfoResponse } from '@vook-client/api'
 import { PropsWithChildren } from 'react'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 export interface WorkspaceState {
-  workspace: WorkspaceInfoResponse['result']
+  workspace: VocabularyInfoResponse['result']
 }
 
 export interface WorkspaceAction {
-  setWorkspace: (newWorkspace: WorkspaceInfoResponse['result']) => void
+  setWorkspace: (newWorkspace: VocabularyInfoResponse['result']) => void
 }
 
 export type WorkspaceStore = WorkspaceState & WorkspaceAction

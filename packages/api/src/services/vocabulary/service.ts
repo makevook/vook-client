@@ -3,38 +3,38 @@ import { QueryClient } from '@tanstack/react-query'
 import { APIBuilder } from '../../lib/fetcher'
 
 import {
-  WorkspaceCreateDTO,
-  WorkspaceEditDTO,
-  WorkspaceInfoResponse,
+  VocabularyCreateDTO,
+  VocabularyEditDTO,
+  VocabularyInfoResponse,
 } from './model'
 
-export const workspaceService = {
-  async getWorkspaceInfo(client: QueryClient) {
+export const vocabularyService = {
+  async getVocabularyInfo(client: QueryClient) {
     return APIBuilder.get('/vocabularies')
       .withCredentials(client)
       .build()
-      .call<WorkspaceInfoResponse>()
+      .call<VocabularyInfoResponse>()
   },
-  async editWorkspaceInfo(
+  async editVocabularyInfo(
     client: QueryClient,
     uid: string,
-    dto: WorkspaceEditDTO,
+    dto: VocabularyEditDTO,
   ) {
     return APIBuilder.put(`/vocabularies/${uid}`)
       .withCredentials(client)
       .build()
-      .call<WorkspaceInfoResponse>({ body: JSON.stringify(dto) })
+      .call<VocabularyInfoResponse>({ body: JSON.stringify(dto) })
   },
-  async deletetWorkspaceInfo(client: QueryClient, uid: string) {
+  async deletetVocabularyInfo(client: QueryClient, uid: string) {
     return APIBuilder.delete(`/vocabularies/${uid}`)
       .withCredentials(client)
       .build()
-      .call<WorkspaceInfoResponse>()
+      .call<VocabularyInfoResponse>()
   },
-  async createWorkspaceInfo(client: QueryClient, dto: WorkspaceCreateDTO) {
+  async createVocabularyInfo(client: QueryClient, dto: VocabularyCreateDTO) {
     return APIBuilder.post('/vocabularies')
       .withCredentials(client)
       .build()
-      .call<WorkspaceInfoResponse>({ body: JSON.stringify(dto) })
+      .call<VocabularyInfoResponse>({ body: JSON.stringify(dto) })
   },
 }

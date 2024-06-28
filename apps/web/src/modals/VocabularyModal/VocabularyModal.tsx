@@ -1,20 +1,20 @@
 import { Button } from '@vook-client/design-system'
-import { useCreateWorkspaceMutation } from '@vook-client/api'
 import { ChangeEvent, useState } from 'react'
+import { useCreateVocabularyMutation } from '@vook-client/api'
 import {
-  useDeleteWorkspaceMutation,
-  useEditWorkspaceMutation,
-} from 'node_modules/@vook-client/api/src/services/workspace/queries'
+  useDeleteVocabularyMutation,
+  useEditVocabularyMutation,
+} from 'node_modules/@vook-client/api/src/services/vocabulary/queries'
 
 import { useModal } from '@/hooks/useModal'
 
 import { Modal } from '../Modal/Modal'
 
-export const WorkspaceCreateModal = () => {
+export const VocabularyCreateModal = () => {
   const { toggleModal } = useModal()
   const [inputValue, setInputValue] = useState('')
 
-  const createWorkspaceMutation = useCreateWorkspaceMutation(
+  const createVocabularyMutation = useCreateVocabularyMutation(
     {
       name: inputValue,
     },
@@ -30,7 +30,7 @@ export const WorkspaceCreateModal = () => {
   }
 
   const onClinkConfirm = () => {
-    createWorkspaceMutation.mutate()
+    createVocabularyMutation.mutate()
   }
 
   return (
@@ -62,10 +62,10 @@ export const WorkspaceCreateModal = () => {
   )
 }
 
-export const WorkspaceDeleteModal = ({ uid }: { uid: string }) => {
+export const VocabularyDeleteModal = ({ uid }: { uid: string }) => {
   const { toggleModal } = useModal()
 
-  const deleteWorkspaceMutation = useDeleteWorkspaceMutation(uid, {
+  const deleteWorkspaceMutation = useDeleteVocabularyMutation(uid, {
     onSuccess: () => {
       toggleModal()
     },
@@ -97,7 +97,7 @@ export const WorkspaceDeleteModal = ({ uid }: { uid: string }) => {
   )
 }
 
-export const WorkspaceEditModal = ({
+export const VocabularyEditModal = ({
   uid,
   defaultValue,
 }: {
@@ -107,7 +107,7 @@ export const WorkspaceEditModal = ({
   const { toggleModal } = useModal()
   const [inputValue, setInputValue] = useState(defaultValue)
 
-  const editWorkspaceMutation = useEditWorkspaceMutation(
+  const editWorkspaceMutation = useEditVocabularyMutation(
     uid,
     {
       name: inputValue,
