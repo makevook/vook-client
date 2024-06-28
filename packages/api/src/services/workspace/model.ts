@@ -21,3 +21,7 @@ export interface WorkspaceCreateDTO {
 export interface WorkspaceCreateResponse {
   code: string
 }
+
+export interface WorkspaceEditResponse {
+  code: string
+}

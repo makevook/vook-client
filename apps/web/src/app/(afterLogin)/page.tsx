@@ -2,14 +2,14 @@
 
 import { Button, Text } from '@vook-client/design-system'
 
-import { WorkspaceModal } from '@/modals/WorkspaceModal/WorkspaceModal'
 import { useModal } from '@/hooks/useModal'
+import { ModalTypes } from '@/hooks/useModal/useModal'
 
 import { workspaceContainer, workspaceHeader } from './layout.css'
 import WorkspaceList from './workspace/page'
 
 const Home = () => {
-  const { toggleModal, open } = useModal()
+  const { toggleModal, setModal } = useModal()
 
   return (
     <div className={workspaceContainer}>
@@ -22,6 +22,7 @@ const Home = () => {
           filled={false}
           blueLine={false}
           onClick={() => {
+            setModal(ModalTypes.CREATE)
             toggleModal()
           }}
         >
@@ -31,7 +32,6 @@ const Home = () => {
         </Button>
       </div>
       <WorkspaceList />
-      {open && <WorkspaceModal />}
 
       {/* <Search /> */}
       {/* <Term /> */}

@@ -1,11 +1,16 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Text } from '@vook-client/design-system'
 
 import { useWorkspace } from '@/store/workspace'
 import { useModal } from '@/hooks/useModal'
-import { WorkspaceModal } from '@/modals/WorkspaceModal/WorkspaceModal'
+import { ModalTypes } from '@/hooks/useModal/useModal'
+import {
+  WorkspaceCreateModal,
+  WorkspaceDeleteModal,
+  WorkspaceEditModal,
+} from '@/modals/WorkspaceModal/WorkspaceModal'
 
 import {
   workspaceInnerAlignCenter,
@@ -15,9 +20,18 @@ import {
 
 import { VocabularyItem } from './VocabularyItem'
 
+export interface ModalDataType {
+  uid: string
+  defaultValue: string
+}
+
 const WorkspaceList = () => {
   const { workspace } = useWorkspace()
-  const { toggleModal, open } = useModal()
+  const { open, type, toggleModal, setModal } = useModal()
+  const [modalData, setModalData] = useState<ModalDataType>({
+    uid: '',
+    defaultValue: '',
+  })
 
   const data = workspace.map((vocabulary) => ({
     id: vocabulary.uid,
@@ -30,7 +44,13 @@ const WorkspaceList = () => {
       {data.length > 0 ? (
         <div className={workspaceInnerAlignRow}>
           {data.map((vocubulary) => {
-            return <VocabularyItem key={vocubulary.id} {...vocubulary} />
+            return (
+              <VocabularyItem
+                key={vocubulary.id}
+                setModalData={setModalData}
+                {...vocubulary}
+              />
+            )
           })}
         </div>
       ) : (
@@ -41,6 +61,7 @@ const WorkspaceList = () => {
             </Text>
             <Button
               onClick={() => {
+                setModal(ModalTypes.CREATE)
                 toggleModal()
               }}
               prefixIcon="plus-small"
@@ -55,7 +76,17 @@ const WorkspaceList = () => {
           </div>
         </div>
       )}
-      {open && <WorkspaceModal />}
+
+      {open && type === ModalTypes.CREATE && <WorkspaceCreateModal />}
+      {open && type === ModalTypes.DELETE && (
+        <WorkspaceDeleteModal uid={modalData.uid} />
+      )}
+      {open && type === ModalTypes.EDIT && (
+        <WorkspaceEditModal
+          uid={modalData.uid}
+          defaultValue={modalData.defaultValue}
+        />
+      )}
     </>
   )
 }
