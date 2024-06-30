@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { Button, Icon, Text } from '@vook-client/design-system'
 import { usePathname } from 'next/navigation'
-import { useGetTermQuery } from '@vook-client/api'
 
 import { Term } from '@/components/Term/Term'
 import { useWorkspace } from '@/store/workspace'
@@ -33,18 +32,16 @@ const Vocabulary = () => {
     meaning: '',
     synonym: [],
   })
+  const [length, setLength] = useState(0)
   const { workspace } = useWorkspace()
   const { open, toggleModal, type, setModal } = useModal()
   const path = usePathname()
   const id = path.split('/').pop()
 
   const currentWorkspace = workspace.find((value) => value.uid === id)
-  const { data: response } = useGetTermQuery(id as string)
+  // const { data: response } = useGetTermQuery(id as string)
 
-  if (response === undefined) {
-    return null
-  }
-  const isDisabled = response?.result.length >= 100
+  const isDisabled = length >= 100
 
   return (
     <div className={vocabularyContainer}>
@@ -78,7 +75,11 @@ const Vocabulary = () => {
           </Text>
         </div>
       )}
-      <Term id={id as string} setModalData={setModalData} />
+      <Term
+        id={id as string}
+        setModalData={setModalData}
+        setLength={setLength}
+      />
       {open && type === ModalTypes.CREATE && (
         <TermCreateModal uid={id as string} />
       )}

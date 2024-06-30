@@ -1,15 +1,15 @@
-export const searchSort = {
-  TermAsc: 'term:asc',
-  TermDesc: 'term:desc',
-  SynonymsAsc: 'synonyms:asc',
-  SynonymsDesc: 'synonyms:desc',
-  MeaningAsc: 'meaning:asc',
-  MeaningDesc: 'meaning:desc',
-  CreatedAtAsc: 'createdAt:asc',
-  CreatedAtDesc: 'createdAt:desc',
+export const termSort = {
+  TermAsc: 'term%2Casc',
+  TermDesc: 'term%2Cdesc',
+  SynonymAsc: 'synonym%2Casc',
+  SynonymDesc: 'synonym%2Cdesc',
+  MeaningAsc: 'meaning%2Casc',
+  MeaningDesc: 'meaning%2Cdesc',
+  CreatedAtAsc: 'createdAt%2Casc',
+  CreatedAtDesc: 'createdAt%2Cdesc',
 } as const
 
-export type SearchSort = (typeof searchSort)[keyof typeof searchSort]
+export type TermSort = (typeof termSort)[keyof typeof termSort]
 
 export interface Terms extends TermType {
   termUid: string
@@ -30,7 +30,7 @@ export interface GetTermResponse {
 export interface GetTermDTO {
   page?: number
   size?: number
-  sort?: SearchSort[]
+  sort?: TermSort[]
   vocabularyUid: string
 }
 

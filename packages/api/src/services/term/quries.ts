@@ -13,12 +13,13 @@ import {
   AddTermResponse,
   EditTermDTO,
   GetTermResponse,
+  TermSort,
 } from './model'
 
 export const termOptions = {
-  termInfo: (client: QueryClient, vocabularyUid: string) => ({
+  termInfo: (client: QueryClient, vocabularyUid: string, sort: TermSort[]) => ({
     queryKey: ['term'],
-    queryFn: () => termService.getTerm(client, vocabularyUid),
+    queryFn: () => termService.getTerm(client, vocabularyUid, sort),
   }),
   addTerm: (client: QueryClient, dto: AddTermDTO) => ({
     mutationFn: () => termService.addTerm(client, dto),
@@ -33,12 +34,13 @@ export const termOptions = {
 
 export const useGetTermQuery = (
   vocabularyUid: string,
+  sort: TermSort[],
   options: QueryOptions<GetTermResponse> = {},
 ) => {
   const queryClient = useQueryClient()
 
   return useQuery<GetTermResponse>({
-    ...termOptions.termInfo(queryClient, vocabularyUid),
+    ...termOptions.termInfo(queryClient, vocabularyUid, sort),
     ...options,
   })
 }

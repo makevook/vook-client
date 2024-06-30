@@ -9,7 +9,12 @@ import {
   List,
   Text,
 } from '@vook-client/design-system'
-import { useDeleteTermMutation, useGetTermQuery } from '@vook-client/api'
+import {
+  TermSort,
+  termSort,
+  useDeleteTermMutation,
+  useGetTermQuery,
+} from '@vook-client/api'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
@@ -68,26 +73,77 @@ const TextContainer = ({ length }: { length?: number }) => {
   )
 }
 
+interface Term {
+  sort: 'term' | 'meaning' | 'synonym' | 'createdAt'
+}
+
 export const Term = ({
   id,
   setModalData,
+  setLength,
 }: {
   id: string
   setModalData: React.Dispatch<React.SetStateAction<TermModalDataType>>
+  setLength: React.Dispatch<React.SetStateAction<number>>
 }) => {
   const { toggleModal, setModal } = useModal()
-  const { data: response } = useGetTermQuery(id)
+  const [sorts, setSorts] = useState<TermSort[]>([
+    termSort.TermAsc,
+    termSort.SynonymAsc,
+    termSort.MeaningAsc,
+    termSort.CreatedAtAsc,
+  ])
   const [selectedTermUid, setSelectedTermUid] = useState('')
+
+  const { data: response } = useGetTermQuery(id, sorts)
 
   const deleteTermMutation = useDeleteTermMutation(selectedTermUid, {
     onSuccess: () => {},
   })
+
+  if (response === null) {
+    return null
+  }
+  setLength(response?.result.length ?? 0)
 
   const formatter = new Intl.DateTimeFormat('ko-KR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   })
+
+  const updateSort = (sorts: TermSort[], asc: TermSort, desc: TermSort) => {
+    const ascIndex = sorts.indexOf(asc)
+    const descIndex = sorts.indexOf(desc)
+    if (ascIndex !== -1) {
+      sorts.splice(ascIndex, 1)
+      sorts.unshift(desc)
+    } else if (descIndex !== -1) {
+      sorts.splice(descIndex, 1)
+      sorts.unshift(asc)
+    }
+  }
+
+  const handleSort = ({ sort }: Term) => {
+    const newSorts = [...sorts]
+    switch (sort) {
+      case 'term':
+        updateSort(newSorts, termSort.TermAsc, termSort.TermDesc)
+        break
+      case 'meaning':
+        updateSort(newSorts, termSort.MeaningAsc, termSort.MeaningDesc)
+        break
+      case 'synonym':
+        updateSort(newSorts, termSort.SynonymAsc, termSort.SynonymDesc)
+        break
+      case 'createdAt':
+        updateSort(newSorts, termSort.CreatedAtAsc, termSort.CreatedAtDesc)
+        break
+      default:
+        return
+    }
+    setSorts(newSorts)
+  }
 
   return (
     <div className={termContainer}>
@@ -109,18 +165,18 @@ export const Term = ({
               <List
                 variant="reading"
                 kind="title"
-                // onClick={() => {
-                //   handleSort('Term')
-                // }}
+                onClick={() => {
+                  handleSort({ sort: 'term' })
+                }}
               >
                 용어
               </List>
               <List
                 variant="reading"
                 kind="title"
-                // onClick={() => {
-                //   handleSort('Synonyms')
-                // }}
+                onClick={() => {
+                  handleSort({ sort: 'synonym' })
+                }}
               >
                 동의어
               </List>
@@ -128,18 +184,18 @@ export const Term = ({
                 variant="reading"
                 kind="title"
                 style={{ flex: 1 }}
-                // onClick={() => {
-                //   handleSort('Meaning')
-                // }}
+                onClick={() => {
+                  handleSort({ sort: 'meaning' })
+                }}
               >
                 뜻
               </List>
               <List
                 variant="reading"
                 kind="title"
-                // onClick={() => {
-                //   handleSort('Meaning')
-                // }}
+                onClick={() => {
+                  handleSort({ sort: 'createdAt' })
+                }}
               >
                 생성일자
               </List>

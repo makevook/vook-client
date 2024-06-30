@@ -7,11 +7,17 @@ import {
   AddTermResponse,
   EditTermDTO,
   GetTermResponse,
+  TermSort,
 } from './model'
 
 export const termService = {
-  async getTerm(client: QueryClient, vocabularyUid: string) {
-    return APIBuilder.get(`/terms?vocabularyUid=${vocabularyUid}`)
+  async getTerm(client: QueryClient, vocabularyUid: string, sort?: TermSort[]) {
+    let url = `/terms?vocabularyUid=${vocabularyUid}`
+    if (sort) {
+      url = url + '&sort=' + sort.join('&sort=')
+    }
+
+    return APIBuilder.get(url)
       .withCredentials(client)
       .build()
       .call<GetTermResponse>()
