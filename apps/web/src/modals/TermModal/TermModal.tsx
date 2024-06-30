@@ -80,9 +80,7 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
         </Modal.Textarea>
         <Modal.LowerTextGroup
           leftText=""
-          RightText={
-            watch('synonyms') !== undefined ? watch('synonyms').length : 0
-          }
+          RightText={watch('synonyms') ? watch('synonyms').length : 0}
         />
 
         <Modal.Textarea
@@ -95,9 +93,7 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
         </Modal.Textarea>
         <Modal.LowerTextGroup
           leftText={errors.meaning && '뜻을 입력해 주세요.'}
-          RightText={
-            watch('meaning') !== undefined ? watch('meaning').length : 0
-          }
+          RightText={watch('meaning') ? watch('meaning').length : 0}
         />
 
         <Modal.ButtonGroup>
@@ -201,9 +197,7 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
         </Modal.Textarea>
         <Modal.LowerTextGroup
           leftText=""
-          RightText={
-            watch('synonyms') !== undefined ? watch('synonyms').length : 0
-          }
+          RightText={watch('synonyms') ? watch('synonyms').length : 0}
         />
 
         <Modal.Textarea
@@ -216,9 +210,7 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
         </Modal.Textarea>
         <Modal.LowerTextGroup
           leftText={errors.meaning && '뜻을 입력해 주세요.'}
-          RightText={
-            watch('meaning') !== undefined ? watch('meaning').length : 0
-          }
+          RightText={watch('meaning') ? watch('meaning').length : 0}
         />
 
         <Modal.ButtonGroup>

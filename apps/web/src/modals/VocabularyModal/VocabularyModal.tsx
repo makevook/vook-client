@@ -1,11 +1,11 @@
 import { Button } from '@vook-client/design-system'
-import { ChangeEvent, useState } from 'react'
 import { useCreateVocabularyMutation } from '@vook-client/api'
 import {
   useDeleteVocabularyMutation,
   useEditVocabularyMutation,
 } from 'node_modules/@vook-client/api/src/services/vocabulary/queries'
 import { useQueryClient } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
 
 import { useModal } from '@/hooks/useModal'
 
@@ -13,12 +13,12 @@ import { Modal } from '../Modal/Modal'
 
 export const VocabularyCreateModal = () => {
   const { toggleModal } = useModal()
-  const [inputValue, setInputValue] = useState('')
   const queryClient = useQueryClient()
+  const { register, handleSubmit, watch } = useForm<{ name: string }>()
 
   const createVocabularyMutation = useCreateVocabularyMutation(
     {
-      name: inputValue,
+      name: watch('name'),
     },
     {
       onSuccess: () => {
@@ -30,39 +30,35 @@ export const VocabularyCreateModal = () => {
     },
   )
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
-
-  const onClinkConfirm = () => {
+  const onSubmit = handleSubmit(() => {
     createVocabularyMutation.mutate()
-  }
+  })
 
   return (
     <Modal>
-      <Modal.Headline>용어집 생성</Modal.Headline>
-      <Modal.Input inputValue={inputValue} onInputChange={handleInputChange}>
-        용어집 이름
-      </Modal.Input>
-      <Modal.ButtonGroup>
-        <Button
-          size="middle"
-          filled={false}
-          blueLine={false}
-          fit="fill"
-          onClick={toggleModal}
-        >
-          취소
-        </Button>
-        <Button
-          size="middle"
-          fit="fill"
-          disabled={inputValue === '' || createVocabularyMutation.isPending}
-          onClick={onClinkConfirm}
-        >
-          생성
-        </Button>
-      </Modal.ButtonGroup>
+      <form onSubmit={onSubmit} style={{ width: '100%' }}>
+        <Modal.Headline>용어집 생성</Modal.Headline>
+        <Modal.Input register={register}>용어집 이름</Modal.Input>
+        <Modal.ButtonGroup>
+          <Button
+            size="middle"
+            filled={false}
+            blueLine={false}
+            fit="fill"
+            onClick={toggleModal}
+          >
+            취소
+          </Button>
+          <Button
+            size="middle"
+            fit="fill"
+            disabled={!watch('name') || createVocabularyMutation.isPending}
+            type="submit"
+          >
+            생성
+          </Button>
+        </Modal.ButtonGroup>
+      </form>
     </Modal>
   )
 }
@@ -96,7 +92,12 @@ export const VocabularyDeleteModal = ({ uid }: { uid: string }) => {
         >
           취소
         </Button>
-        <Button size="middle" fit="fill" onClick={onClinkConfirm}>
+        <Button
+          size="middle"
+          fit="fill"
+          onClick={onClinkConfirm}
+          disabled={deleteWorkspaceMutation.isPending}
+        >
           삭제
         </Button>
       </Modal.ButtonGroup>
@@ -112,13 +113,17 @@ export const VocabularyEditModal = ({
   defaultValue: string
 }) => {
   const { toggleModal } = useModal()
-  const [inputValue, setInputValue] = useState(defaultValue)
+  const { register, handleSubmit, watch } = useForm<{ name: string }>({
+    defaultValues: {
+      name: defaultValue,
+    },
+  })
   const queryClient = useQueryClient()
 
   const editWorkspaceMutation = useEditVocabularyMutation(
     uid,
     {
-      name: inputValue,
+      name: watch('name'),
     },
     {
       onSuccess: () => {
@@ -128,39 +133,35 @@ export const VocabularyEditModal = ({
     },
   )
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
-
-  const onClinkConfirm = () => {
+  const onSubmit = handleSubmit(() => {
     editWorkspaceMutation.mutate()
-  }
+  })
 
   return (
     <Modal>
-      <Modal.Headline>용어집 수정</Modal.Headline>
-      <Modal.Input inputValue={inputValue} onInputChange={handleInputChange}>
-        용어집 이름
-      </Modal.Input>
-      <Modal.ButtonGroup>
-        <Button
-          size="middle"
-          filled={false}
-          blueLine={false}
-          fit="fill"
-          onClick={toggleModal}
-        >
-          취소
-        </Button>
-        <Button
-          size="middle"
-          fit="fill"
-          disabled={inputValue === ''}
-          onClick={onClinkConfirm}
-        >
-          변경
-        </Button>
-      </Modal.ButtonGroup>
+      <form onSubmit={onSubmit} style={{ width: '100%' }}>
+        <Modal.Headline>용어집 수정</Modal.Headline>
+        <Modal.Input register={register}>용어집 이름</Modal.Input>
+        <Modal.ButtonGroup>
+          <Button
+            size="middle"
+            filled={false}
+            blueLine={false}
+            fit="fill"
+            onClick={toggleModal}
+          >
+            취소
+          </Button>
+          <Button
+            size="middle"
+            fit="fill"
+            type="submit"
+            disabled={!watch('name') || editWorkspaceMutation.isPending}
+          >
+            변경
+          </Button>
+        </Modal.ButtonGroup>
+      </form>
     </Modal>
   )
 }

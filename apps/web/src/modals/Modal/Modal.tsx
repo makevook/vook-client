@@ -28,6 +28,10 @@ interface ModalProps extends PropsWithChildren {
   placeholder?: string
 }
 
+interface ModalInput extends ModalProps {
+  register: UseFormRegister<{ name: string }>
+}
+
 interface ModalFormContent extends ModalProps {
   register: UseFormRegister<TermFormValues>
   name: 'name' | 'synonyms' | 'meaning'
@@ -97,11 +101,7 @@ const ModalContent = ({ children }: ModalProps) => {
   )
 }
 
-const ModalInputContent = ({
-  children,
-  inputValue,
-  onInputChange,
-}: ModalProps) => {
+const ModalInputContent = ({ children, register }: ModalInput) => {
   return (
     <div className={modalInputContent}>
       <Text type="body-2" color="label-neutral">
@@ -110,8 +110,7 @@ const ModalInputContent = ({
       <Input
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
-        value={inputValue}
-        onChange={onInputChange}
+        {...register('name', { required: true })}
       />
     </div>
   )
