@@ -54,6 +54,7 @@ export { vocabularyService } from './services/vocabulary/service'
 export type { GetTermDTO, GetTermResponse } from './services/term/model'
 export {
   useAddTermMutation,
+  useDeleteTermMutation,
   useEditTermMutation,
   useGetTermQuery,
 } from './services/term/quries'

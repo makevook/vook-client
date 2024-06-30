@@ -28,4 +28,10 @@ export const termService = {
       .build()
       .call({ body: JSON.stringify(dto) })
   },
+  async deleteTerm(client: QueryClient, termUid: string) {
+    return APIBuilder.delete(`/terms/${termUid}`)
+      .withCredentials(client)
+      .build()
+      .call()
+  },
 }

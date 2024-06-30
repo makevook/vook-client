@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Checkbox, Dropbox, Icon, List, Text } from '@vook-client/design-system'
-import { useGetTermQuery } from '@vook-client/api'
+import { useDeleteTermMutation, useGetTermQuery } from '@vook-client/api'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
@@ -66,6 +66,11 @@ export const Term = ({
 }) => {
   const { toggleModal, setModal } = useModal()
   const { data: response } = useGetTermQuery(id)
+  const [selectedTermUid, setSelectedTermUid] = useState('')
+
+  const deleteTermMutation = useDeleteTermMutation(selectedTermUid, {
+    onSuccess: () => {},
+  })
 
   const formatter = new Intl.DateTimeFormat('ko-KR', {
     year: 'numeric',
@@ -132,6 +137,7 @@ export const Term = ({
             </div>
             {response?.result.map((data, index) => {
               const synonymsList = data.synonyms.join('\n')
+
               return (
                 <div key={index} className={termListDataContainer}>
                   <List kind="icon">
@@ -164,7 +170,7 @@ export const Term = ({
                       <Dropbox.Trigger>
                         <Icon name="dot-vertical-medium" />
                       </Dropbox.Trigger>
-                      <Dropbox.Group horizontal="right" vertical="bottom">
+                      <Dropbox.Group horizontal="left" vertical="top">
                         <Dropbox.Option
                           onClick={() => {
                             setModalData({
@@ -184,12 +190,8 @@ export const Term = ({
                         </Dropbox.Option>
                         <Dropbox.Option
                           onClick={() => {
-                            // setModalData({
-                            //   uid: id,
-                            //   defaultValue: name,
-                            // })
-                            // setModal(ModalTypes.DELETE)
-                            // toggleModal()
+                            setSelectedTermUid(data.termUid)
+                            deleteTermMutation.mutate()
                           }}
                         >
                           <div className={dropboxItem}>

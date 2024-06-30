@@ -26,6 +26,9 @@ export const termOptions = {
   editTerm: (client: QueryClient, dto: EditTermDTO, termUid: string) => ({
     mutationFn: () => termService.editTerm(client, dto, termUid),
   }),
+  deleteTerm: (client: QueryClient, termUid: string) => ({
+    mutationFn: () => termService.deleteTerm(client, termUid),
+  }),
 }
 
 export const useGetTermQuery = (
@@ -61,6 +64,18 @@ export const useEditTermMutation = (
 
   return useMutation({
     ...termOptions.editTerm(queryClient, dto, termUid),
+    ...options,
+  })
+}
+
+export const useDeleteTermMutation = (
+  termUid: string,
+  options: MutationOptions = {},
+) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    ...termOptions.deleteTerm(queryClient, termUid),
     ...options,
   })
 }

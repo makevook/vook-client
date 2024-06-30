@@ -46,7 +46,6 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
 
   const onSubmit = handleSubmit(() => {
     addTermMutation.mutate()
-    toggleModal()
   })
 
   return (
@@ -164,7 +163,6 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
 
   const onSubmit = handleSubmit(() => {
     editTermMutation.mutate()
-    toggleModal()
   })
 
   return (
