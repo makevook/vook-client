@@ -3,8 +3,7 @@
 import React, { useState } from 'react'
 import { Button, Icon, Text } from '@vook-client/design-system'
 import { usePathname } from 'next/navigation'
-import { useDeleteTermMutation, useVacabularyInfoQuery } from '@vook-client/api'
-import { useQueryClient } from '@tanstack/react-query'
+import { useVacabularyInfoQuery } from '@vook-client/api'
 
 import { Term } from '@/components/Term/Term'
 import { useModal } from '@/hooks/useModal'
@@ -34,27 +33,19 @@ const Vocabulary = () => {
     synonym: [],
   })
   const [checkList, setCheckList] = useState<string[]>([])
-  const queryClient = useQueryClient()
 
   // 임시 코드
-  const deleteTermMutation = useDeleteTermMutation(
-    checkList[checkList.length - 1] ?? '',
-    {
-      onSuccess: () => {
-        setCheckList((prev) => {
-          const newList = [...prev]
-          newList.pop()
-          if (newList.length > 0) {
-            deleteTermMutation.mutate()
-          }
-          return newList
-        })
-        queryClient.invalidateQueries({
-          queryKey: ['term'],
-        })
-      },
-    },
-  )
+  // const deleteTermMutation = useDeleteTermMutation(
+  //   checkList,
+  //   {
+  //     onSuccess: () => {
+  //       setCheckList([])
+  //       queryClient.invalidateQueries({
+  //         queryKey: ['term'],
+  //       })
+  //     },
+  //   },
+  // )
 
   const [length, setLength] = useState(0)
   const { open, toggleModal, type, setModal } = useModal()
@@ -79,7 +70,7 @@ const Vocabulary = () => {
               blueLine={false}
               filled={false}
               onClick={() => {
-                deleteTermMutation.mutate()
+                // deleteTermMutation.mutate()
               }}
             >
               삭제
