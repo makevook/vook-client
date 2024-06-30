@@ -32,7 +32,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         })}
       >
         <textarea
+          style={{ resize: 'none' }}
           placeholder={placeholder}
+          maxLength={2000}
           className={inputBase}
           ref={ref}
           readOnly={readOnly}

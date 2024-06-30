@@ -82,10 +82,14 @@ export const Term = ({
   id,
   setModalData,
   setLength,
+  checkList,
+  setCheckList,
 }: {
   id: string
   setModalData: React.Dispatch<React.SetStateAction<TermModalDataType>>
   setLength: React.Dispatch<React.SetStateAction<number>>
+  checkList: string[]
+  setCheckList: React.Dispatch<React.SetStateAction<string[]>>
 }) => {
   const { toggleModal, setModal } = useModal()
   const [sorts, setSorts] = useState<TermSort[]>([
@@ -160,6 +164,30 @@ export const Term = ({
     setUpdated(true)
   }
 
+  const handleCheckList = (uid: string) => {
+    if (uid === 'all' && checkList.length > 0) {
+      setCheckList([])
+      return
+    }
+    if (uid === 'all') {
+      if (response !== null) {
+        setCheckList(
+          response!.result.map((data) => {
+            return data.termUid
+          }),
+        )
+      }
+      return
+    }
+    setCheckList((prevCheckList) => {
+      if (prevCheckList.includes(uid)) {
+        return prevCheckList.filter((id) => id !== uid)
+      } else {
+        return [...prevCheckList, uid]
+      }
+    })
+  }
+
   return (
     <div className={termContainer}>
       <div className={termListContainer}>
@@ -170,11 +198,14 @@ export const Term = ({
               <List
                 variant="reading"
                 kind="icon"
-                // onClick={() => {
-                //   handleSort('Term')
-                // }}
+                onClick={() => {
+                  handleCheckList('all')
+                }}
               >
-                <Checkbox onChange={() => {}} />
+                <Checkbox
+                  onChange={() => {}}
+                  checked={checkList.length === response.result.length}
+                />
               </List>
 
               <List
@@ -221,8 +252,16 @@ export const Term = ({
 
               return (
                 <div key={index} className={termListDataContainer}>
-                  <List kind="icon">
-                    <Checkbox onChange={() => {}} />
+                  <List
+                    kind="icon"
+                    onClick={() => {
+                      handleCheckList(data.termUid)
+                    }}
+                  >
+                    <Checkbox
+                      onChange={() => {}}
+                      checked={checkList.includes(data.termUid)}
+                    />
                   </List>
 
                   <List kind="table" htmlContent={data.term} />

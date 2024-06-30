@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import { Button, Icon, Text } from '@vook-client/design-system'
 import { usePathname } from 'next/navigation'
-import { useVacabularyInfoQuery } from '@vook-client/api'
+import { useDeleteTermMutation, useVacabularyInfoQuery } from '@vook-client/api'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { Term } from '@/components/Term/Term'
 import { useModal } from '@/hooks/useModal'
@@ -32,6 +33,29 @@ const Vocabulary = () => {
     meaning: '',
     synonym: [],
   })
+  const [checkList, setCheckList] = useState<string[]>([])
+  const queryClient = useQueryClient()
+
+  // 임시 코드
+  const deleteTermMutation = useDeleteTermMutation(
+    checkList[checkList.length - 1] ?? '',
+    {
+      onSuccess: () => {
+        setCheckList((prev) => {
+          const newList = [...prev]
+          newList.pop()
+          if (newList.length > 0) {
+            deleteTermMutation.mutate()
+          }
+          return newList
+        })
+        queryClient.invalidateQueries({
+          queryKey: ['term'],
+        })
+      },
+    },
+  )
+
   const [length, setLength] = useState(0)
   const { open, toggleModal, type, setModal } = useModal()
   const path = usePathname()
@@ -49,9 +73,18 @@ const Vocabulary = () => {
           {currentWorkspace?.name}
         </Text>
         <div className={vocabularyHeaderButton}>
-          <Button prefixIcon="trash-big" blueLine={false} filled={false}>
-            삭제
-          </Button>
+          {checkList.length > 0 && (
+            <Button
+              prefixIcon="trash-big"
+              blueLine={false}
+              filled={false}
+              onClick={() => {
+                deleteTermMutation.mutate()
+              }}
+            >
+              삭제
+            </Button>
+          )}
           <Button
             onClick={() => {
               setModal(ModalTypes.CREATE)
@@ -60,7 +93,6 @@ const Vocabulary = () => {
             prefixIcon={isDisabled ? undefined : 'plus-big'}
             blueLine={isDisabled}
             filled={isDisabled}
-            // disabled={isDisabled}
           >
             용어생성
           </Button>
@@ -75,6 +107,8 @@ const Vocabulary = () => {
         </div>
       )}
       <Term
+        checkList={checkList}
+        setCheckList={setCheckList}
         id={id as string}
         setModalData={setModalData}
         setLength={setLength}
