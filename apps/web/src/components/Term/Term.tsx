@@ -15,6 +15,7 @@ import {
   useDeleteTermMutation,
   useGetTermQuery,
 } from '@vook-client/api'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
@@ -97,8 +98,13 @@ export const Term = ({
 
   const { data: response } = useGetTermQuery(id, sorts)
 
+  const queryClient = useQueryClient()
   const deleteTermMutation = useDeleteTermMutation(selectedTermUid, {
-    onSuccess: () => {},
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['term'],
+      })
+    },
   })
 
   if (response === null) {

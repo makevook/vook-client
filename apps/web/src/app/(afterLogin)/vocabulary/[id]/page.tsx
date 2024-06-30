@@ -3,9 +3,9 @@
 import React, { useState } from 'react'
 import { Button, Icon, Text } from '@vook-client/design-system'
 import { usePathname } from 'next/navigation'
+import { useVacabularyInfoQuery } from '@vook-client/api'
 
 import { Term } from '@/components/Term/Term'
-import { useWorkspace } from '@/store/workspace'
 import { useModal } from '@/hooks/useModal'
 import { TermCreateModal, TermEditModal } from '@/modals/TermModal/TermModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
@@ -33,13 +33,12 @@ const Vocabulary = () => {
     synonym: [],
   })
   const [length, setLength] = useState(0)
-  const { workspace } = useWorkspace()
   const { open, toggleModal, type, setModal } = useModal()
   const path = usePathname()
   const id = path.split('/').pop()
+  const { data: response } = useVacabularyInfoQuery()
 
-  const currentWorkspace = workspace.find((value) => value.uid === id)
-  // const { data: response } = useGetTermQuery(id as string)
+  const currentWorkspace = response?.result.find((value) => value.uid === id)
 
   const isDisabled = length >= 100
 

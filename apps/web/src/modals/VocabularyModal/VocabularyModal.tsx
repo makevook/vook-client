@@ -5,6 +5,7 @@ import {
   useDeleteVocabularyMutation,
   useEditVocabularyMutation,
 } from 'node_modules/@vook-client/api/src/services/vocabulary/queries'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useModal } from '@/hooks/useModal'
 
@@ -13,6 +14,7 @@ import { Modal } from '../Modal/Modal'
 export const VocabularyCreateModal = () => {
   const { toggleModal } = useModal()
   const [inputValue, setInputValue] = useState('')
+  const queryClient = useQueryClient()
 
   const createVocabularyMutation = useCreateVocabularyMutation(
     {
@@ -20,6 +22,9 @@ export const VocabularyCreateModal = () => {
     },
     {
       onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ['vocabulary'],
+        })
         toggleModal()
       },
     },
@@ -64,10 +69,12 @@ export const VocabularyCreateModal = () => {
 
 export const VocabularyDeleteModal = ({ uid }: { uid: string }) => {
   const { toggleModal } = useModal()
+  const queryClient = useQueryClient()
 
   const deleteWorkspaceMutation = useDeleteVocabularyMutation(uid, {
     onSuccess: () => {
       toggleModal()
+      queryClient.invalidateQueries({ queryKey: ['vocabulary'] })
     },
   })
 
@@ -106,6 +113,7 @@ export const VocabularyEditModal = ({
 }) => {
   const { toggleModal } = useModal()
   const [inputValue, setInputValue] = useState(defaultValue)
+  const queryClient = useQueryClient()
 
   const editWorkspaceMutation = useEditVocabularyMutation(
     uid,
@@ -115,6 +123,7 @@ export const VocabularyEditModal = ({
     {
       onSuccess: () => {
         toggleModal()
+        queryClient.invalidateQueries({ queryKey: ['vocabulary'] })
       },
     },
   )

@@ -1,7 +1,8 @@
 'use client'
 
+import { useVacabularyInfoQuery } from '@vook-client/api'
+
 import { useUser } from '@/store/user'
-import { useWorkspace } from '@/store/workspace'
 
 import { Profile } from './Profile/Profile'
 import { sideBar, sideBarWorkspace, sideBarWorkspaceInner } from './Sidebar.css'
@@ -9,13 +10,17 @@ import { WorkspaceItem } from './WorkspaceItem'
 
 export const Sidebar = () => {
   const { user } = useUser()
-  const { workspace } = useWorkspace()
+  const { data: response } = useVacabularyInfoQuery()
+
+  if (response == null) {
+    return null
+  }
 
   const data = [
     {
       workspaceId: 'my-workspace',
       workspaceName: 'MY WORKSPACE',
-      vocabularies: workspace.map((vocabulary) => ({
+      vocabularies: response.result.map((vocabulary) => ({
         id: vocabulary.uid,
         name: vocabulary.name,
       })),

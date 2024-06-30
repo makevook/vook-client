@@ -3,6 +3,7 @@
 import { Button, Text } from '@vook-client/design-system'
 import { useForm } from 'react-hook-form'
 import { useAddTermMutation, useEditTermMutation } from '@vook-client/api'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useModal } from '@/hooks/useModal'
 
@@ -23,6 +24,7 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
     watch,
     formState: { errors },
   } = useForm<TermFormValues>()
+  const queryClient = useQueryClient()
 
   const addTermMutation = useAddTermMutation(
     {
@@ -40,6 +42,9 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
     {
       onSuccess: () => {
         toggleModal()
+        queryClient.invalidateQueries({
+          queryKey: ['term'],
+        })
       },
     },
   )
@@ -140,6 +145,7 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
       synonyms,
     },
   })
+  const queryClient = useQueryClient()
 
   const editTermMutation = useEditTermMutation(
     {
@@ -157,6 +163,9 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
     {
       onSuccess: () => {
         toggleModal()
+        queryClient.invalidateQueries({
+          queryKey: ['term'],
+        })
       },
     },
   )

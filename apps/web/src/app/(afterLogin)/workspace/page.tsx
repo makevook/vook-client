@@ -3,8 +3,8 @@
 import React, { useState } from 'react'
 import { Button, Text } from '@vook-client/design-system'
 import { useRouter } from 'next/navigation'
+import { useVacabularyInfoQuery } from '@vook-client/api'
 
-import { useWorkspace } from '@/store/workspace'
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
 import {
@@ -27,7 +27,8 @@ export interface VocabularyModalDataType {
 }
 
 const WorkspaceList = () => {
-  const { workspace } = useWorkspace()
+  const { data: response } = useVacabularyInfoQuery()
+
   const { open, type, toggleModal, setModal } = useModal()
   const [modalData, setModalData] = useState<VocabularyModalDataType>({
     uid: '',
@@ -35,7 +36,11 @@ const WorkspaceList = () => {
   })
   const router = useRouter()
 
-  const data = workspace.map((vocabulary) => ({
+  if (response == null) {
+    return null
+  }
+
+  const data = response?.result.map((vocabulary) => ({
     id: vocabulary.uid,
     name: vocabulary.name,
     createdAt: new Date(vocabulary.createdAt),
