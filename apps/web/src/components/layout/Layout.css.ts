@@ -73,6 +73,4 @@ export const inner = style({
 
 export const main = style({
   minHeight: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
 })

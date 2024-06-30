@@ -37,3 +37,30 @@ export {
   useSearchQuery,
 } from './services/search/queries'
 export { searchService } from './services/search/searchService'
+
+// Vocabulary
+export type {
+  VocabularyInfo,
+  VocabularyInfoResponse,
+} from './services/vocabulary/model'
+export {
+  useCreateVocabularyMutation,
+  useVacabularyInfoQuery,
+  vocabularyOptions,
+} from './services/vocabulary/queries'
+export { vocabularyService } from './services/vocabulary/service'
+
+// term
+export type {
+  GetTermDTO,
+  GetTermResponse,
+  TermSort,
+} from './services/term/model'
+export { termSort } from './services/term/model'
+export {
+  useAddTermMutation,
+  useDeleteTermMutation,
+  useEditTermMutation,
+  useGetTermQuery,
+} from './services/term/quries'
+export { termService } from './services/term/service'

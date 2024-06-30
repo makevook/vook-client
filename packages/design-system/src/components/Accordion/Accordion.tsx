@@ -20,7 +20,10 @@ import {
   accordionTitle,
 } from './Accordion.css'
 
-const AccordionTitle = ({ children }: PropsWithChildren) => {
+const AccordionTitle = ({
+  children,
+  isSideBar = false,
+}: PropsWithChildren & { isSideBar?: boolean }) => {
   const { toggle, open } = useAccordion()
 
   return (
@@ -29,7 +32,7 @@ const AccordionTitle = ({ children }: PropsWithChildren) => {
         e.stopPropagation()
         toggle()
       }}
-      className={accordionItem}
+      className={accordionItem({ sideBar: isSideBar })}
     >
       <div
         className={clsx({
@@ -46,10 +49,11 @@ const AccordionTitle = ({ children }: PropsWithChildren) => {
 
 const AccordionItem = ({
   children,
+  isSideBar = false,
   ...rest
-}: LiHTMLAttributes<HTMLLIElement>) => {
+}: LiHTMLAttributes<HTMLLIElement> & { isSideBar?: boolean }) => {
   return (
-    <li className={accordionItem} {...rest}>
+    <li className={accordionItem({ sideBar: isSideBar })} {...rest}>
       <div className={accordionDepth} />
       {children}
     </li>

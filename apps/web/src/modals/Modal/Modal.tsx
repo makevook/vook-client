@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { PropsWithChildren } from 'react'
+import { ChangeEvent, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
-import { Text } from '@vook-client/design-system'
+import { Input, Text, Textarea } from '@vook-client/design-system'
 import clsx from 'clsx'
+import { UseFormRegister } from 'react-hook-form'
 
 import { useModal } from '@/hooks/useModal'
+
+import { TermFormValues } from '../TermModal/TermModal'
 
 import {
   modalBackdrop,
@@ -13,9 +16,27 @@ import {
   modalContainer,
   modalContent,
   modalHeadline,
+  modalInputContent,
+  modalLowerTextGroup,
+  modalTextCountGroup,
 } from './Modal.css'
 
-interface ModalProps extends PropsWithChildren {}
+interface ModalProps extends PropsWithChildren {
+  inputValue?: string
+  onInputChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onTextareaChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  placeholder?: string
+}
+
+interface ModalInput extends ModalProps {
+  register: UseFormRegister<{ name: string }>
+}
+
+interface ModalFormContent extends ModalProps {
+  register: UseFormRegister<TermFormValues>
+  name: 'name' | 'synonyms' | 'meaning'
+  isRequired?: boolean
+}
 
 const ModalMain = ({ children }: ModalProps) => {
   const { open, toggleModal, closing } = useModal()
@@ -80,6 +101,92 @@ const ModalContent = ({ children }: ModalProps) => {
   )
 }
 
+const ModalInputContent = ({ children, register }: ModalInput) => {
+  return (
+    <div className={modalInputContent}>
+      <Text type="body-2" color="label-neutral">
+        {children}
+      </Text>
+      <Input
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+        {...register('name', { required: true })}
+      />
+    </div>
+  )
+}
+
+const ModalFormInputContent = ({
+  children,
+  placeholder,
+  register,
+  name,
+  isRequired = false,
+}: ModalFormContent) => {
+  return (
+    <div className={modalInputContent}>
+      <Text type="body-2" color="label-neutral">
+        {children}
+      </Text>
+
+      <Input
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+        placeholder={placeholder}
+        {...register(name, { required: isRequired })}
+      />
+    </div>
+  )
+}
+
+const ModalTextareaContent = ({
+  children,
+  placeholder,
+  register,
+  name,
+  isRequired = false,
+}: ModalFormContent) => {
+  return (
+    <div className={modalInputContent}>
+      <Text type="body-2" color="label-neutral">
+        {children}
+      </Text>
+
+      <Textarea
+        placeholder={placeholder}
+        {...register(name, { required: isRequired })}
+      />
+    </div>
+  )
+}
+
+const ModalLowerTextContent = ({
+  leftText = '',
+  RightText,
+}: {
+  leftText?: string
+  RightText: number
+}) => {
+  return (
+    <div className={modalLowerTextGroup}>
+      <Text type="label" color="status-error">
+        {leftText}
+      </Text>
+      <div className={modalTextCountGroup}>
+        <Text type="label" color="semantic-label-neutral">
+          {RightText}
+        </Text>
+        <Text type="label" color="semantic-label-assistive">
+          /
+        </Text>
+        <Text type="label" color="semantic-label-alternative">
+          2000
+        </Text>
+      </div>
+    </div>
+  )
+}
+
 const ModalButtonGroup = ({ children }: ModalProps) => {
   return <div className={modalButtonGroup}>{children}</div>
 }
@@ -87,5 +194,9 @@ const ModalButtonGroup = ({ children }: ModalProps) => {
 export const Modal = Object.assign(ModalMain, {
   Headline: ModalHeadline,
   Content: ModalContent,
+  Input: ModalInputContent,
+  InputForm: ModalFormInputContent,
+  Textarea: ModalTextareaContent,
+  LowerTextGroup: ModalLowerTextContent,
   ButtonGroup: ModalButtonGroup,
 })

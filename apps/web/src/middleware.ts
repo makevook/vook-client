@@ -134,7 +134,8 @@ export async function middleware(req: NextRequest) {
 
   if (
     onlyRegisteredMatch.some((url) => req.nextUrl.pathname.includes(url)) ||
-    req.nextUrl.pathname === '/'
+    req.nextUrl.pathname === '/' ||
+    req.nextUrl.pathname.includes('/vocabulary/')
   ) {
     return onlyRegisteredMiddleware(req, response, '/login')
   }

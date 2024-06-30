@@ -52,7 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <Text type={textType} fontWeight={fontWeight} color="inherit">
           {children}
         </Text>
-        {suffixIcon && <Icon name={suffixIcon} />}
+        {suffixIcon && <Icon name={suffixIcon} color="inherit" />}
       </button>
     )
   },
