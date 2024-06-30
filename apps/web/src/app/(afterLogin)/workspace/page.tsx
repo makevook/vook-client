@@ -21,7 +21,7 @@ import {
 
 import { VocabularyItem } from './VocabularyItem'
 
-export interface ModalDataType {
+export interface VocabularyModalDataType {
   uid: string
   defaultValue: string
 }
@@ -29,7 +29,7 @@ export interface ModalDataType {
 const WorkspaceList = () => {
   const { workspace } = useWorkspace()
   const { open, type, toggleModal, setModal } = useModal()
-  const [modalData, setModalData] = useState<ModalDataType>({
+  const [modalData, setModalData] = useState<VocabularyModalDataType>({
     uid: '',
     defaultValue: '',
   })
@@ -67,7 +67,7 @@ const WorkspaceList = () => {
             </Text>
             <Button
               onClick={() => {
-                setModal(ModalTypes.CREATE)
+                setModal(ModalTypes.VocaCreate)
                 toggleModal()
               }}
               prefixIcon="plus-small"
@@ -83,11 +83,11 @@ const WorkspaceList = () => {
         </div>
       )}
 
-      {open && type === ModalTypes.CREATE && <VocabularyCreateModal />}
-      {open && type === ModalTypes.DELETE && (
+      {open && type === ModalTypes.VocaCreate && <VocabularyCreateModal />}
+      {open && type === ModalTypes.VocaDelete && (
         <VocabularyDeleteModal uid={modalData.uid} />
       )}
-      {open && type === ModalTypes.EDIT && (
+      {open && type === ModalTypes.VocaEdit && (
         <VocabularyEditModal
           uid={modalData.uid}
           defaultValue={modalData.defaultValue}

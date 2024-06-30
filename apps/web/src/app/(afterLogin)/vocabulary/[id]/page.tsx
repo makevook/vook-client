@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Icon, Text } from '@vook-client/design-system'
 import { usePathname } from 'next/navigation'
 import { useGetTermQuery } from '@vook-client/api'
@@ -8,7 +8,7 @@ import { useGetTermQuery } from '@vook-client/api'
 import { Term } from '@/components/Term/Term'
 import { useWorkspace } from '@/store/workspace'
 import { useModal } from '@/hooks/useModal'
-import { TermCreateModal } from '@/modals/TermModal/TermModal'
+import { TermCreateModal, TermEditModal } from '@/modals/TermModal/TermModal'
 
 import { warningContainer } from '../../layout.css'
 
@@ -18,7 +18,20 @@ import {
   vocabularyHeaderButton,
 } from './page.css'
 
+export interface TermModalDataType {
+  termUid: string
+  name: string
+  meaning: string
+  synonym: string[]
+}
+
 const Vocabulary = () => {
+  const [modalData, setModalData] = useState<TermModalDataType>({
+    termUid: '',
+    name: '',
+    meaning: '',
+    synonym: [],
+  })
   const { workspace } = useWorkspace()
   const { open, toggleModal } = useModal()
   const path = usePathname()
@@ -31,6 +44,7 @@ const Vocabulary = () => {
     return null
   }
   const isDisabled = response?.result.length >= 100
+
   return (
     <div className={vocabularyContainer}>
       <div className={vocabularyHeader}>
@@ -62,8 +76,16 @@ const Vocabulary = () => {
           </Text>
         </div>
       )}
-      <Term id={id as string} />
+      <Term id={id as string} setModalData={setModalData} />
       {open && <TermCreateModal uid={id as string} />}
+      {open && (
+        <TermEditModal
+          uid={modalData.termUid}
+          name={modalData.name}
+          meaning={modalData.meaning}
+          synonyms={modalData.synonym.join(', ')}
+        />
+      )}
     </div>
   )
 }

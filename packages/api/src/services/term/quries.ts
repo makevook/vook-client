@@ -8,7 +8,12 @@ import {
 } from '@tanstack/react-query'
 
 import { termService } from './service'
-import { AddTermDTO, AddTermResponse, GetTermResponse } from './model'
+import {
+  AddTermDTO,
+  AddTermResponse,
+  EditTermDTO,
+  GetTermResponse,
+} from './model'
 
 export const termOptions = {
   termInfo: (client: QueryClient, vocabularyUid: string) => ({
@@ -17,6 +22,9 @@ export const termOptions = {
   }),
   addTerm: (client: QueryClient, dto: AddTermDTO) => ({
     mutationFn: () => termService.addTerm(client, dto),
+  }),
+  editTerm: (client: QueryClient, dto: EditTermDTO, termUid: string) => ({
+    mutationFn: () => termService.editTerm(client, dto, termUid),
   }),
 }
 
@@ -40,6 +48,19 @@ export const useAddTermMutation = (
 
   return useMutation<AddTermResponse>({
     ...termOptions.addTerm(queryClient, dto),
+    ...options,
+  })
+}
+
+export const useEditTermMutation = (
+  dto: EditTermDTO,
+  termUid: string,
+  options: MutationOptions = {},
+) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    ...termOptions.editTerm(queryClient, dto, termUid),
     ...options,
   })
 }

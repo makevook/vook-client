@@ -4,6 +4,9 @@ import React from 'react'
 import { Checkbox, Dropbox, Icon, List, Text } from '@vook-client/design-system'
 import { useGetTermQuery } from '@vook-client/api'
 
+import { useModal } from '@/hooks/useModal'
+import { ModalTypes } from '@/hooks/useModal/useModal'
+
 import {
   highlight,
   termContainer,
@@ -14,6 +17,7 @@ import {
 } from './Term.css'
 
 import { dropboxItem } from 'src/app/(afterLogin)/workspace/VocabularyItem.css'
+import { TermModalDataType } from 'src/app/(afterLogin)/vocabulary/[id]/page'
 
 // // 로딩 상태 컴포넌트
 // const LoadingComponent = () => (
@@ -53,7 +57,14 @@ const TextContainer = ({ length }: { length?: number }) => {
   )
 }
 
-export const Term = ({ id }: { id: string }) => {
+export const Term = ({
+  id,
+  setModalData,
+}: {
+  id: string
+  setModalData: React.Dispatch<React.SetStateAction<TermModalDataType>>
+}) => {
+  const { toggleModal, setModal } = useModal()
   const { data: response } = useGetTermQuery(id)
 
   const formatter = new Intl.DateTimeFormat('ko-KR', {
@@ -120,7 +131,7 @@ export const Term = ({ id }: { id: string }) => {
               <List variant="reading" kind="icon" />
             </div>
             {response?.result.map((data, index) => {
-              const synonymsList = data.synonyms.toString()
+              const synonymsList = data.synonyms.join('\n')
               return (
                 <div key={index} className={termListDataContainer}>
                   <List kind="icon">
@@ -156,12 +167,14 @@ export const Term = ({ id }: { id: string }) => {
                       <Dropbox.Group horizontal="right" vertical="bottom">
                         <Dropbox.Option
                           onClick={() => {
-                            // setModalData({
-                            //   uid: id,
-                            //   defaultValue: name,
-                            // })
-                            // setModal(ModalTypes.EDIT)
-                            // toggleModal()
+                            setModalData({
+                              termUid: data.termUid,
+                              meaning: data.meaning,
+                              name: data.term,
+                              synonym: data.synonyms,
+                            })
+                            setModal(ModalTypes.TermEdit)
+                            toggleModal()
                           }}
                         >
                           <div className={dropboxItem}>

@@ -17,6 +17,8 @@ import {
   modalContent,
   modalHeadline,
   modalInputContent,
+  modalLowerTextGroup,
+  modalTextCountGroup,
 } from './Modal.css'
 
 interface ModalProps extends PropsWithChildren {
@@ -158,6 +160,34 @@ const ModalTextareaContent = ({
     </div>
   )
 }
+
+const ModalLowerTextContent = ({
+  leftText = '',
+  RightText,
+}: {
+  leftText?: string
+  RightText: number
+}) => {
+  return (
+    <div className={modalLowerTextGroup}>
+      <Text type="label" color="status-error">
+        {leftText}
+      </Text>
+      <div className={modalTextCountGroup}>
+        <Text type="label" color="semantic-label-neutral">
+          {RightText}
+        </Text>
+        <Text type="label" color="semantic-label-assistive">
+          /
+        </Text>
+        <Text type="label" color="semantic-label-alternative">
+          2000
+        </Text>
+      </div>
+    </div>
+  )
+}
+
 const ModalButtonGroup = ({ children }: ModalProps) => {
   return <div className={modalButtonGroup}>{children}</div>
 }
@@ -168,5 +198,6 @@ export const Modal = Object.assign(ModalMain, {
   Input: ModalInputContent,
   InputForm: ModalFormInputContent,
   Textarea: ModalTextareaContent,
+  LowerTextGroup: ModalLowerTextContent,
   ButtonGroup: ModalButtonGroup,
 })

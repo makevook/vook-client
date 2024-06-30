@@ -9,13 +9,13 @@ import {
   vocabularyItemFooter,
   vocabularyItemHeader,
 } from './VocabularyItem.css'
-import { ModalDataType } from './page'
+import { VocabularyModalDataType } from './page'
 
 interface VocabularyItem {
   id: string
   name: string
   createdAt: Date
-  setModalData: React.Dispatch<React.SetStateAction<ModalDataType>>
+  setModalData: React.Dispatch<React.SetStateAction<VocabularyModalDataType>>
 }
 
 export const VocabularyItem = ({
@@ -55,7 +55,7 @@ export const VocabularyItem = ({
                   uid: id,
                   defaultValue: name,
                 })
-                setModal(ModalTypes.EDIT)
+                setModal(ModalTypes.VocaEdit)
                 toggleModal()
               }}
             >
@@ -71,7 +71,7 @@ export const VocabularyItem = ({
                   uid: id,
                   defaultValue: name,
                 })
-                setModal(ModalTypes.DELETE)
+                setModal(ModalTypes.VocaDelete)
                 toggleModal()
               }}
             >

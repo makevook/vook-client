@@ -11,12 +11,15 @@ export const searchSort = {
 
 export type SearchSort = (typeof searchSort)[keyof typeof searchSort]
 
-export interface Terms {
+export interface Terms extends TermType {
   termUid: string
+  createdAt: string
+}
+
+export interface TermType {
   term: string
   meaning: string
   synonyms: string[]
-  createdAt: string
 }
 
 export interface GetTermResponse {
@@ -31,12 +34,11 @@ export interface GetTermDTO {
   vocabularyUid: string
 }
 
-export interface AddTermDTO {
+export interface AddTermDTO extends TermType {
   vocabularyUid: string
-  term: string
-  meaning: string
-  synonyms: string[]
 }
+
+export interface EditTermDTO extends TermType {}
 
 export interface AddTermResponse {
   code: number
