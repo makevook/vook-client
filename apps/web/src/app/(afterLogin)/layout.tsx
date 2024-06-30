@@ -44,12 +44,10 @@ const Layout = async ({ children }: PropsWithChildren) => {
     <div className={mainArea}>
       <HydrationBoundary state={dehydrateState}>
         <UserProvider user={user.result}>
-          {/* <WorkspaceProvider workspace={response?.result}> */}
           <Header vocabularyID={vocabularyID} />
           <Sidebar />
           {children}
           {/* <Footer /> */}
-          {/* </WorkspaceProvider> */}
         </UserProvider>
         <SilentRefresh />
       </HydrationBoundary>

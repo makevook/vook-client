@@ -57,7 +57,7 @@ export const VocabularyCreateModal = () => {
         <Button
           size="middle"
           fit="fill"
-          disabled={inputValue === ''}
+          disabled={inputValue === '' || createVocabularyMutation.isPending}
           onClick={onClinkConfirm}
         >
           생성

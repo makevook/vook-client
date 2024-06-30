@@ -1,10 +1,10 @@
 'use client'
 
 import { Button, Icon, Text } from '@vook-client/design-system'
+import { useVacabularyInfoQuery } from '@vook-client/api'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
-import { useWorkspace } from '@/store/workspace'
 
 import {
   warningContainer,
@@ -14,9 +14,13 @@ import {
 import WorkspaceList from './workspace/page'
 
 const Home = () => {
-  const { workspace } = useWorkspace()
   const { toggleModal, setModal } = useModal()
-  const isDisabled = workspace.length === 3
+  const { data: response } = useVacabularyInfoQuery()
+
+  if (response == null) {
+    return null
+  }
+  const isDisabled = response?.result.length >= 3
   return (
     <div className={workspaceContainer}>
       <div className={workspaceHeader}>
