@@ -4,8 +4,9 @@ const semantic = {
   'semantic-primary-strong': '#5554D0',
   'semantic-primary-heavy': '#4241A3',
   /* label */
-  'semantic-label-title': '#161719',
+  'semantic-label-title': '#000000',
   'semantic-label-normal': '#161719',
+  'semantic-label-neutral': '(22, 23, 25, 0.88)',
   'semantic-label-assistive': 'rgba(22, 23, 25, 0.25)',
   'semantic-label-alternative': 'rgba(22, 23, 25, 0.6)',
   'semantic-label-disabled': 'rgba(22, 23, 25, 0.16)',

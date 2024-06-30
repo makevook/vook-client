@@ -30,3 +30,15 @@ export interface GetTermDTO {
   sort?: SearchSort[]
   vocabularyUid: string
 }
+
+export interface AddTermDTO {
+  vocabularyUid: string
+  term: string
+  meaning: string
+  synonyms: string[]
+}
+
+export interface AddTermResponse {
+  code: number
+  result: { uid: string }
+}

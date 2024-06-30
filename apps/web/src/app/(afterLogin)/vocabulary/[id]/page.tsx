@@ -7,6 +7,8 @@ import { useGetTermQuery } from '@vook-client/api'
 
 import { Term } from '@/components/Term/Term'
 import { useWorkspace } from '@/store/workspace'
+import { useModal } from '@/hooks/useModal'
+import { TermCreateModal } from '@/modals/TermModal/TermModal'
 
 import { warningContainer } from '../../layout.css'
 
@@ -18,6 +20,7 @@ import {
 
 const Vocabulary = () => {
   const { workspace } = useWorkspace()
+  const { open, toggleModal } = useModal()
   const path = usePathname()
   const id = path.split('/').pop()
 
@@ -39,10 +42,13 @@ const Vocabulary = () => {
             삭제
           </Button>
           <Button
+            onClick={() => {
+              toggleModal()
+            }}
             prefixIcon={isDisabled ? undefined : 'plus-big'}
             blueLine={isDisabled}
             filled={isDisabled}
-            disabled={isDisabled}
+            // disabled={isDisabled}
           >
             용어생성
           </Button>
@@ -57,6 +63,7 @@ const Vocabulary = () => {
         </div>
       )}
       <Term id={id as string} />
+      {open && <TermCreateModal uid={id as string} />}
     </div>
   )
 }

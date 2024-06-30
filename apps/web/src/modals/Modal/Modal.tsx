@@ -2,10 +2,13 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { ChangeEvent, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
-import { Input, Text } from '@vook-client/design-system'
+import { Input, Text, Textarea } from '@vook-client/design-system'
 import clsx from 'clsx'
+import { UseFormRegister } from 'react-hook-form'
 
 import { useModal } from '@/hooks/useModal'
+
+import { TermFormValues } from '../TermModal/TermModal'
 
 import {
   modalBackdrop,
@@ -19,6 +22,14 @@ import {
 interface ModalProps extends PropsWithChildren {
   inputValue?: string
   onInputChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onTextareaChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  placeholder?: string
+}
+
+interface ModalFormContent extends ModalProps {
+  register: UseFormRegister<TermFormValues>
+  name: 'name' | 'synonyms' | 'meaning'
+  isRequired?: boolean
 }
 
 const ModalMain = ({ children }: ModalProps) => {
@@ -104,6 +115,49 @@ const ModalInputContent = ({
   )
 }
 
+const ModalFormInputContent = ({
+  children,
+  placeholder,
+  register,
+  name,
+  isRequired = false,
+}: ModalFormContent) => {
+  return (
+    <div className={modalInputContent}>
+      <Text type="body-2" color="label-neutral">
+        {children}
+      </Text>
+
+      <Input
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+        placeholder={placeholder}
+        {...register(name, { required: isRequired })}
+      />
+    </div>
+  )
+}
+
+const ModalTextareaContent = ({
+  children,
+  placeholder,
+  register,
+  name,
+  isRequired = false,
+}: ModalFormContent) => {
+  return (
+    <div className={modalInputContent}>
+      <Text type="body-2" color="label-neutral">
+        {children}
+      </Text>
+
+      <Textarea
+        placeholder={placeholder}
+        {...register(name, { required: isRequired })}
+      />
+    </div>
+  )
+}
 const ModalButtonGroup = ({ children }: ModalProps) => {
   return <div className={modalButtonGroup}>{children}</div>
 }
@@ -112,5 +166,7 @@ export const Modal = Object.assign(ModalMain, {
   Headline: ModalHeadline,
   Content: ModalContent,
   Input: ModalInputContent,
+  InputForm: ModalFormInputContent,
+  Textarea: ModalTextareaContent,
   ButtonGroup: ModalButtonGroup,
 })
