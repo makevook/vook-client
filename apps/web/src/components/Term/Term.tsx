@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Checkbox,
@@ -95,6 +95,7 @@ export const Term = ({
     termSort.CreatedAtAsc,
   ])
   const [selectedTermUid, setSelectedTermUid] = useState('')
+  const [updated, setUpdated] = useState(false)
 
   const { data: response } = useGetTermQuery(id, sorts)
 
@@ -106,6 +107,13 @@ export const Term = ({
       })
     },
   })
+
+  useEffect(() => {
+    if (updated) {
+      queryClient.invalidateQueries({ queryKey: ['term'] })
+      setUpdated(false)
+    }
+  }, [updated, queryClient])
 
   if (response === null) {
     return null
@@ -149,6 +157,7 @@ export const Term = ({
         return
     }
     setSorts(newSorts)
+    setUpdated(true)
   }
 
   return (
