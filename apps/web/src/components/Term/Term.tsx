@@ -1,7 +1,14 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Checkbox, Dropbox, Icon, List, Text } from '@vook-client/design-system'
+import {
+  Button,
+  Checkbox,
+  Dropbox,
+  Icon,
+  List,
+  Text,
+} from '@vook-client/design-system'
 import { useDeleteTermMutation, useGetTermQuery } from '@vook-client/api'
 
 import { useModal } from '@/hooks/useModal'
@@ -18,6 +25,10 @@ import {
 
 import { dropboxItem } from 'src/app/(afterLogin)/workspace/VocabularyItem.css'
 import { TermModalDataType } from 'src/app/(afterLogin)/vocabulary/[id]/page'
+import {
+  workspaceInnerAlignCenter,
+  workspaceInnerContainer,
+} from 'src/app/(afterLogin)/layout.css'
 
 // // 로딩 상태 컴포넌트
 // const LoadingComponent = () => (
@@ -81,10 +92,9 @@ export const Term = ({
   return (
     <div className={termContainer}>
       <div className={termListContainer}>
-        <TextContainer length={response?.result.length} />
-
-        {response?.result.length && (
+        {response?.result.length ? (
           <>
+            <TextContainer length={response?.result.length} />
             <div className={termTitleContainer}>
               <List
                 variant="reading"
@@ -179,7 +189,7 @@ export const Term = ({
                               name: data.term,
                               synonym: data.synonyms,
                             })
-                            setModal(ModalTypes.TermEdit)
+                            setModal(ModalTypes.EDIT)
                             toggleModal()
                           }}
                         >
@@ -206,6 +216,28 @@ export const Term = ({
               )
             })}
           </>
+        ) : (
+          <div className={workspaceInnerContainer}>
+            <div className={workspaceInnerAlignCenter}>
+              <Text type="body-1" fontWeight="medium" color="label-alternative">
+                등록된 용어가 없습니다.
+              </Text>
+              <Button
+                onClick={() => {
+                  setModal(ModalTypes.CREATE)
+                  toggleModal()
+                }}
+                prefixIcon="plus-small"
+                filled={false}
+                blueLine={false}
+                size="small"
+              >
+                <Text type="label" fontWeight="bold">
+                  용어 생성
+                </Text>
+              </Button>
+            </div>
+          </div>
         )}
       </div>
     </div>

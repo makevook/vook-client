@@ -67,7 +67,7 @@ const WorkspaceList = () => {
             </Text>
             <Button
               onClick={() => {
-                setModal(ModalTypes.VocaCreate)
+                setModal(ModalTypes.CREATE)
                 toggleModal()
               }}
               prefixIcon="plus-small"
@@ -83,11 +83,11 @@ const WorkspaceList = () => {
         </div>
       )}
 
-      {open && type === ModalTypes.VocaCreate && <VocabularyCreateModal />}
-      {open && type === ModalTypes.VocaDelete && (
+      {open && type === ModalTypes.CREATE && <VocabularyCreateModal />}
+      {open && type === ModalTypes.DELETE && (
         <VocabularyDeleteModal uid={modalData.uid} />
       )}
-      {open && type === ModalTypes.VocaEdit && (
+      {open && type === ModalTypes.EDIT && (
         <VocabularyEditModal
           uid={modalData.uid}
           defaultValue={modalData.defaultValue}

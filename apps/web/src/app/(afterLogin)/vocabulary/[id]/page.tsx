@@ -9,6 +9,7 @@ import { Term } from '@/components/Term/Term'
 import { useWorkspace } from '@/store/workspace'
 import { useModal } from '@/hooks/useModal'
 import { TermCreateModal, TermEditModal } from '@/modals/TermModal/TermModal'
+import { ModalTypes } from '@/hooks/useModal/useModal'
 
 import { warningContainer } from '../../layout.css'
 
@@ -33,7 +34,7 @@ const Vocabulary = () => {
     synonym: [],
   })
   const { workspace } = useWorkspace()
-  const { open, toggleModal } = useModal()
+  const { open, toggleModal, type, setModal } = useModal()
   const path = usePathname()
   const id = path.split('/').pop()
 
@@ -57,6 +58,7 @@ const Vocabulary = () => {
           </Button>
           <Button
             onClick={() => {
+              setModal(ModalTypes.CREATE)
               toggleModal()
             }}
             prefixIcon={isDisabled ? undefined : 'plus-big'}
@@ -77,8 +79,10 @@ const Vocabulary = () => {
         </div>
       )}
       <Term id={id as string} setModalData={setModalData} />
-      {open && <TermCreateModal uid={id as string} />}
-      {open && (
+      {open && type === ModalTypes.CREATE && (
+        <TermCreateModal uid={id as string} />
+      )}
+      {open && type === ModalTypes.EDIT && (
         <TermEditModal
           uid={modalData.termUid}
           name={modalData.name}

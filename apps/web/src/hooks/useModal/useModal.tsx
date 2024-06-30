@@ -17,12 +17,9 @@ interface ModalValues {
 }
 
 export enum ModalTypes {
-  VocaCreate,
-  VocaEdit,
-  VocaDelete,
-  TermCreate,
-  TermEdit,
-  TermDelete,
+  CREATE,
+  EDIT,
+  DELETE,
   NULL,
 }
 

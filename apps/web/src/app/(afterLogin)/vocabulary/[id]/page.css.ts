@@ -4,6 +4,7 @@ export const vocabularyContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 40,
+  flex: 1,
 })
 
 export const vocabularyHeader = style({

@@ -91,7 +91,7 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
         <Modal.LowerTextGroup
           leftText={errors.meaning && '뜻을 입력해 주세요.'}
           RightText={
-            watch('synonyms') !== undefined ? watch('synonyms').length : 0
+            watch('meaning') !== undefined ? watch('meaning').length : 0
           }
         />
 
@@ -168,7 +168,7 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
   return (
     <Modal>
       <form onSubmit={onSubmit} style={{ width: '100%' }}>
-        <Modal.Headline>용어 생성</Modal.Headline>
+        <Modal.Headline>용어 수정</Modal.Headline>
         <Modal.InputForm
           register={register}
           name="name"
@@ -208,7 +208,7 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
         <Modal.LowerTextGroup
           leftText={errors.meaning && '뜻을 입력해 주세요.'}
           RightText={
-            watch('synonyms') !== undefined ? watch('synonyms').length : 0
+            watch('meaning') !== undefined ? watch('meaning').length : 0
           }
         />
 
@@ -228,7 +228,7 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
             type="submit"
             disabled={editTermMutation.isPending}
           >
-            생성
+            수정
           </Button>
         </Modal.ButtonGroup>
       </form>

@@ -29,7 +29,7 @@ const Home = () => {
           blueLine={isDisabled}
           disabled={isDisabled}
           onClick={() => {
-            setModal(ModalTypes.VocaCreate)
+            setModal(ModalTypes.CREATE)
             toggleModal()
           }}
         >

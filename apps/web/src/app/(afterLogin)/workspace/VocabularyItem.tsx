@@ -55,7 +55,7 @@ export const VocabularyItem = ({
                   uid: id,
                   defaultValue: name,
                 })
-                setModal(ModalTypes.VocaEdit)
+                setModal(ModalTypes.EDIT)
                 toggleModal()
               }}
             >
@@ -71,7 +71,7 @@ export const VocabularyItem = ({
                   uid: id,
                   defaultValue: name,
                 })
-                setModal(ModalTypes.VocaDelete)
+                setModal(ModalTypes.DELETE)
                 toggleModal()
               }}
             >

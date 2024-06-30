@@ -5,6 +5,7 @@ export const termContainer = style({
   marginBottom: 100,
   display: 'flex',
   justifyContent: 'center',
+  flex: 1,
 })
 
 export const termListContainer = style({
