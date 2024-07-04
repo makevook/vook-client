@@ -5,6 +5,7 @@ import { APIBuilder } from '../../lib/fetcher'
 import {
   AddTermDTO,
   AddTermResponse,
+  DeleteAllDTO as DeleteBatchDTO,
   EditTermDTO,
   GetTermResponse,
   TermSort,
@@ -39,5 +40,11 @@ export const termService = {
       .withCredentials(client)
       .build()
       .call()
+  },
+  async deleteBatchTerm(client: QueryClient, dto: DeleteBatchDTO) {
+    return APIBuilder.post('/terms/batch-delete')
+      .withCredentials(client)
+      .build()
+      .call({ body: JSON.stringify(dto) })
   },
 }

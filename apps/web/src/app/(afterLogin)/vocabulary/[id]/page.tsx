@@ -3,7 +3,11 @@
 import React, { useState } from 'react'
 import { Button, Icon, Text } from '@vook-client/design-system'
 import { usePathname } from 'next/navigation'
-import { useVacabularyInfoQuery } from '@vook-client/api'
+import {
+  useDeleteBatchTermMutation,
+  useVacabularyInfoQuery,
+} from '@vook-client/api'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { Term } from '@/components/Term/Term'
 import { useModal } from '@/hooks/useModal'
@@ -32,20 +36,20 @@ const Vocabulary = () => {
     meaning: '',
     synonym: [],
   })
+  const queryClient = useQueryClient()
   const [checkList, setCheckList] = useState<string[]>([])
 
-  // 임시 코드
-  // const deleteTermMutation = useDeleteTermMutation(
-  //   checkList,
-  //   {
-  //     onSuccess: () => {
-  //       setCheckList([])
-  //       queryClient.invalidateQueries({
-  //         queryKey: ['term'],
-  //       })
-  //     },
-  //   },
-  // )
+  const deleteBatchTermMutation = useDeleteBatchTermMutation(
+    { termUids: checkList },
+    {
+      onSuccess: () => {
+        setCheckList([])
+        queryClient.invalidateQueries({
+          queryKey: ['term'],
+        })
+      },
+    },
+  )
 
   const [length, setLength] = useState(0)
   const { open, toggleModal, type, setModal } = useModal()
@@ -70,7 +74,7 @@ const Vocabulary = () => {
               blueLine={false}
               filled={false}
               onClick={() => {
-                // deleteTermMutation.mutate()
+                deleteBatchTermMutation.mutate()
               }}
             >
               삭제

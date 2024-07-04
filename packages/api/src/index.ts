@@ -59,6 +59,7 @@ export type {
 export { termSort } from './services/term/model'
 export {
   useAddTermMutation,
+  useDeleteBatchTermMutation,
   useDeleteTermMutation,
   useEditTermMutation,
   useGetTermQuery,

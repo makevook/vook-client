@@ -11,6 +11,7 @@ import { termService } from './service'
 import {
   AddTermDTO,
   AddTermResponse,
+  DeleteAllDTO as DeleteBatchDTO,
   EditTermDTO,
   GetTermResponse,
   TermSort,
@@ -29,6 +30,9 @@ export const termOptions = {
   }),
   deleteTerm: (client: QueryClient, termUid: string) => ({
     mutationFn: () => termService.deleteTerm(client, termUid),
+  }),
+  deleteBatchTerm: (client: QueryClient, dto: DeleteBatchDTO) => ({
+    mutationFn: () => termService.deleteBatchTerm(client, dto),
   }),
 }
 
@@ -78,6 +82,18 @@ export const useDeleteTermMutation = (
 
   return useMutation({
     ...termOptions.deleteTerm(queryClient, termUid),
+    ...options,
+  })
+}
+
+export const useDeleteBatchTermMutation = (
+  dto: DeleteBatchDTO,
+  options: MutationOptions = {},
+) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    ...termOptions.deleteBatchTerm(queryClient, dto),
     ...options,
   })
 }

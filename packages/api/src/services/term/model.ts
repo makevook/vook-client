@@ -44,3 +44,7 @@ export interface AddTermResponse {
   code: number
   result: { uid: string }
 }
+
+export interface DeleteAllDTO {
+  termUids: string[]
+}
