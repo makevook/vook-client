@@ -54,6 +54,7 @@ export { vocabularyService } from './services/vocabulary/service'
 export type {
   GetTermDTO,
   GetTermResponse,
+  Terms,
   TermSort,
 } from './services/term/model'
 export { termSort } from './services/term/model'

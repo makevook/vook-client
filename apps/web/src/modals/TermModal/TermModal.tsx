@@ -4,9 +4,11 @@ import { Button, Text } from '@vook-client/design-system'
 import { useForm } from 'react-hook-form'
 import { useAddTermMutation, useEditTermMutation } from '@vook-client/api'
 import { useQueryClient } from '@tanstack/react-query'
+import { usePathname } from 'next/navigation'
 
 import { useModal } from '@/hooks/useModal'
 import { useToast } from '@/hooks/useToast'
+import { useVocabularyStore } from '@/store/term'
 
 import { Modal } from '../Modal/Modal'
 import { modalLowerTextGroup } from '../Modal/Modal.css'
@@ -17,7 +19,10 @@ export interface TermFormValues {
   meaning: string
 }
 
-export const TermCreateModal = ({ uid }: { uid: string }) => {
+export const TermCreateModal = () => {
+  const path = usePathname()
+  const id = path.split('/').pop() ?? ''
+
   const { toggleModal } = useModal()
   const {
     register,
@@ -30,7 +35,7 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
 
   const addTermMutation = useAddTermMutation(
     {
-      vocabularyUid: uid,
+      vocabularyUid: id,
       term: watch('name'),
       meaning: watch('meaning'),
       synonyms: watch('synonyms')!
@@ -44,7 +49,7 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
       onSuccess: () => {
         toggleModal()
         queryClient.invalidateQueries({
-          queryKey: ['term', uid],
+          queryKey: ['term', id],
         })
         addToast({
           message: '용어가 생성되었습니다.',
@@ -125,15 +130,10 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
   )
 }
 
-interface EditType {
-  uid: string
-  name: string
-  meaning: string
-  synonyms: string
-}
-
-export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
+export const TermEditModal = () => {
   const { toggleModal } = useModal()
+  const { modalData } = useVocabularyStore()
+
   const {
     register,
     handleSubmit,
@@ -141,9 +141,9 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
     formState: { errors },
   } = useForm<TermFormValues>({
     defaultValues: {
-      name,
-      meaning,
-      synonyms,
+      name: modalData.name,
+      meaning: modalData.meaning,
+      synonyms: modalData.synonym.join(', '),
     },
   })
   const queryClient = useQueryClient()
@@ -160,12 +160,12 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
             .filter(Boolean)
         : [],
     },
-    uid,
+    modalData.termUid,
     {
       onSuccess: () => {
         toggleModal()
         queryClient.invalidateQueries({
-          queryKey: ['term', uid],
+          queryKey: ['term', modalData.termUid],
         })
         addToast({
           message: '용어 정보가 수정되었습니다.',

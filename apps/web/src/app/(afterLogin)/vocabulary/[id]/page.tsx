@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Text } from '@vook-client/design-system'
 import { usePathname } from 'next/navigation'
 import {
@@ -13,7 +13,8 @@ import { useModal } from '@/hooks/useModal'
 import { TermCreateModal, TermEditModal } from '@/modals/TermModal/TermModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
 import { useToast } from '@/hooks/useToast'
-import { WarnBox } from '@/components/common/Common'
+import { LoadingComponent, WarnBox } from '@/components/common/Common'
+import { useVocabularyStore } from '@/store/term'
 
 import {
   vocabularyContainer,
@@ -22,31 +23,17 @@ import {
 } from './page.css'
 import { Term } from './_component/term/Term'
 
-export interface TermModalDataType {
-  termUid: string
-  name: string
-  meaning: string
-  synonym: string[]
-}
-
 const Vocabulary = () => {
-  const [modalData, setModalData] = useState<TermModalDataType>({
-    termUid: '',
-    name: '',
-    meaning: '',
-    synonym: [],
-  })
-  const [checkList, setCheckList] = useState<string[]>([])
-  const [length, setLength] = useState(0)
+  const { checkList, setCheckList } = useVocabularyStore()
 
   const queryClient = useQueryClient()
-  const path = usePathname()
   const { addToast } = useToast()
   const { open, toggleModal, type, setModal } = useModal()
 
-  const { data: response } = useVacabularyInfoQuery()
+  const path = usePathname()
   const id = path.split('/').pop()
-  const currentWorkspace = response?.result.find((value) => value.uid === id)
+
+  const { data: response, isLoading } = useVacabularyInfoQuery()
 
   const deleteBatchTermMutation = useDeleteBatchTermMutation(
     { termUids: checkList },
@@ -64,7 +51,17 @@ const Vocabulary = () => {
     },
   )
 
-  const isDisabled = length >= 100
+  if (response == null || isLoading) {
+    return <LoadingComponent />
+  }
+
+  const currentWorkspace = response?.result.find((value) => value.uid === id)
+
+  if (!currentWorkspace) {
+    return <div>404 페이지를 찾지 못하였습니다.</div>
+  }
+
+  const isDisabled = currentWorkspace?.termCount >= 100
 
   return (
     <div className={vocabularyContainer}>
@@ -101,25 +98,10 @@ const Vocabulary = () => {
 
       {isDisabled && <WarnBox>용어는 100개까지만 생성 가능합니다.</WarnBox>}
 
-      <Term
-        checkList={checkList}
-        setCheckList={setCheckList}
-        id={id as string}
-        setModalData={setModalData}
-        setLength={setLength}
-      />
+      <Term />
 
-      {open && type === ModalTypes.CREATE && (
-        <TermCreateModal uid={id as string} />
-      )}
-      {open && type === ModalTypes.EDIT && (
-        <TermEditModal
-          uid={modalData.termUid}
-          name={modalData.name}
-          meaning={modalData.meaning}
-          synonyms={modalData.synonym.join(', ')}
-        />
-      )}
+      {open && type === ModalTypes.CREATE && <TermCreateModal />}
+      {open && type === ModalTypes.EDIT && <TermEditModal />}
     </div>
   )
 }

@@ -4,15 +4,18 @@ import React, { useEffect, useState } from 'react'
 import { Checkbox, Dropbox, Icon, List, Text } from '@vook-client/design-system'
 import {
   TermSort,
+  Terms,
   termSort,
   useDeleteTermMutation,
   useGetTermQuery,
 } from '@vook-client/api'
 import { useQueryClient } from '@tanstack/react-query'
+import { usePathname } from 'next/navigation'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
 import { useToast } from '@/hooks/useToast'
+import { useVocabularyStore } from '@/store/term'
 
 import {
   LoadingComponent,
@@ -29,7 +32,6 @@ import {
 } from './Term.css'
 
 import { dropboxItem } from 'src/app/(afterLogin)/workspace/VocabularyItem.css'
-import { TermModalDataType } from 'src/app/(afterLogin)/vocabulary/[id]/page'
 
 const TextContainer = ({ length }: { length?: number }) => {
   return (
@@ -50,19 +52,12 @@ interface Term {
   sort: 'term' | 'meaning' | 'synonym' | 'createdAt'
 }
 
-export const Term = ({
-  id,
-  setModalData,
-  setLength,
-  checkList,
-  setCheckList,
-}: {
-  id: string
-  setModalData: React.Dispatch<React.SetStateAction<TermModalDataType>>
-  setLength: React.Dispatch<React.SetStateAction<number>>
-  checkList: string[]
-  setCheckList: React.Dispatch<React.SetStateAction<string[]>>
-}) => {
+export const Term = () => {
+  const path = usePathname()
+  const id = path.split('/').pop() ?? ''
+
+  const { checkList, setModalData, handleCheckList } = useVocabularyStore()
+
   const { toggleModal, setModal } = useModal()
   const [sorts, setSorts] = useState<TermSort[]>([
     termSort.TermAsc,
@@ -100,8 +95,6 @@ export const Term = ({
   if (isLoading || response == null) {
     return <LoadingComponent />
   }
-
-  setLength(response?.result.length ?? 0)
 
   const formatter = new Intl.DateTimeFormat('ko-KR', {
     year: 'numeric',
@@ -143,28 +136,15 @@ export const Term = ({
     setUpdated(true)
   }
 
-  const handleCheckList = (uid: string) => {
-    if (uid === 'all' && checkList.length > 0) {
-      setCheckList([])
-      return
-    }
-    if (uid === 'all') {
-      if (response !== null) {
-        setCheckList(
-          response.result.map((data) => {
-            return data.termUid
-          }),
-        )
-      }
-      return
-    }
-    setCheckList((prevCheckList) => {
-      if (prevCheckList.includes(uid)) {
-        return prevCheckList.filter((id) => id !== uid)
-      } else {
-        return [...prevCheckList, uid]
-      }
+  const handleEdit = (data: Terms) => {
+    setModalData({
+      termUid: data.termUid,
+      meaning: data.meaning,
+      name: data.term,
+      synonym: data.synonyms,
     })
+    setModal(ModalTypes.EDIT)
+    toggleModal()
   }
 
   return (
@@ -178,7 +158,7 @@ export const Term = ({
                 variant="reading"
                 kind="icon"
                 onClick={() => {
-                  handleCheckList('all')
+                  handleCheckList('all', response)
                 }}
               >
                 <Checkbox
@@ -246,24 +226,24 @@ export const Term = ({
               </List>
               <List variant="reading" kind="icon" />
             </div>
-            {response?.result.map((data, index) => {
-              const synonymsList = data.synonyms.join('\n')
+            {response?.result.map((termData, index) => {
+              const synonymsList = termData.synonyms.join('\n')
 
               return (
                 <div key={index} className={termListDataContainer}>
                   <List
                     kind="icon"
                     onClick={() => {
-                      handleCheckList(data.termUid)
+                      handleCheckList(termData.termUid, response)
                     }}
                   >
                     <Checkbox
                       onChange={() => {}}
-                      checked={checkList.includes(data.termUid)}
+                      checked={checkList.includes(termData.termUid)}
                     />
                   </List>
 
-                  <List kind="table" htmlContent={data.term} />
+                  <List kind="table" htmlContent={termData.term} />
                   <List
                     kind="synonym"
                     htmlContent={synonymsList.replaceAll(
@@ -275,14 +255,14 @@ export const Term = ({
                     variant="reading"
                     kind="description"
                     style={{ flex: 1 }}
-                    htmlContent={data.meaning.replaceAll(
+                    htmlContent={termData.meaning.replaceAll(
                       '<span>',
                       `<span class="${highlight}">`,
                     )}
                   />
                   <List
                     kind="synonym"
-                    htmlContent={formatter.format(new Date(data.createdAt))}
+                    htmlContent={formatter.format(new Date(termData.createdAt))}
                   />
                   <List kind="icon">
                     <Dropbox>
@@ -292,14 +272,7 @@ export const Term = ({
                       <Dropbox.Group horizontal="left" vertical="top">
                         <Dropbox.Option
                           onClick={() => {
-                            setModalData({
-                              termUid: data.termUid,
-                              meaning: data.meaning,
-                              name: data.term,
-                              synonym: data.synonyms,
-                            })
-                            setModal(ModalTypes.EDIT)
-                            toggleModal()
+                            handleEdit(termData)
                           }}
                         >
                           <div className={dropboxItem}>
@@ -309,7 +282,7 @@ export const Term = ({
                         </Dropbox.Option>
                         <Dropbox.Option
                           onClick={() => {
-                            setSelectedTermUid(data.termUid)
+                            setSelectedTermUid(termData.termUid)
                             deleteTermMutation.mutate()
                           }}
                         >
