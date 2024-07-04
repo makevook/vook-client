@@ -131,6 +131,9 @@ export const TermCreateModal = () => {
 }
 
 export const TermEditModal = () => {
+  const path = usePathname()
+  const id = path.split('/').pop() ?? ''
+
   const { toggleModal } = useModal()
   const { modalData } = useVocabularyStore()
 
@@ -165,7 +168,7 @@ export const TermEditModal = () => {
       onSuccess: () => {
         toggleModal()
         queryClient.invalidateQueries({
-          queryKey: ['term', modalData.termUid],
+          queryKey: ['term', id],
         })
         addToast({
           message: '용어 정보가 수정되었습니다.',
