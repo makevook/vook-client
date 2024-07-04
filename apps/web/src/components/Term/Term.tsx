@@ -208,6 +208,11 @@ export const Term = ({
                 onClick={() => {
                   handleSort({ sort: 'term' })
                 }}
+                icon={
+                  sorts.includes(termSort.TermAsc)
+                    ? 'arrow-down-small'
+                    : 'arrow-up-small'
+                }
               >
                 용어
               </List>
@@ -217,6 +222,11 @@ export const Term = ({
                 onClick={() => {
                   handleSort({ sort: 'synonym' })
                 }}
+                icon={
+                  sorts.includes(termSort.SynonymAsc)
+                    ? 'arrow-down-small'
+                    : 'arrow-up-small'
+                }
               >
                 동의어
               </List>
@@ -227,6 +237,11 @@ export const Term = ({
                 onClick={() => {
                   handleSort({ sort: 'meaning' })
                 }}
+                icon={
+                  sorts.includes(termSort.MeaningAsc)
+                    ? 'arrow-down-small'
+                    : 'arrow-up-small'
+                }
               >
                 뜻
               </List>
@@ -236,6 +251,11 @@ export const Term = ({
                 onClick={() => {
                   handleSort({ sort: 'createdAt' })
                 }}
+                icon={
+                  sorts.includes(termSort.CreatedAtAsc)
+                    ? 'arrow-down-small'
+                    : 'arrow-up-small'
+                }
               >
                 생성일자
               </List>

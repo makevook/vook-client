@@ -26,6 +26,9 @@ export const list = recipe({
         width: 200,
         backgroundColor: vars.colors['component-alternative'],
         color: vars.colors['semantic-label-alternative'],
+        display: 'flex',
+        gap: 2,
+        alignItems: 'center',
       },
       description: {
         width: 600,
