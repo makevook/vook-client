@@ -66,7 +66,7 @@ const Vocabulary = () => {
   return (
     <div className={vocabularyContainer}>
       <div className={vocabularyHeader}>
-        <Text type="title-2" fontWeight="bold">
+        <Text type="title-2" fontWeight="bold" color="semantic-label-neutral">
           {currentWorkspace?.name}
         </Text>
         <div className={vocabularyHeaderButton}>
