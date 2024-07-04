@@ -1,6 +1,6 @@
 'use client'
 
-import { Text } from '@vook-client/design-system'
+import { useVacabularyInfoQuery } from '@vook-client/api'
 
 import { useUser } from '@/store/user'
 
@@ -8,49 +8,34 @@ import { Profile } from './Profile/Profile'
 import { sideBar, sideBarWorkspace, sideBarWorkspaceInner } from './Sidebar.css'
 import { WorkspaceItem } from './WorkspaceItem'
 
-const DUMMY_WORKSPACES = [
-  {
-    workspaceId: 'workspace-1',
-    workspaceName: 'Workspace 1',
-    vocabularies: [
-      {
-        id: 'vocabulary-1',
-        name: 'Terms1',
-      },
-      {
-        id: 'vocabulary-2',
-        name: 'Terms2',
-      },
-    ],
-  },
-  {
-    workspaceId: 'workspace-2',
-    workspaceName: 'Workspace 2',
-    vocabularies: [
-      {
-        id: 'vocabulary-3',
-        name: 'Terms3',
-      },
-      {
-        id: 'vocabulary-4',
-        name: 'Terms4',
-      },
-    ],
-  },
-]
-
 export const Sidebar = () => {
   const { user } = useUser()
+  const { data: response } = useVacabularyInfoQuery()
+
+  if (response == null) {
+    return null
+  }
+
+  const data = [
+    {
+      workspaceId: 'my-workspace',
+      workspaceName: 'MY WORKSPACE',
+      vocabularies: response.result.map((vocabulary) => ({
+        id: vocabulary.uid,
+        name: vocabulary.name,
+      })),
+    },
+  ]
 
   return (
     <aside className={sideBar}>
       <div className={sideBarWorkspace}>
-        <Text as="h2" type="caption-1" color="semantic-label-assistive">
+        {/* <Text as="h2" type="caption-1" color="semantic-label-assistive">
           MY WORKSPACE
-        </Text>
+        </Text> */}
         <div className={sideBarWorkspaceInner}>
-          {DUMMY_WORKSPACES.map((workspace) => (
-            <WorkspaceItem key={workspace.workspaceId} {...workspace} />
+          {data.map((vocabulary) => (
+            <WorkspaceItem key={vocabulary.workspaceId} {...vocabulary} />
           ))}
         </div>
       </div>

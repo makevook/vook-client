@@ -1,3 +1,4 @@
+// SynonymsAsc => SynonymAsc으로 s가 빠져야 함 !!
 export const searchSort = {
   TermAsc: 'term:asc',
   TermDesc: 'term:desc',

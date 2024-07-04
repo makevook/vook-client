@@ -12,6 +12,15 @@ interface ModalValues {
   open: boolean
   closing: boolean
   toggleModal: VoidFunction
+  setModal: (newType: ModalTypes) => void
+  type: ModalTypes
+}
+
+export enum ModalTypes {
+  CREATE,
+  EDIT,
+  DELETE,
+  NULL,
 }
 
 const ModalContext = createContext<ModalValues | undefined>(undefined)
@@ -19,6 +28,11 @@ const ModalContext = createContext<ModalValues | undefined>(undefined)
 export const ModalContextProvider = ({ children }: PropsWithChildren) => {
   const [open, setOpen] = useState<boolean>(false)
   const [closing, setClosing] = useState<boolean>(false)
+  const [type, setType] = useState<ModalTypes>(ModalTypes.NULL)
+
+  const setModal = useCallback((newType: ModalTypes) => {
+    setType(newType)
+  }, [])
 
   const toggleModal = useCallback(() => {
     document.body.classList.toggle('scroll-locked')
@@ -26,6 +40,7 @@ export const ModalContextProvider = ({ children }: PropsWithChildren) => {
     if (open) {
       setClosing(true)
       setTimeout(() => {
+        setType(ModalTypes.NULL)
         setOpen(false)
         setClosing(false)
       }, 500)
@@ -39,7 +54,9 @@ export const ModalContextProvider = ({ children }: PropsWithChildren) => {
       value={{
         open,
         toggleModal,
+        setModal,
         closing,
+        type,
       }}
     >
       {children}

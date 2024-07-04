@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css'
+import { recipe } from '@vanilla-extract/recipes'
 
 import { vars } from '../../styles/global.css'
 
@@ -22,19 +23,34 @@ export const accordionList = style({
   gap: 4,
 })
 
-export const accordionItem = style({
-  display: 'flex',
-  alignItems: 'center',
+export const accordionItem = recipe({
+  base: {
+    display: 'flex',
+    alignItems: 'center',
 
-  width: '100%',
-  height: 40,
+    width: '100%',
+    height: 40,
 
-  transition: 'background-color 0.3s',
+    transition: 'background-color 0.3s',
 
-  ':hover': {
-    cursor: 'pointer',
-    borderRadius: 6,
-    backgroundColor: vars.colors['palette-gray-50'],
+    ':hover': {
+      backgroundColor: vars.colors['palette-primary-50'],
+
+      // backgroundColor: vars.colors['palette-gray-50'],
+      cursor: 'pointer',
+      borderRadius: 6,
+    },
+  },
+  variants: {
+    isFilled: {
+      true: {
+        backgroundColor: vars.colors['palette-primary-50'],
+
+        // ':hover': {
+        //   backgroundColor: vars.colors['palette-primary-50'],
+        // },
+      },
+    },
   },
 })
 

@@ -6,7 +6,6 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { Sidebar } from '@/components/Sidebar'
 import { Header } from '@/components/Header'
-import { Footer } from '@/components/layout'
 import { UserProvider } from '@/store/user'
 import { getQueryClient } from '@/utils/react-query'
 import { SilentRefresh } from '@/components/SilentRefresh/SilentRefresh'
@@ -48,7 +47,6 @@ const Layout = async ({ children }: PropsWithChildren) => {
           <Header vocabularyID={vocabularyID} />
           <Sidebar />
           {children}
-          <Footer />
         </UserProvider>
         <SilentRefresh />
       </HydrationBoundary>

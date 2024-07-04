@@ -1,6 +1,8 @@
 import { HTMLAttributes, PropsWithChildren } from 'react'
 
 import { Text, TextProps } from '../Text'
+import { IconNames } from '../Icon/icons'
+import { Icon } from '../Icon'
 
 import { list } from './List.css'
 
@@ -8,8 +10,9 @@ type Variant = 'page' | 'search' | 'reading'
 
 export interface ListType {
   variant?: 'page' | 'search' | 'reading'
-  kind?: 'table' | 'synonym' | 'description' | 'title'
+  kind?: 'table' | 'synonym' | 'description' | 'title' | 'icon'
   htmlContent?: string
+  icon?: IconNames
 }
 
 export type ListProps = HTMLAttributes<HTMLDivElement> &
@@ -21,6 +24,7 @@ export const List = ({
   kind = 'description',
   htmlContent,
   children,
+  icon,
   ...rest
 }: ListProps) => {
   const variantToTextTypeMap: Record<Variant, TextProps['type']> = {
@@ -52,6 +56,7 @@ export const List = ({
       <Text type={textType} fontWeight={fontWeight} color="inherit">
         {children}
       </Text>
+      {icon && <Icon name={icon} />}
     </div>
   )
 }
