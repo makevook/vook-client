@@ -12,7 +12,7 @@ const AccordionContext = createContext<AccordionContextType | undefined>(
 )
 
 export const AccordionContextProvider = ({ children }: PropsWithChildren) => {
-  const [open, toggle] = useReducer((prev) => !prev, false)
+  const [open, toggle] = useReducer((prev) => !prev, true)
 
   return (
     <AccordionContext.Provider value={{ open, toggle }}>

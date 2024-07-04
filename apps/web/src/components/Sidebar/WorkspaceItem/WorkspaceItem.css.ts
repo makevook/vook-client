@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css'
+import { vars } from '@vook-client/design-system'
 
 export const workspaceItem = style({
   display: 'flex',
@@ -16,6 +17,15 @@ export const workspaceItemTitle = style({
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: 8,
+})
+
+export const workSpaceItemTextContainer = style({
+  width: '100%',
+  borderRadius: 6,
+  overflow: 'hidden',
+  ':hover': {
+    color: vars.colors['semantic-primary-normal'],
+  },
 })
 
 // export const workspaceItemDropdownTrigger = style({

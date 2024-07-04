@@ -22,8 +22,8 @@ import {
 
 const AccordionTitle = ({
   children,
-  isSideBar = false,
-}: PropsWithChildren & { isSideBar?: boolean }) => {
+  isFilled = false,
+}: PropsWithChildren & { isFilled?: boolean }) => {
   const { toggle, open } = useAccordion()
 
   return (
@@ -32,7 +32,7 @@ const AccordionTitle = ({
         e.stopPropagation()
         toggle()
       }}
-      className={accordionItem({ sideBar: isSideBar })}
+      className={accordionItem({ isFilled })}
     >
       <div
         className={clsx({
@@ -49,11 +49,11 @@ const AccordionTitle = ({
 
 const AccordionItem = ({
   children,
-  isSideBar = false,
+  isFilled = false,
   ...rest
-}: LiHTMLAttributes<HTMLLIElement> & { isSideBar?: boolean }) => {
+}: LiHTMLAttributes<HTMLLIElement> & { isFilled?: boolean }) => {
   return (
-    <li className={accordionItem({ sideBar: isSideBar })} {...rest}>
+    <li className={accordionItem({ isFilled })} {...rest}>
       <div className={accordionDepth} />
       {children}
     </li>
@@ -62,12 +62,13 @@ const AccordionItem = ({
 
 const AccordionList = ({
   children,
-  defaultOpen = false,
+  defaultOpen = true,
   ...rest
 }: AccordionProps) => {
   const { open, toggle } = useAccordion()
   const quantity = Children.toArray(children).length
 
+  // Default Open 옵션이 정상적으로 작동되지 않음. useAccordion에서 Default를 true로 변경함
   useLayoutEffect(() => {
     if (defaultOpen) {
       toggle()

@@ -1,7 +1,11 @@
 import { Accordion, Text } from '@vook-client/design-system'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
-import { vocabularyTitle, workspaceItemTitle } from './WorkspaceItem.css'
+import {
+  vocabularyTitle,
+  workSpaceItemTextContainer,
+  workspaceItemTitle,
+} from './WorkspaceItem.css'
 
 interface WorkspaceItemProps {
   workspaceId: string
@@ -17,15 +21,19 @@ export const WorkspaceItem = ({
   vocabularies,
 }: WorkspaceItemProps) => {
   const router = useRouter()
+  const path = usePathname()
+  const id = path.split('/').pop()
 
   return (
-    <Accordion defaultOpen>
+    <Accordion>
       <div className={workspaceItemTitle}>
-        <Accordion.Title isSideBar>
-          <div>
-            <Text type="body-2">{workspaceName}</Text>
-          </div>
-        </Accordion.Title>
+        <div className={workSpaceItemTextContainer}>
+          <Accordion.Title>
+            <Text type="body-2" color="inherit">
+              {workspaceName}
+            </Text>
+          </Accordion.Title>
+        </div>
         {/* <Dropbox>
           <Dropbox.Trigger className={workspaceItemDropdownTrigger}>
             <Icon name="dot-vertical-medium" />
@@ -46,17 +54,26 @@ export const WorkspaceItem = ({
           </Dropbox.Group>
         </Dropbox> */}
       </div>
-      {vocabularies.map((vocabulary) => (
-        <div key={vocabulary.id} className={vocabularyTitle}>
-          <Accordion.Item
-            onClick={() => {
-              router.push(`/vocabulary/${vocabulary.id}`)
-            }}
-            isSideBar
-          >
-            <Text type="body-2">{vocabulary.name}</Text>
-          </Accordion.Item>
-          {/* <Dropbox>
+      {vocabularies.map((vocabulary) => {
+        const isSelected = id === vocabulary.id
+        return (
+          <div key={vocabulary.id} className={vocabularyTitle}>
+            <div className={workSpaceItemTextContainer}>
+              <Accordion.Item
+                onClick={() => {
+                  router.push(`/vocabulary/${vocabulary.id}`)
+                }}
+                isFilled={isSelected}
+              >
+                <Text
+                  type="body-2"
+                  color={isSelected ? 'semantic-primary-normal' : 'inherit'}
+                >
+                  {vocabulary.name}
+                </Text>
+              </Accordion.Item>
+            </div>
+            {/* <Dropbox>
             <Dropbox.Trigger className={vocabularyDropboxTrigger}>
               <Icon name="dot-vertical-medium" />
             </Dropbox.Trigger>
@@ -75,8 +92,9 @@ export const WorkspaceItem = ({
               </Dropbox.Option>
             </Dropbox.Group>
           </Dropbox> */}
-        </div>
-      ))}
+          </div>
+        )
+      })}
     </Accordion>
   )
 }

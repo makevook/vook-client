@@ -34,23 +34,21 @@ export const accordionItem = recipe({
     transition: 'background-color 0.3s',
 
     ':hover': {
+      backgroundColor: vars.colors['palette-primary-50'],
+
+      // backgroundColor: vars.colors['palette-gray-50'],
       cursor: 'pointer',
       borderRadius: 6,
-      backgroundColor: vars.colors['palette-gray-50'],
     },
   },
   variants: {
-    sideBar: {
+    isFilled: {
       true: {
-        ':hover': {
-          backgroundColor: vars.colors['palette-primary-50'],
-          // TODO 글자색상
-          selectors: {
-            '& p': {
-              color: vars.colors['semantic-primary-normal'],
-            },
-          },
-        },
+        backgroundColor: vars.colors['palette-primary-50'],
+
+        // ':hover': {
+        //   backgroundColor: vars.colors['palette-primary-50'],
+        // },
       },
     },
   },
