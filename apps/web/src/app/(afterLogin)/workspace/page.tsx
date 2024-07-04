@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Button, Text } from '@vook-client/design-system'
 import { useRouter } from 'next/navigation'
 import { useVacabularyInfoQuery } from '@vook-client/api'
 
@@ -12,12 +11,9 @@ import {
   VocabularyDeleteModal,
   VocabularyEditModal,
 } from '@/modals/VocabularyModal/VocabularyModal'
+import { LoadingComponent, NoneDataComponent } from '@/components/common/Common'
 
-import {
-  workspaceInnerAlignCenter,
-  workspaceInnerAlignRow,
-  workspaceInnerContainer,
-} from '../layout.css'
+import { workspaceInnerAlignRow } from '../layout.css'
 
 import { VocabularyItem } from './VocabularyItem'
 
@@ -27,20 +23,20 @@ export interface VocabularyModalDataType {
 }
 
 const WorkspaceList = () => {
-  const { data: response } = useVacabularyInfoQuery()
+  const { data: response, isLoading } = useVacabularyInfoQuery()
 
-  const { open, type, toggleModal, setModal } = useModal()
+  const { open, type } = useModal()
   const [modalData, setModalData] = useState<VocabularyModalDataType>({
     uid: '',
     defaultValue: '',
   })
   const router = useRouter()
 
-  if (response == null) {
-    return null
+  if (isLoading || response == null) {
+    return <LoadingComponent />
   }
 
-  const data = response?.result.map((vocabulary) => ({
+  const vocabularyData = response?.result.map((vocabulary) => ({
     id: vocabulary.uid,
     name: vocabulary.name,
     createdAt: new Date(vocabulary.createdAt),
@@ -48,9 +44,9 @@ const WorkspaceList = () => {
 
   return (
     <>
-      {data.length > 0 ? (
+      {vocabularyData.length > 0 ? (
         <div className={workspaceInnerAlignRow}>
-          {data.map((vocabulary) => {
+          {vocabularyData.map((vocabulary) => {
             return (
               <div
                 onClick={() => {
@@ -65,27 +61,7 @@ const WorkspaceList = () => {
           })}
         </div>
       ) : (
-        <div className={workspaceInnerContainer}>
-          <div className={workspaceInnerAlignCenter}>
-            <Text type="body-1" fontWeight="medium" color="label-alternative">
-              등록된 용어집이 없습니다.
-            </Text>
-            <Button
-              onClick={() => {
-                setModal(ModalTypes.CREATE)
-                toggleModal()
-              }}
-              prefixIcon="plus-small"
-              filled={false}
-              blueLine={false}
-              size="small"
-            >
-              <Text type="label" fontWeight="bold">
-                용어집 생성
-              </Text>
-            </Button>
-          </div>
-        </div>
+        <NoneDataComponent type="vocabulary" />
       )}
 
       {open && type === ModalTypes.CREATE && <VocabularyCreateModal />}

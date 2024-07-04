@@ -1,16 +1,13 @@
 'use client'
 
-import { Button, Icon, Text } from '@vook-client/design-system'
+import { Button, Text } from '@vook-client/design-system'
 import { useVacabularyInfoQuery } from '@vook-client/api'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
+import { WarnBox } from '@/components/common/Common'
 
-import {
-  warningContainer,
-  workspaceContainer,
-  workspaceHeader,
-} from './layout.css'
+import { workspaceContainer, workspaceHeader } from './layout.css'
 import WorkspaceList from './workspace/page'
 
 const Home = () => {
@@ -40,18 +37,10 @@ const Home = () => {
           용어집 생성
         </Button>
       </div>
-      {isDisabled && (
-        <div className={warningContainer}>
-          <Icon name="alert-warning-big" />
-          <Text type="body-1" fontWeight="medium" color="label-neutral">
-            용어집은 3개까지만 생성 가능합니다.
-          </Text>
-        </div>
-      )}
-      <WorkspaceList />
 
-      {/* <Search /> */}
-      {/* <Term /> */}
+      {isDisabled && <WarnBox>용어집은 3개까지만 생성 가능합니다.</WarnBox>}
+
+      <WorkspaceList />
     </div>
   )
 }

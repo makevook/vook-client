@@ -47,7 +47,6 @@ const Layout = async ({ children }: PropsWithChildren) => {
           <Header vocabularyID={vocabularyID} />
           <Sidebar />
           {children}
-          {/* <Footer /> */}
         </UserProvider>
         <SilentRefresh />
       </HydrationBoundary>

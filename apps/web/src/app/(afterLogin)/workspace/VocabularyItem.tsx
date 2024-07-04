@@ -32,6 +32,26 @@ export const VocabularyItem = ({
     day: 'numeric',
   })
 
+  const handleDelete = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.stopPropagation()
+    setModalData({
+      uid: id,
+      defaultValue: name,
+    })
+    setModal(ModalTypes.DELETE)
+    toggleModal()
+  }
+
+  const handleEdit = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.stopPropagation()
+    setModalData({
+      uid: id,
+      defaultValue: name,
+    })
+    setModal(ModalTypes.EDIT)
+    toggleModal()
+  }
+
   return (
     <div className={vocabularyItemContainer}>
       <div className={vocabularyItemHeader}>
@@ -48,33 +68,13 @@ export const VocabularyItem = ({
             <Icon name="dot-vertical-medium" />
           </Dropbox.Trigger>
           <Dropbox.Group horizontal="right" vertical="bottom">
-            <Dropbox.Option
-              onClick={(e) => {
-                e.stopPropagation()
-                setModalData({
-                  uid: id,
-                  defaultValue: name,
-                })
-                setModal(ModalTypes.EDIT)
-                toggleModal()
-              }}
-            >
+            <Dropbox.Option onClick={handleEdit}>
               <div className={dropboxItem}>
                 <Icon name="edit-medium" />
                 <Text type="body-2">수정</Text>
               </div>
             </Dropbox.Option>
-            <Dropbox.Option
-              onClick={(e) => {
-                e.stopPropagation()
-                setModalData({
-                  uid: id,
-                  defaultValue: name,
-                })
-                setModal(ModalTypes.DELETE)
-                toggleModal()
-              }}
-            >
+            <Dropbox.Option onClick={handleDelete}>
               <div className={dropboxItem}>
                 <Icon name="trash-medium" />
                 <Text type="body-2">삭제</Text>

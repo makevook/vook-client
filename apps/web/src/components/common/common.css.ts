@@ -1,46 +1,16 @@
 import { keyframes, style } from '@vanilla-extract/css'
 import { vars } from '@vook-client/design-system'
 
-export const termContainer = style({
+export const warningContainer = style({
   display: 'flex',
-  justifyContent: 'center',
-  flex: 1,
-})
-
-export const termListContainer = style({
-  display: 'flex',
-  width: '100%',
-  gap: 20,
-  flexDirection: 'column',
-})
-
-export const termListDataContainer = style({
-  display: 'flex',
-  padding: '8px 0',
-  borderBottom: `1px solid ${vars.colors['semantic-line-alternative']}`,
-})
-
-export const textContainer = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 5,
-})
-
-export const termTitleContainer = style({
-  display: 'flex',
-  borderRadius: '8px',
-  overflow: 'hidden',
-  ':hover': {
-    cursor: 'pointer',
-  },
+  backgroundColor: vars.colors['component-normal'],
+  borderRadius: 10,
+  padding: '12px 16px',
+  gap: 8,
 })
 
 export const noTermContainer = style({
   margin: 'auto',
-})
-
-export const highlight = style({
-  backgroundColor: vars.colors.yellow,
 })
 
 const spin = keyframes({
@@ -66,4 +36,18 @@ export const spinner = style({
   width: '40px',
   height: '40px',
   animation: `${spin} 2s linear infinite`,
+})
+
+export const workspaceInnerContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flex: 1,
+})
+
+export const workspaceInnerAlignCenter = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '24px',
 })

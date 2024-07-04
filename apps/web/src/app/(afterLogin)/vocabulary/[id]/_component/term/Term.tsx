@@ -1,14 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import {
-  Button,
-  Checkbox,
-  Dropbox,
-  Icon,
-  List,
-  Text,
-} from '@vook-client/design-system'
+import { Checkbox, Dropbox, Icon, List, Text } from '@vook-client/design-system'
 import {
   TermSort,
   termSort,
@@ -22,9 +15,12 @@ import { ModalTypes } from '@/hooks/useModal/useModal'
 import { useToast } from '@/hooks/useToast'
 
 import {
+  LoadingComponent,
+  NoneDataComponent,
+} from '../../../../../../components/common/Common'
+
+import {
   highlight,
-  noTermContainer,
-  spinner,
   termContainer,
   termListContainer,
   termListDataContainer,
@@ -34,17 +30,6 @@ import {
 
 import { dropboxItem } from 'src/app/(afterLogin)/workspace/VocabularyItem.css'
 import { TermModalDataType } from 'src/app/(afterLogin)/vocabulary/[id]/page'
-import {
-  workspaceInnerAlignCenter,
-  workspaceInnerContainer,
-} from 'src/app/(afterLogin)/layout.css'
-
-// 로딩 상태 컴포넌트
-const LoadingComponent = () => (
-  <div className={noTermContainer}>
-    <div className={spinner} />
-  </div>
-)
 
 const TextContainer = ({ length }: { length?: number }) => {
   return (
@@ -341,27 +326,7 @@ export const Term = ({
             })}
           </>
         ) : (
-          <div className={workspaceInnerContainer}>
-            <div className={workspaceInnerAlignCenter}>
-              <Text type="body-1" fontWeight="medium" color="label-alternative">
-                등록된 용어가 없습니다.
-              </Text>
-              <Button
-                onClick={() => {
-                  setModal(ModalTypes.CREATE)
-                  toggleModal()
-                }}
-                prefixIcon="plus-small"
-                filled={false}
-                blueLine={false}
-                size="small"
-              >
-                <Text type="label" fontWeight="bold">
-                  용어 생성
-                </Text>
-              </Button>
-            </div>
-          </div>
+          <NoneDataComponent type="term" />
         )}
       </div>
     </div>

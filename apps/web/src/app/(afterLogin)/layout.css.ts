@@ -1,5 +1,4 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@vook-client/design-system'
 
 import { HEADER_HEIGHT, SIDE_BAR_WIDTH } from '@/styles/layout'
 
@@ -16,14 +15,6 @@ export const mainArea = style({
 
   display: 'flex',
   flexDirection: 'column',
-})
-
-export const warningContainer = style({
-  backgroundColor: vars.colors['component-normal'],
-  borderRadius: 10,
-  display: 'flex',
-  padding: '12px 16px',
-  gap: 8,
 })
 
 export const workspaceContainer = style({
