@@ -6,6 +6,7 @@ import { useAddTermMutation, useEditTermMutation } from '@vook-client/api'
 import { useQueryClient } from '@tanstack/react-query'
 
 import { useModal } from '@/hooks/useModal'
+import { useToast } from '@/hooks/useToast'
 
 import { Modal } from '../Modal/Modal'
 import { modalLowerTextGroup } from '../Modal/Modal.css'
@@ -25,25 +26,29 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
     formState: { errors },
   } = useForm<TermFormValues>()
   const queryClient = useQueryClient()
+  const { addToast } = useToast()
 
   const addTermMutation = useAddTermMutation(
     {
       vocabularyUid: uid,
       term: watch('name'),
       meaning: watch('meaning'),
-      synonyms:
-        watch('synonyms') !== undefined
-          ? watch('synonyms')
-              .split(',')
-              .map((synonym) => synonym.trim())
-              .filter(Boolean)
-          : [],
+      synonyms: watch('synonyms')!
+        ? watch('synonyms')
+            .split(',')
+            .map((synonym) => synonym.trim())
+            .filter(Boolean)
+        : [],
     },
     {
       onSuccess: () => {
         toggleModal()
         queryClient.invalidateQueries({
           queryKey: ['term'],
+        })
+        addToast({
+          message: '용어가 생성되었습니다.',
+          type: 'success',
         })
       },
     },
@@ -142,18 +147,18 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
     },
   })
   const queryClient = useQueryClient()
+  const { addToast } = useToast()
 
   const editTermMutation = useEditTermMutation(
     {
       term: watch('name'),
       meaning: watch('meaning'),
-      synonyms:
-        watch('synonyms') !== undefined
-          ? watch('synonyms')
-              .split(',')
-              .map((synonym) => synonym.trim())
-              .filter(Boolean)
-          : [],
+      synonyms: watch('synonyms')!
+        ? watch('synonyms')
+            .split(',')
+            .map((synonym) => synonym.trim())
+            .filter(Boolean)
+        : [],
     },
     uid,
     {
@@ -161,6 +166,10 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
         toggleModal()
         queryClient.invalidateQueries({
           queryKey: ['term'],
+        })
+        addToast({
+          message: '용어 정보가 수정되었습니다.',
+          type: 'success',
         })
       },
     },

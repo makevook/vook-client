@@ -8,6 +8,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 
 import { useModal } from '@/hooks/useModal'
+import { useToast } from '@/hooks/useToast'
 
 import { Modal } from '../Modal/Modal'
 
@@ -15,6 +16,7 @@ export const VocabularyCreateModal = () => {
   const { toggleModal } = useModal()
   const queryClient = useQueryClient()
   const { register, handleSubmit, watch } = useForm<{ name: string }>()
+  const { addToast } = useToast()
 
   const createVocabularyMutation = useCreateVocabularyMutation(
     {
@@ -26,6 +28,10 @@ export const VocabularyCreateModal = () => {
           queryKey: ['vocabulary'],
         })
         toggleModal()
+        addToast({
+          message: '용어집이 생성되었습니다.',
+          type: 'success',
+        })
       },
     },
   )
@@ -65,12 +71,17 @@ export const VocabularyCreateModal = () => {
 
 export const VocabularyDeleteModal = ({ uid }: { uid: string }) => {
   const { toggleModal } = useModal()
+  const { addToast } = useToast()
   const queryClient = useQueryClient()
 
   const deleteWorkspaceMutation = useDeleteVocabularyMutation(uid, {
     onSuccess: () => {
       toggleModal()
       queryClient.invalidateQueries({ queryKey: ['vocabulary'] })
+      addToast({
+        message: '용어집이 삭제되었습니다.',
+        type: 'success',
+      })
     },
   })
 
@@ -119,6 +130,7 @@ export const VocabularyEditModal = ({
     },
   })
   const queryClient = useQueryClient()
+  const { addToast } = useToast()
 
   const editWorkspaceMutation = useEditVocabularyMutation(
     uid,
@@ -129,6 +141,10 @@ export const VocabularyEditModal = ({
       onSuccess: () => {
         toggleModal()
         queryClient.invalidateQueries({ queryKey: ['vocabulary'] })
+        addToast({
+          message: '용어집의 정보가 수정되었습니다.',
+          type: 'success',
+        })
       },
     },
   )

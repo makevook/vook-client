@@ -19,6 +19,7 @@ import { useQueryClient } from '@tanstack/react-query'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
+import { useToast } from '@/hooks/useToast'
 
 import {
   highlight,
@@ -104,10 +105,16 @@ export const Term = ({
   const { data: response } = useGetTermQuery(id, sorts)
 
   const queryClient = useQueryClient()
+  const { addToast } = useToast()
+
   const deleteTermMutation = useDeleteTermMutation(selectedTermUid, {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['term'],
+      })
+      addToast({
+        message: '용어가 삭제되었습니다.',
+        type: 'success',
       })
     },
   })

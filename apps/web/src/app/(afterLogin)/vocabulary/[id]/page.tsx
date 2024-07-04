@@ -13,6 +13,7 @@ import { Term } from '@/components/Term/Term'
 import { useModal } from '@/hooks/useModal'
 import { TermCreateModal, TermEditModal } from '@/modals/TermModal/TermModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
+import { useToast } from '@/hooks/useToast'
 
 import { warningContainer } from '../../layout.css'
 
@@ -37,6 +38,8 @@ const Vocabulary = () => {
     synonym: [],
   })
   const queryClient = useQueryClient()
+  const { addToast } = useToast()
+
   const [checkList, setCheckList] = useState<string[]>([])
 
   const deleteBatchTermMutation = useDeleteBatchTermMutation(
@@ -46,6 +49,10 @@ const Vocabulary = () => {
         setCheckList([])
         queryClient.invalidateQueries({
           queryKey: ['term'],
+        })
+        addToast({
+          message: '용어가 삭제되었습니다.',
+          type: 'success',
         })
       },
     },
