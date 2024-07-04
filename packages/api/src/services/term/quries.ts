@@ -19,7 +19,7 @@ import {
 
 export const termOptions = {
   termInfo: (client: QueryClient, vocabularyUid: string, sort: TermSort[]) => ({
-    queryKey: ['term'],
+    queryKey: ['term', vocabularyUid, sort],
     queryFn: () => termService.getTerm(client, vocabularyUid, sort),
   }),
   addTerm: (client: QueryClient, dto: AddTermDTO) => ({

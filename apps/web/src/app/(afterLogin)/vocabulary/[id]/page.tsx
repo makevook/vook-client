@@ -42,13 +42,19 @@ const Vocabulary = () => {
 
   const [checkList, setCheckList] = useState<string[]>([])
 
+  const [length, setLength] = useState(0)
+  const { open, toggleModal, type, setModal } = useModal()
+  const path = usePathname()
+  const id = path.split('/').pop()
+  const { data: response } = useVacabularyInfoQuery()
+
   const deleteBatchTermMutation = useDeleteBatchTermMutation(
     { termUids: checkList },
     {
       onSuccess: () => {
         setCheckList([])
         queryClient.invalidateQueries({
-          queryKey: ['term'],
+          queryKey: ['term', id],
         })
         addToast({
           message: '용어가 삭제되었습니다.',
@@ -57,13 +63,6 @@ const Vocabulary = () => {
       },
     },
   )
-
-  const [length, setLength] = useState(0)
-  const { open, toggleModal, type, setModal } = useModal()
-  const path = usePathname()
-  const id = path.split('/').pop()
-  const { data: response } = useVacabularyInfoQuery()
-
   const currentWorkspace = response?.result.find((value) => value.uid === id)
 
   const isDisabled = length >= 100

@@ -23,6 +23,8 @@ import { useToast } from '@/hooks/useToast'
 
 import {
   highlight,
+  noTermContainer,
+  spinner,
   termContainer,
   termListContainer,
   termListDataContainer,
@@ -37,28 +39,12 @@ import {
   workspaceInnerContainer,
 } from 'src/app/(afterLogin)/layout.css'
 
-// // 로딩 상태 컴포넌트
-// const LoadingComponent = () => (
-//   <div className={noTermContainer}>
-//     {/* <div className={loadingWrapper}> */}
-//     <div className={spinner} />
-//     {/* </div> */}
-//   </div>
-// )
-
-// // 검색 결과 없음 컴포넌트
-// const NoSearchResults = () => (
-//   <div className={noTermContainer}>
-//     <Text type="body-1" fontWeight="medium" color="semantic-label-alternative">
-//       검색된 용어가 없습니다.
-//     </Text>
-//     <Button size="small" filled={false} blueLine={false} name="plus">
-//       <Hyperlink url="https://forms.gle/eqTF8wG1WzcY6wKF6">
-//         Vook에 용어 추가하기
-//       </Hyperlink>
-//     </Button>
-//   </div>
-// )
+// 로딩 상태 컴포넌트
+const LoadingComponent = () => (
+  <div className={noTermContainer}>
+    <div className={spinner} />
+  </div>
+)
 
 const TextContainer = ({ length }: { length?: number }) => {
   return (
@@ -102,7 +88,7 @@ export const Term = ({
   const [selectedTermUid, setSelectedTermUid] = useState('')
   const [updated, setUpdated] = useState(false)
 
-  const { data: response } = useGetTermQuery(id, sorts)
+  const { data: response, isLoading } = useGetTermQuery(id, sorts)
 
   const queryClient = useQueryClient()
   const { addToast } = useToast()
@@ -110,7 +96,7 @@ export const Term = ({
   const deleteTermMutation = useDeleteTermMutation(selectedTermUid, {
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['term'],
+        queryKey: ['term', id],
       })
       addToast({
         message: '용어가 삭제되었습니다.',
@@ -121,14 +107,15 @@ export const Term = ({
 
   useEffect(() => {
     if (updated) {
-      queryClient.invalidateQueries({ queryKey: ['term'] })
+      queryClient.invalidateQueries({ queryKey: ['term', id, sorts] })
       setUpdated(false)
     }
-  }, [updated, queryClient])
+  }, [updated, queryClient, id, sorts])
 
-  if (response === null) {
-    return null
+  if (isLoading || response == null) {
+    return <LoadingComponent />
   }
+
   setLength(response?.result.length ?? 0)
 
   const formatter = new Intl.DateTimeFormat('ko-KR', {
@@ -179,7 +166,7 @@ export const Term = ({
     if (uid === 'all') {
       if (response !== null) {
         setCheckList(
-          response!.result.map((data) => {
+          response.result.map((data) => {
             return data.termUid
           }),
         )

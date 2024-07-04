@@ -44,7 +44,7 @@ export const TermCreateModal = ({ uid }: { uid: string }) => {
       onSuccess: () => {
         toggleModal()
         queryClient.invalidateQueries({
-          queryKey: ['term'],
+          queryKey: ['term', uid],
         })
         addToast({
           message: '용어가 생성되었습니다.',
@@ -165,7 +165,7 @@ export const TermEditModal = ({ uid, name, meaning, synonyms }: EditType) => {
       onSuccess: () => {
         toggleModal()
         queryClient.invalidateQueries({
-          queryKey: ['term'],
+          queryKey: ['term', uid],
         })
         addToast({
           message: '용어 정보가 수정되었습니다.',

@@ -2,7 +2,6 @@ import { keyframes, style } from '@vanilla-extract/css'
 import { vars } from '@vook-client/design-system'
 
 export const termContainer = style({
-  marginBottom: 100,
   display: 'flex',
   justifyContent: 'center',
   flex: 1,
@@ -12,7 +11,6 @@ export const termListContainer = style({
   display: 'flex',
   width: '100%',
   gap: 20,
-  margin: '20px 20px 0 20px',
   flexDirection: 'column',
 })
 
@@ -38,15 +36,6 @@ export const termTitleContainer = style({
 })
 
 export const noTermContainer = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 24,
-  width: 1140,
-  height: 398,
-  borderRadius: 6,
-  border: `1px solid ${vars.colors['semantic-line-normal']}`,
-  justifyContent: 'center',
-  alignItems: 'center',
   margin: 'auto',
 })
 
