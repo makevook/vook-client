@@ -294,7 +294,7 @@ export const Term = () => {
                       <Dropbox.Trigger>
                         <Icon name="dot-vertical-medium" />
                       </Dropbox.Trigger>
-                      <Dropbox.Group horizontal="left" vertical="top">
+                      <Dropbox.Group horizontal="left" vertical="bottom">
                         <Dropbox.Option
                           onClick={() => {
                             handleEdit(termData)

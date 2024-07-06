@@ -8,6 +8,7 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import { useSearchQuery, useVacabularyInfoQuery } from '@vook-client/api'
@@ -38,6 +39,7 @@ export const SearchBox = () => {
   const [mounted, setMounted] = useState(false)
   const [clickedHistory, setClickedHistory] = useState(false)
   const [mode, setMode] = useState<'search' | 'history' | 'none'>('none')
+  const contentRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     setMounted(true)
@@ -163,94 +165,104 @@ export const SearchBox = () => {
             </button>
           )}
         </div>
-        {mode === 'search' && (
-          <div className={searchResultListContainer}>
-            <div className={searchResultList}>
-              {searchQuery.data?.result.records.map((record) => {
-                return (
-                  record.hits.length > 0 && (
-                    <div key={record.vocabularyUid}>
-                      <div className={searchResultItem}>
-                        <Text type="label" color="semantic-label-alternative">
-                          {
-                            vocabulariesInfo.find(
-                              (vocabulary) =>
-                                vocabulary.uid === record.vocabularyUid,
-                            )?.name
-                          }
-                        </Text>
-                      </div>
-                      <div>
-                        {record.hits.map((hit) => (
-                          <Link
-                            href={`/vocabulary/${record.vocabularyUid}?term-uid=${hit.uid}`}
-                            onClick={() => {
-                              setMode('none')
-                            }}
-                            key={hit.uid}
-                          >
-                            <div
-                              className={clsx([
-                                searchResultItem,
-                                searchResultHit,
-                              ])}
+        <div>
+          <div ref={contentRef}>
+            {mode === 'search' && (
+              <div className={searchResultListContainer}>
+                <div className={searchResultList}>
+                  {searchQuery.data?.result.records.map((record) => {
+                    return (
+                      record.hits.length > 0 && (
+                        <div key={record.vocabularyUid}>
+                          <div className={searchResultItem}>
+                            <Text
+                              type="label"
+                              color="semantic-label-alternative"
                             >
-                              <div className={searchResultTerm}>
-                                <Text
-                                  color="semantic-primary-heavy"
-                                  type="body-2"
-                                  fontWeight="medium"
-                                  dangerouslySetInnerHTML={{
-                                    __html: hit.term,
-                                  }}
-                                />
-                              </div>
-                              <div className={searchResultSynonyms}>
-                                <Text
-                                  color="semantic-label-alternative"
-                                  type="body-2"
-                                  fontWeight="medium"
-                                  dangerouslySetInnerHTML={{
-                                    __html: hit.synonyms,
-                                  }}
-                                />
-                              </div>
-                              <div className={searchResultMeaning}>
-                                <Text
-                                  as="p"
-                                  type="body-2"
-                                  fontWeight="medium"
-                                  className={searchResultMeaningText}
-                                  dangerouslySetInnerHTML={{
-                                    __html: hit.meaning,
-                                  }}
-                                />
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )
-                )
-              })}
-            </div>
+                              {
+                                vocabulariesInfo.find(
+                                  (vocabulary) =>
+                                    vocabulary.uid === record.vocabularyUid,
+                                )?.name
+                              }
+                            </Text>
+                          </div>
+                          <div>
+                            {record.hits.map((hit) => (
+                              <Link
+                                href={`/vocabulary/${record.vocabularyUid}?term-uid=${hit.uid}`}
+                                onClick={() => {
+                                  setMode('none')
+                                }}
+                                key={hit.uid}
+                              >
+                                <div
+                                  className={clsx([
+                                    searchResultItem,
+                                    searchResultHit,
+                                  ])}
+                                >
+                                  <div className={searchResultTerm}>
+                                    <Text
+                                      color="semantic-primary-heavy"
+                                      type="body-2"
+                                      fontWeight="medium"
+                                      dangerouslySetInnerHTML={{
+                                        __html: hit.term,
+                                      }}
+                                    />
+                                  </div>
+                                  <div className={searchResultSynonyms}>
+                                    <Text
+                                      color="semantic-label-alternative"
+                                      type="body-2"
+                                      fontWeight="medium"
+                                      dangerouslySetInnerHTML={{
+                                        __html: hit.synonyms,
+                                      }}
+                                    />
+                                  </div>
+                                  <div className={searchResultMeaning}>
+                                    <Text
+                                      as="p"
+                                      type="body-2"
+                                      fontWeight="medium"
+                                      className={searchResultMeaningText}
+                                      dangerouslySetInnerHTML={{
+                                        __html: hit.meaning,
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+            {mode === 'history' && (
+              <div>
+                {searchHistory.map((history, i) => (
+                  <div key={`${history.value}-${i}`}>
+                    <SearchHistory
+                      onClick={() => {
+                        setSearchValue(history.value)
+                        setMode('search')
+                        setClickedHistory(true)
+                      }}
+                      history={history}
+                      historyIndex={i}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-        {mode === 'history' &&
-          searchHistory.map((history, i) => (
-            <div key={`${history.value}-${i}`}>
-              <SearchHistory
-                onClick={() => {
-                  setSearchValue(history.value)
-                  setMode('search')
-                  setClickedHistory(true)
-                }}
-                history={history}
-                historyIndex={i}
-              />
-            </div>
-          ))}
+        </div>
       </div>
     </div>
   )

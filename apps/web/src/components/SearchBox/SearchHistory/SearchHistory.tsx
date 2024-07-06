@@ -42,7 +42,10 @@ export const SearchHistory = ({
       </div>
       <button
         className={clsx([deleteButton, 'delete-button'])}
-        onClick={() => deleteHistory(historyIndex)}
+        onClick={(e) => {
+          e.stopPropagation()
+          deleteHistory(historyIndex)
+        }}
       >
         <Icon name="close-icon-small" />
       </button>
