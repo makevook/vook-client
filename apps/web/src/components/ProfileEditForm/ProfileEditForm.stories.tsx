@@ -3,6 +3,7 @@ import { UserStatus } from '@vook-client/api'
 
 import { ModalContextProvider } from '@/hooks/useModal/useModal'
 import { UserProvider } from '@/store/user'
+import { ToastContextProvider } from '@/hooks/useToast'
 
 import { ProfileEditForm } from './ProfileEditForm'
 
@@ -22,19 +23,21 @@ export const Preview: Story = {
   decorators: [
     (Story) => (
       <div style={{ width: 400 }}>
-        <ModalContextProvider>
-          <UserProvider
-            user={{
-              uid: 'uid',
-              nickname: 'nickname',
-              status: UserStatus.Registered,
-              email: 'test@vook.com',
-              onboardingCompleted: false,
-            }}
-          >
-            <Story />
-          </UserProvider>
-        </ModalContextProvider>
+        <ToastContextProvider>
+          <ModalContextProvider>
+            <UserProvider
+              user={{
+                uid: 'uid',
+                nickname: 'nickname',
+                status: UserStatus.Registered,
+                email: 'test@vook.com',
+                onboardingCompleted: false,
+              }}
+            >
+              <Story />
+            </UserProvider>
+          </ModalContextProvider>
+        </ToastContextProvider>
       </div>
     ),
   ],
