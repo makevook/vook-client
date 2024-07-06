@@ -184,6 +184,9 @@ export const SearchBox = () => {
                         {record.hits.map((hit) => (
                           <Link
                             href={`/vocabulary/${record.vocabularyUid}?term-uid=${hit.uid}`}
+                            onClick={() => {
+                              setMode('none')
+                            }}
                             key={hit.uid}
                           >
                             <div
