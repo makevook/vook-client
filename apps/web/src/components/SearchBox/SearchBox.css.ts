@@ -1,4 +1,4 @@
-import { createVar, globalStyle, style } from '@vanilla-extract/css'
+import { globalStyle, style } from '@vanilla-extract/css'
 import { vars } from '@vook-client/design-system'
 
 export const searchBoxPositioner = style({
@@ -118,20 +118,34 @@ export const searchIcon = style({
   },
 })
 
-export const historyListHeight = createVar()
+export const searchResultListContainer = style({
+  paddingRight: 6.5,
+})
 
-export const historyList = style({
+export const searchResultList = style({
   display: 'flex',
   flexDirection: 'column',
 
   width: '100%',
-  height: historyListHeight,
+  maxHeight: 350,
+
+  overflowY: 'scroll',
 
   padding: 0,
   margin: 0,
 
   listStyle: 'none',
   transition: 'height 0.3s',
+
+  '::-webkit-scrollbar': {
+    width: 4,
+    transform: 'translateX(4px)',
+  },
+
+  '::-webkit-scrollbar-thumb': {
+    backgroundColor: vars.colors['palette-gray-100'],
+    borderRadius: 2,
+  },
 })
 
 export const searchResultItem = style({

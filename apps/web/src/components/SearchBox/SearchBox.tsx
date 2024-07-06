@@ -15,7 +15,6 @@ import { useSearchQuery, useVacabularyInfoQuery } from '@vook-client/api'
 import { Link } from '../Link'
 
 import {
-  historyList,
   resetButton,
   searchBox,
   searchBoxContainer,
@@ -25,6 +24,8 @@ import {
   searchLogo,
   searchResultHit,
   searchResultItem,
+  searchResultList,
+  searchResultListContainer,
   searchResultMeaning,
   searchResultMeaningText,
   searchResultSynonyms,
@@ -163,69 +164,71 @@ export const SearchBox = () => {
           )}
         </div>
         {mode === 'search' && (
-          <div className={historyList}>
-            <div>
+          <div className={searchResultListContainer}>
+            <div className={searchResultList}>
               {searchQuery.data?.result.records.map((record) => {
                 return (
-                  <div key={record.vocabularyUid}>
-                    <div className={searchResultItem}>
-                      <Text type="label" color="semantic-label-alternative">
-                        {
-                          vocabulariesInfo.find(
-                            (vocabulary) =>
-                              vocabulary.uid === record.vocabularyUid,
-                          )?.name
-                        }
-                      </Text>
-                    </div>
-                    <div>
-                      {record.hits.map((hit) => (
-                        <Link
-                          href={`/vocabulary/${record.vocabularyUid}?term-uid=${hit.uid}`}
-                          key={hit.uid}
-                        >
-                          <div
-                            className={clsx([
-                              searchResultItem,
-                              searchResultHit,
-                            ])}
+                  record.hits.length > 0 && (
+                    <div key={record.vocabularyUid}>
+                      <div className={searchResultItem}>
+                        <Text type="label" color="semantic-label-alternative">
+                          {
+                            vocabulariesInfo.find(
+                              (vocabulary) =>
+                                vocabulary.uid === record.vocabularyUid,
+                            )?.name
+                          }
+                        </Text>
+                      </div>
+                      <div>
+                        {record.hits.map((hit) => (
+                          <Link
+                            href={`/vocabulary/${record.vocabularyUid}?term-uid=${hit.uid}`}
+                            key={hit.uid}
                           >
-                            <div className={searchResultTerm}>
-                              <Text
-                                color="semantic-primary-heavy"
-                                type="body-2"
-                                fontWeight="medium"
-                                dangerouslySetInnerHTML={{
-                                  __html: hit.term,
-                                }}
-                              />
+                            <div
+                              className={clsx([
+                                searchResultItem,
+                                searchResultHit,
+                              ])}
+                            >
+                              <div className={searchResultTerm}>
+                                <Text
+                                  color="semantic-primary-heavy"
+                                  type="body-2"
+                                  fontWeight="medium"
+                                  dangerouslySetInnerHTML={{
+                                    __html: hit.term,
+                                  }}
+                                />
+                              </div>
+                              <div className={searchResultSynonyms}>
+                                <Text
+                                  color="semantic-label-alternative"
+                                  type="body-2"
+                                  fontWeight="medium"
+                                  dangerouslySetInnerHTML={{
+                                    __html: hit.synonyms,
+                                  }}
+                                />
+                              </div>
+                              <div className={searchResultMeaning}>
+                                <Text
+                                  as="p"
+                                  type="body-2"
+                                  fontWeight="medium"
+                                  className={searchResultMeaningText}
+                                  dangerouslySetInnerHTML={{
+                                    __html: hit.meaning,
+                                  }}
+                                />
+                              </div>
                             </div>
-                            <div className={searchResultSynonyms}>
-                              <Text
-                                color="semantic-label-alternative"
-                                type="body-2"
-                                fontWeight="medium"
-                                dangerouslySetInnerHTML={{
-                                  __html: hit.synonyms,
-                                }}
-                              />
-                            </div>
-                            <div className={searchResultMeaning}>
-                              <Text
-                                as="p"
-                                type="body-2"
-                                fontWeight="medium"
-                                className={searchResultMeaningText}
-                                dangerouslySetInnerHTML={{
-                                  __html: hit.meaning,
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )
                 )
               })}
             </div>

@@ -90,6 +90,10 @@ export const Term = () => {
   })
 
   useEffect(() => {
+    if (!response) {
+      return
+    }
+
     if (termUid) {
       const offset = document.getElementById(termUid)?.offsetTop
 
