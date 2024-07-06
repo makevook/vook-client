@@ -1,13 +1,21 @@
 'use client'
 
-import { Icon, SymbolLogo } from '@vook-client/design-system'
+import { Icon, SymbolLogo, Text } from '@vook-client/design-system'
 import clsx from 'clsx'
-import { ChangeEvent, useCallback, useLayoutEffect, useState } from 'react'
-import { assignInlineVars } from '@vanilla-extract/dynamic'
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import { useSearchQuery, useVacabularyInfoQuery } from '@vook-client/api'
+
+import { Link } from '../Link'
 
 import {
-  historyList,
-  historyListHeight,
   resetButton,
   searchBox,
   searchBoxContainer,
@@ -15,13 +23,23 @@ import {
   searchIcon,
   searchInputArea,
   searchLogo,
+  searchResultHit,
+  searchResultItem,
+  searchResultList,
+  searchResultListContainer,
+  searchResultMeaning,
+  searchResultMeaningText,
+  searchResultSynonyms,
+  searchResultTerm,
 } from './SearchBox.css'
 import { useSearchBox } from './hooks/useSearchBox'
 import { SearchHistory } from './SearchHistory'
-import { useSearchHistory } from './hooks/useSearchHistory'
 
 export const SearchBox = () => {
   const [mounted, setMounted] = useState(false)
+  const [clickedHistory, setClickedHistory] = useState(false)
+  const [mode, setMode] = useState<'search' | 'history' | 'none'>('none')
+  const contentRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     setMounted(true)
@@ -30,9 +48,31 @@ export const SearchBox = () => {
   const { searchHistory, isFocused, onFocus, submitSearch, changeSearchValue } =
     useSearchBox()
 
-  const { vocabularyID } = useSearchHistory()
+  const vocabularies = useVacabularyInfoQuery()
+
+  const vocabulariesInfo = useMemo(() => {
+    return (
+      vocabularies.data?.result.map((vocabulary) => ({
+        uid: vocabulary.uid,
+        name: vocabulary.name,
+      })) ?? []
+    )
+  }, [vocabularies.data])
 
   const [searchValue, setSearchValue] = useState<string>('')
+
+  const searchQuery = useSearchQuery(
+    {
+      vocabularyUids: vocabulariesInfo.map((vocabulary) => vocabulary.uid),
+      query: searchValue,
+      withFormat: true,
+      highlightPreTag: '<span class="highlight">',
+      highlightPostTag: '</span>',
+    },
+    {
+      enabled: false,
+    },
+  )
 
   const onEnterHandler = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -43,10 +83,11 @@ export const SearchBox = () => {
         return
       }
       if (e.key === 'Enter') {
+        searchQuery.refetch()
         submitSearch(searchValue)
       }
     },
-    [searchValue, submitSearch],
+    [searchQuery, searchValue, submitSearch],
   )
 
   const onSearchChangeHandler = useCallback(
@@ -58,18 +99,41 @@ export const SearchBox = () => {
 
   const onSubmitHandler = useCallback(() => {
     submitSearch(searchValue)
-  }, [searchValue, submitSearch])
+    searchQuery.refetch()
+  }, [searchQuery, searchValue, submitSearch])
 
   const onClearHandler = useCallback(() => {
     changeSearchValue('')
     setSearchValue('')
   }, [changeSearchValue])
 
+  useEffect(() => {
+    if (!isFocused) {
+      setMode('none')
+      return
+    }
+    if (searchValue.length > 0) {
+      setMode('search')
+      return
+    }
+    if (searchHistory.length > 0) {
+      setMode('history')
+    }
+  }, [isFocused, searchHistory.length, searchValue.length])
+
+  useEffect(() => {
+    if (clickedHistory) {
+      setClickedHistory(false)
+      searchQuery.refetch()
+      setTimeout(() => {
+        onFocus()
+      }, 50)
+    }
+  }, [clickedHistory, onFocus, searchQuery, searchValue])
+
   if (!mounted) {
     return null
   }
-
-  const searchBoxId = `search-box-${vocabularyID}`
 
   return (
     <div className={searchBoxPositioner}>
@@ -78,7 +142,7 @@ export const SearchBox = () => {
           [searchBoxContainer]: true,
           active: isFocused,
         })}
-        id={searchBoxId}
+        id="search-box"
       >
         <div className={searchInputArea}>
           <div className={searchLogo}>
@@ -101,25 +165,104 @@ export const SearchBox = () => {
             </button>
           )}
         </div>
-        <ul
-          className={historyList}
-          style={assignInlineVars({
-            [historyListHeight]: isFocused
-              ? `${searchHistory.length * 44}px`
-              : '0',
-          })}
-        >
-          <li />
-          {searchHistory.map((history, i) => (
-            <li key={`${history}-${i}`}>
-              <SearchHistory
-                vocabularyID={vocabularyID}
-                history={history}
-                historyIndex={i}
-              />
-            </li>
-          ))}
-        </ul>
+        <div>
+          <div ref={contentRef}>
+            {mode === 'search' && (
+              <div className={searchResultListContainer}>
+                <div className={searchResultList}>
+                  {searchQuery.data?.result.records.map((record) => {
+                    return (
+                      record.hits.length > 0 && (
+                        <div key={record.vocabularyUid}>
+                          <div className={searchResultItem}>
+                            <Text
+                              type="label"
+                              color="semantic-label-alternative"
+                            >
+                              {
+                                vocabulariesInfo.find(
+                                  (vocabulary) =>
+                                    vocabulary.uid === record.vocabularyUid,
+                                )?.name
+                              }
+                            </Text>
+                          </div>
+                          <div>
+                            {record.hits.map((hit) => (
+                              <Link
+                                href={`/vocabulary/${record.vocabularyUid}?term-uid=${hit.uid}`}
+                                onClick={() => {
+                                  setMode('none')
+                                }}
+                                key={hit.uid}
+                              >
+                                <div
+                                  className={clsx([
+                                    searchResultItem,
+                                    searchResultHit,
+                                  ])}
+                                >
+                                  <div className={searchResultTerm}>
+                                    <Text
+                                      color="semantic-primary-heavy"
+                                      type="body-2"
+                                      fontWeight="medium"
+                                      dangerouslySetInnerHTML={{
+                                        __html: hit.term,
+                                      }}
+                                    />
+                                  </div>
+                                  <div className={searchResultSynonyms}>
+                                    <Text
+                                      color="semantic-label-alternative"
+                                      type="body-2"
+                                      fontWeight="medium"
+                                      dangerouslySetInnerHTML={{
+                                        __html: hit.synonyms,
+                                      }}
+                                    />
+                                  </div>
+                                  <div className={searchResultMeaning}>
+                                    <Text
+                                      as="p"
+                                      type="body-2"
+                                      fontWeight="medium"
+                                      className={searchResultMeaningText}
+                                      dangerouslySetInnerHTML={{
+                                        __html: hit.meaning,
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+            {mode === 'history' && (
+              <div>
+                {searchHistory.map((history, i) => (
+                  <div key={`${history.value}-${i}`}>
+                    <SearchHistory
+                      onClick={() => {
+                        setSearchValue(history.value)
+                        setMode('search')
+                        setClickedHistory(true)
+                      }}
+                      history={history}
+                      historyIndex={i}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )

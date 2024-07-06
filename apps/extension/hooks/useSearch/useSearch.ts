@@ -19,7 +19,7 @@ interface UseSearchProps {
 
 const MAX_HITS_QUANTITY = 3
 
-export const getSearchTerms = (hits: SearchResponse['result']['hits']) => {
+export const getSearchTerms = (hits: SearchResponse['result']['records']) => {
   return pipe(hits, pluck('term'), map(stripHtmlTags), take(4), toArray)
 }
 

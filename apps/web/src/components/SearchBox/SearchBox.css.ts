@@ -1,4 +1,4 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { globalStyle, style } from '@vanilla-extract/css'
 import { vars } from '@vook-client/design-system'
 
 export const searchBoxPositioner = style({
@@ -13,9 +13,9 @@ export const searchBoxContainer = style({
 
   position: 'absolute',
   top: 0,
-  left: 0,
+  right: 0,
 
-  width: 580,
+  width: 800,
   height: 'fit-content',
 
   backgroundColor: vars.colors['common-white'],
@@ -118,18 +118,76 @@ export const searchIcon = style({
   },
 })
 
-export const historyListHeight = createVar()
+export const searchResultListContainer = style({
+  paddingRight: 6.5,
+})
 
-export const historyList = style({
+export const searchResultList = style({
   display: 'flex',
   flexDirection: 'column',
 
   width: '100%',
-  height: historyListHeight,
+  maxHeight: 350,
+
+  overflowY: 'scroll',
 
   padding: 0,
   margin: 0,
 
   listStyle: 'none',
   transition: 'height 0.3s',
+
+  '::-webkit-scrollbar': {
+    width: 4,
+    transform: 'translateX(4px)',
+  },
+
+  '::-webkit-scrollbar-thumb': {
+    backgroundColor: vars.colors['palette-gray-100'],
+    borderRadius: 2,
+  },
+})
+
+export const searchResultItem = style({
+  height: 44,
+  width: '100%',
+  padding: '12px 24px',
+})
+
+export const searchResultHit = style({
+  display: 'flex',
+  ':hover': {
+    cursor: 'pointer',
+    backgroundColor: vars.colors['component-alternative'],
+  },
+})
+
+export const searchResultTerm = style({
+  width: 160,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  wordBreak: 'break-all',
+})
+
+globalStyle(`${searchResultHit} .highlight`, {
+  backgroundColor: vars.colors.yellow,
+})
+
+export const searchResultSynonyms = style({
+  width: 160,
+})
+
+export const searchResultMeaning = style({
+  display: 'block',
+  width: 430,
+})
+
+export const searchResultMeaningText = style({
+  width: 430,
+
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  wordBreak: 'break-all',
 })

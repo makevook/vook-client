@@ -37,14 +37,13 @@ const Layout = async ({ children }: PropsWithChildren) => {
     redirect('/signup')
   }
 
-  const vocabularyID = 'default'
   const dehydrateState = dehydrate(queryClient)
 
   return (
     <div className={mainArea}>
       <HydrationBoundary state={dehydrateState}>
         <UserProvider user={user.result}>
-          <Header vocabularyID={vocabularyID} />
+          <Header />
           <Sidebar />
           {children}
         </UserProvider>

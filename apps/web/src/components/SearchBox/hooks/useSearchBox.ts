@@ -1,17 +1,17 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useLayoutEffect } from 'react'
 
 import { localStorageUtils } from '@/utils/localStorage'
 
-import { useSearchHistory } from './useSearchHistory'
+import { SearchHistoryItem, useSearchHistory } from './useSearchHistory'
 
 export const useSearchBox = () => {
   const [isFocused, setFocus] = useState(false)
   const [searchValue, setSearchValue] = useState<string>('')
-  const { searchHistory, setSearchHistory, vocabularyID } = useSearchHistory()
+  const { searchHistory, setSearchHistory } = useSearchHistory()
 
-  const localStorageKey = `${vocabularyID}_searchHistory`
+  const localStorageKey = 'searchHistory'
 
   const submitSearch = useCallback(
     (value: string) => {
@@ -19,7 +19,13 @@ export const useSearchBox = () => {
         return
       }
 
-      const newHistory = [value, ...searchHistory]
+      const newHistory = [
+        {
+          value,
+          date: new Date(),
+        },
+        ...searchHistory,
+      ]
 
       if (newHistory.length > 10) {
         newHistory.pop()
@@ -30,6 +36,29 @@ export const useSearchBox = () => {
     },
     [localStorageKey, searchHistory, setSearchHistory],
   )
+
+  useLayoutEffect(() => {
+    const histories =
+      localStorageUtils.getLocalStorage<SearchHistoryItem[]>(localStorageKey)
+
+    if (!histories) {
+      return
+    }
+
+    const cleanHistory = histories.filter((history) => {
+      if (
+        history.date &&
+        history.value &&
+        typeof history.date === 'string' &&
+        typeof history.value === 'string'
+      ) {
+        return true
+      }
+      return false
+    })
+
+    localStorageUtils.setLocalStorage(localStorageKey, cleanHistory)
+  }, [])
 
   const deleteHistory = useCallback(
     (index: number) => {
@@ -49,13 +78,13 @@ export const useSearchBox = () => {
   }, [])
 
   const offFocus = useCallback(() => {
-    setFocus(true)
+    setFocus(false)
   }, [])
 
   useEffect(() => {
     const blurHandler = (e: MouseEvent) => {
       const dom = e.target as HTMLElement
-      const searchBoxId = `#search-box-${vocabularyID}`
+      const searchBoxId = '#search-box'
       const isCurrentSearchBox = dom.closest(searchBoxId) !== null
       const isDeleteButton = dom.closest('.delete-button') !== null
 
@@ -66,7 +95,7 @@ export const useSearchBox = () => {
     return () => {
       document.removeEventListener('click', blurHandler)
     }
-  }, [offFocus, onFocus, vocabularyID])
+  }, [offFocus, onFocus])
 
   return {
     isFocused,

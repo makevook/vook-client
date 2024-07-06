@@ -50,7 +50,6 @@ const Vocabulary = () => {
       },
     },
   )
-
   if (response == null || isLoading) {
     return <LoadingComponent />
   }

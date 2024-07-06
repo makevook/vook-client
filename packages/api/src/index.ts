@@ -31,11 +31,7 @@ export type {
   SearchSort,
 } from './services/search/model'
 export { searchSort } from './services/search/model'
-export {
-  searchQueryKeysGenerator,
-  searchQueryOptions,
-  useSearchQuery,
-} from './services/search/queries'
+export { searchQueryOptions, useSearchQuery } from './services/search/queries'
 export { searchService } from './services/search/searchService'
 
 // Vocabulary
