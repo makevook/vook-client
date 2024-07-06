@@ -1,28 +1,14 @@
-import { useQuery } from '@tanstack/react-query'
+import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { CustomQueryOptions } from '../../shared/type'
 
-import { SearchDTO, SearchResponse, searchSort } from './model'
+import { SearchDTO, SearchResponse } from './model'
 import { searchService } from './searchService'
 
-export const searchQueryKeysGenerator = {
-  search: (dto: SearchDTO) => {
-    const keys: Array<string> = ['search', dto.query]
-
-    keys.push(dto.withFormat ? 'formmated' : 'raw')
-    const sort = dto.sort
-      ? [...dto.sort.sort((a, b) => a.localeCompare(b))]
-      : [searchSort.SynonymsAsc]
-    keys.push(...sort)
-
-    return keys
-  },
-}
-
 export const searchQueryOptions = {
-  search: (dto: SearchDTO) => ({
-    queryKey: searchQueryKeysGenerator.search(dto),
-    queryFn: () => searchService.search(dto),
+  search: (dto: SearchDTO, client: QueryClient) => ({
+    queryKey: ['search', dto],
+    queryFn: () => searchService.search(dto, client),
   }),
 }
 
@@ -30,8 +16,10 @@ export const useSearchQuery = (
   dto: SearchDTO,
   options: CustomQueryOptions<SearchResponse> = {},
 ) => {
+  const client = useQueryClient()
+
   return useQuery<SearchResponse>({
-    ...searchQueryOptions.search(dto),
+    ...searchQueryOptions.search(dto, client),
     ...options,
   })
 }

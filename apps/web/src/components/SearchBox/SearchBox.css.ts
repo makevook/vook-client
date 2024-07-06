@@ -1,4 +1,4 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createVar, globalStyle, style } from '@vanilla-extract/css'
 import { vars } from '@vook-client/design-system'
 
 export const searchBoxPositioner = style({
@@ -13,9 +13,9 @@ export const searchBoxContainer = style({
 
   position: 'absolute',
   top: 0,
-  left: 0,
+  right: 0,
 
-  width: 580,
+  width: 800,
   height: 'fit-content',
 
   backgroundColor: vars.colors['common-white'],
@@ -132,4 +132,48 @@ export const historyList = style({
 
   listStyle: 'none',
   transition: 'height 0.3s',
+})
+
+export const searchResultItem = style({
+  height: 44,
+  width: '100%',
+  padding: '12px 24px',
+})
+
+export const searchResultHit = style({
+  display: 'flex',
+  ':hover': {
+    cursor: 'pointer',
+    backgroundColor: vars.colors['component-alternative'],
+  },
+})
+
+export const searchResultTerm = style({
+  width: 160,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  wordBreak: 'break-all',
+})
+
+globalStyle(`${searchResultHit} .highlight`, {
+  backgroundColor: vars.colors.yellow,
+})
+
+export const searchResultSynonyms = style({
+  width: 160,
+})
+
+export const searchResultMeaning = style({
+  display: 'block',
+  width: 430,
+})
+
+export const searchResultMeaningText = style({
+  width: 430,
+
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  wordBreak: 'break-all',
 })

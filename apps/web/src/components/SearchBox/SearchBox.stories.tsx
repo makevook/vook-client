@@ -27,7 +27,7 @@ const meta: Meta<typeof SearchBox> = {
             height: '100vh',
           }}
         >
-          <SearchHistoryProvider vocabularyID="id">
+          <SearchHistoryProvider>
             <Story />
           </SearchHistoryProvider>
         </div>

@@ -9,9 +9,9 @@ import { useSearchHistory } from './useSearchHistory'
 export const useSearchBox = () => {
   const [isFocused, setFocus] = useState(false)
   const [searchValue, setSearchValue] = useState<string>('')
-  const { searchHistory, setSearchHistory, vocabularyID } = useSearchHistory()
+  const { searchHistory, setSearchHistory } = useSearchHistory()
 
-  const localStorageKey = `${vocabularyID}_searchHistory`
+  const localStorageKey = 'searchHistory'
 
   const submitSearch = useCallback(
     (value: string) => {
@@ -19,7 +19,13 @@ export const useSearchBox = () => {
         return
       }
 
-      const newHistory = [value, ...searchHistory]
+      const newHistory = [
+        {
+          value,
+          date: new Date(),
+        },
+        ...searchHistory,
+      ]
 
       if (newHistory.length > 10) {
         newHistory.pop()
@@ -49,13 +55,13 @@ export const useSearchBox = () => {
   }, [])
 
   const offFocus = useCallback(() => {
-    setFocus(true)
+    setFocus(false)
   }, [])
 
   useEffect(() => {
     const blurHandler = (e: MouseEvent) => {
       const dom = e.target as HTMLElement
-      const searchBoxId = `#search-box-${vocabularyID}`
+      const searchBoxId = '#search-box'
       const isCurrentSearchBox = dom.closest(searchBoxId) !== null
       const isDeleteButton = dom.closest('.delete-button') !== null
 
@@ -66,7 +72,7 @@ export const useSearchBox = () => {
     return () => {
       document.removeEventListener('click', blurHandler)
     }
-  }, [offFocus, onFocus, vocabularyID])
+  }, [offFocus, onFocus])
 
   return {
     isFocused,

@@ -10,7 +10,8 @@ import {
   useGetTermQuery,
 } from '@vook-client/api'
 import { useQueryClient } from '@tanstack/react-query'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
+import clsx from 'clsx'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
@@ -24,6 +25,7 @@ import {
 
 import {
   highlight,
+  highlightHit,
   termContainer,
   termListContainer,
   termListDataContainer,
@@ -57,6 +59,8 @@ export const Term = () => {
   const id = path.split('/').pop() ?? ''
 
   const { checkList, setModalData, handleCheckList } = useVocabularyStore()
+  const searchParams = useSearchParams()
+  const termUid = searchParams.get('term-uid')
 
   const { toggleModal, setModal } = useModal()
   const [sorts, setSorts] = useState<TermSort[]>([
@@ -84,6 +88,16 @@ export const Term = () => {
       })
     },
   })
+
+  useEffect(() => {
+    if (termUid) {
+      const offset = document.getElementById(termUid)?.offsetTop
+
+      if (offset) {
+        window.scrollTo({ top: offset, behavior: 'smooth' })
+      }
+    }
+  }, [searchParams, response, termUid])
 
   useEffect(() => {
     if (updated) {
@@ -230,7 +244,14 @@ export const Term = () => {
               const synonymsList = termData.synonyms.join('\n')
 
               return (
-                <div key={index} className={termListDataContainer}>
+                <div
+                  key={index}
+                  id={termData.termUid}
+                  className={clsx({
+                    [termListDataContainer]: true,
+                    [highlightHit]: termData.termUid === termUid,
+                  })}
+                >
                   <List
                     kind="icon"
                     onClick={() => {

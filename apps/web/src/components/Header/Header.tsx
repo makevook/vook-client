@@ -5,11 +5,7 @@ import { SearchBox, SearchHistoryProvider } from '../SearchBox'
 
 import { header } from './Header.css'
 
-interface HeaderProps {
-  vocabularyID: string
-}
-
-export const Header = ({ vocabularyID }: HeaderProps) => {
+export const Header = () => {
   return (
     <header className={header}>
       <div className="logo">
@@ -17,7 +13,7 @@ export const Header = ({ vocabularyID }: HeaderProps) => {
           <TypoLogo size="big" />
         </Link>
       </div>
-      <SearchHistoryProvider vocabularyID={vocabularyID}>
+      <SearchHistoryProvider>
         <SearchBox />
       </SearchHistoryProvider>
     </header>

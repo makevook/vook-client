@@ -18,6 +18,14 @@ export const searchHistory = style({
   },
 })
 
+export const historyContent = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
+  width: '100%',
+})
+
 export const historyIcon = style({
   position: 'absolute',
   left: 0,

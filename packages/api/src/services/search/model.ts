@@ -13,24 +13,27 @@ export const searchSort = {
 export type SearchSort = (typeof searchSort)[keyof typeof searchSort]
 
 export interface SearchDTO {
+  vocabularyUids: string[]
   query: string
   withFormat?: boolean
   highlightPreTag?: string
   highlightPostTag?: string
-  sort?: SearchSort[]
 }
 
 export interface SearchHit {
+  uid: string
   term: string
   synonyms: string
   meaning: string
 }
 
 export interface SearchResponse {
-  code: number
-  message: string
+  code: string
   result: {
     query: string
-    hits: Array<SearchHit>
+    records: {
+      vocabularyUid: string
+      hits: SearchHit[]
+    }[]
   }
 }

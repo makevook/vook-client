@@ -10,7 +10,6 @@ export const termContainer = style({
 export const termListContainer = style({
   display: 'flex',
   width: '100%',
-  gap: 20,
   flexDirection: 'column',
 })
 
@@ -33,6 +32,10 @@ export const termTitleContainer = style({
   ':hover': {
     cursor: 'pointer',
   },
+})
+
+export const highlightHit = style({
+  backgroundColor: vars.colors['component-alternative'],
 })
 
 export const highlight = style({

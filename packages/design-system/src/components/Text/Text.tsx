@@ -13,7 +13,7 @@ export type TextProps = {
   TextVariants
 
 export const Text = ({
-  as = 'p',
+  as = 'span',
   fontWeight = 'regular',
   type = 'title-1',
   color = 'semantic-label-normal',

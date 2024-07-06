@@ -10,46 +10,36 @@ import {
 
 import { localStorageUtils } from '@/utils/localStorage'
 
+export interface SearchHistoryItem {
+  value: string
+  date: Date
+}
+
 interface SearchHistoryContextType {
-  vocabularyID: string
-  searchHistory: string[]
-  setSearchHistory: (histories: string[]) => void
+  searchHistory: SearchHistoryItem[]
+  setSearchHistory: (histories: SearchHistoryItem[]) => void
 }
 
 const SearchHistoryContext = createContext<
   SearchHistoryContextType | undefined
 >(undefined)
 
-interface SearchHistoryProviderProps extends PropsWithChildren {
-  vocabularyID: string
-}
-
-export const SearchHistoryProvider = ({
-  vocabularyID,
-  children,
-}: SearchHistoryProviderProps) => {
-  const [searchHistory, _setSearchHistory] = useState<string[]>(() => {
-    const history = localStorageUtils.getLocalStorage<string[]>(
-      `${vocabularyID}_searchHistory`,
-    )
-    return history || []
-  })
-
-  const setSearchHistory = useCallback(
-    (histories: string[]) => {
-      _setSearchHistory(histories)
-      localStorageUtils.setLocalStorage(
-        `${vocabularyID}_searchHistory`,
-        histories,
-      )
+export const SearchHistoryProvider = ({ children }: PropsWithChildren) => {
+  const [searchHistory, _setSearchHistory] = useState<SearchHistoryItem[]>(
+    () => {
+      const history =
+        localStorageUtils.getLocalStorage<SearchHistoryItem[]>('searchHistory')
+      return history || []
     },
-    [vocabularyID],
   )
 
+  const setSearchHistory = useCallback((histories: SearchHistoryItem[]) => {
+    _setSearchHistory(histories)
+    localStorageUtils.setLocalStorage('searchHistory', histories)
+  }, [])
+
   return (
-    <SearchHistoryContext.Provider
-      value={{ searchHistory, setSearchHistory, vocabularyID }}
-    >
+    <SearchHistoryContext.Provider value={{ searchHistory, setSearchHistory }}>
       {children}
     </SearchHistoryContext.Provider>
   )
