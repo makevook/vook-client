@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useLayoutEffect } from 'react'
 
 import { localStorageUtils } from '@/utils/localStorage'
 
-import { useSearchHistory } from './useSearchHistory'
+import { SearchHistoryItem, useSearchHistory } from './useSearchHistory'
 
 export const useSearchBox = () => {
   const [isFocused, setFocus] = useState(false)
@@ -36,6 +36,29 @@ export const useSearchBox = () => {
     },
     [localStorageKey, searchHistory, setSearchHistory],
   )
+
+  useLayoutEffect(() => {
+    const histories =
+      localStorageUtils.getLocalStorage<SearchHistoryItem[]>(localStorageKey)
+
+    if (!histories) {
+      return
+    }
+
+    const cleanHistory = histories.filter((history) => {
+      if (
+        history.date &&
+        history.value &&
+        typeof history.date === 'string' &&
+        typeof history.value === 'string'
+      ) {
+        return true
+      }
+      return false
+    })
+
+    localStorageUtils.setLocalStorage(localStorageKey, cleanHistory)
+  }, [])
 
   const deleteHistory = useCallback(
     (index: number) => {
