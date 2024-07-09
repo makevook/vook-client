@@ -1,17 +1,17 @@
 'use client'
 
-import { Button, Text } from '@vook-client/design-system'
+import { Button } from '@vook-client/design-system'
 import { useForm } from 'react-hook-form'
 import { useAddTermMutation, useEditTermMutation } from '@vook-client/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { usePathname } from 'next/navigation'
+import { useMemo } from 'react'
 
 import { useModal } from '@/hooks/useModal'
 import { useToast } from '@/hooks/useToast'
 import { useVocabularyStore } from '@/store/term'
 
 import { Modal } from '../Modal/Modal'
-import { modalLowerTextGroup } from '../Modal/Modal.css'
 
 export interface TermFormValues {
   name: string
@@ -28,7 +28,8 @@ export const TermCreateModal = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState,
+    // formState: { errors },
   } = useForm<TermFormValues>()
   const queryClient = useQueryClient()
   const { addToast } = useToast()
@@ -59,6 +60,14 @@ export const TermCreateModal = () => {
     },
   )
 
+  const canSubmit = useMemo(
+    () =>
+      !formState.isValid ||
+      addTermMutation.isPending ||
+      addTermMutation.isSuccess,
+    [formState.isValid, addTermMutation.isPending, addTermMutation.isSuccess],
+  )
+
   const onSubmit = handleSubmit(() => {
     addTermMutation.mutate()
   })
@@ -75,11 +84,11 @@ export const TermCreateModal = () => {
         >
           용어
         </Modal.InputForm>
-        <div className={modalLowerTextGroup}>
+        {/* <div className={modalLowerTextGroup}>
           <Text type="label" color="status-error">
             {errors.name && '용어를 입력해 주세요.'}
           </Text>
-        </div>
+        </div> */}
 
         <Modal.Textarea
           register={register}
@@ -89,7 +98,7 @@ export const TermCreateModal = () => {
           동의어(선택)
         </Modal.Textarea>
         <Modal.LowerTextGroup
-          leftText=""
+          // leftText=""
           RightText={watch('synonyms') ? watch('synonyms').length : 0}
         />
 
@@ -102,7 +111,7 @@ export const TermCreateModal = () => {
           뜻
         </Modal.Textarea>
         <Modal.LowerTextGroup
-          leftText={errors.meaning && '뜻을 입력해 주세요.'}
+          // leftText={errors.meaning && '뜻을 입력해 주세요.'}
           RightText={watch('meaning') ? watch('meaning').length : 0}
         />
 
@@ -116,12 +125,7 @@ export const TermCreateModal = () => {
           >
             취소
           </Button>
-          <Button
-            size="middle"
-            fit="fill"
-            type="submit"
-            disabled={addTermMutation.isPending}
-          >
+          <Button size="middle" fit="fill" type="submit" disabled={canSubmit}>
             생성
           </Button>
         </Modal.ButtonGroup>
@@ -137,12 +141,7 @@ export const TermEditModal = () => {
   const { toggleModal } = useModal()
   const { modalData } = useVocabularyStore()
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<TermFormValues>({
+  const { register, handleSubmit, watch, formState } = useForm<TermFormValues>({
     defaultValues: {
       name: modalData.name,
       meaning: modalData.meaning,
@@ -178,6 +177,14 @@ export const TermEditModal = () => {
     },
   )
 
+  const canSubmit = useMemo(
+    () =>
+      !formState.isValid ||
+      editTermMutation.isPending ||
+      editTermMutation.isSuccess,
+    [formState.isValid, editTermMutation.isPending, editTermMutation.isSuccess],
+  )
+
   const onSubmit = handleSubmit(() => {
     editTermMutation.mutate()
   })
@@ -194,11 +201,11 @@ export const TermEditModal = () => {
         >
           용어
         </Modal.InputForm>
-        <div className={modalLowerTextGroup}>
+        {/* <div className={modalLowerTextGroup}>
           <Text type="label" color="status-error">
             {errors.name && '용어를 입력해 주세요.'}
           </Text>
-        </div>
+        </div> */}
 
         <Modal.Textarea
           register={register}
@@ -208,7 +215,7 @@ export const TermEditModal = () => {
           동의어(선택)
         </Modal.Textarea>
         <Modal.LowerTextGroup
-          leftText=""
+          // leftText=""
           RightText={watch('synonyms') ? watch('synonyms').length : 0}
         />
 
@@ -221,7 +228,7 @@ export const TermEditModal = () => {
           뜻
         </Modal.Textarea>
         <Modal.LowerTextGroup
-          leftText={errors.meaning && '뜻을 입력해 주세요.'}
+          // leftText={errors.meaning && '뜻을 입력해 주세요.'}
           RightText={watch('meaning') ? watch('meaning').length : 0}
         />
 
@@ -235,12 +242,7 @@ export const TermEditModal = () => {
           >
             취소
           </Button>
-          <Button
-            size="middle"
-            fit="fill"
-            type="submit"
-            disabled={editTermMutation.isPending}
-          >
+          <Button size="middle" fit="fill" type="submit" disabled={canSubmit}>
             수정
           </Button>
         </Modal.ButtonGroup>
