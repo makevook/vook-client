@@ -3,7 +3,9 @@ import styleText from 'data-text:@vook-client/design-system/style.css'
 import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useEffect } from 'react'
 
+import { getStorage, setStorage } from './utils/storage'
 import { ToggleButton } from './components/ToggleButton'
 import { SearchWindow } from './components/SearchWindow'
 import { useDomRect } from './hooks/useDomRect'
@@ -34,6 +36,40 @@ const queryClient = new QueryClient({
 function VookContentScript() {
   useDomRect()
   const { isSelected, isOpenSearchWindow, position } = useToggle()
+
+  useEffect(() => {
+    const setToken = async () => {
+      const access = await getStorage<string>('vook-access')
+      const refresh = await getStorage<string>('vook-refresh')
+
+      queryClient.setQueryData(['access'], access)
+      queryClient.setQueryData(['refresh'], refresh)
+    }
+
+    setToken()
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener(
+      'message',
+      async (event: {
+        data: {
+          from: string
+          access: string
+          refresh: string
+        }
+      }) => {
+        if (event.data.from === 'vook-web') {
+          await setStorage('vook-access', event.data.access)
+          await setStorage('vook-refresh', event.data.refresh)
+          queryClient.setQueryData(['access'], event.data.access)
+          queryClient.setQueryData(['refresh'], event.data.refresh)
+        }
+      },
+    )
+  }, [])
+
+  useEffect(() => {}, [])
 
   return (
     <CacheProvider value={styleCache}>

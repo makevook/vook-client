@@ -1,11 +1,11 @@
-import { isEmpty } from '@fxts/core'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useSelectedText, useToggle } from '../../store/toggle'
-import { TermList } from '../TermList'
-import { useSearch } from '../../hooks/useSearch'
 
-import * as S from './SearchWindow.styles'
 import { SearchWindowHeader } from './SearchWindowHeader'
+import * as S from './SearchWindow.styles'
+
+import { useSearch } from 'hooks/useSearch'
 
 const LinkExternalIcon = () => (
   <svg
@@ -26,11 +26,20 @@ const LinkExternalIcon = () => (
 )
 
 export const SearchWindow = () => {
-  const { position } = useToggle()
   const { selectedText } = useSelectedText()
+  const { position } = useToggle()
+  const client = useQueryClient()
 
-  const { query, hitsTerms, headerText, tailText } = useSearch({
+  const { totalCount, query, hitsTerms, headerText, tailText } = useSearch({
     selectedText,
+  })
+
+  console.log({
+    totalCount,
+    query,
+    hitsTerms,
+    headerText,
+    tailText,
   })
 
   if (query.isLoading) {
@@ -52,7 +61,7 @@ export const SearchWindow = () => {
   return (
     <S.SearchWindowBox className="vook-search-window" position={position}>
       <SearchWindowHeader headerText={headerText} tailText={tailText} />
-      <TermList hits={isEmpty(hitsTerms) ? [] : query.data!} />
+      {/* <TermList hits={isEmpty(hitsTerms) ? [] : query.data} /> */}
       <S.SearchWindowLink>
         <a href="naver.com" target="_blank">
           Vook 바로가기

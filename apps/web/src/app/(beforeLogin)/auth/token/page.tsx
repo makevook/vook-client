@@ -26,6 +26,14 @@ const AuthCallbackPage = ({
     Cookies.set('refresh', refresh, {
       secure: true,
     })
+    window.postMessage(
+      {
+        from: 'vook-web',
+        access,
+        refresh,
+      },
+      '*',
+    )
     queryClient.setQueryData(['access'], access)
     queryClient.setQueryData(['refresh'], refresh)
 

@@ -133,6 +133,17 @@ export class Fetcher {
         throw new Error('토큰 갱신에 실패하였습니다.')
       }
 
+      if (window) {
+        window.postMessage(
+          {
+            from: 'vook-web',
+            access: newAccessToken,
+            refresh: newRefreshToken,
+          },
+          '*',
+        )
+      }
+
       Cookies.set('access', newAccessToken)
       Cookies.set('refresh', newRefreshToken)
 
