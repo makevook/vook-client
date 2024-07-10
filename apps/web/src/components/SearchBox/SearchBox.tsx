@@ -74,22 +74,6 @@ export const SearchBox = () => {
     },
   )
 
-  const onEnterHandler = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      // NOTE: 한글 입력 시 발생하는 이벤트를 무시합니다.
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      if (e.isComposing || e.keyCode === 229) {
-        return
-      }
-      if (e.key === 'Enter') {
-        searchQuery.refetch()
-        submitSearch(searchValue)
-      }
-    },
-    [searchQuery, searchValue, submitSearch],
-  )
-
   const onSearchChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setSearchValue(e.target.value)
@@ -148,17 +132,26 @@ export const SearchBox = () => {
           <div className={searchLogo}>
             <SymbolLogo size={24} />
           </div>
-          <input
-            onFocus={onFocus}
-            onChange={onSearchChangeHandler}
-            onKeyDown={onEnterHandler}
-            value={searchValue}
-            placeholder="어떤 용어가 궁금하신가요?"
-            className={searchBox}
-          />
-          <button className={searchIcon} onClick={onSubmitHandler}>
-            <Icon name="search-big" />
-          </button>
+          <form
+            style={{
+              height: '100%',
+            }}
+            onSubmit={(e) => {
+              e.preventDefault()
+              onSubmitHandler()
+            }}
+          >
+            <input
+              onFocus={onFocus}
+              onChange={onSearchChangeHandler}
+              value={searchValue}
+              placeholder="어떤 용어가 궁금하신가요?"
+              className={searchBox}
+            />
+            <button className={searchIcon} onClick={onSubmitHandler}>
+              <Icon name="search-big" />
+            </button>
+          </form>
           {isFocused && (
             <button className={resetButton} onClick={onClearHandler}>
               <Icon name="close-circle-big" />

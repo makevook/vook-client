@@ -2,17 +2,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Button, SymbolLogo, Text, TypoLogo } from '@vook-client/design-system'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { userOptions, vocabularyOptions } from '@vook-client/api'
 
-import { PopupBoxContainer } from './PopupBox.styles'
+import { getStorage, removeStorage, setStorage } from '../../utils/storage'
 
-import { getStorage, removeStorage, setStorage } from 'utils/storage'
+import { PopupBoxContainer } from './PopupBox.styles'
 
 export const PopupBox = () => {
   const [tokenExist, setTokenExist] = useState<boolean>(false)
   const [login, setLogin] = useState<boolean>(false)
-  const [loginPopup, setLoginPopup] = useState<Window | null>(null)
   const client = useQueryClient()
 
   const userInfo = useQuery({
@@ -49,35 +48,12 @@ export const PopupBox = () => {
     }
   }, [userInfo.data, userInfo.isSuccess, vocabularyQuery.data])
 
-  useEffect(() => {
-    if (!loginPopup) {
-      return
-    }
-
-    window.addEventListener(
-      'message',
-      (event: {
-        data: {
-          from: string
-          access: string
-          refresh: string
-        }
-      }) => {
-        if (event.data.from === 'vook-web') {
-          loginPopup.close()
-        }
-      },
-      false,
-    )
-  }, [loginPopup])
-
   const onClickLogin = () => {
-    const loginPopup = window.open(
+    window.open(
       `${process.env.PLASMO_PUBLIC_WEB_DOMAIN}/login`,
       'popup',
       'width=600,height=600',
     )
-    setLoginPopup(loginPopup)
   }
 
   return (
@@ -106,7 +82,9 @@ export const PopupBox = () => {
           </Text>
         </>
       )}
-      {login && <div>로그인 완료 {userInfo.data?.result.nickname}</div>}
+      {login && userInfo.isSuccess && (
+        <div>로그인 완료 {userInfo.data.result.nickname}</div>
+      )}
     </PopupBoxContainer>
   )
 }

@@ -66,7 +66,7 @@ export const searchBox = style({
 export const resetButton = style({
   position: 'absolute',
   top: 0,
-  right: 35,
+  right: 40,
 
   display: 'flex',
   justifyContent: 'center',
