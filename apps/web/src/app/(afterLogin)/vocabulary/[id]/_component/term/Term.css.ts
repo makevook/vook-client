@@ -23,6 +23,7 @@ export const textContainer = style({
   display: 'flex',
   alignItems: 'center',
   gap: 5,
+  marginBottom: 20,
 })
 
 export const termTitleContainer = style({
