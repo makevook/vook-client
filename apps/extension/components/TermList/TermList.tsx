@@ -23,11 +23,11 @@ const PlusIcon = () => (
 )
 
 interface TermListProps {
-  hits: SearchResponse['result']['hits']
+  records: SearchResponse['result']['records']
 }
 
-export const TermList = ({ hits }: TermListProps) => {
-  if (isEmpty(hits)) {
+export const TermList = ({ records }: TermListProps) => {
+  if (isEmpty(records)) {
     return (
       <S.BlankTermList>
         <p>등록된 용어가 없습니다.</p>
@@ -45,7 +45,7 @@ export const TermList = ({ hits }: TermListProps) => {
   return (
     <S.TermListBox>
       <TermItem />
-      {hits.map((hit) => {
+      {records[0].hits.map((hit) => {
         return <TermItem key={hit.term} term={hit} />
       })}
     </S.TermListBox>

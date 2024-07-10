@@ -7,7 +7,7 @@ interface TermHeaderItemProps {
 }
 
 interface TermItemProps {
-  term: SearchResponse['result']['hits'][0]
+  term: SearchResponse['result']['records'][0]['hits'][0]
 }
 
 export const TermItem = ({ term }: TermItemProps | TermHeaderItemProps) => {

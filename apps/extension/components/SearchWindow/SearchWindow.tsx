@@ -1,11 +1,10 @@
-import { useQueryClient } from '@tanstack/react-query'
-
 import { useSelectedText, useToggle } from '../../store/toggle'
 
 import { SearchWindowHeader } from './SearchWindowHeader'
 import * as S from './SearchWindow.styles'
 
 import { useSearch } from 'hooks/useSearch'
+import { TermList } from 'components/TermList'
 
 const LinkExternalIcon = () => (
   <svg
@@ -28,19 +27,18 @@ const LinkExternalIcon = () => (
 export const SearchWindow = () => {
   const { selectedText } = useSelectedText()
   const { position } = useToggle()
-  const client = useQueryClient()
 
-  const { totalCount, query, hitsTerms, headerText, tailText } = useSearch({
+  const { query, headerText, tailText } = useSearch({
     selectedText,
   })
 
-  console.log({
-    totalCount,
-    query,
-    hitsTerms,
-    headerText,
-    tailText,
-  })
+  if (selectedText.length > 30) {
+    return (
+      <S.SearchWindowBox className="vook-search-window" position={position}>
+        <SearchWindowHeader tailText="용어 검색은 30자 미만으로만 가능합니다." />
+      </S.SearchWindowBox>
+    )
+  }
 
   if (query.isLoading) {
     return (
@@ -61,7 +59,7 @@ export const SearchWindow = () => {
   return (
     <S.SearchWindowBox className="vook-search-window" position={position}>
       <SearchWindowHeader headerText={headerText} tailText={tailText} />
-      {/* <TermList hits={isEmpty(hitsTerms) ? [] : query.data} /> */}
+      <TermList records={query.data?.result.records || []} />
       <S.SearchWindowLink>
         <a href="naver.com" target="_blank">
           Vook 바로가기

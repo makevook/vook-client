@@ -47,9 +47,11 @@ const checkUserStatusMiddleware =
       if (res.ok) {
         newAccessToken = res.headers.get(ACCESS_TOKEN_HEADER_KEY)
         newRefreshToken = res.headers.get(REFRESH_TOKEN_HEADER_KEY)
+
         finalResponse.cookies.set('access', newAccessToken!)
         finalResponse.cookies.set('refresh', newRefreshToken!)
       } else {
+        console.log('둘다 만료임 미들웨어')
         return false
       }
 

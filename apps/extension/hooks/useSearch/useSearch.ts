@@ -62,14 +62,15 @@ export const useSearch = ({ selectedText }: UseSearchProps) => {
     ...searchQueryOptions.search(
       {
         query: selectedText,
-        highlightPostTag: '<strong>',
-        highlightPreTag: '</strong>',
+        highlightPostTag: '</strong>',
+        highlightPreTag: '<strong>',
+        withFormat: true,
         vocabularyUids:
           vocabularyQuery.data?.result.map((item) => item.uid) || [],
       },
       client,
     ),
-    enabled: vocabularyQuery.isSuccess,
+    enabled: vocabularyQuery.isSuccess && selectedText.length <= 30,
   })
 
   const totalCount = countTotalHits(query.data?.result.records || [])

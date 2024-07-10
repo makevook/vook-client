@@ -68,8 +68,8 @@ export class Fetcher {
     const access = client.getQueryData<string>(['access'])
     const refresh = client.getQueryData<string>(['refresh'])
 
-    if (!access && !refresh && location) {
-      location.href = '/login'
+    if (!access && !refresh && global.window !== undefined) {
+      global.window.location.href = '/login'
     }
 
     if (!access && refresh) {
@@ -133,27 +133,27 @@ export class Fetcher {
         throw new Error('토큰 갱신에 실패하였습니다.')
       }
 
-      if (window) {
-        window.postMessage(
-          {
-            from: 'vook-web',
-            access: newAccessToken,
-            refresh: newRefreshToken,
-          },
-          '*',
-        )
-      }
-
       Cookies.set('access', newAccessToken)
       Cookies.set('refresh', newRefreshToken)
-
       client.setQueryData(['access'], newAccessToken)
       client.setQueryData(['refresh'], newRefreshToken)
-    } catch {
-      if (global.location) {
-        global.location.href = '/login'
+
+      if (global.window !== undefined) {
+        if (global.window.postMessage) {
+          global.window.postMessage(
+            {
+              from: 'vook-web',
+              access: newAccessToken,
+              refresh: newRefreshToken,
+            },
+            '*',
+          )
+        }
       }
-      throw new Error('토큰 갱신에 실패하였습니다.')
+    } catch {
+      if (global.window !== undefined) {
+        global.window.location.href = '/login'
+      }
     }
   }
 

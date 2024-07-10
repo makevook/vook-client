@@ -50,6 +50,16 @@ function VookContentScript() {
   }, [])
 
   useEffect(() => {
+    const postSuccessMessage = () => {
+      window.postMessage(
+        {
+          from: 'vook-extension',
+          content: 'success',
+        },
+        '*',
+      )
+    }
+
     window.addEventListener(
       'message',
       async (event: {
@@ -59,17 +69,20 @@ function VookContentScript() {
           refresh: string
         }
       }) => {
-        if (event.data.from === 'vook-web') {
+        if (
+          event.data.from === 'vook-web' &&
+          event.data.access &&
+          event.data.refresh
+        ) {
           await setStorage('vook-access', event.data.access)
           await setStorage('vook-refresh', event.data.refresh)
           queryClient.setQueryData(['access'], event.data.access)
           queryClient.setQueryData(['refresh'], event.data.refresh)
+          postSuccessMessage()
         }
       },
     )
   }, [])
-
-  useEffect(() => {}, [])
 
   return (
     <CacheProvider value={styleCache}>

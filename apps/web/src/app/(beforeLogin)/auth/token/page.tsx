@@ -43,6 +43,22 @@ const AuthCallbackPage = ({
 
       if (isRegistered) {
         router.push('/')
+
+        const sendToken = () => {
+          window.postMessage(
+            {
+              from: 'vook-web',
+              access,
+              refresh,
+            },
+            '*',
+          )
+        }
+
+        if (window.opener) {
+          sendToken()
+        }
+
         return
       }
       router.push('/signup')
@@ -50,6 +66,26 @@ const AuthCallbackPage = ({
 
     checkUserRegistered()
   }, [access, queryClient, refresh, router])
+
+  useEffect(() => {
+    window.addEventListener(
+      'message',
+      (event: {
+        data: {
+          from: string
+          content: string
+        }
+      }) => {
+        if (
+          event.data.from === 'vook-extension' &&
+          event.data.content === 'success' &&
+          window.opener
+        ) {
+          window.close()
+        }
+      },
+    )
+  }, [])
 
   return null
 }

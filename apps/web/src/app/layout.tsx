@@ -35,6 +35,12 @@ const RootLayout = ({
 
   return (
     <html lang="kr">
+      <head>
+        <meta
+          httpEquiv="Cross-Origin-Opener-Policy"
+          content="same-origin-allow-popups"
+        />
+      </head>
       <body className={pretendard.className}>
         {process.env.NEXT_PUBLIC_MSW === 'enable' ? (
           <MSWComponent>{inner}</MSWComponent>
