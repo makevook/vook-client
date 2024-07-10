@@ -51,7 +51,6 @@ const checkUserStatusMiddleware =
         finalResponse.cookies.set('access', newAccessToken!)
         finalResponse.cookies.set('refresh', newRefreshToken!)
       } else {
-        console.log('둘다 만료임 미들웨어')
         return false
       }
 

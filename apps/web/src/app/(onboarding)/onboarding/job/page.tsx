@@ -10,8 +10,6 @@ import React from 'react'
 import { OnboardingJob, useOnboardingMutation } from '@vook-client/api'
 import { useRouter } from 'next/navigation'
 
-import { Link } from '@/components/Link'
-
 import { SelectBoxGroup } from '../_components/SelectBoxGroup'
 import { useOnBoarding } from '../_context/useOnboarding'
 import { OnboardingHeader } from '../_components/OnboardingHeader'
@@ -117,27 +115,23 @@ const OnboardingJobPage = () => {
         </SelectBoxGroup>
       </div>
       <div className={buttonGroup}>
-        <Link href="/">
-          <Text type="body-2" color="label-alternative">
-            건너뛰기
-          </Text>
-        </Link>
-        <Link href="/onboarding/job">
-          <Button
-            onClick={onSubmitFunnel}
-            size="middle"
-            disabled={
-              selectedJob === null || mutation.isPending || mutation.isSuccess
-            }
-            suffixIcon={
-              mutation.isPending || mutation.isSuccess
-                ? 'spinner-medium'
-                : undefined
-            }
-          >
-            시작하기
-          </Button>
-        </Link>
+        <Text onClick={onSubmitFunnel} type="body-2" color="label-alternative">
+          건너뛰기
+        </Text>
+        <Button
+          onClick={onSubmitFunnel}
+          size="middle"
+          disabled={
+            selectedJob === null || mutation.isPending || mutation.isSuccess
+          }
+          suffixIcon={
+            mutation.isPending || mutation.isSuccess
+              ? 'spinner-medium'
+              : undefined
+          }
+        >
+          시작하기
+        </Button>
       </div>
     </div>
   )
