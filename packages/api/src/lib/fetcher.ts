@@ -14,6 +14,8 @@ const API_URL =
 export class Fetcher {
   private baseUrl: string
 
+  private unAuthorizedHandler: () => void = () => {}
+
   private errorHandler: (error: Error) => void = () => {}
 
   public constructor(baseUrl: string) {
@@ -22,6 +24,10 @@ export class Fetcher {
 
   public setErrorHandler(handler: (error: Error) => void) {
     this.errorHandler = handler
+  }
+
+  public setUnAuthorizedHandler(handler: () => void) {
+    this.unAuthorizedHandler = handler
   }
 
   private async request<ResponseType>(
@@ -69,7 +75,7 @@ export class Fetcher {
     const refresh = client.getQueryData<string>(['refresh'])
 
     if (!access && !refresh && global.window !== undefined) {
-      global.window.location.href = '/login'
+      this.unAuthorizedHandler()
     }
 
     if (!access && refresh) {
@@ -151,9 +157,7 @@ export class Fetcher {
         }
       }
     } catch {
-      if (global.window !== undefined) {
-        global.window.location.href = '/login'
-      }
+      this.unAuthorizedHandler()
     }
   }
 

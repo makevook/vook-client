@@ -10,6 +10,9 @@ export const InitialSetting = () => {
 
   useLayoutEffect(() => {
     // eslint-disable-next-line promise/prefer-await-to-callbacks
+    baseFetcher.setUnAuthorizedHandler(() => {
+      location.href = '/login'
+    })
     baseFetcher.setErrorHandler(() => {
       // addToast({
       //   message: error.message,
