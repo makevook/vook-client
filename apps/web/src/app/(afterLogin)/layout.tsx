@@ -9,6 +9,7 @@ import { Header } from '@/components/Header'
 import { UserProvider } from '@/store/user'
 import { getQueryClient } from '@/utils/react-query'
 import { SilentRefresh } from '@/components/SilentRefresh/SilentRefresh'
+import { SearchBox, SearchHistoryProvider } from '@/components/SearchBox'
 
 import { mainArea } from './layout.css'
 
@@ -43,7 +44,11 @@ const Layout = async ({ children }: PropsWithChildren) => {
     <div className={mainArea}>
       <HydrationBoundary state={dehydrateState}>
         <UserProvider user={user.result}>
-          <Header />
+          <Header>
+            <SearchHistoryProvider>
+              <SearchBox />
+            </SearchHistoryProvider>
+          </Header>
           <Sidebar />
           {children}
         </UserProvider>

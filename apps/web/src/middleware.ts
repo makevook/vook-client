@@ -111,7 +111,12 @@ const checkUserStatusMiddleware =
     return finalResponse
   }
 
-const onlyRegisteredMatch = ['/onboarding', '/user/edit']
+const onlyRegisteredMatch = [
+  '/onboarding',
+  '/user/edit',
+  '/workspace',
+  '/vocabulary/',
+]
 
 const onlyRegisteredMiddleware = checkUserStatusMiddleware([
   UserStatus.Registered,

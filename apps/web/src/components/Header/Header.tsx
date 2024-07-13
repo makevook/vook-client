@@ -1,11 +1,11 @@
 import { TypoLogo } from '@vook-client/design-system'
+import { PropsWithChildren } from 'react'
 
 import { Link } from '../Link'
-import { SearchBox, SearchHistoryProvider } from '../SearchBox'
 
 import { header } from './Header.css'
 
-export const Header = () => {
+export const Header = ({ children }: PropsWithChildren) => {
   return (
     <header className={header}>
       <div className="logo">
@@ -13,9 +13,7 @@ export const Header = () => {
           <TypoLogo size="big" />
         </Link>
       </div>
-      <SearchHistoryProvider>
-        <SearchBox />
-      </SearchHistoryProvider>
+      {children}
     </header>
   )
 }
