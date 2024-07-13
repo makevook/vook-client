@@ -1,1 +1,1 @@
-export { IconBox } from './component'
+export { IconBox } from './IconBox'
