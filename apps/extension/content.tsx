@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { baseFetcher } from '@vook-client/api'
 
-import { getStorage, setStorage } from './utils/storage'
+import { getStorage, removeStorage, setStorage } from './utils/storage'
 import { ToggleButton } from './components/ToggleButton'
 import { SearchWindow } from './components/SearchWindow'
 import { useDomRect } from './hooks/useDomRect'
@@ -39,8 +39,15 @@ function VookContentScript() {
   const { isSelected, isOpenSearchWindow, position } = useToggle()
 
   useEffect(() => {
-    baseFetcher.setUnAuthorizedHandler(() => {
-      window.open(process.env.PLASMO_PUBLIC_WEB_DOMAIN + '/login', '_blank')
+    baseFetcher.setUnAuthorizedHandler(async () => {
+      queryClient.removeQueries({
+        queryKey: ['access'],
+      })
+      queryClient.removeQueries({
+        queryKey: ['refresh'],
+      })
+      await removeStorage('vook-access')
+      await removeStorage('vook-refresh')
     })
   }, [])
 
@@ -83,6 +90,7 @@ function VookContentScript() {
         ) {
           await setStorage('vook-access', event.data.access)
           await setStorage('vook-refresh', event.data.refresh)
+          await setStorage('vook-login', true)
           queryClient.setQueryData(['access'], event.data.access)
           queryClient.setQueryData(['refresh'], event.data.refresh)
           postSuccessMessage()
