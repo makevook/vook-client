@@ -1,6 +1,18 @@
-import { style, createVar } from '@vanilla-extract/css'
+import { style, createVar, keyframes } from '@vanilla-extract/css'
 
 export const accentVar = createVar()
+
+const bounce = keyframes({
+  '0%': {
+    transform: 'translateY(0)',
+  },
+  '50%': {
+    transform: 'translateY(-80px)',
+  },
+  '100%': {
+    transform: 'translateY(0)',
+  },
+})
 
 export const IconBoxContainer = style({
   width: 120,
@@ -11,4 +23,5 @@ export const IconBoxContainer = style({
   justifyContent: 'center',
   alignItems: 'center',
   backgroundColor: 'inherit',
+  animation: `${bounce} 3s infinite`,
 })

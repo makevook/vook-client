@@ -6,6 +6,7 @@ export const heroBannerSection = style({
   alignItems: 'center',
   justifyContent: 'center',
   marginBlock: 180,
+  marginBottom: 300,
 })
 
 export const heroTitle = style({

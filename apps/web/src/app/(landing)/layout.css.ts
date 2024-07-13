@@ -7,4 +7,5 @@ export const landingLayout = style({
   flexDirection: 'column',
   alignItems: 'center',
   marginTop: HEADER_HEIGHT,
+  overflowX: 'hidden',
 })
