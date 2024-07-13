@@ -12,6 +12,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 import { usePathname, useSearchParams } from 'next/navigation'
 import clsx from 'clsx'
+import { TermSortValues } from 'node_modules/@vook-client/api/src/services/term/model'
 
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
@@ -51,7 +52,7 @@ const TextContainer = ({ length }: { length?: number }) => {
 }
 
 interface Term {
-  sort: 'term' | 'meaning' | 'synonym' | 'createdAt'
+  sort: TermSort
 }
 
 export const Term = () => {
@@ -63,12 +64,7 @@ export const Term = () => {
   const termUid = searchParams.get('term-uid')
 
   const { toggleModal, setModal } = useModal()
-  const [sorts, setSorts] = useState<TermSort[]>([
-    termSort.TermAsc,
-    termSort.SynonymAsc,
-    termSort.MeaningAsc,
-    termSort.CreatedAtAsc,
-  ])
+  const [sorts, setSorts] = useState<TermSortValues[]>([])
   const [selectedTermUid, setSelectedTermUid] = useState('')
   const [updated, setUpdated] = useState(false)
 
@@ -120,37 +116,29 @@ export const Term = () => {
     day: 'numeric',
   })
 
-  const updateSort = (sorts: TermSort[], asc: TermSort, desc: TermSort) => {
-    const ascIndex = sorts.indexOf(asc)
-    const descIndex = sorts.indexOf(desc)
-    if (ascIndex !== -1) {
-      sorts.splice(ascIndex, 1)
-      sorts.unshift(desc)
-    } else if (descIndex !== -1) {
-      sorts.splice(descIndex, 1)
-      sorts.unshift(asc)
-    }
-  }
-
   const handleSort = ({ sort }: Term) => {
-    const newSorts = [...sorts]
-    switch (sort) {
-      case 'term':
-        updateSort(newSorts, termSort.TermAsc, termSort.TermDesc)
-        break
-      case 'meaning':
-        updateSort(newSorts, termSort.MeaningAsc, termSort.MeaningDesc)
-        break
-      case 'synonym':
-        updateSort(newSorts, termSort.SynonymAsc, termSort.SynonymDesc)
-        break
-      case 'createdAt':
-        updateSort(newSorts, termSort.CreatedAtAsc, termSort.CreatedAtDesc)
-        break
-      default:
-        return
+    const checkSort = (sortAsc: TermSortValues, sortDesc: TermSortValues) => {
+      if (sorts.includes(sortAsc)) {
+        setSorts([sortDesc])
+      } else {
+        setSorts([sortAsc])
+      }
     }
-    setSorts(newSorts)
+    switch (sort) {
+      case termSort.Term:
+        checkSort(termSort.Term.Asc, termSort.Term.Desc)
+        break
+      case termSort.CreatedAt:
+        checkSort(termSort.CreatedAt.Asc, termSort.CreatedAt.Desc)
+        break
+      case termSort.Synonym:
+        checkSort(termSort.Synonym.Asc, termSort.Synonym.Desc)
+        break
+      case termSort.Meaning:
+        checkSort(termSort.Meaning.Asc, termSort.Meaning.Desc)
+        break
+    }
+
     setUpdated(true)
   }
 
@@ -163,6 +151,29 @@ export const Term = () => {
     })
     setModal(ModalTypes.EDIT)
     toggleModal()
+  }
+
+  const handleSortArrow = ({ sort }: Term) => {
+    const checkSort = (sortAsc: TermSortValues, sortDesc: TermSortValues) => {
+      if (sorts.includes(sortAsc)) {
+        return 'arrow-down-small'
+      }
+      if (sorts.includes(sortDesc)) {
+        return 'arrow-up-small'
+      }
+      return undefined
+    }
+
+    switch (sort) {
+      case termSort.Term:
+        return checkSort(termSort.Term.Asc, termSort.Term.Desc)
+      case termSort.CreatedAt:
+        return checkSort(termSort.CreatedAt.Asc, termSort.CreatedAt.Desc)
+      case termSort.Synonym:
+        return checkSort(termSort.Synonym.Asc, termSort.Synonym.Desc)
+      case termSort.Meaning:
+        return checkSort(termSort.Meaning.Asc, termSort.Meaning.Desc)
+    }
   }
 
   return (
@@ -189,13 +200,9 @@ export const Term = () => {
                 variant="reading"
                 kind="title"
                 onClick={() => {
-                  handleSort({ sort: 'term' })
+                  handleSort({ sort: termSort.Term })
                 }}
-                icon={
-                  sorts.includes(termSort.TermAsc)
-                    ? 'arrow-down-small'
-                    : 'arrow-up-small'
-                }
+                icon={handleSortArrow({ sort: termSort.Term })}
               >
                 용어
               </List>
@@ -203,13 +210,9 @@ export const Term = () => {
                 variant="reading"
                 kind="title"
                 onClick={() => {
-                  handleSort({ sort: 'synonym' })
+                  handleSort({ sort: termSort.Synonym })
                 }}
-                icon={
-                  sorts.includes(termSort.SynonymAsc)
-                    ? 'arrow-down-small'
-                    : 'arrow-up-small'
-                }
+                icon={handleSortArrow({ sort: termSort.Synonym })}
               >
                 동의어
               </List>
@@ -218,13 +221,9 @@ export const Term = () => {
                 kind="title"
                 style={{ flex: 1 }}
                 onClick={() => {
-                  handleSort({ sort: 'meaning' })
+                  handleSort({ sort: termSort.Meaning })
                 }}
-                icon={
-                  sorts.includes(termSort.MeaningAsc)
-                    ? 'arrow-down-small'
-                    : 'arrow-up-small'
-                }
+                icon={handleSortArrow({ sort: termSort.Meaning })}
               >
                 뜻
               </List>
@@ -232,13 +231,9 @@ export const Term = () => {
                 variant="reading"
                 kind="title"
                 onClick={() => {
-                  handleSort({ sort: 'createdAt' })
+                  handleSort({ sort: termSort.CreatedAt })
                 }}
-                icon={
-                  sorts.includes(termSort.CreatedAtAsc)
-                    ? 'arrow-down-small'
-                    : 'arrow-up-small'
-                }
+                icon={handleSortArrow({ sort: termSort.CreatedAt })}
               >
                 생성일자
               </List>

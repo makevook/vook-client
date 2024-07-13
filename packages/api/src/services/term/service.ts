@@ -8,11 +8,15 @@ import {
   DeleteAllDTO as DeleteBatchDTO,
   EditTermDTO,
   GetTermResponse,
-  TermSort,
+  TermSortValues,
 } from './model'
 
 export const termService = {
-  async getTerm(client: QueryClient, vocabularyUid: string, sort?: TermSort[]) {
+  async getTerm(
+    client: QueryClient,
+    vocabularyUid: string,
+    sort?: TermSortValues[],
+  ) {
     let url = `/terms?vocabularyUid=${vocabularyUid}`
     if (sort) {
       url = url + '&sort=' + sort.join('&sort=')

@@ -1,15 +1,26 @@
 export const termSort = {
-  TermAsc: 'term%2Casc',
-  TermDesc: 'term%2Cdesc',
-  SynonymAsc: 'synonym%2Casc',
-  SynonymDesc: 'synonym%2Cdesc',
-  MeaningAsc: 'meaning%2Casc',
-  MeaningDesc: 'meaning%2Cdesc',
-  CreatedAtAsc: 'createdAt%2Casc',
-  CreatedAtDesc: 'createdAt%2Cdesc',
+  Term: {
+    Asc: 'term%2Casc',
+    Desc: 'term%2Cdesc',
+  },
+  Synonym: {
+    Asc: 'synonym%2Casc',
+    Desc: 'synonym%2Cdesc',
+  },
+  Meaning: {
+    Asc: 'meaning%2Casc',
+    Desc: 'meaning%2Cdesc',
+  },
+  CreatedAt: {
+    Asc: 'createdAt%2Casc',
+    Desc: 'createdAt%2Cdesc',
+  },
 } as const
 
 export type TermSort = (typeof termSort)[keyof typeof termSort]
+
+export type TermSortValues =
+  (typeof termSort)[keyof typeof termSort][keyof typeof termSort.Term]
 
 export interface Terms extends TermType {
   termUid: string

@@ -14,11 +14,15 @@ import {
   DeleteAllDTO as DeleteBatchDTO,
   EditTermDTO,
   GetTermResponse,
-  TermSort,
+  TermSortValues,
 } from './model'
 
 export const termOptions = {
-  termInfo: (client: QueryClient, vocabularyUid: string, sort: TermSort[]) => ({
+  termInfo: (
+    client: QueryClient,
+    vocabularyUid: string,
+    sort: TermSortValues[],
+  ) => ({
     queryKey: ['term', vocabularyUid, sort],
     queryFn: () => termService.getTerm(client, vocabularyUid, sort),
   }),
@@ -38,7 +42,7 @@ export const termOptions = {
 
 export const useGetTermQuery = (
   vocabularyUid: string,
-  sort: TermSort[],
+  sort: TermSortValues[],
   options: QueryOptions<GetTermResponse> = {},
 ) => {
   const queryClient = useQueryClient()
