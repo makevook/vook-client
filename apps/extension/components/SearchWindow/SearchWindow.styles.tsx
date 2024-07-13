@@ -10,7 +10,8 @@ export const SearchWindowBox = styled.div<{ position: Position }>`
 
   padding: 16px;
 
-  width: 500px;
+  width: fit-content;
+  min-width: 415px;
 
   border-radius: 6px;
 
@@ -60,4 +61,12 @@ export const SearchWindowLink = styled.div`
     margin-left: 3px;
     transform: translateY(1px);
   }
+`
+
+export const SearchOverMaxLength = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
 `

@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   searchQueryOptions,
   vocabularyOptions,
+  type SearchHit,
   type SearchResponse,
 } from '@vook-client/api'
 import {
@@ -24,7 +25,7 @@ const MAX_HITS_QUANTITY = 3
 export const countTotalHits = (
   records: SearchResponse['result']['records'],
 ) => {
-  return pipe(records, pluck('hits'), flat, toArray).length
+  return pipe(records, pluck('hits'), flat, toArray)
 }
 
 export const getSearchTerms = (hits: SearchResponse['result']['records']) => {
@@ -46,7 +47,7 @@ export const getHeaderText = (terms: string[], selectedText: string) =>
     ? selectedText
     : pipe(terms, take(MAX_HITS_QUANTITY), join(', '))
 
-export const getTailText = (terms: string[]) =>
+export const getTailText = (terms: SearchHit[]) =>
   isEmpty(terms)
     ? '에 대한 검색 결과가 없습니다.'
     : `${terms.length > MAX_HITS_QUANTITY ? ' 등의' : ''} 용어를 찾았습니다.`
@@ -77,7 +78,7 @@ export const useSearch = ({ selectedText }: UseSearchProps) => {
   const searchedTerms = getSearchTerms(query.data?.result.records || [])
   const hitsTerms = getHitsTerms(searchedTerms, selectedText)
   const headerText = getHeaderText(hitsTerms, selectedText)
-  const tailText = getTailText(hitsTerms)
+  const tailText = getTailText(totalCount)
 
   return {
     totalCount,

@@ -4,6 +4,7 @@ import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
+import { baseFetcher } from '@vook-client/api'
 
 import { getStorage, setStorage } from './utils/storage'
 import { ToggleButton } from './components/ToggleButton'
@@ -36,6 +37,12 @@ const queryClient = new QueryClient({
 function VookContentScript() {
   useDomRect()
   const { isSelected, isOpenSearchWindow, position } = useToggle()
+
+  useEffect(() => {
+    baseFetcher.setUnAuthorizedHandler(() => {
+      window.open(process.env.PLASMO_PUBLIC_WEB_DOMAIN + '/login', '_blank')
+    })
+  }, [])
 
   useEffect(() => {
     const setToken = async () => {

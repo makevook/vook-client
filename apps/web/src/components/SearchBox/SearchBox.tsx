@@ -16,6 +16,7 @@ import { useSearchQuery, useVacabularyInfoQuery } from '@vook-client/api'
 import { Link } from '../Link'
 
 import {
+  noSearchResult,
   resetButton,
   searchBox,
   searchBoxContainer,
@@ -119,6 +120,13 @@ export const SearchBox = () => {
     return null
   }
 
+  const hasNoResult =
+    searchQuery.isSuccess &&
+    searchQuery.data.result.records.reduce(
+      (acc, vocabulary) => acc + vocabulary.hits.length,
+      0,
+    ) === 0
+
   return (
     <div className={searchBoxPositioner}>
       <div
@@ -163,6 +171,17 @@ export const SearchBox = () => {
             {mode === 'search' && (
               <div className={searchResultListContainer}>
                 <div className={searchResultList}>
+                  {hasNoResult && (
+                    <div className={noSearchResult}>
+                      <Text
+                        type="body-1"
+                        color="semantic-label-alternative"
+                        fontWeight="medium"
+                      >
+                        검색 결과가 없습니다.
+                      </Text>
+                    </div>
+                  )}
                   {searchQuery.data?.result.records.map((record) => {
                     return (
                       record.hits.length > 0 && (

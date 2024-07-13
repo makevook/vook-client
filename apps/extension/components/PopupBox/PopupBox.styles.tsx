@@ -1,7 +1,9 @@
 import styled from '@emotion/styled'
 
 export const PopupBoxContainer = styled.div`
-  width: 450px;
+  min-width: 450px;
+  max-width: 700px;
+  margin: 20px;
   padding: 20px;
 
   display: flex;

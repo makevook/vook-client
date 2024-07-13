@@ -1,46 +1,39 @@
 import type { SearchResponse } from '@vook-client/api'
+import { Text } from '@vook-client/design-system'
 
 import * as S from './TermItem.styles'
-
-interface TermHeaderItemProps {
-  term?: never
-}
 
 interface TermItemProps {
   term: SearchResponse['result']['records'][0]['hits'][0]
 }
 
-export const TermItem = ({ term }: TermItemProps | TermHeaderItemProps) => {
-  if (!term) {
-    return (
-      <S.TermBox className="header">
-        <S.TermSqaure className="term">용어</S.TermSqaure>
-        <S.TermSqaure className="synonyms">동의어</S.TermSqaure>
-        <S.TermSqaure className="meaning">의미</S.TermSqaure>
-      </S.TermBox>
-    )
-  }
-
+export const TermItem = ({ term }: TermItemProps) => {
   return (
     <S.TermBox>
-      <S.TermSqaure
-        className="term"
-        dangerouslySetInnerHTML={{
-          __html: term.term,
-        }}
-      />
-      <S.TermSqaure
-        className="synonyms"
-        dangerouslySetInnerHTML={{
-          __html: term.synonyms,
-        }}
-      />
-      <S.TermSqaure
-        className="meaning"
-        dangerouslySetInnerHTML={{
-          __html: term.meaning,
-        }}
-      />
+      <Text type="body-2" color="semantic-primary-normal">
+        <S.TermSqaure
+          className="term"
+          dangerouslySetInnerHTML={{
+            __html: term.term,
+          }}
+        />
+      </Text>
+      <Text type="body-2" color="semantic-label-alternative">
+        <S.TermSqaure
+          className="synonyms"
+          dangerouslySetInnerHTML={{
+            __html: term.synonyms,
+          }}
+        />
+      </Text>
+      <Text type="body-2" color="semantic-label-normal">
+        <S.TermSqaure
+          className="meaning"
+          dangerouslySetInnerHTML={{
+            __html: term.meaning,
+          }}
+        />
+      </Text>
     </S.TermBox>
   )
 }

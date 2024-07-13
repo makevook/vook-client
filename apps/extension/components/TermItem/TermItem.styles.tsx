@@ -1,16 +1,13 @@
 import styled from '@emotion/styled'
+import { tokens } from '@vook-client/design-system'
 
 export const TermBox = styled.div`
   display: grid;
-  grid-template-columns: 120px 120px 1fr;
+  grid-template-columns: 160px 160px 1fr;
+  transition: background-color 0.5s;
 
-  border-bottom: 1px solid rgba(112, 115, 124, 0.16);
-
-  font-size: 13px;
-
-  &.header > div {
-    background-color: #efeffc;
-    color: #161719;
+  :hover {
+    background-color: ${tokens.colors['component-alternative']};
   }
 `
 
@@ -23,16 +20,13 @@ export const TermSqaure = styled.div`
   }
 
   &.synonyms {
-    color: rgba(22, 23, 25, 0.6);
   }
 
   &.meaning {
-    color: #161719;
     word-break: keep-all;
   }
 
   strong {
-    font-weight: 400;
     background-color: #fff2b2;
     word-break: keep-all;
   }

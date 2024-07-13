@@ -9,9 +9,13 @@ import { getStorage, removeStorage, setStorage } from '../../utils/storage'
 
 import { PopupBoxContainer } from './PopupBox.styles'
 
+import { SearchBox } from 'components/SearchBox'
+
 export const PopupBox = () => {
   const [tokenExist, setTokenExist] = useState<boolean>(false)
   const [login, setLogin] = useState<boolean>(false)
+  const [hasResult, setHasResult] = useState<boolean>(false)
+
   const client = useQueryClient()
 
   const userInfo = useQuery({
@@ -57,7 +61,11 @@ export const PopupBox = () => {
   }
 
   return (
-    <PopupBoxContainer>
+    <PopupBoxContainer
+      style={{
+        width: hasResult ? '800px' : '450px',
+      }}
+    >
       <button
         onClick={() => {
           removeStorage('vook-access')
@@ -67,23 +75,36 @@ export const PopupBox = () => {
       >
         리셋
       </button>
-      {!login && (
+      <div className="logo">
+        <SymbolLogo size={24} />
+        <TypoLogo size="small" />
+      </div>
+      {!tokenExist && !login && (
         <>
-          <div className="logo">
-            <SymbolLogo size={24} />
-            <TypoLogo size="small" />
-          </div>
           <Text type="body-1" fontWeight="medium">
             주제별로 용어집을 관리하고, 간편하게 용어를 검색하세요
           </Text>
           <Button fit="fill">무료로 시작</Button>
-          <Text as="span" type="body-2" fontWeight="medium">
-            이미 계정이 있으신가요? <span onClick={onClickLogin}>로그인</span>
+          <Text
+            as="span"
+            type="body-2"
+            fontWeight="medium"
+            color="palette-gray-700"
+          >
+            이미 계정이 있으신가요?{' '}
+            <Text
+              type="body-2"
+              color="status-info"
+              fontWeight="bold"
+              onClick={onClickLogin}
+            >
+              로그인
+            </Text>
           </Text>
         </>
       )}
       {login && userInfo.isSuccess && (
-        <div>로그인 완료 {userInfo.data.result.nickname}</div>
+        <SearchBox hasResult={hasResult} setHasResult={setHasResult} />
       )}
     </PopupBoxContainer>
   )
