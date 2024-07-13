@@ -42,7 +42,7 @@ build-prod:
 	dagger call -v build-client-image \
 	--dir=..:default \
 	--dockerfile=../prod.Dockerfile \
-	-o out/prod-client.tar
+	export --path out/prod-client.tar
 
 .PHONY:load-prod
 load-prod:

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"dagger/vook-client/internal/dagger"
 	"fmt"
 	"strings"
 )
@@ -9,27 +10,27 @@ import (
 type VookClient struct{}
 
 func (v *VookClient) BuildClientImage(
-	dir *Directory,
-	dockerfile *File,
-) *File {
+	dir *dagger.Directory,
+	dockerfile *dagger.File,
+) *dagger.File {
 	dirWithDockerfile := dir.WithFile("Dockerfile", dockerfile)
 
 	return dag.Docker().
-		Build(dirWithDockerfile, DockerBuildOpts{
-			Platform: []Platform{"linux/arm64"},
+		Build(dirWithDockerfile, dagger.DockerBuildOpts{
+			Platform: []dagger.Platform{"linux/arm64"},
 		}).
-		Save(DockerBuildSaveOpts{
+		Save(dagger.DockerBuildSaveOpts{
 			Name: "web-client",
 		}).
-		File("web-client_linux_arm64.tar")
+		File("web-client@linux-arm64.tar")
 }
 
 func (v *VookClient) SendImage(
 	ctx context.Context,
-	sshDest *Secret,
-	sshKey *Secret,
+	sshDest *dagger.Secret,
+	sshKey *dagger.Secret,
 	path string,
-	imageTar *File,
+	imageTar *dagger.File,
 ) error {
 	sshDestText, err := sshDest.Plaintext(ctx)
 	if err != nil {
@@ -39,7 +40,7 @@ func (v *VookClient) SendImage(
 	_, err = dag.Scp().
 		Config(strings.TrimSpace(sshDestText)).
 		WithIdentityFile(sshKey).
-		FileToRemote(imageTar, ScpCommanderFileToRemoteOpts{
+		FileToRemote(imageTar, dagger.ScpCommanderFileToRemoteOpts{
 			Target: path,
 		}).
 		Sync(ctx)
@@ -52,9 +53,9 @@ func (v *VookClient) SendImage(
 
 func (v *VookClient) Apply(
 	ctx context.Context,
-	destination *Secret,
-	sshKey *Secret,
-	imageTar *File,
+	destination *dagger.Secret,
+	sshKey *dagger.Secret,
+	imageTar *dagger.File,
 	path string,
 	version string,
 	command string,
@@ -88,10 +89,10 @@ CLIENT_FILENAME=%s CLIENT_VERSION=%s %s
 
 func (v *VookClient) Deploy(
 	ctx context.Context,
-	sourceDir *Directory,
-	dockerfile *File,
-	sshDest *Secret,
-	sshKey *Secret,
+	sourceDir *dagger.Directory,
+	dockerfile *dagger.File,
+	sshDest *dagger.Secret,
+	sshKey *dagger.Secret,
 	targetPath string,
 	version string,
 	command string,
