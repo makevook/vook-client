@@ -1,0 +1,31 @@
+name: Deploy to Prod Environment
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.2'
+      - name: Deploy
+        uses: dagger/dagger-for-github@v5
+        env:
+          SSH_DEST: ${{ secrets.PROD_SSH_DEST }}
+          SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
+        with:
+          version: 0.12.0
+          verb: call
+          module: ./cicd
+          args: >-
+            deploy
+            --source-dir=.:default
+            --dockerfile=prod.Dockerfile
+            --ssh-dest=env:SSH_DEST
+            --ssh-key=env:SSH_KEY
+            --target-path=~/repo/makevook/vook-deployment/prod
+            --version=${{ github.sha }}
+            --command="make deploy-client"
