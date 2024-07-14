@@ -1,13 +1,17 @@
 import React from 'react'
 
 import { HeroBanner } from './_components/HeroBanner'
-import DetailBanner from './_components/DetailBanner/DetailBanner'
+import { DetailBanner } from './_components/DetailBanner'
+import Footer from './_components/Footer/Footer'
+import { RedirectBanner } from './_components/RedirectBanner'
 
 const LandingPage = () => {
   return (
     <div>
       <HeroBanner />
       <DetailBanner />
+      <RedirectBanner />
+      <Footer />
     </div>
   )
 }

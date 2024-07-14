@@ -70,7 +70,7 @@ export const VookLogoContainer = style({
   borderRadius: 38.2,
 })
 
-export const ChromeExtensionContainer = style({
+export const chromeExtensionContainer = style({
   width: 635,
   display: 'flex',
   flexDirection: 'column',
@@ -84,17 +84,17 @@ export const ChromeExtensionContainer = style({
   borderRadius: 7.16,
 })
 
-export const ChromeExtensionHeader = style({
+export const chromeExtensionHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
 })
 
-export const ChromeExtensionTableContainer = style({
+export const chromeExtensionTableContainer = style({
   borderRadius: 4.77,
   border: `1.19px solid ${vars.colors['semantic-line-alternative']}`,
 })
 
-export const ChromeExtensionTableHeaderText = style({
+export const chromeExtensionTableHeaderText = style({
   display: 'flex',
   width: 143,
   padding: '6px 14px',
@@ -102,15 +102,19 @@ export const ChromeExtensionTableHeaderText = style({
   backgroundColor: vars.colors['palette-primary-50'],
 })
 
-export const ChromeExtensionTable = style({
+export const chromeExtensionTable = style({
   display: 'flex',
   width: 143,
   padding: '9.5px 14.32px',
   alignItems: 'center',
 })
 
-export const ChromeExtensionFooter = style({
+export const chromeExtensionFooter = style({
   display: 'flex',
   justifyContent: 'flex-end',
   gap: 4,
+})
+
+export const drag = style({
+  backgroundColor: 'rgba(0, 119, 255, 0.22)',
 })

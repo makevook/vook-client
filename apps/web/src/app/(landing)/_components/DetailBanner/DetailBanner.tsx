@@ -34,7 +34,7 @@ const TableItem = ({ term, synom }: { term: string; synom: string }) => (
   </div>
 )
 
-const DetailBanner = () => {
+export const DetailBanner = () => {
   return (
     <div className={detailBannerSection}>
       <div className={extensionSection}>
@@ -82,8 +82,12 @@ const DetailBanner = () => {
           </Text>
 
           <Card />
-          <Card />
+          <Card
+            title="SaaS에서 자주 쓰이는 기획 용어집"
+            date="2024년 1월 2일 생성"
+          />
         </div>
+
         <div className={displaySection}>
           <div className={displayContainer}>
             <div style={{ padding: '8px 0' }}>
@@ -123,6 +127,7 @@ const DetailBanner = () => {
                   </Text>
                 </div>
               </div>
+
               <TableItem term="가상화" synom="Virtualization" />
               <TableItem term="객체 지향 프로그래밍" synom="OOP" />
               <TableItem term="기본 키" synom="Primary Key" />
@@ -132,9 +137,6 @@ const DetailBanner = () => {
           </div>
         </div>
       </div>
-      <div style={{ height: 160 }} />
     </div>
   )
 }
-
-export default DetailBanner

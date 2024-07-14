@@ -4,17 +4,18 @@ import { Icon, Text } from '@vook-client/design-system'
 import { BannerIcons } from '../Icons/index'
 
 import {
-  ChromeExtensionContainer,
-  ChromeExtensionFooter,
-  ChromeExtensionHeader,
-  ChromeExtensionTable,
-  ChromeExtensionTableContainer,
-  ChromeExtensionTableHeaderText,
+  chromeExtensionContainer,
+  chromeExtensionFooter,
+  chromeExtensionHeader,
+  chromeExtensionTable,
+  chromeExtensionTableContainer,
+  chromeExtensionTableHeaderText,
   deviceScreen,
   deviceScreenHeader,
   deviceScreenText,
   deviceScreenURL,
   deviceScreenURLHeader,
+  drag,
   VookLogoContainer,
 } from './DeviceScreen.css'
 
@@ -42,8 +43,10 @@ export const DeviceScreen = () => {
           {'\n'}
           {'\n'}
           서버 자원을 효율적으로 사용하여 비용을 절감할 수 있으며{'\n'}
-          많은 기업들이 가상화 솔루션을 도입하여 운영 효율성을 극대화하고
-          있습니다.
+          많은 기업들이 <span className={drag}>
+            가상화 솔루션을 도입하여
+          </span>{' '}
+          운영 효율성을 극대화하고 있습니다.
         </Text>
       </div>
 
@@ -51,22 +54,22 @@ export const DeviceScreen = () => {
         <BannerIcons.VookLogo />
       </div>
 
-      <div className={ChromeExtensionContainer}>
-        <div className={ChromeExtensionHeader}>
+      <div className={chromeExtensionContainer}>
+        <div className={chromeExtensionHeader}>
           <BannerIcons.VookLogo />
           <Icon name="close-icon-big" />
         </div>
-        <div className={ChromeExtensionTableContainer}>
+        <div className={chromeExtensionTableContainer}>
           <div style={{ display: 'flex' }}>
-            <Text type="body-2" className={ChromeExtensionTableHeaderText}>
+            <Text type="body-2" className={chromeExtensionTableHeaderText}>
               용어
             </Text>
-            <Text type="body-2" className={ChromeExtensionTableHeaderText}>
+            <Text type="body-2" className={chromeExtensionTableHeaderText}>
               동의어
             </Text>
             <Text
               type="body-2"
-              className={ChromeExtensionTableHeaderText}
+              className={chromeExtensionTableHeaderText}
               style={{ flex: 1 }}
             >
               뜻
@@ -76,20 +79,20 @@ export const DeviceScreen = () => {
             <Text
               type="body-2"
               color="semantic-primary-normal"
-              className={ChromeExtensionTable}
+              className={chromeExtensionTable}
             >
               가상화
             </Text>
             <Text
               type="body-2"
               color="semantic-label-alternative"
-              className={ChromeExtensionTable}
+              className={chromeExtensionTable}
             >
               Virtualization
             </Text>
             <Text
               type="body-2"
-              className={ChromeExtensionTable}
+              className={chromeExtensionTable}
               style={{ flex: 1 }}
             >
               하나의 컴퓨터를 여러 개의 가상 컴퓨터처럼{'\n'}
@@ -98,7 +101,7 @@ export const DeviceScreen = () => {
           </div>
         </div>
 
-        <div className={ChromeExtensionFooter}>
+        <div className={chromeExtensionFooter}>
           <Text type="body-1" color="status-info">
             Vook 바로가기
           </Text>

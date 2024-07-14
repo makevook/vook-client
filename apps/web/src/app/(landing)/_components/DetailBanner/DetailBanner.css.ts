@@ -4,10 +4,9 @@ import { vars } from '@vook-client/design-system'
 export const detailBannerSection = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
   width: 1180,
   gap: 22,
+  margin: 'auto',
 })
 
 export const extensionSection = style({
@@ -20,6 +19,7 @@ export const extensionSection = style({
   width: '100%',
   borderRadius: 30,
   border: `1px solid ${vars.colors['semantic-line-normal']}`,
+  overflow: 'clip',
 })
 
 export const workspaceSection = style({
