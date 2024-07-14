@@ -56,7 +56,7 @@ export const deviceScreenText = style({
   zIndex: 1,
 })
 
-export const VookLogoContainer = style({
+export const vookLogoContainer = style({
   position: 'absolute',
   display: 'flex',
   alignItems: 'center',
@@ -116,5 +116,14 @@ export const chromeExtensionFooter = style({
 })
 
 export const drag = style({
+  display: 'inline-block',
+  position: 'relative',
+})
+
+export const dragInner = style({
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  height: '100%',
   backgroundColor: 'rgba(0, 119, 255, 0.22)',
 })

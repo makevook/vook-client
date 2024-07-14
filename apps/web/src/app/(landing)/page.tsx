@@ -9,6 +9,7 @@ const LandingPage = () => {
   return (
     <div>
       <HeroBanner />
+      <div style={{ height: 720 }} />
       <DetailBanner />
       <RedirectBanner />
       <Footer />

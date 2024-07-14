@@ -1,8 +1,6 @@
 import React from 'react'
 import { Text } from '@vook-client/design-system'
 
-import { Card } from '../../_component/Card'
-
 import {
   detailBannerSection,
   displayContainer,
@@ -15,6 +13,7 @@ import {
 } from './DetailBanner.css'
 import { BannerIcons } from './Icons'
 import { DeviceScreen } from './_components'
+import CardSection from './_components/CardSection'
 
 const TableItem = ({ term, synom }: { term: string; synom: string }) => (
   <div className={displayTermItem}>
@@ -80,12 +79,7 @@ export const DetailBanner = () => {
           >
             주제별로 깔끔하게 관리
           </Text>
-
-          <Card />
-          <Card
-            title="SaaS에서 자주 쓰이는 기획 용어집"
-            date="2024년 1월 2일 생성"
-          />
+          <CardSection />
         </div>
 
         <div className={displaySection}>

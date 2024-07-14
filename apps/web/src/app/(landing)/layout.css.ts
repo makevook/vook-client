@@ -8,3 +8,8 @@ export const landingLayout = style({
   alignItems: 'center',
   marginTop: HEADER_HEIGHT,
 })
+
+export const headerButtonContainer = style({
+  display: 'flex',
+  gap: 10,
+})
