@@ -3,13 +3,14 @@ import { Dropbox, Icon, Text } from '@vook-client/design-system'
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
 
+import { VocabularyModalDataType } from '../page'
+
 import {
   dropboxItem,
   vocabularyItemContainer,
   vocabularyItemFooter,
   vocabularyItemHeader,
 } from './VocabularyItem.css'
-import { VocabularyModalDataType } from './page'
 
 interface VocabularyItem {
   id: string

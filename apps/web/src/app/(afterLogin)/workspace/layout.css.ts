@@ -1,21 +1,5 @@
 import { style } from '@vanilla-extract/css'
 
-import { HEADER_HEIGHT, SIDE_BAR_WIDTH } from '@/styles/layout'
-
-export const mainArea = style({
-  position: 'relative',
-
-  minHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
-
-  marginTop: HEADER_HEIGHT,
-  marginLeft: SIDE_BAR_WIDTH,
-
-  padding: '40px',
-
-  display: 'flex',
-  flexDirection: 'column',
-})
-
 export const workspaceContainer = style({
   display: 'flex',
   flexDirection: 'column',

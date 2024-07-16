@@ -28,6 +28,7 @@ export const headerInner = style({
   height: '100%',
   maxWidth: 1180,
   width: '100%',
+  zIndex: 100,
 })
 
 export const headerInnerFull = style({

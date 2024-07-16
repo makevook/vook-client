@@ -37,7 +37,7 @@ import {
   textContainer,
 } from './Term.css'
 
-import { dropboxItem } from 'src/app/(afterLogin)/workspace/VocabularyItem.css'
+import { dropboxItem } from 'src/app/(afterLogin)/workspace/_components/VocabularyItem.css'
 
 const TextContainer = ({ length }: { length?: number }) => (
   <div className={textContainer}>
