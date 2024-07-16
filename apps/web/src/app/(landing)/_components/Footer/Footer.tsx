@@ -9,7 +9,7 @@ const Footer = () => {
     <div className={footerContainer}>
       <div className={flexBoxBetween}>
         <Link href="/">
-          <TypoLogo size="gray" />
+          <TypoLogo />
         </Link>
         <div className={flexBox} style={{ gap: 24 }}>
           <Link href="/terms/use">
