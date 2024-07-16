@@ -24,3 +24,7 @@ export const buttonGroup = style({
   justifyContent: 'flex-end',
   gap: 16,
 })
+
+export const skipButton = style({
+  cursor: 'pointer',
+})

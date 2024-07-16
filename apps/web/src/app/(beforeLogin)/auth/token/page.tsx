@@ -34,7 +34,7 @@ const AuthCallbackPage = ({
       const isRegistered = userInfo.result.status === UserStatus.Registered
 
       if (isRegistered) {
-        router.push('/')
+        router.push('/workspace')
         return
       }
       router.push('/signup')

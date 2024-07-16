@@ -16,7 +16,7 @@ import { SelectBoxGroup } from '../_components/SelectBoxGroup'
 import { useOnBoarding } from '../_context/useOnboarding'
 import { OnboardingHeader } from '../_components/OnboardingHeader'
 
-import { buttonGroup, header, jobGroup } from './page.css'
+import { buttonGroup, header, jobGroup, skipButton } from './page.css'
 
 const JOBS: Array<{
   icon: ButtonProps['prefixIcon']
@@ -71,7 +71,7 @@ const OnboardingJobPage = () => {
     },
     {
       onSuccess: () => {
-        router.push('/')
+        router.push('/workspace')
       },
     },
   )
@@ -117,11 +117,14 @@ const OnboardingJobPage = () => {
         </SelectBoxGroup>
       </div>
       <div className={buttonGroup}>
-        <Link href="/">
-          <Text type="body-2" color="label-alternative">
-            건너뛰기
-          </Text>
-        </Link>
+        <Text
+          type="body-2"
+          color="label-alternative"
+          onClick={onSubmitFunnel}
+          className={skipButton}
+        >
+          건너뛰기
+        </Text>
         <Link href="/onboarding/job">
           <Button
             onClick={onSubmitFunnel}

@@ -14,7 +14,7 @@ export type SearchSort = (typeof searchSort)[keyof typeof searchSort]
 
 export interface SearchDTO {
   vocabularyUids: string[]
-  query: string
+  queries: string[]
   withFormat?: boolean
   highlightPreTag?: string
   highlightPostTag?: string
