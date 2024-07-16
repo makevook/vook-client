@@ -14,9 +14,11 @@ const IconProps = {
   notion: {
     width: 41,
     left: null,
-    right: 300,
-    y: 200,
+    right: 400,
+    y: 0,
     height: 41,
+    delay: Math.random(),
+    reverse: false,
     color: '#F2F2F2',
     rotate: -10.71,
   },
@@ -26,7 +28,8 @@ const IconProps = {
     right: null,
     y: 200,
     height: 41,
-    delay: 0,
+    delay: Math.random(),
+    reverse: true,
     color: '#E5F0FF',
     rotate: -30,
   },
@@ -36,6 +39,8 @@ const IconProps = {
     right: null,
     y: 0,
     height: 50,
+    delay: Math.random(),
+    reverse: false,
     color: '#C9EEDD',
     rotate: -22.71,
   },
@@ -44,6 +49,9 @@ const IconProps = {
     left: null,
     right: 200,
     height: 47,
+    delay: Math.random(),
+    reverse: true,
+    color: '#CDCCF7',
     y: 400,
     rotate: 18.1,
   },
@@ -52,6 +60,8 @@ const IconProps = {
     left: undefined,
     right: 100,
     height: 55,
+    delay: Math.random(),
+    reverse: false,
     y: 200,
     color: '#FFFBE8',
     rotate: 10.72,
@@ -61,6 +71,9 @@ const IconProps = {
     left: 300,
     right: null,
     height: 50,
+    delay: Math.random(),
+    reverse: true,
+    color: '#EFEFFC',
     y: 400,
     rotate: -16.1,
   },
@@ -70,9 +83,10 @@ const IconProps = {
     y: 0,
     right: 160,
     height: 40,
+    delay: Math.random(),
+    reverse: false,
     color: '#EFF4F1',
     rotate: -22.71,
-    delay: 1,
   },
 }
 
@@ -96,23 +110,20 @@ export const IconBox = ({ name }: IconBoxProps) => {
       }}
     >
       <motion.div
-        className="card"
         variants={{
           offscreen: {
-            y: -50 + icon.y,
-            x: 0,
             opacity: 0,
             rotate: icon.rotate,
           },
           onscreen: {
             y: 0 + icon.y,
-            x: 0,
             opacity: 1,
             right: 100,
             rotate: icon.rotate,
             transition: {
               type: 'spring',
               bounce: 0.4,
+              delay: icon.delay,
             },
           },
         }}
@@ -121,6 +132,7 @@ export const IconBox = ({ name }: IconBoxProps) => {
           className={IconBoxContainer}
           style={{
             transform: `rotate(${icon.rotate}deg)`,
+            backgroundColor: icon.color,
           }}
         >
           <Image
