@@ -66,6 +66,7 @@ const label = {
 
 const status = {
   'status-error': '#FF3333',
+  'status-info': '#006AFF',
 }
 
 export const colors = {

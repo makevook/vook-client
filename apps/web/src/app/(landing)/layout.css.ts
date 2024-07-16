@@ -9,3 +9,8 @@ export const landingLayout = style({
   marginTop: HEADER_HEIGHT,
   overflowX: 'hidden',
 })
+
+export const headerButtonContainer = style({
+  display: 'flex',
+  gap: 10,
+})
