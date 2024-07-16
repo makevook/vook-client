@@ -1,6 +1,8 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@vook-client/design-system'
 
+import { FOOTER_HEIGHT } from '@/styles/layout'
+
 export const redirectBanner = style({
   marginTop: 160,
   backgroundColor: vars.colors['palette-primary-50'],
@@ -11,4 +13,5 @@ export const redirectBanner = style({
   width: '100vw',
   gap: 48,
   padding: 90,
+  marginBottom: FOOTER_HEIGHT,
 })

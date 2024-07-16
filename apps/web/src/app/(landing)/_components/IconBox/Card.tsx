@@ -6,7 +6,7 @@ import {
   CardContainerFooter,
   CardContainerHeader,
   IconContainer,
-} from './component.css'
+} from '../DetailBanner/_components/CardSectoin.css'
 
 interface CardProps {
   title?: string

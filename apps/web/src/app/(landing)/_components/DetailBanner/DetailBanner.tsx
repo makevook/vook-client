@@ -81,7 +81,6 @@ export const DetailBanner = () => {
           </Text>
           <CardSection />
         </div>
-
         <div className={displaySection}>
           <div className={displayContainer}>
             <div style={{ padding: '8px 0' }}>
@@ -121,7 +120,6 @@ export const DetailBanner = () => {
                   </Text>
                 </div>
               </div>
-
               <TableItem term="가상화" synom="Virtualization" />
               <TableItem term="객체 지향 프로그래밍" synom="OOP" />
               <TableItem term="기본 키" synom="Primary Key" />

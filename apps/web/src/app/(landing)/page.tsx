@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { Footer } from '@/components/layout'
-
 import { HeroBanner } from './_components/HeroBanner'
 import { IconSection } from './_components/IconSection'
 import { DetailBanner } from './_components/DetailBanner'
@@ -15,7 +13,6 @@ const LandingPage = () => {
       <div style={{ height: 720 }} />
       <DetailBanner />
       <RedirectBanner />
-      <Footer />
     </div>
   )
 }

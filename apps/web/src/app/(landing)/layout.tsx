@@ -3,12 +3,17 @@ import { Button } from '@vook-client/design-system'
 import Link from 'next/link'
 
 import { Header } from '@/components/Header'
+import { Footer } from '@/components/layout'
 
-import { headerButtonContainer, landingLayout } from './layout.css'
+import {
+  headerButtonContainer,
+  landingLayout,
+  landingOverlay,
+} from './layout.css'
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div>
+    <div className={landingOverlay}>
       <Header full={false}>
         <div className={headerButtonContainer}>
           <Link href="/login">
@@ -22,6 +27,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         </div>
       </Header>
       <div className={landingLayout}>{children}</div>
+      <Footer />
     </div>
   )
 }
