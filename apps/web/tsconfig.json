@@ -16,6 +16,7 @@
       "@/mock/*": ["./src/mock/*"],
       "@/modals/*": ["./src/modals/*"],
       "@/toasters/*": ["./src/toasters/*"],
+      "@/public/*": ["./public/*"],
       "@/store/*": ["./src/store/*"]
     }
   },
