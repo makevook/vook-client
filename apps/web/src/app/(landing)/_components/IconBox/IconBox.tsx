@@ -5,13 +5,13 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import Image from 'next/image'
 
-import Notion from '@/public/image/Notion.png'
-import Jira from '@/public/image/Jira.png'
-import Excel from '@/public/image/Excel.png'
-import FileIcon from '@/public/image/File.png'
-import Folder from '@/public/image/Folder.png'
-import Pen from '@/public/image/Pen.png'
-import SpredadSheet from '@/public/image/SpredadSheet.png'
+// import Notion from '@/public/image/Notion.png'
+// import Jira from '@/public/image/Jira.png'
+// import Excel from '@/public/image/Excel.png'
+// import FileIcon from '@/public/image/File.png'
+// import Folder from '@/public/image/Folder.png'
+// import Pen from '@/public/image/Pen.png'
+// import SpredadSheet from '@/public/image/SpredadSheet.png'
 
 import { IconBoxContainer } from './IconBox.css'
 
@@ -107,15 +107,15 @@ export const IconBox = ({ name }: IconBoxProps) => {
     right: icon?.right ? icon?.right : undefined,
   }
 
-  const iconImage = {
-    notion: Notion,
-    jira: Jira,
-    excel: Excel,
-    file: FileIcon,
-    folder: Folder,
-    pen: Pen,
-    spredadSheet: SpredadSheet,
-  }
+  // const iconImage = {
+  //   notion: Notion,
+  //   jira: Jira,
+  //   excel: Excel,
+  //   file: FileIcon,
+  //   folder: Folder,
+  //   pen: Pen,
+  //   spredadSheet: SpredadSheet,
+  // }
 
   return (
     <motion.div
@@ -155,7 +155,8 @@ export const IconBox = ({ name }: IconBoxProps) => {
           }}
         >
           <Image
-            src={iconImage[name]}
+            // src={iconImage[name]}
+            src={`/image/${name}.png`}
             alt={`Icon Image of ${name}`}
             width={icon.width}
             height={icon.height}
