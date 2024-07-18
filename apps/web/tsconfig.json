@@ -18,7 +18,8 @@
       "@/toasters/*": ["./src/toasters/*"],
       "@/public/*": ["./public/*"],
       "@/store/*": ["./src/store/*"]
-    }
+    },
+    "types": ["chrome"]
   },
   "include": [
     "next-env.d.ts",

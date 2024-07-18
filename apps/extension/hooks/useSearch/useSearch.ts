@@ -1,17 +1,20 @@
-import { useQuery } from '@tanstack/react-query'
-import { searchQueryOptions, type SearchResponse } from '@vook-client/api'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  searchQueryOptions,
+  vocabularyOptions,
+  type SearchHit,
+  type SearchResponse,
+} from '@vook-client/api'
 import {
   pipe,
   take,
   pluck,
-  map,
   toArray,
   filter,
   isEmpty,
   join,
+  flat,
 } from '@fxts/core'
-
-import { stripHtmlTags } from '../../utils/parser'
 
 interface UseSearchProps {
   selectedText: string
@@ -19,8 +22,14 @@ interface UseSearchProps {
 
 const MAX_HITS_QUANTITY = 3
 
+export const countTotalHits = (
+  records: SearchResponse['result']['records'],
+) => {
+  return pipe(records, pluck('hits'), flat, toArray)
+}
+
 export const getSearchTerms = (hits: SearchResponse['result']['records']) => {
-  return pipe(hits, pluck('term'), map(stripHtmlTags), take(4), toArray)
+  return pipe(hits, pluck('hits'), flat, take(4), pluck('term'), toArray)
 }
 
 export const isSubstring = (v1: string, v2: string) =>
@@ -38,28 +47,41 @@ export const getHeaderText = (terms: string[], selectedText: string) =>
     ? selectedText
     : pipe(terms, take(MAX_HITS_QUANTITY), join(', '))
 
-export const getTailText = (terms: string[]) =>
+export const getTailText = (terms: SearchHit[]) =>
   isEmpty(terms)
     ? '에 대한 검색 결과가 없습니다.'
     : `${terms.length > MAX_HITS_QUANTITY ? ' 등의' : ''} 용어를 찾았습니다.`
 
 export const useSearch = ({ selectedText }: UseSearchProps) => {
-  const query = useQuery({
-    ...searchQueryOptions.search({
-      query: `${selectedText}`,
-      withFormat: true,
-      highlightPreTag: '<strong>',
-      highlightPostTag: '</strong>',
-    }),
-    select: (data) => data.result.hits,
+  const client = useQueryClient()
+
+  const vocabularyQuery = useQuery({
+    ...vocabularyOptions.vocabularyInfo(client),
   })
 
-  const searchedTerms = getSearchTerms(query.data || [])
+  const query = useQuery({
+    ...searchQueryOptions.search(
+      {
+        query: selectedText,
+        highlightPostTag: '</strong>',
+        highlightPreTag: '<strong>',
+        withFormat: true,
+        vocabularyUids:
+          vocabularyQuery.data?.result.map((item) => item.uid) || [],
+      },
+      client,
+    ),
+    enabled: vocabularyQuery.isSuccess && selectedText.length <= 30,
+  })
+
+  const totalCount = countTotalHits(query.data?.result.records || [])
+  const searchedTerms = getSearchTerms(query.data?.result.records || [])
   const hitsTerms = getHitsTerms(searchedTerms, selectedText)
   const headerText = getHeaderText(hitsTerms, selectedText)
-  const tailText = getTailText(hitsTerms)
+  const tailText = getTailText(totalCount)
 
   return {
+    totalCount,
     query,
     hitsTerms,
     headerText,

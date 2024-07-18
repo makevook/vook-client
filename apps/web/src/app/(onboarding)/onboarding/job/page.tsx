@@ -10,8 +10,6 @@ import React from 'react'
 import { OnboardingJob, useOnboardingMutation } from '@vook-client/api'
 import { useRouter } from 'next/navigation'
 
-import { Link } from '@/components/Link'
-
 import { SelectBoxGroup } from '../_components/SelectBoxGroup'
 import { useOnBoarding } from '../_context/useOnboarding'
 import { OnboardingHeader } from '../_components/OnboardingHeader'

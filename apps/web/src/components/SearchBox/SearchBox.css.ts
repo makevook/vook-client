@@ -3,7 +3,7 @@ import { vars } from '@vook-client/design-system'
 
 export const searchBoxPositioner = style({
   position: 'relative',
-  width: 580,
+  width: 800,
   height: 60,
 })
 
@@ -66,7 +66,7 @@ export const searchBox = style({
 export const resetButton = style({
   position: 'absolute',
   top: 0,
-  right: 35,
+  right: 40,
 
   display: 'flex',
   justifyContent: 'center',
@@ -120,6 +120,15 @@ export const searchIcon = style({
 
 export const searchResultListContainer = style({
   paddingRight: 6.5,
+})
+
+export const noSearchResult = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  width: '100%',
+  paddingBlock: 28,
 })
 
 export const searchResultList = style({

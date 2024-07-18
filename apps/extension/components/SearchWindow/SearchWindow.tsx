@@ -1,11 +1,33 @@
-import { isEmpty } from '@fxts/core'
+import { Text } from '@vook-client/design-system'
 
 import { useSelectedText, useToggle } from '../../store/toggle'
-import { TermList } from '../TermList'
-import { useSearch } from '../../hooks/useSearch'
 
-import * as S from './SearchWindow.styles'
 import { SearchWindowHeader } from './SearchWindowHeader'
+import * as S from './SearchWindow.styles'
+
+import { useSearch } from 'hooks/useSearch'
+import { TermList } from 'components/TermList'
+import {
+  BlankTermList,
+  SearchWindowBlankButton,
+} from 'components/TermList/TermList.styles'
+
+const PlusIcon = () => (
+  <svg
+    width="10"
+    height="10"
+    viewBox="0 0 10 10"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M5 1L5 9M9 5L1 5"
+      stroke="#161719"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+  </svg>
+)
 
 const LinkExternalIcon = () => (
   <svg
@@ -26,17 +48,50 @@ const LinkExternalIcon = () => (
 )
 
 export const SearchWindow = () => {
-  const { position } = useToggle()
   const { selectedText } = useSelectedText()
+  const { position } = useToggle()
 
-  const { query, hitsTerms, headerText, tailText } = useSearch({
+  const { query, headerText, tailText } = useSearch({
     selectedText,
   })
+
+  if (selectedText.length > 30) {
+    return (
+      <S.SearchWindowBox className="vook-search-window" position={position}>
+        <SearchWindowHeader />
+        <S.SearchOverMaxLength>
+          <Text color="label-alternative" type="body-2" fontWeight="medium">
+            용어 검색은 30자 이내로만 가능합니다.
+          </Text>
+        </S.SearchOverMaxLength>
+        <S.SearchWindowLink>
+          <a
+            href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Vook 바로가기
+            <LinkExternalIcon />
+          </a>
+        </S.SearchWindowLink>
+      </S.SearchWindowBox>
+    )
+  }
 
   if (query.isLoading) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
         <SearchWindowHeader tailText="검색 중..." />
+        <S.SearchWindowLink>
+          <a
+            href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Vook 바로가기
+            <LinkExternalIcon />
+          </a>
+        </S.SearchWindowLink>
       </S.SearchWindowBox>
     )
   }
@@ -44,7 +99,59 @@ export const SearchWindow = () => {
   if (query.isError) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
-        <SearchWindowHeader tailText="검색 중 에러가 발생하였습니다!" />
+        <SearchWindowHeader />
+        <BlankTermList>
+          <Text type="body-2" color="label-alternative">
+            검색 중 에러가 발생하였습니다!
+          </Text>
+          <S.SearchWindowLink>
+            <a
+              href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Vook 바로가기
+              <LinkExternalIcon />
+            </a>
+          </S.SearchWindowLink>
+        </BlankTermList>
+      </S.SearchWindowBox>
+    )
+  }
+
+  if (
+    query.isSuccess &&
+    query.data.result.records.reduce(
+      (acc, record) => record.hits.length + acc,
+      0,
+    ) === 0
+  ) {
+    return (
+      <S.SearchWindowBox className="vook-search-window" position={position}>
+        <SearchWindowHeader />
+        <BlankTermList>
+          <Text type="body-2" color="label-alternative">
+            등록된 용어가 없습니다.
+          </Text>
+          <SearchWindowBlankButton
+            onClick={() => {
+              window.open(process.env.PLASMO_PUBLIC_WEB_DOMAIN, '_blank')
+            }}
+          >
+            <PlusIcon />
+            용어 추가하기
+          </SearchWindowBlankButton>
+        </BlankTermList>
+        <S.SearchWindowLink>
+          <a
+            href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Vook 바로가기
+            <LinkExternalIcon />
+          </a>
+        </S.SearchWindowLink>
       </S.SearchWindowBox>
     )
   }
@@ -52,9 +159,19 @@ export const SearchWindow = () => {
   return (
     <S.SearchWindowBox className="vook-search-window" position={position}>
       <SearchWindowHeader headerText={headerText} tailText={tailText} />
-      <TermList hits={isEmpty(hitsTerms) ? [] : query.data!} />
+      <div
+        style={{
+          width: '800px',
+        }}
+      >
+        <TermList records={query.data?.result.records || []} />
+      </div>
       <S.SearchWindowLink>
-        <a href="naver.com" target="_blank">
+        <a
+          href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
+          target="_blank"
+          rel="noreferrer"
+        >
           Vook 바로가기
           <LinkExternalIcon />
         </a>

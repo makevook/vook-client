@@ -7,19 +7,19 @@
   "dependencies": [
     {
       "name": "ssh",
-      "source": "github.com/seungyeop-lee/daggerverse/ssh@63e721cf63323ede8b1f11aeff00d41960699920"
+      "source": "github.com/seungyeop-lee/daggerverse/ssh@63f0f2d385768aa435474a9eec552750500899f2"
     },
     {
       "name": "docker",
-      "source": "github.com/purpleclay/daggerverse/docker@43c1c55dadf15afc9ba401dc59e04baaa3802cca"
+      "source": "github.com/purpleclay/daggerverse/docker@7a30afd9f33a260f48c19f5462b0dd89df8851d1"
     },
     {
       "name": "scp",
-      "source": "github.com/seungyeop-lee/daggerverse/scp@63e721cf63323ede8b1f11aeff00d41960699920"
+      "source": "github.com/seungyeop-lee/daggerverse/scp@63f0f2d385768aa435474a9eec552750500899f2"
     }
   ],
   "source": "dagger",
-  "engineVersion": "v0.11.4",
+  "engineVersion": "v0.12.0",
   "views": [
     {
       "name": "default",

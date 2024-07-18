@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 'use client'
 
 import { useQueryClient } from '@tanstack/react-query'

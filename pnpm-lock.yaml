@@ -44,12 +44,21 @@ importers:
       '@fxts/core':
         specifier: ^1.0.0
         version: 1.0.0
+      '@plasmohq/storage':
+        specifier: ^1.11.0
+        version: 1.11.0(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^5.32.0
         version: 5.37.1(react@18.2.0)
       '@vook-client/api':
         specifier: '*'
         version: link:../../packages/api
+      '@vook-client/design-system':
+        specifier: '*'
+        version: link:../../packages/design-system
+      hook:
+        specifier: link:@plasmohq/storage/hook
+        version: link:@plasmohq/storage/hook
       plasmo:
         specifier: ^0.86.3
         version: 0.86.3(react-dom@18.2.0)(react@18.2.0)
@@ -117,6 +126,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.32.0
         version: 5.37.1(react@18.3.1)
+      '@types/chrome':
+        specifier: 0.0.258
+        version: 0.0.258
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -5219,6 +5231,18 @@ packages:
       - whiskers
     dev: false
 
+  /@plasmohq/storage@1.11.0(react@18.2.0):
+    resolution: {integrity: sha512-JLu8cCjn+yzbaIK2Gw+NDuDJgiTle3nj1HbMC/irnnUTc7lnJSiCEN/EsUcWcwNtv9BJM2r8DAk1stsQ8dCKug==}
+    peerDependencies:
+      react: ^16.8.6 || ^17 || ^18
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      pify: 6.1.0
+      react: 18.2.0
+    dev: false
+
   /@pnpm/config.env-replace@1.1.0:
     resolution: {integrity: sha512-htyl8TWnKL7K/ESFa1oW2UB5lVDxuF5DpM7tBi6Hu2LNL3mWkIzNLG6N4zoCUP1lCKNxWy/3iu8mS8MvToGd6w==}
     engines: {node: '>=12.22.0'}
@@ -7320,7 +7344,6 @@ packages:
     dependencies:
       '@types/filesystem': 0.0.36
       '@types/har-format': 1.2.15
-    dev: true
 
   /@types/connect@3.4.38:
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
@@ -7409,11 +7432,9 @@ packages:
     resolution: {integrity: sha512-vPDXOZuannb9FZdxgHnqSwAG/jvdGM8Wq+6N4D/d80z+D4HWH+bItqsZaVRQykAn6WEVeEkLm2oQigyHtgb0RA==}
     dependencies:
       '@types/filewriter': 0.0.33
-    dev: true
 
   /@types/filewriter@0.0.33:
     resolution: {integrity: sha512-xFU8ZXTw4gd358lb2jw25nxY9QAgqn2+bKKjKOYfNCzN4DKCFetK7sPtrlpg66Ywe3vWY9FNxprZawAh9wfJ3g==}
-    dev: true
 
   /@types/find-cache-dir@3.2.1:
     resolution: {integrity: sha512-frsJrz2t/CeGifcu/6uRo4b+SzAwT4NYCVPu1GN8IB9XTzrpPkGuV0tmh9mN+/L0PklAlsC3u5Fxt0ju00LXIw==}
@@ -7428,7 +7449,6 @@ packages:
 
   /@types/har-format@1.2.15:
     resolution: {integrity: sha512-RpQH4rXLuvTXKR0zqHq3go0RVXYv/YVqv4TnPH95VbwUxZdQlK1EtcMvQvMpDngHbt13Csh9Z4qT9AbkiQH5BA==}
-    dev: true
 
   /@types/hast@3.0.4:
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
@@ -14441,6 +14461,11 @@ packages:
   /pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
+
+  /pify@6.1.0:
+    resolution: {integrity: sha512-KocF8ve28eFjjuBKKGvzOBGzG8ew2OqOOSxTTZhirkzH7h3BI1vyzqlR0qbfcDBve1Yzo3FVlWUAtCRrbVN8Fw==}
+    engines: {node: '>=14.16'}
+    dev: false
 
   /pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}

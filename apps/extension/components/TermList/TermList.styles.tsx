@@ -5,6 +5,8 @@ export const TermListBox = styled.article`
   border: 1px solid rgba(112, 115, 124, 0.16);
 
   max-height: 200px;
+  width: 100%;
+  min-width: 500px;
   overflow-y: scroll;
 `
 
@@ -53,4 +55,10 @@ export const SearchWindowBlankButton = styled.a`
   svg {
     margin-right: 7px;
   }
+`
+
+export const TermListVocabularyTitle = styled.div`
+  width: 100%;
+  padding: 12px 24px;
+  box-sizing: border-box;
 `
