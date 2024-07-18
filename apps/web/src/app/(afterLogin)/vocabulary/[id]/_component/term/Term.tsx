@@ -8,26 +8,22 @@ import {
   termSort,
   useDeleteTermMutation,
   useGetTermQuery,
+  GetTermResponse,
+  TermSortValues,
 } from '@vook-client/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { usePathname, useSearchParams } from 'next/navigation'
 import clsx from 'clsx'
-import {
-  GetTermResponse,
-  TermSortValues,
-} from 'node_modules/@vook-client/api/src/services/term/model'
 
 import { useToast } from '@/hooks/useToast'
 import { useVocabularyStore } from '@/store/term'
 import { useModal } from '@/hooks/useModal'
 import { ModalTypes } from '@/hooks/useModal/useModal'
+import { LoadingComponent, NoneDataComponent } from '@/components/common'
 
 import {
-  LoadingComponent,
-  NoneDataComponent,
-} from '../../../../../../components/common/Common'
-
-import {
+  dropboxItem,
+  headerIconContainer,
   highlight,
   highlightHit,
   termContainer,
@@ -36,8 +32,6 @@ import {
   termTitleContainer,
   textContainer,
 } from './Term.css'
-
-import { dropboxItem } from 'src/app/(afterLogin)/workspace/VocabularyItem.css'
 
 const TextContainer = ({ length }: { length?: number }) => (
   <div className={textContainer}>
@@ -51,9 +45,11 @@ const TextContainer = ({ length }: { length?: number }) => (
 const SortableListHeader = ({
   handleSort,
   response,
+  sorts,
 }: {
   response: GetTermResponse
   handleSort: (sort: TermSort) => void
+  sorts: TermSortValues[]
 }) => {
   const { checkList, handleCheckList } = useVocabularyStore()
 
@@ -74,14 +70,28 @@ const SortableListHeader = ({
         kind="title"
         onClick={() => handleSort(termSort.Term)}
       >
-        용어
+        <div className={headerIconContainer}>
+          용어
+          {sorts.includes(termSort.Term.Asc) && <Icon name="arrow-up-small" />}
+          {sorts.includes(termSort.Term.Desc) && (
+            <Icon name="arrow-down-small" />
+          )}
+        </div>
       </List>
       <List
         variant="reading"
         kind="title"
         onClick={() => handleSort(termSort.Synonym)}
       >
-        동의어
+        <div className={headerIconContainer}>
+          동의어
+          {sorts.includes(termSort.Synonym.Asc) && (
+            <Icon name="arrow-up-small" />
+          )}
+          {sorts.includes(termSort.Synonym.Desc) && (
+            <Icon name="arrow-down-small" />
+          )}
+        </div>
       </List>
       <List
         variant="reading"
@@ -89,14 +99,30 @@ const SortableListHeader = ({
         style={{ flex: 1 }}
         onClick={() => handleSort(termSort.Meaning)}
       >
-        뜻
+        <div className={headerIconContainer}>
+          뜻
+          {sorts.includes(termSort.Meaning.Asc) && (
+            <Icon name="arrow-up-small" />
+          )}
+          {sorts.includes(termSort.Meaning.Desc) && (
+            <Icon name="arrow-down-small" />
+          )}
+        </div>
       </List>
       <List
         variant="reading"
         kind="title"
         onClick={() => handleSort(termSort.CreatedAt)}
       >
-        생성일자
+        <div className={headerIconContainer}>
+          생성일자
+          {sorts.includes(termSort.CreatedAt.Asc) && (
+            <Icon name="arrow-up-small" />
+          )}
+          {sorts.includes(termSort.CreatedAt.Desc) && (
+            <Icon name="arrow-down-small" />
+          )}
+        </div>
       </List>
       <List variant="reading" kind="icon" />
     </div>
@@ -293,7 +319,11 @@ export const Term = () => {
         {response?.result.length ? (
           <>
             <TextContainer length={response?.result.length} />
-            <SortableListHeader handleSort={handleSort} response={response} />
+            <SortableListHeader
+              handleSort={handleSort}
+              response={response}
+              sorts={sorts}
+            />
             {response?.result.map((termData) => (
               <TermItem
                 key={termData.termUid}

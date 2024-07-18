@@ -1,0 +1,1 @@
+export { DetailBanner } from './DetailBanner'

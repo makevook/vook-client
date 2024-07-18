@@ -112,7 +112,12 @@ const checkUserStatusMiddleware =
     return finalResponse
   }
 
-const onlyRegisteredMatch = ['/onboarding', '/user/edit']
+const onlyRegisteredMatch = [
+  '/onboarding',
+  '/user/edit',
+  '/workspace',
+  '/vocabulary/',
+]
 
 const onlyRegisteredMiddleware = checkUserStatusMiddleware([
   UserStatus.Registered,
@@ -135,7 +140,6 @@ export async function middleware(req: NextRequest) {
 
   if (
     onlyRegisteredMatch.some((url) => req.nextUrl.pathname.includes(url)) ||
-    req.nextUrl.pathname === '/' ||
     req.nextUrl.pathname.includes('/vocabulary/')
   ) {
     return onlyRegisteredMiddleware(req, response, '/login')

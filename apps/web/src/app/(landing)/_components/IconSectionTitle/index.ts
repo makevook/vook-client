@@ -1,0 +1,1 @@
+export { IconSectionTitle } from './IconSectionTitle'

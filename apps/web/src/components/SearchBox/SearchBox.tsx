@@ -65,7 +65,7 @@ export const SearchBox = () => {
   const searchQuery = useSearchQuery(
     {
       vocabularyUids: vocabulariesInfo.map((vocabulary) => vocabulary.uid),
-      query: searchValue,
+      queries: searchValue.split(' '),
       withFormat: true,
       highlightPreTag: '<span class="highlight">',
       highlightPostTag: '</span>',

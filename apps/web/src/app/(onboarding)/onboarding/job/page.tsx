@@ -14,7 +14,7 @@ import { SelectBoxGroup } from '../_components/SelectBoxGroup'
 import { useOnBoarding } from '../_context/useOnboarding'
 import { OnboardingHeader } from '../_components/OnboardingHeader'
 
-import { buttonGroup, header, jobGroup } from './page.css'
+import { buttonGroup, header, jobGroup, skipButton } from './page.css'
 
 const JOBS: Array<{
   icon: ButtonProps['prefixIcon']
@@ -69,7 +69,7 @@ const OnboardingJobPage = () => {
     },
     {
       onSuccess: () => {
-        router.push('/')
+        router.push('/workspace')
       },
     },
   )
@@ -115,23 +115,30 @@ const OnboardingJobPage = () => {
         </SelectBoxGroup>
       </div>
       <div className={buttonGroup}>
-        <Text onClick={onSubmitFunnel} type="body-2" color="label-alternative">
+        <Text
+          type="body-2"
+          color="label-alternative"
+          onClick={onSubmitFunnel}
+          className={skipButton}
+        >
           건너뛰기
         </Text>
-        <Button
-          onClick={onSubmitFunnel}
-          size="middle"
-          disabled={
-            selectedJob === null || mutation.isPending || mutation.isSuccess
-          }
-          suffixIcon={
-            mutation.isPending || mutation.isSuccess
-              ? 'spinner-medium'
-              : undefined
-          }
-        >
-          시작하기
-        </Button>
+        <Link href="/onboarding/job">
+          <Button
+            onClick={onSubmitFunnel}
+            size="middle"
+            disabled={
+              selectedJob === null || mutation.isPending || mutation.isSuccess
+            }
+            suffixIcon={
+              mutation.isPending || mutation.isSuccess
+                ? 'spinner-medium'
+                : undefined
+            }
+          >
+            시작하기
+          </Button>
+        </Link>
       </div>
     </div>
   )

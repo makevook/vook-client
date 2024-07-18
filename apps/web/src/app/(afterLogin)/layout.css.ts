@@ -7,11 +7,10 @@ export const mainArea = style({
 
   minHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
 
-  padding: 40,
-  // paddingBottom: 400,
-
   marginTop: HEADER_HEIGHT,
   marginLeft: SIDE_BAR_WIDTH,
+
+  padding: '40px',
 
   display: 'flex',
   flexDirection: 'column',

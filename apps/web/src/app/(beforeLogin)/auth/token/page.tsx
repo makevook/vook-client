@@ -42,7 +42,7 @@ const AuthCallbackPage = ({
       const isRegistered = userInfo.result.status === UserStatus.Registered
 
       if (isRegistered) {
-        router.push('/')
+        router.push('/workspace')
 
         const sendToken = () => {
           window.postMessage(
