@@ -10,11 +10,13 @@ import React from 'react'
 import { OnboardingJob, useOnboardingMutation } from '@vook-client/api'
 import { useRouter } from 'next/navigation'
 
+import { Link } from '@/components/Link'
+
 import { SelectBoxGroup } from '../_components/SelectBoxGroup'
 import { useOnBoarding } from '../_context/useOnboarding'
 import { OnboardingHeader } from '../_components/OnboardingHeader'
 
-import { buttonGroup, header, jobGroup, skipButton } from './page.css'
+import { buttonGroup, header, jobGroup } from './page.css'
 
 const JOBS: Array<{
   icon: ButtonProps['prefixIcon']
@@ -114,13 +116,8 @@ const OnboardingJobPage = () => {
           ))}
         </SelectBoxGroup>
       </div>
-      <div className={buttonGroup}>
-        <Text
-          type="body-2"
-          color="label-alternative"
-          onClick={onSubmitFunnel}
-          className={skipButton}
-        >
+      <div className={buttonGroup} style={{ cursor: 'pointer' }}>
+        <Text type="body-2" color="label-alternative" onClick={onSubmitFunnel}>
           건너뛰기
         </Text>
         <Link href="/onboarding/job">

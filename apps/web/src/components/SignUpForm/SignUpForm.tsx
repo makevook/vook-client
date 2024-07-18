@@ -1,12 +1,17 @@
 'use client'
 
 import { Button, Checkbox, Input, Text } from '@vook-client/design-system'
-import { useSignUpMutation, useUserInfoQuery } from '@vook-client/api'
+import {
+  UserStatus,
+  useSignUpMutation,
+  useUserInfoQuery,
+} from '@vook-client/api'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChangeEventHandler, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import z from 'zod'
+import { useReRegisterMutation } from 'node_modules/@vook-client/api/src/services/auth/queries'
 
 import {
   checkboxGroup,
@@ -52,6 +57,19 @@ export const SignUpForm = () => {
     },
   )
 
+  const reSignUpMutation = useReRegisterMutation(
+    {
+      nickname: watch('nickname'),
+      requiredTermsAgree: watch('requiredTermsAgree'),
+      marketingEmailOptIn: watch('marketingEmailOptIn'),
+    },
+    {
+      onSuccess: () => {
+        router.push('/onboarding')
+      },
+    },
+  )
+
   const isAllChecked =
     watch('requiredTermsAgree') &&
     watch('policyAgree') &&
@@ -77,7 +95,15 @@ export const SignUpForm = () => {
   const email = userInfoQuery.data.result.email
 
   const onSubmit = handleSubmit(() => {
-    signUpMutation.mutate()
+    if (!userInfoQuery.data) {
+      return
+    }
+
+    if (userInfoQuery.data.result.status === UserStatus.Withdrawn) {
+      reSignUpMutation.mutate()
+    } else {
+      signUpMutation.mutate()
+    }
   })
 
   const onCheckAll: ChangeEventHandler<HTMLInputElement> = (e) => {

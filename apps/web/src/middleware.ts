@@ -126,6 +126,7 @@ const onlyRegisteredMiddleware = checkUserStatusMiddleware([
 
 const onlyUnregisteredSocialUser = checkUserStatusMiddleware([
   UserStatus.SocialLoginCompleted,
+  UserStatus.Withdrawn,
 ])
 
 export async function middleware(req: NextRequest) {

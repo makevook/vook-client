@@ -14,6 +14,15 @@ export const authService = {
       })
   },
 
+  async reRegister(client: QueryClient, dto: SignUpDTO) {
+    return APIBuilder.post('/user/re-register')
+      .withCredentials(client)
+      .build()
+      .call<SignUpResponse>({
+        body: JSON.stringify(dto),
+      })
+  },
+
   async withdraw(client: QueryClient) {
     return APIBuilder.post('/user/withdraw')
       .withCredentials(client)

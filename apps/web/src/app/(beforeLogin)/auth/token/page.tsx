@@ -40,10 +40,14 @@ const AuthCallbackPage = ({
     const checkUserRegistered = async () => {
       const userInfo = await userService.userInfo(queryClient)
       const isRegistered = userInfo.result.status === UserStatus.Registered
+      const isOnboardingCompleted = userInfo.result.onboardingCompleted
 
-      if (isRegistered) {
-        router.push('/workspace')
+      if (!isOnboardingCompleted) {
+        router.push('/onboarding/funnel')
+        return
+      }
 
+      if (isRegistered && isOnboardingCompleted) {
         const sendToken = () => {
           window.postMessage(
             {
@@ -59,9 +63,12 @@ const AuthCallbackPage = ({
           sendToken()
         }
 
-        return
+        router.push('/workspace')
       }
-      router.push('/signup')
+
+      if (userInfo.result.onboardingCompleted) {
+        router.push('/signup')
+      }
     }
 
     checkUserRegistered()

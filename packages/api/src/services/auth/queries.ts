@@ -12,9 +12,24 @@ export const authOptions = {
   register: (client: QueryClient, dto: SignUpDTO) => ({
     mutationFn: () => authService.register(client, dto),
   }),
+  reRegister: (client: QueryClient, dto: SignUpDTO) => ({
+    mutationFn: () => authService.reRegister(client, dto),
+  }),
   withdraw: (client: QueryClient) => ({
     mutationFn: () => authService.withdraw(client),
   }),
+}
+
+export const useReRegisterMutation = (
+  dto: SignUpDTO,
+  options: MutationOptions<SignUpResponse> = {},
+) => {
+  const queryClient = useQueryClient()
+
+  return useMutation<SignUpResponse>({
+    ...authOptions.reRegister(queryClient, dto),
+    ...options,
+  })
 }
 
 export const useSignUpMutation = (
