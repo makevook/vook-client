@@ -3,7 +3,7 @@
 import { Button, SymbolLogo, Text, TypoLogo } from '@vook-client/design-system'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLayoutEffect, useState } from 'react'
-import { userOptions, vocabularyOptions } from '@vook-client/api'
+import { baseFetcher, userOptions, vocabularyOptions } from '@vook-client/api'
 
 import { getStorage, removeStorage, setStorage } from '../../utils/storage'
 
@@ -28,16 +28,26 @@ export const PopupBox = () => {
   })
 
   useLayoutEffect(() => {
+    baseFetcher.setUnAuthorizedHandler(() => {
+      removeStorage('vook-access')
+      removeStorage('vook-refresh')
+      setTokenDone(false)
+    })
+  }, [])
+
+  useLayoutEffect(() => {
     const setToken = async () => {
       const access = await getStorage<string>('vook-access')
       const refresh = await getStorage<string>('vook-refresh')
       const vookLogin = await getStorage<string>('vook-login')
 
       if (!access || !refresh) {
+        setTokenDone(false)
         return
       }
 
       if (!vookLogin) {
+        setTokenDone(false)
         setLogin(false)
         return
       }
@@ -72,20 +82,22 @@ export const PopupBox = () => {
         width: hasResult ? '800px' : '450px',
       }}
     >
-      <button
+      <Button
+        size="small"
+        filled={false}
         onClick={() => {
           removeStorage('vook-access')
           removeStorage('vook-refresh')
           setLogin(false)
         }}
       >
-        리셋
-      </button>
+        로그아웃
+      </Button>
       <div className="logo">
         <SymbolLogo size={24} />
         <TypoLogo size="small" />
       </div>
-      {tokenDone && !login && (
+      {!login && (
         <>
           <Text type="body-1" fontWeight="medium">
             주제별로 용어집을 관리하고, 간편하게 용어를 검색하세요
