@@ -296,7 +296,7 @@ const PrivacyTermPage = () => {
         </Text>
         <br />
         <Text type="body-2-reading" color="semantic-label-alternative">
-          개인정보 관리책임자 • 성명 : 박재은 • 연락처 : pitapan1248@gmail.com
+          개인정보 관리책임자 • 성명 : 박재은 • 연락처 : vook.help@gmail.com
         </Text>
         <br />
         <Text type="heading-2" fontWeight="medium">

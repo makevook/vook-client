@@ -52,6 +52,7 @@ export type {
   GetTermResponse,
   Terms,
   TermSort,
+  TermSortValues,
 } from './services/term/model'
 export { termSort } from './services/term/model'
 export {

@@ -20,7 +20,7 @@ export const Header = ({ children, full = true }: HeaderProps) => {
         })}
       >
         <div className="logo">
-          <Link href="/">
+          <Link href="/workspace">
             <TypoLogo size="big" />
           </Link>
         </div>

@@ -10,7 +10,6 @@ export const redirectBanner = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '100vw',
   gap: 48,
   padding: 90,
   marginBottom: FOOTER_HEIGHT,

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Text } from '@vook-client/design-system'
 import clsx from 'clsx'
+import Link from 'next/link'
 
 import { AppearBottom } from '@/components/AppearBottom'
 
@@ -64,7 +65,9 @@ export const HeroBanner = () => {
         </div>
       </AppearBottom>
       <AppearBottom delay={1.5}>
-        <Button>무료로 시작하기</Button>
+        <Link href="/login">
+          <Button>무료로 시작하기</Button>
+        </Link>
       </AppearBottom>
     </div>
   )

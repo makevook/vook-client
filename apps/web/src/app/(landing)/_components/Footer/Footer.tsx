@@ -35,7 +35,7 @@ const Footer = () => {
           </Text>
         </div>
         <div className={flexBox} style={{ gap: 4 }}>
-          <Link href="https://www.instagram.com/yong4.zip/">
+          <Link href="https://www.instagram.com/vook_help/">
             <Icon name="instagram" />
           </Link>
           <Link href="https://vook.tistory.com/">

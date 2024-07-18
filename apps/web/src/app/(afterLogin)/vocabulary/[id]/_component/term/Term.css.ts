@@ -42,3 +42,16 @@ export const highlightHit = style({
 export const highlight = style({
   backgroundColor: vars.colors.yellow,
 })
+
+export const dropboxItem = style({
+  display: 'flex',
+  alignItems: 'center',
+  width: 174,
+  gap: 10,
+})
+
+export const headerIconContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 2,
+})

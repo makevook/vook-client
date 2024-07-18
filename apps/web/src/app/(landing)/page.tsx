@@ -7,7 +7,7 @@ import { RedirectBanner } from './_components/RedirectBanner'
 
 const LandingPage = () => {
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <HeroBanner />
       <IconSection />
       <div style={{ height: 720 }} />
