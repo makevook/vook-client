@@ -14,6 +14,8 @@ const API_URL =
 export class Fetcher {
   private baseUrl: string
 
+  private unAuthorizedHandler: () => void = () => {}
+
   private errorHandler: (error: Error) => void = () => {}
 
   public constructor(baseUrl: string) {
@@ -22,6 +24,10 @@ export class Fetcher {
 
   public setErrorHandler(handler: (error: Error) => void) {
     this.errorHandler = handler
+  }
+
+  public setUnAuthorizedHandler(handler: () => void) {
+    this.unAuthorizedHandler = handler
   }
 
   private async request<ResponseType>(
@@ -68,8 +74,8 @@ export class Fetcher {
     const access = client.getQueryData<string>(['access'])
     const refresh = client.getQueryData<string>(['refresh'])
 
-    if (!access && !refresh && location) {
-      location.href = '/login'
+    if (!access && !refresh && global.window !== undefined) {
+      this.unAuthorizedHandler()
     }
 
     if (!access && refresh) {
@@ -135,14 +141,23 @@ export class Fetcher {
 
       Cookies.set('access', newAccessToken)
       Cookies.set('refresh', newRefreshToken)
-
       client.setQueryData(['access'], newAccessToken)
       client.setQueryData(['refresh'], newRefreshToken)
-    } catch {
-      if (global.location) {
-        global.location.href = '/login'
+
+      if (global.window !== undefined) {
+        if (global.window.postMessage) {
+          global.window.postMessage(
+            {
+              from: 'vook-web',
+              access: newAccessToken,
+              refresh: newRefreshToken,
+            },
+            '*',
+          )
+        }
       }
-      throw new Error('토큰 갱신에 실패하였습니다.')
+    } catch {
+      this.unAuthorizedHandler()
     }
   }
 
