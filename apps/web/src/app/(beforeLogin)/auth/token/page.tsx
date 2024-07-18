@@ -39,34 +39,38 @@ const AuthCallbackPage = ({
 
     const checkUserRegistered = async () => {
       const userInfo = await userService.userInfo(queryClient)
-      const isRegistered = userInfo.result.status === UserStatus.Registered
-      const isOnboardingCompleted = userInfo.result.onboardingCompleted
 
-      if (!isOnboardingCompleted) {
-        router.push('/onboarding/funnel')
+      if (userInfo.result.status === UserStatus.SocialLoginCompleted) {
+        router.push('/signup')
         return
       }
 
-      if (isRegistered && isOnboardingCompleted) {
-        const sendToken = () => {
-          window.postMessage(
-            {
-              from: 'vook-web',
-              access,
-              refresh,
-            },
-            '*',
-          )
-        }
+      if (userInfo.result.status === UserStatus.Registered) {
+        if (userInfo.result.onboardingCompleted) {
+          const sendToken = () => {
+            window.postMessage(
+              {
+                from: 'vook-web',
+                access,
+                refresh,
+              },
+              '*',
+            )
+          }
 
-        if (window.opener) {
-          sendToken()
-        }
+          if (window.opener) {
+            sendToken()
+          }
 
-        router.push('/workspace')
+          router.push('/workspace')
+          return
+        } else {
+          router.push('/onboarding/funnel')
+          return
+        }
       }
 
-      if (userInfo.result.onboardingCompleted) {
+      if (userInfo.result.status === UserStatus.Withdrawn) {
         router.push('/signup')
       }
     }
