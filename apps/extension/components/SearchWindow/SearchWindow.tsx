@@ -61,7 +61,7 @@ export const SearchWindow = () => {
   const searchQuery = useQuery({
     ...searchQueryOptions.search(
       {
-        queries: selectedText.split(', '),
+        queries: selectedText,
         highlightPostTag: '</strong>',
         highlightPreTag: '<strong>',
         withFormat: true,
@@ -70,7 +70,7 @@ export const SearchWindow = () => {
       },
       client,
     ),
-    enabled: vocabularyQuery.isSuccess && selectedText.split(', ').length <= 10,
+    enabled: vocabularyQuery.isSuccess && selectedText.length <= 10,
   })
 
   const External = () => {
@@ -90,7 +90,7 @@ export const SearchWindow = () => {
     )
   }
 
-  if (selectedText.split(', ').length > 10) {
+  if (selectedText.length > 10) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
         <SearchWindowHeader />

@@ -1,4 +1,4 @@
-import { Icon, SymbolLogo } from '@vook-client/design-system'
+import { Icon, SymbolLogo, Text } from '@vook-client/design-system'
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { searchQueryOptions, vocabularyOptions } from '@vook-client/api'
@@ -70,6 +70,22 @@ export const SearchBox = ({ hasResult, setHasResult }: SearchBoxProps) => {
         />
         {query.isSuccess && (
           <TermList records={query.data.result.records || []} />
+        )}
+        {query.data?.result.records.reduce((acc, cur) => {
+          return (acc += cur.hits.length)
+        }, 0) === 0 && (
+          <Text
+            type="body-1"
+            color="semantic-label-alternative"
+            fontWeight="medium"
+          >
+            검색 결과가 없습니다.
+          </Text>
+        )}
+        {query.isError && (
+          <Text type="body-1" color="status-error" fontWeight="medium">
+            검색 중 에러가 발생하였습니다.
+          </Text>
         )}
       </S.SearchBoxInputBox>
     </S.SearchBoxContainer>

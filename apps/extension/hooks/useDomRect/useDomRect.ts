@@ -30,7 +30,7 @@ export const useDomRect = () => {
       const domRect = selectionUtils.getSelectionNodeRect()
 
       if (selectedText.length > 0 && domRect) {
-        setSelectedText(selectedText)
+        setSelectedText(selectedText.split(' '))
         setPosition(
           isDragged.current
             ? getMousePosition(e)
@@ -41,7 +41,7 @@ export const useDomRect = () => {
         return
       }
 
-      setSelectedText('')
+      setSelectedText([])
       changeIsSelected(false)
       changeSearchWindow(false)
     }
