@@ -29,7 +29,7 @@ export const getStyle = () => {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 3,
+      retry: 0,
     },
   },
 })
@@ -91,8 +91,10 @@ function VookContentScript() {
           await setStorage('vook-access', event.data.access)
           await setStorage('vook-refresh', event.data.refresh)
           await setStorage('vook-login', true)
+
           queryClient.setQueryData(['access'], event.data.access)
           queryClient.setQueryData(['refresh'], event.data.refresh)
+
           postSuccessMessage()
         }
       },

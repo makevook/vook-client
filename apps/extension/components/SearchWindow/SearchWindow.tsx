@@ -1,11 +1,12 @@
 import { Text } from '@vook-client/design-system'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { searchQueryOptions, vocabularyOptions } from '@vook-client/api'
 
 import { useSelectedText, useToggle } from '../../store/toggle'
 
 import { SearchWindowHeader } from './SearchWindowHeader'
 import * as S from './SearchWindow.styles'
 
-import { useSearch } from 'hooks/useSearch'
 import { TermList } from 'components/TermList'
 import {
   BlankTermList,
@@ -51,17 +52,34 @@ export const SearchWindow = () => {
   const { selectedText } = useSelectedText()
   const { position } = useToggle()
 
-  const { query, headerText, tailText } = useSearch({
-    selectedText,
+  const client = useQueryClient()
+
+  const vocabularyQuery = useQuery({
+    ...vocabularyOptions.vocabularyInfo(client),
   })
 
-  if (selectedText.length > 30) {
+  const searchQuery = useQuery({
+    ...searchQueryOptions.search(
+      {
+        queries: selectedText.split(', '),
+        highlightPostTag: '</strong>',
+        highlightPreTag: '<strong>',
+        withFormat: true,
+        vocabularyUids:
+          vocabularyQuery.data?.result.map((item) => item.uid) || [],
+      },
+      client,
+    ),
+    enabled: vocabularyQuery.isSuccess && selectedText.split(', ').length <= 10,
+  })
+
+  if (selectedText.split(', ').length > 10) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
         <SearchWindowHeader />
         <S.SearchOverMaxLength>
           <Text color="label-alternative" type="body-2" fontWeight="medium">
-            용어 검색은 30자 이내로만 가능합니다.
+            용어 검색은 10단어 이내로만 가능합니다.
           </Text>
         </S.SearchOverMaxLength>
         <S.SearchWindowLink>
@@ -78,7 +96,7 @@ export const SearchWindow = () => {
     )
   }
 
-  if (query.isLoading) {
+  if (searchQuery.isLoading) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
         <SearchWindowHeader tailText="검색 중..." />
@@ -96,7 +114,7 @@ export const SearchWindow = () => {
     )
   }
 
-  if (query.isError) {
+  if (vocabularyQuery.isError || searchQuery.isError) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
         <SearchWindowHeader />
@@ -120,8 +138,7 @@ export const SearchWindow = () => {
   }
 
   if (
-    query.isSuccess &&
-    query.data.result.records.reduce(
+    searchQuery.data?.result.records.reduce(
       (acc, record) => record.hits.length + acc,
       0,
     ) === 0
@@ -158,13 +175,13 @@ export const SearchWindow = () => {
 
   return (
     <S.SearchWindowBox className="vook-search-window" position={position}>
-      <SearchWindowHeader headerText={headerText} tailText={tailText} />
+      <SearchWindowHeader />
       <div
         style={{
           width: '800px',
         }}
       >
-        <TermList records={query.data?.result.records || []} />
+        <TermList records={searchQuery.data?.result.records || []} />
       </div>
       <S.SearchWindowLink>
         <a

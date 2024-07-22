@@ -48,6 +48,7 @@ export const PopupBox = () => {
 
       client.setQueryData(['access'], access)
       client.setQueryData(['refresh'], refresh)
+
       setInitializing(true)
       setHasToken(true)
     }

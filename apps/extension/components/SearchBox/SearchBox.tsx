@@ -23,7 +23,7 @@ export const SearchBox = ({ hasResult, setHasResult }: SearchBoxProps) => {
   const query = useQuery({
     ...searchQueryOptions.search(
       {
-        query: text,
+        queries: text.split(' '),
         highlightPostTag: '</strong>',
         highlightPreTag: '<strong>',
         withFormat: true,
