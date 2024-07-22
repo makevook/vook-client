@@ -73,6 +73,23 @@ export const SearchWindow = () => {
     enabled: vocabularyQuery.isSuccess && selectedText.split(', ').length <= 10,
   })
 
+  const External = () => {
+    return (
+      <a
+        href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
+        onClick={() => {
+          window.open(process.env.PLASMO_PUBLIC_WEB_DOMAIN, '_blank')
+        }}
+        style={{
+          cursor: 'pointer',
+        }}
+      >
+        Vook 바로가기
+        <LinkExternalIcon />
+      </a>
+    )
+  }
+
   if (selectedText.split(', ').length > 10) {
     return (
       <S.SearchWindowBox className="vook-search-window" position={position}>
@@ -83,14 +100,7 @@ export const SearchWindow = () => {
           </Text>
         </S.SearchOverMaxLength>
         <S.SearchWindowLink>
-          <a
-            href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Vook 바로가기
-            <LinkExternalIcon />
-          </a>
+          <External />
         </S.SearchWindowLink>
       </S.SearchWindowBox>
     )
@@ -101,14 +111,7 @@ export const SearchWindow = () => {
       <S.SearchWindowBox className="vook-search-window" position={position}>
         <SearchWindowHeader tailText="검색 중..." />
         <S.SearchWindowLink>
-          <a
-            href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Vook 바로가기
-            <LinkExternalIcon />
-          </a>
+          <External />
         </S.SearchWindowLink>
       </S.SearchWindowBox>
     )
@@ -160,14 +163,7 @@ export const SearchWindow = () => {
           </SearchWindowBlankButton>
         </BlankTermList>
         <S.SearchWindowLink>
-          <a
-            href={process.env.PLASMO_PUBLIC_WEB_DOMAIN}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Vook 바로가기
-            <LinkExternalIcon />
-          </a>
+          <External />
         </S.SearchWindowLink>
       </S.SearchWindowBox>
     )
