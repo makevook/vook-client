@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Button, SymbolLogo, Text, TypoLogo } from '@vook-client/design-system'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { baseFetcher, userOptions, vocabularyOptions } from '@vook-client/api'
 
 import { getStorage, removeStorage } from '../../utils/storage'
@@ -55,6 +55,27 @@ export const PopupBox = () => {
 
     setToken()
   }, [client])
+
+  useEffect(() => {
+    window.addEventListener(
+      'message',
+      (event: {
+        data: {
+          from: string
+          access: string
+          refresh: string
+        }
+      }) => {
+        if (
+          event.data.from === 'vook-web' &&
+          event.data.access &&
+          event.data.refresh
+        ) {
+          setHasToken(true)
+        }
+      },
+    )
+  }, [])
 
   const onClickLogin = () => {
     window.open(
