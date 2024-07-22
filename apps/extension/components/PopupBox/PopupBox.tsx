@@ -97,17 +97,6 @@ export const PopupBox = () => {
         width: hasResult ? '800px' : '450px',
       }}
     >
-      <Button
-        size="small"
-        filled={false}
-        onClick={() => {
-          removeStorage('vook-access')
-          removeStorage('vook-refresh')
-          setHasToken(false)
-        }}
-      >
-        로그아웃
-      </Button>
       <div className="logo">
         <SymbolLogo size={24} />
         <TypoLogo size="small" />
@@ -137,7 +126,20 @@ export const PopupBox = () => {
         </>
       )}
       {userInfo && hasToken && (
-        <SearchBox hasResult={hasResult} setHasResult={setHasResult} />
+        <>
+          <Button
+            size="small"
+            filled={false}
+            onClick={() => {
+              removeStorage('vook-access')
+              removeStorage('vook-refresh')
+              setHasToken(false)
+            }}
+          >
+            로그아웃
+          </Button>
+          <SearchBox hasResult={hasResult} setHasResult={setHasResult} />
+        </>
       )}
     </PopupBoxContainer>
   )
