@@ -77,7 +77,9 @@ const OnboardingJobPage = () => {
   )
 
   const onSubmitFunnel = () => {
-    mutation.mutate()
+    if (!mutation.isPending || !mutation.isSuccess) {
+      mutation.mutate()
+    }
   }
 
   const onClickJob = (job: OnboardingJob) => {
