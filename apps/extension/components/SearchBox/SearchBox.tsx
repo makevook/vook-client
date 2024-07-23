@@ -36,7 +36,9 @@ export const SearchBox = ({ hasResult, setHasResult }: SearchBoxProps) => {
   })
 
   const onSubmit = () => {
-    query.refetch()
+    if (text.trim().length > 0) {
+      query.refetch()
+    }
   }
 
   useEffect(() => {
