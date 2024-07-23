@@ -15,7 +15,7 @@ import { ModalContextProvider } from 'src/hooks/useModal/useModal'
 export const metadata: Metadata = {
   title: 'Vook',
   description: 'IT 용어를 가장 쉽고 빠르게 찾는 방법',
-  icons: { icon: './icon.svg' },
+  icons: { icon: '/icon.svg' },
 }
 
 const RootLayout = ({
