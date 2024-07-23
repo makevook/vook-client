@@ -25,7 +25,7 @@ export const PopupBox = () => {
 
   useQuery({
     ...vocabularyOptions.vocabularyInfo(client),
-    enabled: hasToken,
+    enabled: userInfoQuery.isSuccess,
   })
 
   useLayoutEffect(() => {
