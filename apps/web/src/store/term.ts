@@ -10,8 +10,8 @@ export interface TermModalDataType {
 
 interface VocabularyState {
   modalData: TermModalDataType
-  checkList: string[]
   setModalData: (data: TermModalDataType) => void
+  checkList: string[]
   setCheckList: (
     list: string[] | ((prevCheckList: string[]) => string[]),
   ) => void
@@ -34,7 +34,7 @@ export const useVocabularyStore = create<VocabularyState>((set, get) => ({
   handleCheckList: (uid, response) => {
     const { checkList, setCheckList } = get()
 
-    if (uid === 'all' && checkList.length > 0) {
+    if (uid === 'all' && checkList.length > 0 && checkList.includes('all')) {
       setCheckList([])
       return
     }
@@ -42,6 +42,7 @@ export const useVocabularyStore = create<VocabularyState>((set, get) => ({
       if (response !== null) {
         setCheckList(response.result.map((data) => data.termUid))
       }
+      setCheckList((prevCheckList) => [...prevCheckList, 'all'])
       return
     }
 

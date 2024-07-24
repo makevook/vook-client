@@ -62,7 +62,10 @@ const SortableListHeader = ({
       >
         <Checkbox
           onChange={() => {}}
-          checked={checkList.length === response.result.length}
+          checked={
+            checkList.length === response.result.length ||
+            checkList.includes('all')
+          }
         />
       </List>
       <List
