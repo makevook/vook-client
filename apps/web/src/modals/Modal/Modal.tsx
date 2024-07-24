@@ -110,6 +110,7 @@ const ModalInputContent = ({ children, register }: ModalInput) => {
       <Input
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
+        maxLength={20}
         {...register('name', { required: true })}
       />
     </div>
