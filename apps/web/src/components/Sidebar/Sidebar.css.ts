@@ -16,6 +16,7 @@ export const sideBar = style({
   height: `calc(100dvh - ${HEADER_HEIGHT}px)`,
 
   borderRight: `1px solid ${vars.colors['semantic-line-normal']}`,
+  zIndex: 10,
 })
 
 export const sideBarWorkspace = style({
@@ -33,5 +34,6 @@ export const sideBarWorkspace = style({
 })
 
 export const sideBarWorkspaceInner = style({
+  width: '100%',
   overflowY: 'auto',
 })
