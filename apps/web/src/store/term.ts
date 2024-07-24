@@ -16,6 +16,7 @@ interface VocabularyState {
     list: string[] | ((prevCheckList: string[]) => string[]),
   ) => void
   handleCheckList: (uid: string, response: GetTermResponse | null) => void
+  reset: () => void
 }
 
 export const useVocabularyStore = create<VocabularyState>((set, get) => ({
@@ -52,11 +53,12 @@ export const useVocabularyStore = create<VocabularyState>((set, get) => ({
       setCheckList((prevCheckList) => [...prevCheckList, uid])
     }
   },
+  reset: () => set({ checkList: [] }),
 }))
 
 export const useVocabulary = () => {
-  const { modalData, checkList, setModalData, setCheckList } =
+  const { modalData, checkList, setModalData, setCheckList, reset } =
     useVocabularyStore()
 
-  return { modalData, checkList, setModalData, setCheckList }
+  return { modalData, checkList, setModalData, setCheckList, reset }
 }

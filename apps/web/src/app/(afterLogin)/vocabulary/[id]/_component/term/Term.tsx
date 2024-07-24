@@ -245,6 +245,7 @@ export const Term = () => {
   const [sorts, setSorts] = useState<TermSortValues[]>([])
   const [selectedTermUid, setSelectedTermUid] = useState('')
   const [updated, setUpdated] = useState(false)
+  const { reset } = useVocabularyStore()
 
   const { data: response, isLoading } = useGetTermQuery(id, sorts)
 
@@ -257,6 +258,10 @@ export const Term = () => {
       addToast({ message: '용어가 삭제되었습니다.', type: 'success' })
     },
   })
+
+  useEffect(() => {
+    reset()
+  }, [id, reset])
 
   useEffect(() => {
     if (!response) {
