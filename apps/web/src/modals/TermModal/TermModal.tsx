@@ -151,7 +151,7 @@ export const TermEditModal = () => {
     defaultValues: {
       name: modalData.name,
       meaning: modalData.meaning,
-      synonyms: modalData.synonym.join(', '),
+      synonyms: modalData.synonym.join(','),
     },
   })
   const queryClient = useQueryClient()
