@@ -145,16 +145,16 @@ export class Fetcher {
       client.setQueryData(['refresh'], newRefreshToken)
 
       if (global.window !== undefined) {
-        if (global.window.postMessage) {
-          global.window.postMessage(
-            {
-              from: 'vook-web',
-              access: newAccessToken,
-              refresh: newRefreshToken,
-            },
-            '*',
-          )
-        }
+        // if (global.window.postMessage) {
+        //   global.window.postMessage(
+        //     {
+        //       from: 'vook-web',
+        //       access: newAccessToken,
+        //       refresh: newRefreshToken,
+        //     },
+        //     '*',
+        //   )
+        // }
       }
     } catch {
       this.unAuthorizedHandler()

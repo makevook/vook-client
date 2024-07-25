@@ -2,36 +2,36 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Button, SymbolLogo, Text, TypoLogo } from '@vook-client/design-system'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { baseFetcher, userOptions, vocabularyOptions } from '@vook-client/api'
 
-import { getStorage, removeStorage, setStorage } from '../../utils/storage'
+import { getStorage, removeStorage } from '../../utils/storage'
 
 import { PopupBoxContainer } from './PopupBox.styles'
 
 import { SearchBox } from 'components/SearchBox'
 
 export const PopupBox = () => {
-  const [login, setLogin] = useState<boolean>(false)
-  const [tokenDone, setTokenDone] = useState<boolean>(false)
+  const [hasToken, setHasToken] = useState<boolean>(false)
+  const [initializing, setInitializing] = useState<boolean>(false)
   const [hasResult, setHasResult] = useState<boolean>(false)
 
   const client = useQueryClient()
 
-  const userInfo = useQuery({
+  const userInfoQuery = useQuery({
     ...userOptions.userInfo(client),
-    enabled: tokenDone,
+    enabled: hasToken,
   })
-  const vocabularyQuery = useQuery({
+
+  useQuery({
     ...vocabularyOptions.vocabularyInfo(client),
-    enabled: tokenDone,
+    enabled: userInfoQuery.isSuccess,
   })
 
   useLayoutEffect(() => {
     baseFetcher.setUnAuthorizedHandler(() => {
       removeStorage('vook-access')
       removeStorage('vook-refresh')
-      setTokenDone(false)
     })
   }, [])
 
@@ -39,34 +39,43 @@ export const PopupBox = () => {
     const setToken = async () => {
       const access = await getStorage<string>('vook-access')
       const refresh = await getStorage<string>('vook-refresh')
-      const vookLogin = await getStorage<string>('vook-login')
 
       if (!access || !refresh) {
-        setTokenDone(false)
-        return
-      }
-
-      if (!vookLogin) {
-        setTokenDone(false)
-        setLogin(false)
+        setHasToken(false)
+        setInitializing(true)
         return
       }
 
       client.setQueryData(['access'], access)
       client.setQueryData(['refresh'], refresh)
-      setTokenDone(true)
+
+      setInitializing(true)
+      setHasToken(true)
     }
 
     setToken()
   }, [client])
 
-  useLayoutEffect(() => {
-    if (userInfo.isSuccess && userInfo.data) {
-      setStorage('vook-user', userInfo.data)
-      setStorage('vook-vocabulary', vocabularyQuery.data)
-      setLogin(true)
-    }
-  }, [userInfo.data, userInfo.isSuccess, vocabularyQuery.data])
+  useEffect(() => {
+    window.addEventListener(
+      'message',
+      (event: {
+        data: {
+          from: string
+          access: string
+          refresh: string
+        }
+      }) => {
+        if (
+          event.data.from === 'vook-web' &&
+          event.data.access &&
+          event.data.refresh
+        ) {
+          setHasToken(true)
+        }
+      },
+    )
+  }, [])
 
   const onClickLogin = () => {
     window.open(
@@ -76,28 +85,23 @@ export const PopupBox = () => {
     )
   }
 
+  if (!initializing) {
+    return null
+  }
+
+  const userInfo = userInfoQuery.data?.result || null
+
   return (
     <PopupBoxContainer
       style={{
         width: hasResult ? '800px' : '450px',
       }}
     >
-      <Button
-        size="small"
-        filled={false}
-        onClick={() => {
-          removeStorage('vook-access')
-          removeStorage('vook-refresh')
-          setLogin(false)
-        }}
-      >
-        로그아웃
-      </Button>
       <div className="logo">
         <SymbolLogo size={24} />
         <TypoLogo size="small" />
       </div>
-      {!login && (
+      {!hasToken && (
         <>
           <Text type="body-1" fontWeight="medium">
             주제별로 용어집을 관리하고, 간편하게 용어를 검색하세요
@@ -121,7 +125,22 @@ export const PopupBox = () => {
           </Text>
         </>
       )}
-      {login && <SearchBox hasResult={hasResult} setHasResult={setHasResult} />}
+      {userInfo && hasToken && (
+        <>
+          <Button
+            size="small"
+            filled={false}
+            onClick={() => {
+              removeStorage('vook-access')
+              removeStorage('vook-refresh')
+              setHasToken(false)
+            }}
+          >
+            로그아웃
+          </Button>
+          <SearchBox hasResult={hasResult} setHasResult={setHasResult} />
+        </>
+      )}
     </PopupBoxContainer>
   )
 }

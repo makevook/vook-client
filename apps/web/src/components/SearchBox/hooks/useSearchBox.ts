@@ -19,13 +19,24 @@ export const useSearchBox = () => {
         return
       }
 
+      const isExistedValue = searchHistory.some(
+        (history) => history.value === value,
+      )
+
       const newHistory = [
         {
           value,
           date: new Date(),
         },
-        ...searchHistory,
       ]
+
+      if (isExistedValue) {
+        newHistory.push(
+          ...searchHistory.filter((history) => history.value !== value),
+        )
+      } else {
+        newHistory.push(...searchHistory)
+      }
 
       if (newHistory.length > 10) {
         newHistory.pop()

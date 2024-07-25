@@ -9,10 +9,10 @@ export interface ToggleStore {
   selected: boolean
   isSelected: boolean
   isOpenSearchWindow: boolean
-  selectedText: string
+  selectedText: string[]
   position: Position
   setPosition: (position: Position) => void
-  setSelectedText: (text: string) => void
+  setSelectedText: (text: string[]) => void
   changeSearchWindow: (value: boolean) => void
   changeIsSelected: (value: boolean) => void
 }
@@ -21,7 +21,7 @@ export const toggleStore = create<ToggleStore>((set) => ({
   selected: false,
   isSelected: false,
   isOpenSearchWindow: false,
-  selectedText: '',
+  selectedText: [],
   position: {
     x: 0,
     y: 0,

@@ -259,6 +259,20 @@ export const Term = () => {
     },
   })
 
+  const [clicked, setClicked] = useState(false)
+
+  useEffect(() => {
+    const clickOther = () => {
+      setClicked(true)
+    }
+
+    document.querySelector('body')!.addEventListener('click', clickOther)
+
+    return () => {
+      document.querySelector('body')!.removeEventListener('click', clickOther)
+    }
+  }, [])
+
   useEffect(() => {
     reset()
   }, [id, reset])
@@ -337,7 +351,7 @@ export const Term = () => {
                 key={termData.termUid}
                 response={response}
                 termData={termData}
-                termUid={termUid}
+                termUid={clicked ? '' : termUid}
                 deleteTerm={deleteTerm}
               />
             ))}

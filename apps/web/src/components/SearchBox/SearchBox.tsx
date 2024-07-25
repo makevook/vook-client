@@ -84,7 +84,9 @@ export const SearchBox = () => {
 
   const onSubmitHandler = useCallback(() => {
     submitSearch(searchValue)
-    searchQuery.refetch()
+    if (searchValue.length > 0) {
+      searchQuery.refetch()
+    }
   }, [searchQuery, searchValue, submitSearch])
 
   const onClearHandler = useCallback(() => {
@@ -97,22 +99,26 @@ export const SearchBox = () => {
       setMode('none')
       return
     }
-    if (searchValue.length > 0) {
+    if (searchValue.trim().length > 0) {
       setMode('search')
       return
     }
     if (searchHistory.length > 0) {
       setMode('history')
     }
-  }, [isFocused, searchHistory.length, searchValue.length])
+  }, [isFocused, searchHistory.length, searchValue, searchValue.length])
 
   useEffect(() => {
     if (clickedHistory) {
       setClickedHistory(false)
-      searchQuery.refetch()
-      setTimeout(() => {
-        onFocus()
-      }, 50)
+
+      if (searchValue.trim().length > 0) {
+        searchQuery.refetch()
+
+        setTimeout(() => {
+          onFocus()
+        }, 50)
+      }
     }
   }, [clickedHistory, onFocus, searchQuery, searchValue])
 
