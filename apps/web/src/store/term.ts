@@ -10,12 +10,13 @@ export interface TermModalDataType {
 
 interface VocabularyState {
   modalData: TermModalDataType
-  checkList: string[]
   setModalData: (data: TermModalDataType) => void
+  checkList: string[]
   setCheckList: (
     list: string[] | ((prevCheckList: string[]) => string[]),
   ) => void
   handleCheckList: (uid: string, response: GetTermResponse | null) => void
+  reset: () => void
 }
 
 export const useVocabularyStore = create<VocabularyState>((set, get) => ({
@@ -34,7 +35,7 @@ export const useVocabularyStore = create<VocabularyState>((set, get) => ({
   handleCheckList: (uid, response) => {
     const { checkList, setCheckList } = get()
 
-    if (uid === 'all' && checkList.length > 0) {
+    if (uid === 'all' && checkList.length > 0 && checkList.includes('all')) {
       setCheckList([])
       return
     }
@@ -42,6 +43,7 @@ export const useVocabularyStore = create<VocabularyState>((set, get) => ({
       if (response !== null) {
         setCheckList(response.result.map((data) => data.termUid))
       }
+      setCheckList((prevCheckList) => [...prevCheckList, 'all'])
       return
     }
 
@@ -51,11 +53,12 @@ export const useVocabularyStore = create<VocabularyState>((set, get) => ({
       setCheckList((prevCheckList) => [...prevCheckList, uid])
     }
   },
+  reset: () => set({ checkList: [] }),
 }))
 
 export const useVocabulary = () => {
-  const { modalData, checkList, setModalData, setCheckList } =
+  const { modalData, checkList, setModalData, setCheckList, reset } =
     useVocabularyStore()
 
-  return { modalData, checkList, setModalData, setCheckList }
+  return { modalData, checkList, setModalData, setCheckList, reset }
 }

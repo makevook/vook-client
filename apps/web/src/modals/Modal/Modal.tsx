@@ -110,6 +110,7 @@ const ModalInputContent = ({ children, register }: ModalInput) => {
       <Input
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
+        maxLength={20}
         {...register('name', { required: true })}
       />
     </div>
@@ -130,6 +131,7 @@ const ModalFormInputContent = ({
       </Text>
 
       <Input
+        maxLength={100}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
         placeholder={placeholder}
@@ -163,9 +165,11 @@ const ModalTextareaContent = ({
 const ModalLowerTextContent = ({
   leftText = '',
   RightText,
+  length = '2000',
 }: {
   leftText?: string
   RightText: number
+  length?: string
 }) => {
   return (
     <div className={modalLowerTextGroup}>
@@ -180,7 +184,7 @@ const ModalLowerTextContent = ({
           /
         </Text>
         <Text type="label" color="semantic-label-alternative">
-          2000
+          {length}
         </Text>
       </div>
     </div>

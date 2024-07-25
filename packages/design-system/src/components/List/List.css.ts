@@ -6,6 +6,7 @@ export const list = recipe({
   base: {
     padding: '16px 12px',
     boxSizing: 'border-box',
+    overflowWrap: 'break-word',
   },
   variants: {
     page: {

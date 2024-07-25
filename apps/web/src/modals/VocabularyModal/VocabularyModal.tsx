@@ -45,6 +45,10 @@ export const VocabularyCreateModal = () => {
       <form onSubmit={onSubmit} style={{ width: '100%' }}>
         <Modal.Headline>용어집 생성</Modal.Headline>
         <Modal.Input register={register}>용어집 이름</Modal.Input>
+        <Modal.LowerTextGroup
+          RightText={watch('name') ? watch('name').length : 0}
+          length="20"
+        />
         <Modal.ButtonGroup>
           <Button
             size="middle"
@@ -158,6 +162,10 @@ export const VocabularyEditModal = ({
       <form onSubmit={onSubmit} style={{ width: '100%' }}>
         <Modal.Headline>용어집 수정</Modal.Headline>
         <Modal.Input register={register}>용어집 이름</Modal.Input>
+        <Modal.LowerTextGroup
+          RightText={watch('name') ? watch('name').length : 0}
+          length="20"
+        />
         <Modal.ButtonGroup>
           <Button
             size="middle"

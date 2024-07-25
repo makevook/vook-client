@@ -84,6 +84,12 @@ export const TermCreateModal = () => {
         >
           용어
         </Modal.InputForm>
+        <Modal.LowerTextGroup
+          // leftText={errors.meaning && '뜻을 입력해 주세요.'}
+          RightText={watch('name') ? watch('name').length : 0}
+          length="100"
+        />
+
         {/* <div className={modalLowerTextGroup}>
           <Text type="label" color="status-error">
             {errors.name && '용어를 입력해 주세요.'}
@@ -145,7 +151,7 @@ export const TermEditModal = () => {
     defaultValues: {
       name: modalData.name,
       meaning: modalData.meaning,
-      synonyms: modalData.synonym.join(', '),
+      synonyms: modalData.synonym.join(','),
     },
   })
   const queryClient = useQueryClient()
@@ -201,6 +207,11 @@ export const TermEditModal = () => {
         >
           용어
         </Modal.InputForm>
+        <Modal.LowerTextGroup
+          // leftText={errors.meaning && '뜻을 입력해 주세요.'}
+          RightText={watch('name') ? watch('name').length : 0}
+          length="100"
+        />
         {/* <div className={modalLowerTextGroup}>
           <Text type="label" color="status-error">
             {errors.name && '용어를 입력해 주세요.'}
