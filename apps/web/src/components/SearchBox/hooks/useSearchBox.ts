@@ -48,6 +48,24 @@ export const useSearchBox = () => {
     [localStorageKey, searchHistory, setSearchHistory],
   )
 
+  const liftUpHistory = useCallback(
+    (index: number) => {
+      const newHistory = searchHistory.filter((_, i) => i !== index)
+      const targetHistory = searchHistory[index]
+
+      if (targetHistory) {
+        newHistory.unshift({
+          ...targetHistory,
+          date: new Date(),
+        })
+      }
+
+      localStorageUtils.setLocalStorage(localStorageKey, newHistory)
+      setSearchHistory(newHistory)
+    },
+    [localStorageKey, searchHistory, setSearchHistory],
+  )
+
   useLayoutEffect(() => {
     const histories =
       localStorageUtils.getLocalStorage<SearchHistoryItem[]>(localStorageKey)
@@ -114,6 +132,7 @@ export const useSearchBox = () => {
     searchHistory,
     onFocus,
     offFocus,
+    liftUpHistory,
     submitSearch,
     deleteHistory,
     changeSearchValue,
