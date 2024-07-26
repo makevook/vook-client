@@ -139,8 +139,12 @@ export class Fetcher {
         throw new Error('토큰 갱신에 실패하였습니다.')
       }
 
-      Cookies.set('access', newAccessToken)
-      Cookies.set('refresh', newRefreshToken)
+      Cookies.set('access', newAccessToken, {
+        expires: new Date('2038-01-19T03:14:07.000Z'),
+      })
+      Cookies.set('refresh', newRefreshToken, {
+        expires: new Date('2038-01-19T03:14:07.000Z'),
+      })
       client.setQueryData(['access'], newAccessToken)
       client.setQueryData(['refresh'], newRefreshToken)
 

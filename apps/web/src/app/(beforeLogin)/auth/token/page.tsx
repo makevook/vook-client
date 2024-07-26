@@ -22,9 +22,11 @@ const AuthCallbackPage = ({
   useEffect(() => {
     Cookies.set('access', access, {
       secure: true,
+      expires: new Date('2038-01-19T03:14:07.000Z'),
     })
     Cookies.set('refresh', refresh, {
       secure: true,
+      expires: new Date('2038-01-19T03:14:07.000Z'),
     })
     window.postMessage(
       {

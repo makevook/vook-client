@@ -32,6 +32,7 @@ export const PopupBox = () => {
     baseFetcher.setUnAuthorizedHandler(() => {
       removeStorage('vook-access')
       removeStorage('vook-refresh')
+      setHasToken(false)
     })
   }, [])
 

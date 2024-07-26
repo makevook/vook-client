@@ -40,8 +40,12 @@ export const SilentRefresh = () => {
 
         queryClient.setQueryData(['access'], newAccess)
         queryClient.setQueryData(['refresh'], newRefresh)
-        Cookies.set('access', newAccess)
-        Cookies.set('refresh', newRefresh)
+        Cookies.set('access', newAccess, {
+          expires: new Date('2038-01-19T03:14:07.000Z'),
+        })
+        Cookies.set('refresh', newRefresh, {
+          expires: new Date('2038-01-19T03:14:07.000Z'),
+        })
       }
 
       refresh()
