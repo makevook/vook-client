@@ -262,6 +262,12 @@ export const Term = () => {
   const [clicked, setClicked] = useState(false)
 
   useEffect(() => {
+    if (termUid) {
+      setClicked(false)
+    }
+  }, [termUid])
+
+  useEffect(() => {
     const clickOther = () => {
       setClicked(true)
     }
