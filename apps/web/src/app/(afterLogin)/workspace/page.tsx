@@ -49,10 +49,17 @@ const Home = () => {
     name: vocabulary.name,
     createdAt: new Date(vocabulary.createdAt),
   }))
+
+  if (window.opener) {
+    window.close()
+  }
+
   if (response == null) {
     return null
   }
+
   const isDisabled = response?.result.length >= 3
+
   return (
     <div className={workspaceContainer}>
       <div className={workspaceHeader}>
