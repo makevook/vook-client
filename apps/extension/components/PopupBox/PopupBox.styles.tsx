@@ -18,3 +18,22 @@ export const PopupBoxContainer = styled.div`
     align-items: center;
   }
 `
+
+export const LogoutButton = styled.button`
+  position: fixed;
+  top: 40px;
+  right: 75px;
+
+  font-size: 12px;
+  color: black;
+  border: 1px solid rgba(122, 115, 124, 0.22);
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 4px 6px;
+
+  cursor: pointer;
+
+  :hover {
+    background-color: rgba(122, 115, 124, 0.1);
+  }
+`

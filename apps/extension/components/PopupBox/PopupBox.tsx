@@ -7,7 +7,7 @@ import { baseFetcher, userOptions, vocabularyOptions } from '@vook-client/api'
 
 import { getStorage, removeStorage } from '../../utils/storage'
 
-import { PopupBoxContainer } from './PopupBox.styles'
+import { LogoutButton, PopupBoxContainer } from './PopupBox.styles'
 
 import { SearchBox } from 'components/SearchBox'
 
@@ -106,7 +106,9 @@ export const PopupBox = () => {
           <Text type="body-1" fontWeight="medium">
             주제별로 용어집을 관리하고, 간편하게 용어를 검색하세요
           </Text>
-          <Button fit="fill">무료로 시작</Button>
+          <Button onClick={onClickLogin} fit="fill">
+            무료로 시작
+          </Button>
           <Text
             as="span"
             type="body-2"
@@ -118,6 +120,7 @@ export const PopupBox = () => {
               type="body-2"
               color="status-info"
               fontWeight="bold"
+              style={{ cursor: 'pointer' }}
               onClick={onClickLogin}
             >
               로그인
@@ -127,9 +130,7 @@ export const PopupBox = () => {
       )}
       {userInfo && hasToken && (
         <>
-          <Button
-            size="small"
-            filled={false}
+          <LogoutButton
             onClick={() => {
               removeStorage('vook-access')
               removeStorage('vook-refresh')
@@ -137,7 +138,7 @@ export const PopupBox = () => {
             }}
           >
             로그아웃
-          </Button>
+          </LogoutButton>
           <SearchBox hasResult={hasResult} setHasResult={setHasResult} />
         </>
       )}
