@@ -90,7 +90,8 @@ function VookContentScript() {
         ) {
           await setStorage('vook-access', event.data.access)
           await setStorage('vook-refresh', event.data.refresh)
-          await setStorage('vook-login', true)
+
+          console.log(event.data)
 
           queryClient.setQueryData(['access'], event.data.access)
           queryClient.setQueryData(['refresh'], event.data.refresh)
