@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { baseFetcher, userOptions, vocabularyOptions } from '@vook-client/api'
 
-import { getStorage, removeStorage } from '../../utils/storage'
+import { getStorage, removeStorage, setStorage } from '../../utils/storage'
 
 import { LogoutButton, PopupBoxContainer } from './PopupBox.styles'
 
@@ -76,7 +76,14 @@ export const PopupBox = () => {
         }
       },
     )
-  }, [])
+
+    baseFetcher.setTokenRefreshHandler(async (access, refresh) => {
+      client.setQueryData(['access'], access)
+      client.setQueryData(['refresh'], refresh)
+      await setStorage('vook-access', access)
+      await setStorage('vook-refresh', refresh)
+    })
+  }, [client])
 
   const onClickLogin = () => {
     window.open(
