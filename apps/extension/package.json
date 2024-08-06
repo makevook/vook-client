@@ -1,7 +1,7 @@
 {
   "name": "@vook-client/extension",
   "displayName": "@vook-client/extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "vook client extension",
   "author": "vook-client",
   "scripts": {
