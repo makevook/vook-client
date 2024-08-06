@@ -16,12 +16,12 @@ const Layout = ({ children }: PropsWithChildren) => {
     <div className={landingOverlay}>
       <Header full={false}>
         <div className={headerButtonContainer}>
-          <Link href="/login">
+          <Link href="/workspace">
             <Button blueLine={false} filled={false}>
               로그인
             </Button>
           </Link>
-          <Link href="/login">
+          <Link href="/workspace">
             <Button style={{ background: '#000' }}>무료로 시작하기</Button>
           </Link>
         </div>

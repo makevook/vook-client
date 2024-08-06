@@ -1,7 +1,7 @@
 {
   "name": "@vook-client/extension",
   "displayName": "@vook-client/extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "vook client extension",
   "author": "vook-client",
   "scripts": {
@@ -46,8 +46,8 @@
     "vitest": "^1.5.2"
   },
   "manifest": {
-    "name": "vook extension",
-    "description": "vook chrome extension",
+    "name": "Vook -IT 용어를 가장 쉽고 빠르게 찾는 방법-",
+    "description": "Vook chrome extension",
     "host_permissions": [
       "https://*/*",
       "http://*/*"

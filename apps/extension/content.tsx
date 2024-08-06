@@ -3,7 +3,7 @@ import styleText from 'data-text:@vook-client/design-system/style.css'
 import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { baseFetcher } from '@vook-client/api'
 
 import { getStorage, removeStorage, setStorage } from './utils/storage'
@@ -35,6 +35,7 @@ const queryClient = new QueryClient({
 })
 
 function VookContentScript() {
+  const [login, setLogin] = useState(false)
   useDomRect()
   const { isSelected, isOpenSearchWindow, position } = useToggle()
 
@@ -49,6 +50,13 @@ function VookContentScript() {
       await removeStorage('vook-access')
       await removeStorage('vook-refresh')
     })
+
+    baseFetcher.setTokenRefreshHandler(async (access, refresh) => {
+      queryClient.setQueryData(['access'], access)
+      queryClient.setQueryData(['refresh'], refresh)
+      await setStorage('vook-access', access)
+      await setStorage('vook-refresh', refresh)
+    })
   }, [])
 
   useEffect(() => {
@@ -56,6 +64,12 @@ function VookContentScript() {
       const access = await getStorage<string>('vook-access')
       const refresh = await getStorage<string>('vook-refresh')
 
+      if (!access || !refresh) {
+        setLogin(false)
+        return
+      }
+
+      setLogin(true)
       queryClient.setQueryData(['access'], access)
       queryClient.setQueryData(['refresh'], refresh)
     }
@@ -90,7 +104,6 @@ function VookContentScript() {
         ) {
           await setStorage('vook-access', event.data.access)
           await setStorage('vook-refresh', event.data.refresh)
-          await setStorage('vook-login', true)
 
           queryClient.setQueryData(['access'], event.data.access)
           queryClient.setQueryData(['refresh'], event.data.refresh)
@@ -105,7 +118,7 @@ function VookContentScript() {
     <CacheProvider value={styleCache}>
       <Global styles={reset} />
       <QueryClientProvider client={queryClient}>
-        {isSelected && <ToggleButton position={position} />}
+        {login && isSelected && <ToggleButton position={position} />}
         {isOpenSearchWindow && <SearchWindow />}
       </QueryClientProvider>
     </CacheProvider>

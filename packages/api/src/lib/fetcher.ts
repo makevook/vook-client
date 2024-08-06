@@ -16,6 +16,9 @@ export class Fetcher {
 
   private unAuthorizedHandler: () => void = () => {}
 
+  private tokenRefreshHandler: (access: string, refresh: string) => void =
+    async () => {}
+
   private errorHandler: (error: Error) => void = () => {}
 
   public constructor(baseUrl: string) {
@@ -24,6 +27,12 @@ export class Fetcher {
 
   public setErrorHandler(handler: (error: Error) => void) {
     this.errorHandler = handler
+  }
+
+  public setTokenRefreshHandler(
+    handler: (access: string, refresh: string) => void,
+  ) {
+    this.tokenRefreshHandler = handler
   }
 
   public setUnAuthorizedHandler(handler: () => void) {
@@ -139,8 +148,14 @@ export class Fetcher {
         throw new Error('토큰 갱신에 실패하였습니다.')
       }
 
-      Cookies.set('access', newAccessToken)
-      Cookies.set('refresh', newRefreshToken)
+      this.tokenRefreshHandler(newAccessToken, newRefreshToken)
+
+      Cookies.set('access', newAccessToken, {
+        expires: new Date('2038-01-19T03:14:07.000Z'),
+      })
+      Cookies.set('refresh', newRefreshToken, {
+        expires: new Date('2038-01-19T03:14:07.000Z'),
+      })
       client.setQueryData(['access'], newAccessToken)
       client.setQueryData(['refresh'], newRefreshToken)
 

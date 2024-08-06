@@ -19,12 +19,18 @@ const AuthCallbackPage = ({
   const router = useRouter()
   const queryClient = useQueryClient()
 
+  if (!access || !refresh) {
+    router.push('/login')
+  }
+
   useEffect(() => {
     Cookies.set('access', access, {
       secure: true,
+      expires: new Date('2038-01-19T03:14:07.000Z'),
     })
     Cookies.set('refresh', refresh, {
       secure: true,
+      expires: new Date('2038-01-19T03:14:07.000Z'),
     })
     window.postMessage(
       {

@@ -48,8 +48,14 @@ const checkUserStatusMiddleware =
         newAccessToken = res.headers.get(ACCESS_TOKEN_HEADER_KEY)
         newRefreshToken = res.headers.get(REFRESH_TOKEN_HEADER_KEY)
 
-        finalResponse.cookies.set('access', newAccessToken!)
-        finalResponse.cookies.set('refresh', newRefreshToken!)
+        finalResponse.cookies.set('access', newAccessToken!, {
+          expires: new Date('2038-01-19T03:14:07.000Z'),
+          maxAge: 60 * 60 * 24 * 365 * 20,
+        })
+        finalResponse.cookies.set('refresh', newRefreshToken!, {
+          expires: new Date('2038-01-19T03:14:07.000Z'),
+          maxAge: 60 * 60 * 24 * 365 * 20,
+        })
       } else {
         return false
       }

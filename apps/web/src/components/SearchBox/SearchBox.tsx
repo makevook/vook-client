@@ -46,8 +46,14 @@ export const SearchBox = () => {
     setMounted(true)
   }, [])
 
-  const { searchHistory, isFocused, onFocus, submitSearch, changeSearchValue } =
-    useSearchBox()
+  const {
+    searchHistory,
+    isFocused,
+    liftUpHistory,
+    onFocus,
+    submitSearch,
+    changeSearchValue,
+  } = useSearchBox()
 
   const vocabularies = useVacabularyInfoQuery()
 
@@ -268,6 +274,7 @@ export const SearchBox = () => {
                   <div key={`${history.value}-${i}`}>
                     <SearchHistory
                       onClick={() => {
+                        liftUpHistory(i)
                         setSearchValue(history.value)
                         setMode('search')
                         setClickedHistory(true)
