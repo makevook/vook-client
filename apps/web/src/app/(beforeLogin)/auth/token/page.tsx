@@ -32,14 +32,6 @@ const AuthCallbackPage = ({
       secure: true,
       expires: new Date('2038-01-19T03:14:07.000Z'),
     })
-    window.postMessage(
-      {
-        from: 'vook-web',
-        access,
-        refresh,
-      },
-      '*',
-    )
     queryClient.setQueryData(['access'], access)
     queryClient.setQueryData(['refresh'], refresh)
 
