@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
-import { userService, UserStatus } from '@vook-client/api'
-import { cookies, headers } from 'next/headers'
+import { UserInfoResponse, userService, UserStatus } from '@vook-client/api'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
@@ -15,24 +15,30 @@ import { mainArea } from './layout.css'
 
 const Layout = async ({ children }: PropsWithChildren) => {
   const cookieStore = cookies()
-  const isAuthorization = headers().get('X-AuthConfirm')
-
-  if (isAuthorization !== 'confirmed') {
-    redirect('/login')
-  }
 
   const access = cookieStore.get('access')?.value || ''
   const refresh = cookieStore.get('refresh')?.value || ''
 
-  if (!access && !refresh) {
+  if (!access || !refresh) {
     redirect('/login')
   }
 
   const queryClient = getQueryClient()
+
   queryClient.setQueryData(['access'], access)
   queryClient.setQueryData(['refresh'], refresh)
 
-  const user = await userService.userInfo(queryClient)
+  let user: UserInfoResponse
+
+  try {
+    user = await userService.userInfo(queryClient)
+  } catch {
+    redirect('/login')
+  }
+
+  if (user.result.onboardingCompleted === false) {
+    redirect('/onboarding')
+  }
 
   if (user.result.status !== UserStatus.Registered) {
     redirect('/signup')
