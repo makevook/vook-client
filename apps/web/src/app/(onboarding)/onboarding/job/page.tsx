@@ -6,7 +6,7 @@ import {
   SelectBox,
   Text,
 } from '@vook-client/design-system'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { OnboardingJob, useOnboardingMutation } from '@vook-client/api'
 import { useRouter } from 'next/navigation'
 
@@ -73,6 +73,15 @@ const OnboardingJobPage = () => {
       },
     },
   )
+
+  useEffect(() => {
+    window.onpopstate = () => {
+      if (location.pathname === '/onboarding/job') {
+        alert('뒤로가기를 통한 접근을 감지하여 페이지를 이동합니다.')
+        router.push('/workspace')
+      }
+    }
+  }, [router])
 
   const onSubmitFunnel = () => {
     mutation.mutate()
