@@ -27,7 +27,7 @@ export const ProfileEditForm = () => {
 
   const userEditMutation = useEditUserMutation(
     {
-      nickname,
+      nickname: nickname.trim(),
     },
     {
       onSuccess: () => {
@@ -56,7 +56,7 @@ export const ProfileEditForm = () => {
 
   useEffect(
     function checkValidateNickname() {
-      const isBlankNickname = nickname.length === 0
+      const isBlankNickname = nickname.trim().length === 0
       const isSameNickname = nickname === user?.nickname
 
       if (isBlankNickname || isSameNickname) {

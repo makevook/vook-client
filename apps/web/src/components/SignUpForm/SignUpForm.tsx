@@ -80,13 +80,11 @@ export const SignUpForm = () => {
     [signUpMutation.isPending],
   )
 
-  const canSubmit = useMemo(
-    () =>
-      !formState.isValid ||
-      signUpMutation.isPending ||
-      signUpMutation.isSuccess,
-    [formState.isValid, signUpMutation.isPending, signUpMutation.isSuccess],
-  )
+  const canSubmit =
+    watch('nickname').trim().length === 0 ||
+    !formState.isValid ||
+    signUpMutation.isPending ||
+    signUpMutation.isSuccess
 
   if (!userInfoQuery.data) {
     return null
