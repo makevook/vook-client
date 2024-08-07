@@ -20,6 +20,7 @@ import {
 export const userOptions = {
   userInfo: (client: QueryClient) => ({
     queryKey: [],
+    staleTime: 0,
     queryFn: () => userService.userInfo(client),
   }),
   onboarding: (client: QueryClient, dto: OnboardingDTO) => ({

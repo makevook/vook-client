@@ -10,21 +10,29 @@ import { OnBoardingProvider } from './_context/useOnboarding'
 
 const Layout = async ({ children }: PropsWithChildren) => {
   const cookieStore = cookies()
+
   const accessToken = cookieStore.get('access')?.value
   const refreshToken = cookieStore.get('refresh')?.value
 
-  if (!accessToken && !refreshToken) {
+  if (!accessToken || !refreshToken) {
     redirect('/login')
   }
 
   const queryClient = getQueryClient()
+
   queryClient.setQueryData(['access'], accessToken)
   queryClient.setQueryData(['refresh'], refreshToken)
 
-  const userInfo = await userService.userInfo(queryClient)
+  let userInfo
+
+  try {
+    userInfo = await userService.userInfo(queryClient)
+  } catch {
+    redirect('/login')
+  }
 
   if (userInfo.result.onboardingCompleted) {
-    redirect('/')
+    redirect('/workspace')
   }
 
   return (

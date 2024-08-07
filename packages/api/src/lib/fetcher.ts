@@ -115,8 +115,9 @@ export class Fetcher {
       if (response.ok) {
         data = (await response.json()) as Promise<ResponseType>
       } else {
-        const error = (await response.json()) as { code: string }
-        throw new Error(error.code)
+        const error = (await response.json()) as { result: string }
+
+        throw new Error(error.result)
       }
     } catch (error) {
       // eslint-disable-next-line no-console

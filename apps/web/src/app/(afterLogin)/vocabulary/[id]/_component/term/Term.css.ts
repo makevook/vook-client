@@ -36,7 +36,7 @@ export const termTitleContainer = style({
 })
 
 export const highlightHit = style({
-  backgroundColor: vars.colors['component-alternative'],
+  backgroundColor: vars.colors['semantic-line-alternative'],
 })
 
 export const highlight = style({
