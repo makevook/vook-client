@@ -1,4 +1,4 @@
-import { style, createVar } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css'
 
 export const accentVar = createVar()
 
@@ -18,6 +18,7 @@ export const CardContainer = style({
   gap: 40,
   boxShadow: '0px 4px 12px #EAEAEA',
   borderRadius: 20,
+  backgroundColor: '#fff',
 })
 
 export const CardContainerHeader = style({
