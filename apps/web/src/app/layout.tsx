@@ -2,6 +2,7 @@ import '@/styles/reset.css'
 import '@vook-client/design-system/style.css'
 
 import { Metadata } from 'next'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { pretendard } from '@/styles/fonts'
@@ -49,6 +50,7 @@ const RootLayout = ({
           inner
         )}
       </body>
+      <GoogleAnalytics gaId="G-6QKD5PVE6E" />
     </html>
   )
 }
