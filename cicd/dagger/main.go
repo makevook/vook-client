@@ -10,6 +10,7 @@ import (
 type VookClient struct{}
 
 func (v *VookClient) BuildClientImage(
+	// +ignore=[".git", "**/node_modules"]
 	dir *dagger.Directory,
 	dockerfile *dagger.File,
 ) *dagger.File {

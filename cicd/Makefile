@@ -3,7 +3,7 @@ VERSION := $(shell git describe --tags --always --dirty)
 .PHONY:deploy-stag
 deploy-stag:
 	dagger call -v deploy \
-	--source-dir=..:default \
+	--source-dir=.. \
 	--dockerfile=../stag.Dockerfile \
 	--ssh-dest=file:./secrets/stag/dest.txt \
 	--ssh-key=file:./secrets/stag/ssh.key \
@@ -14,7 +14,7 @@ deploy-stag:
 .PHONY:build-stag
 build-stag:
 	dagger call -v build-client-image \
-	--dir=..:default \
+	--dir=.. \
 	--dockerfile=../stag.Dockerfile \
 	-o out/stag-client.tar
 
@@ -29,7 +29,7 @@ run-stag:
 .PHONY:deploy-prod
 deploy-prod:
 	dagger call -v deploy \
-	--source-dir=..:default \
+	--source-dir=.. \
 	--dockerfile=../prod.Dockerfile \
 	--ssh-dest=file:./secrets/prod/dest.txt \
 	--ssh-key=file:./secrets/prod/ssh.key \
@@ -40,7 +40,7 @@ deploy-prod:
 .PHONY:build-prod
 build-prod:
 	dagger call -v build-client-image \
-	--dir=..:default \
+	--dir=.. \
 	--dockerfile=../prod.Dockerfile \
 	export --path out/prod-client.tar
 

@@ -11,19 +11,19 @@ jobs:
         uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.22.2'
+          go-version: '1.23.8'
       - name: Deploy
         uses: dagger/dagger-for-github@v5
         env:
           SSH_DEST: ${{ secrets.STAG_SSH_DEST }}
           SSH_KEY: ${{ secrets.STAG_SSH_KEY }}
         with:
-          version: 0.12.0
+          version: 0.18.4
           verb: call
           module: ./cicd
           args: >-
             deploy
-            --source-dir=.:default
+            --source-dir=.
             --dockerfile=stag.Dockerfile
             --ssh-dest=env:SSH_DEST
             --ssh-key=env:SSH_KEY

@@ -1,32 +1,28 @@
 {
   "name": "vook-client",
-  "sdk": "go",
-  "exclude": [
-    "out"
+  "engineVersion": "v0.18.4",
+  "sdk": {
+    "source": "go"
+  },
+  "include": [
+    "!out"
   ],
   "dependencies": [
     {
       "name": "ssh",
-      "source": "github.com/seungyeop-lee/daggerverse/ssh@63f0f2d385768aa435474a9eec552750500899f2"
+      "source": "github.com/seungyeop-lee/daggerverse/ssh@63f0f2d385768aa435474a9eec552750500899f2",
+      "pin": "63f0f2d385768aa435474a9eec552750500899f2"
     },
     {
       "name": "docker",
-      "source": "github.com/purpleclay/daggerverse/docker@7a30afd9f33a260f48c19f5462b0dd89df8851d1"
+      "source": "github.com/purpleclay/daggerverse/docker@7a30afd9f33a260f48c19f5462b0dd89df8851d1",
+      "pin": "7a30afd9f33a260f48c19f5462b0dd89df8851d1"
     },
     {
       "name": "scp",
-      "source": "github.com/seungyeop-lee/daggerverse/scp@63f0f2d385768aa435474a9eec552750500899f2"
+      "source": "github.com/seungyeop-lee/daggerverse/scp@63f0f2d385768aa435474a9eec552750500899f2",
+      "pin": "63f0f2d385768aa435474a9eec552750500899f2"
     }
   ],
-  "source": "dagger",
-  "engineVersion": "v0.12.0",
-  "views": [
-    {
-      "name": "default",
-      "patterns": [
-        "!.git",
-        "!**/node_modules"
-      ]
-    }
-  ]
+  "source": "dagger"
 }
